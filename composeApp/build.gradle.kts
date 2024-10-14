@@ -29,11 +29,7 @@ kotlin {
     }
     
     sourceSets {
-        
-        androidMain.dependencies {
-            implementation(compose.preview)
-            implementation(libs.androidx.activity.compose)
-        }
+
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -43,7 +39,19 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
+            implementation(libs.firebase.auth)
+            implementation(libs.firebase.firestore)
+            implementation(libs.sqldelight.runtime)
         }
+        androidMain.dependencies {
+            implementation(compose.preview)
+            implementation(libs.androidx.activity.compose)
+            implementation(libs.sqldeight.android.driver)
+        }
+        iosMain.dependencies {
+            implementation(libs.sqldeight.native.driver)
+        }
+
     }
 }
 
@@ -77,4 +85,3 @@ android {
 dependencies {
     debugImplementation(compose.uiTooling)
 }
-

@@ -12,8 +12,10 @@ androidx-lifecycle = "2.8.2"
 androidx-material = "1.12.0"
 androidx-test-junit = "1.2.1"
 compose-plugin = "1.6.11"
+firebase = "32.1.0"
 junit = "4.13.2"
 kotlin = "2.0.20"
+sqldelight = "1.5.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -28,6 +30,11 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+firebase-auth = { group = "dev.gitlive", name = "firebase-auth", version.ref = "firebase" }
+firebase-firestore = { group = "dev.gitlive", name = "firebase-firestore", version.ref = "firebase" }
+sqldelight-runtime = { group = "com.squareup.sqldelight", name = "runtime", version.ref = "sqldelight" }
+sqldeight-android-driver = { group = "com.squareup.sqldelight", name = "android-driver", version.ref = "sqldelight" }
+sqldeight-native-driver = { group = "com.squareup.sqldelight", name = "native-driver", version.ref = "sqldelight" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
