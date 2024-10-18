@@ -1,4 +1,4 @@
-package cz.cvut.docta.presentation
+package cz.cvut.docta.core.presentation
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
