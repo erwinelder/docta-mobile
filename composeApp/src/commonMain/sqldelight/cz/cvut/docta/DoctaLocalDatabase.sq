@@ -14,9 +14,21 @@ CREATE TABLE IF NOT EXISTS CourseSection (
     name TEXT NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS CourseToSection (
+    courseCode TEXT NOT NULL REFERENCES Course(code) ON DELETE CASCADE,
+    sectionId INTEGER NOT NULL REFERENCES CourseSection(id) ON DELETE CASCADE,
+    PRIMARY KEY (courseCode, sectionId)
+);
+
 CREATE TABLE IF NOT EXISTS Lesson (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS SectionToLesson (
+    sectionId INTEGER NOT NULL REFERENCES CourseSection(id) ON DELETE CASCADE,
+    lessonId INTEGER NOT NULL REFERENCES Lesson(id) ON DELETE CASCADE,
+    PRIMARY KEY (sectionId, lessonId)
 );
 
 CREATE TABLE IF NOT EXISTS Answer (
@@ -36,6 +48,18 @@ CREATE TABLE IF NOT EXISTS Question (
     text TEXT NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS LessonToQuestion (
+    lessonId INTEGER NOT NULL REFERENCES Lesson(id) ON DELETE CASCADE,
+    questionId INTEGER NOT NULL REFERENCES Question(id) ON DELETE CASCADE,
+    PRIMARY KEY (lessonId, questionId)
+);
+
+CREATE TABLE IF NOT EXISTS QuestionToAnswer (
+    questionId INTEGER NOT NULL REFERENCES Question(id) ON DELETE CASCADE,
+    answerId INTEGER NOT NULL REFERENCES Answer(id) ON DELETE CASCADE,
+    PRIMARY KEY (questionId, answerId)
+);
+
 CREATE TABLE IF NOT EXISTS SingleChoiceQuestion (
     id INTEGER NOT NULL PRIMARY KEY REFERENCES Question(id) ON DELETE CASCADE,
     correctAnswerId INTEGER NOT NULL REFERENCES Answer(id) ON DELETE CASCADE
@@ -45,7 +69,7 @@ CREATE TABLE IF NOT EXISTS MultipleChoiceQuestion (
     id INTEGER NOT NULL PRIMARY KEY REFERENCES Question(id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS MultipleChoiceQuestionAnswers (
+CREATE TABLE IF NOT EXISTS MultipleChoiceQuestionToCorrectAnswer (
     questionId INTEGER NOT NULL REFERENCES MultipleChoiceQuestion(id) ON DELETE CASCADE,
     answerId INTEGER NOT NULL REFERENCES Answer(id) ON DELETE CASCADE,
     PRIMARY KEY (questionId, answerId)
@@ -55,7 +79,7 @@ CREATE TABLE IF NOT EXISTS OpenAnswerQuestion (
     id INTEGER NOT NULL PRIMARY KEY REFERENCES Question(id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS OpenAnswerQuestionAnswers (
+CREATE TABLE IF NOT EXISTS OpenAnswerQuestionToCorrectAnswer (
     questionId INTEGER NOT NULL REFERENCES OpenAnswerQuestion(id) ON DELETE CASCADE,
     answerId INTEGER NOT NULL REFERENCES Answer(id) ON DELETE CASCADE,
     PRIMARY KEY (questionId, answerId)
@@ -65,8 +89,8 @@ CREATE TABLE IF NOT EXISTS AnswerPairsQuestion (
     id INTEGER NOT NULL PRIMARY KEY REFERENCES Question(id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS AnswerPairsQuestionAnswers (
+CREATE TABLE IF NOT EXISTS AnswerPairsQuestionToPair (
     questionId INTEGER NOT NULL REFERENCES AnswerPairsQuestion(id) ON DELETE CASCADE,
-    answerPairId INTEGER NOT NULL REFERENCES AnswerPair(id) ON DELETE CASCADE,
-    PRIMARY KEY (questionId, answerPairId)
+    pairId INTEGER NOT NULL REFERENCES AnswerPair(id) ON DELETE CASCADE,
+    PRIMARY KEY (questionId, pairId)
 );
