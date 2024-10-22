@@ -20,7 +20,22 @@ Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-mu
 
 # Docta
 
-**Docta** is a multiplatform application developed for students at CTU (Czech Technical University) in Prague. Its primary goal is to help students practice school subjects.
+## Project Description
+
+Docta is an application designed to help students at CTU in Prague practice various school subjects.
+
+Students can complete exercises of different types and difficulty levels to improve their skills in specific subjects. In Docta, a subject is referred to as a “course.”
+
+Each course is divided into sections, sections into lessons, and lessons into questions. This structure allows students to practice at their own pace, aligning with the progression of their lectures. It also assists teachers by providing a structure similar to the lecture sequence, making course creation easier.
+
+Exercises in Docta are accompanied by relevant study materials, enabling students to access necessary theoretical content without leaving the question screen.
+
+While some school subjects, especially in math, already offer practice exercises, they are often available only as PDF scripts on web pages. Furthermore, only a few subjects have such exercises, and many have none at all.
+
+Docta also benefits teachers by providing insights through student data within Docta, such as identifying the most challenging aspects of a subject.
+
+The goal of Docta is to make practicing more convenient by consolidating exercises from scripts and web pages into one platform, or by creating new ones. This approach aims to make the practicing process more user-friendly and improve the overall quality of studying.
+
 
 ## Project Structure
 
