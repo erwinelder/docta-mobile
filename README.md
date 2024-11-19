@@ -20,6 +20,8 @@ Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-mu
 
 # Docta
 
+[Project website](https://paper-muscle-49d.notion.site/ce2c4bb2a10f418da98b32d9a649d997?v=12508208da0480d28501000c5507b753)
+
 ## Project Description
 
 Docta is an application designed to help students at CTU in Prague practice various school subjects.
