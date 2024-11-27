@@ -5,5 +5,5 @@ data class CourseSection(
     val orderNum: Int,
     val name: String,
     val statistics: CourseSectionStatistics,
-    val lessons: List<LessonLightweight>
+    val lessons: List<LessonLightWeight>
 )
