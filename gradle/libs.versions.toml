@@ -16,8 +16,8 @@ devtools-ksp = "2.0.21-1.0.27"
 firebase = "32.1.0"
 junit = "4.13.2"
 kotlin = "2.0.20"
-room = "2.7.0-alpha11"
-sqlite = "2.5.0-alpha11"
+room = "2.7.0-alpha12"
+sqlite = "2.5.0-alpha12"
 
 [libraries]
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-appcompat" }
@@ -26,9 +26,6 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
-## Firebase
-firebase-auth = { group = "dev.gitlive", name = "firebase-auth", version.ref = "firebase" }
-firebase-firestore = { group = "dev.gitlive", name = "firebase-firestore", version.ref = "firebase" }
 ## Room
 room-gradle-plugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
@@ -36,6 +33,9 @@ room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "
 ## SQLite
 sqlite = { group = "androidx.sqlite", name = "sqlite", version.ref = "sqlite" }
 sqlite-bundled = { group = "androidx.sqlite", name = "sqlite-bundled", version.ref = "sqlite" }
+## Firebase
+firebase-auth = { group = "dev.gitlive", name = "firebase-auth", version.ref = "firebase" }
+firebase-firestore = { group = "dev.gitlive", name = "firebase-firestore", version.ref = "firebase" }
 ## Testing
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
