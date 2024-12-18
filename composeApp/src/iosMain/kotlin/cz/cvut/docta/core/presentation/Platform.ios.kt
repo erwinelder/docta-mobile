@@ -1,4 +1,4 @@
-package cz.cvut.docta
+package cz.cvut.docta.core.presentation
 
 import platform.UIKit.UIDevice
 

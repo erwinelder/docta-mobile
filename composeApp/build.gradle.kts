@@ -1,4 +1,3 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -7,9 +6,12 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.room)
 }
 
 kotlin {
+
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
@@ -29,11 +31,7 @@ kotlin {
     }
     
     sourceSets {
-        
-        androidMain.dependencies {
-            implementation(compose.preview)
-            implementation(libs.androidx.activity.compose)
-        }
+
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -43,8 +41,25 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
+            // Room
+            implementation(libs.room.runtime)
+            // SQLight
+            implementation(libs.sqlite.bundled)
+            // Firebase
+//            implementation(libs.firebase.auth)
+//            implementation(libs.firebase.firestore)
         }
+
+        androidMain.dependencies {
+            implementation(compose.preview)
+            implementation(libs.androidx.activity.compose)
+        }
+
+        iosMain.dependencies {
+        }
+
     }
+
 }
 
 android {
@@ -74,7 +89,11 @@ android {
     }
 }
 
-dependencies {
-    debugImplementation(compose.uiTooling)
+room {
+    schemaDirectory("$projectDir/schemas")
 }
 
+dependencies {
+    debugImplementation(compose.uiTooling)
+    ksp(libs.room.compiler)
+}
