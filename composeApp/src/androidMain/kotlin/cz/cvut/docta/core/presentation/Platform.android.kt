@@ -1,7 +1,6 @@
-package cz.cvut.docta
+package cz.cvut.docta.core.presentation
 
 import android.os.Build
-import cz.cvut.docta.core.presentation.Platform
 
 class AndroidPlatform : Platform {
     override val name: String = "Android ${Build.VERSION.SDK_INT}"

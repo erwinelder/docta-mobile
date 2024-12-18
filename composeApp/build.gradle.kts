@@ -7,9 +7,11 @@ plugins {
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.devtools.ksp)
+    alias(libs.plugins.room)
 }
 
 kotlin {
+
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
@@ -40,14 +42,11 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
             // Firebase
-            implementation(libs.firebase.auth)
-            implementation(libs.firebase.firestore)
+//            implementation(libs.firebase.auth)
+//            implementation(libs.firebase.firestore)
             // Room
-            implementation(libs.room.gradle.plugin)
-            implementation(libs.room.compiler)
             implementation(libs.room.runtime)
             // SQLight
-            implementation(libs.sqlite)
             implementation(libs.sqlite.bundled)
         }
         androidMain.dependencies {
@@ -58,6 +57,7 @@ kotlin {
         }
 
     }
+
 }
 
 android {
@@ -85,6 +85,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+}
+
+room {
+    schemaDirectory("$projectDir/schemas")
 }
 
 dependencies {

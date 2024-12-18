@@ -1,6 +1,5 @@
-package cz.cvut.docta
+package cz.cvut.docta.core.presentation
 
-import cz.cvut.docta.core.presentation.Platform
 import platform.UIKit.UIDevice
 
 class IOSPlatform: Platform {
