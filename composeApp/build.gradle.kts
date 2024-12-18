@@ -6,7 +6,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.devtools.ksp)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.room)
 }
 
@@ -41,18 +41,20 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
-            // Firebase
-//            implementation(libs.firebase.auth)
-//            implementation(libs.firebase.firestore)
             // Room
             implementation(libs.room.runtime)
             // SQLight
             implementation(libs.sqlite.bundled)
+            // Firebase
+//            implementation(libs.firebase.auth)
+//            implementation(libs.firebase.firestore)
         }
+
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
         }
+
         iosMain.dependencies {
         }
 

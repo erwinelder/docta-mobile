@@ -1,5 +1,6 @@
 package cz.cvut.docta.core.data.local
 
+import androidx.room.ConstructedBy
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
@@ -18,9 +19,9 @@ import kotlinx.coroutines.IO
         CourseSectionEntity::class,
         LocaleEntity::class,
     ],
-    version = 1,
-    exportSchema = true
+    version = 1
 )
+@ConstructedBy(AppDatabaseConstructor::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun courseDao(): CourseDao
     abstract fun courseSectionDao(): CourseSectionDao
