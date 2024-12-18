@@ -2,6 +2,7 @@ package cz.cvut.docta.course.data.model
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import cz.cvut.docta.core.data.model.LocaleEntity
 
@@ -14,6 +15,9 @@ import cz.cvut.docta.core.data.model.LocaleEntity
             childColumns = ["locale"],
             onDelete = ForeignKey.CASCADE
         )
+    ],
+    indices = [
+        Index(value = ["locale"])
     ]
 )
 data class CourseEntity(
