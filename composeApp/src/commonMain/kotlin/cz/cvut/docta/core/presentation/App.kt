@@ -7,12 +7,13 @@ import cz.cvut.docta.core.data.local.AppLocalDatabase
 import cz.cvut.docta.core.domain.app.AppTheme
 import cz.cvut.docta.core.presentation.other.AppBackground
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.koinInject
 
 @Composable
 @Preview
-fun App(
-    localDatabase: AppLocalDatabase
-) {
+fun App() {
+    val appLocalDb = koinInject<AppLocalDatabase>()
+
     val appTheme = AppTheme.Light
 
     MaterialTheme {

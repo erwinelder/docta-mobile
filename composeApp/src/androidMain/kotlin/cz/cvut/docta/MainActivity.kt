@@ -11,14 +11,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val database = getRoomDatabase(
-            builder = getDatabaseBuilder(context = this)
-        )
-
         setContent {
-            App(
-                localDatabase = database
-            )
+            App()
         }
     }
 }
