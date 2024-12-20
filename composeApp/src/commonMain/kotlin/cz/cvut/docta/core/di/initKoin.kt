@@ -7,7 +7,7 @@ fun initKoin(config: KoinAppDeclaration? = null) {
     startKoin {
         config?.invoke(this)
         modules(
-            platformModule, localDataSourceModule, repositoryModule
+            platformModule, useCaseModule, localDataSourceModule, repositoryModule
         )
     }
 }
