@@ -1,4 +1,4 @@
-package cz.cvut.docta.course.data.local
+package cz.cvut.docta.course.data.local.dao
 
 import androidx.room.Dao
 
