@@ -21,14 +21,14 @@ import kotlinx.coroutines.IO
     ],
     version = 1
 )
-@ConstructedBy(AppDatabaseConstructor::class)
-abstract class AppDatabase : RoomDatabase() {
+@ConstructedBy(AppLocalDatabaseConstructor::class)
+abstract class AppLocalDatabase : RoomDatabase() {
     abstract fun courseDao(): CourseDao
     abstract fun courseSectionDao(): CourseSectionDao
     abstract fun localeDao(): LocaleDao
 }
 
-fun getRoomDatabase(builder: RoomDatabase.Builder<AppDatabase>): AppDatabase {
+fun getRoomDatabase(builder: RoomDatabase.Builder<AppLocalDatabase>): AppLocalDatabase {
     return builder
 //        .addMigrations()
         .fallbackToDestructiveMigration(dropAllTables = true)

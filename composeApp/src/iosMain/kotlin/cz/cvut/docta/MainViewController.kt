@@ -10,6 +10,6 @@ fun MainViewController() = ComposeUIViewController {
         builder = getDatabaseBuilder()
     )
     App(
-        database = database
+        localDatabase = database
     )
 }
