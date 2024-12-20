@@ -8,13 +8,13 @@ import cz.cvut.docta.course.domain.model.CourseLightweight
 
 @Preview(device = Devices.PIXEL_7_PRO)
 @Composable
-fun SemesterCoursesScreenPreview() {
+fun CoursesScreenPreview() {
     val courseList = listOf(
         CourseLightweight(code = "maa", locale = "cs", name = "MAA")
     )
 
     ScreenPreviewContainer {
-        SemesterCoursesScreen(
+        CoursesScreen(
             courseList = courseList
         )
     }

@@ -6,7 +6,7 @@ import androidx.compose.ui.Modifier
 import cz.cvut.docta.course.domain.model.CourseLightweight
 
 @Composable
-fun SemesterCoursesScreen(
+fun CoursesScreen(
     courseList: List<CourseLightweight>
 ) {
     Column(

@@ -10,16 +10,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import cz.cvut.docta.R
 import cz.cvut.docta.core.domain.app.AppTheme
-import docta.composeapp.generated.resources.Res
-import docta.composeapp.generated.resources.main_background_dark
-import docta.composeapp.generated.resources.main_background_light
-import org.jetbrains.compose.resources.DrawableResource
-import org.jetbrains.compose.resources.painterResource
-
 
 @Composable
-fun AppBackground(appTheme: AppTheme?) {
+fun AppBackgroundPreview(appTheme: AppTheme?) {
     AnimatedContent(
         targetState = appTheme,
         label = "App background",
@@ -31,8 +27,8 @@ fun AppBackground(appTheme: AppTheme?) {
             Image(
                 painter = painterResource(
                     when (it) {
-                        AppTheme.Light -> Res.drawable.main_background_light
-                        AppTheme.Dark -> Res.drawable.main_background_dark
+                        AppTheme.Light -> R.drawable.main_background_light
+                        AppTheme.Dark -> R.drawable.main_background_dark
                     }
                 ),
                 contentDescription = null,
