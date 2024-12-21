@@ -1,4 +1,4 @@
-package cz.cvut.docta.core.presentation.other
+package cz.cvut.docta.core.presentation.components.other
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.fadeIn
