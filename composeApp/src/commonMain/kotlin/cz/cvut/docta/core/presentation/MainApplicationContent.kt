@@ -35,7 +35,8 @@ fun MainApplicationContent() {
             // TODO-COURSE-SECTIONS: collect course sections from relative view model
 
             CourseSectionsScreen(
-                courseSectionList = emptyList() // TODO-COURSE-SECTIONS: pass course sections
+                courseSectionList = emptyList(), // TODO-COURSE-SECTIONS: pass course sections,
+                onSectionClick = { /* TODO: navigation to the specific section screen */ }
             )
         }
     }

@@ -14,7 +14,8 @@ import cz.cvut.docta.course.domain.model.CourseSectionLightweight
 
 @Composable
 fun CourseSectionsScreen(
-    courseSectionList: List<CourseSectionLightweight>
+    courseSectionList: List<CourseSectionLightweight>,
+    onSectionClick: (CourseSectionLightweight) -> Unit
 ) {
     val lazyListState = rememberLazyListState()
 
@@ -30,7 +31,9 @@ fun CourseSectionsScreen(
                 GlassSurfaceNavigationButton(
                     text = section.name,
                     padding = PaddingValues(horizontal = 24.dp, vertical = 16.dp),
-                    onClick = {}
+                    onClick = {
+                        onSectionClick(section)
+                    }
                 )
             }
         }
