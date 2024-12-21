@@ -16,6 +16,7 @@ ksp = "2.1.0-1.0.29"
 firebase = "32.1.0"
 junit = "4.13.2"
 kotlin = "2.1.0"
+kotlinxSerializationJson = "1.6.3"
 koin = "4.0.0"
 room = "2.7.0-alpha12"
 sqlite = "2.5.0-SNAPSHOT"
@@ -44,6 +45,8 @@ sqlite-bundled = { group = "androidx.sqlite", name = "sqlite-bundled", version.r
 ## Firebase
 firebase-auth = { group = "dev.gitlive", name = "firebase-auth", version.ref = "firebase" }
 firebase-firestore = { group = "dev.gitlive", name = "firebase-firestore", version.ref = "firebase" }
+## Serialization
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 ## Testing
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
@@ -60,3 +63,4 @@ compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 room = { id = "androidx.room", version.ref = "room" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

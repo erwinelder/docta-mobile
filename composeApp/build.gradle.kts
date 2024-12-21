@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
@@ -52,6 +53,8 @@ kotlin {
             // Firebase
 //            implementation(libs.firebase.auth)
 //            implementation(libs.firebase.firestore)
+            // Serialization
+            implementation(libs.kotlinx.serialization.json)
         }
 
         androidMain.dependencies {
