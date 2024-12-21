@@ -14,6 +14,7 @@ import org.koin.dsl.module
 expect val platformModule: Module
 
 val courseModule = module {
+
     single<CourseRepository> {
         CourseRepositoryImpl(localSource = get())
     }
@@ -31,4 +32,9 @@ val courseModule = module {
             getAllCoursesUseCase = get()
         )
     }
+
+}
+
+val courseSectionModule = module {
+
 }
