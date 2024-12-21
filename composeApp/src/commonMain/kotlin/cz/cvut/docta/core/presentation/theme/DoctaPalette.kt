@@ -5,6 +5,8 @@ import androidx.compose.ui.graphics.Color
 sealed class DoctaPalette(
     val primary: Color,
     val onPrimary: Color,
+    val surface: Color,
+    val onSurface: Color,
     val background: Color,
     val onBackground: Color,
     val glassSurfaceGradient: List<Color>,
@@ -14,6 +16,8 @@ sealed class DoctaPalette(
     data object Light : DoctaPalette(
         primary = Color(0xFF6200EE),
         onPrimary = Color.White,
+        surface = Color(247, 247, 247),
+        onSurface = Color(8, 8, 8),
         background = Color.White,
         onBackground = Color.Black,
         glassSurfaceGradient = listOf(
@@ -29,6 +33,8 @@ sealed class DoctaPalette(
     data object Dark : DoctaPalette(
         primary = Color(0xFFBB86FC),
         onPrimary = Color.Black,
+        surface = Color(33, 33, 33),
+        onSurface = Color(247, 247, 247),
         background = Color.Black,
         onBackground = Color.White,
         glassSurfaceGradient = listOf(
