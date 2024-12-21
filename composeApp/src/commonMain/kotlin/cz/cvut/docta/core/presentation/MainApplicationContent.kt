@@ -26,7 +26,10 @@ fun MainApplicationContent() {
             val courseList by coursesViewModel.courseList.collectAsStateWithLifecycle()
 
             CoursesScreen(
-                courseList = courseList
+                courseList = courseList,
+                onCourseClick = { course ->
+                    navController.navigate(MainScreens.CourseSections(courseCode = course.code))
+                }
             )
         }
         composable<MainScreens.CourseSections> { backStack ->

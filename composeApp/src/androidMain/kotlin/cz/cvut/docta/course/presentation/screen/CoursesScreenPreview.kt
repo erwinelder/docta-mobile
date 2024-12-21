@@ -24,7 +24,8 @@ fun CoursesScreenPreview() {
 
     ScreenPreviewContainer {
         CoursesScreen(
-            courseList = courseList
+            courseList = courseList,
+            onCourseClick = {}
         )
     }
 }
