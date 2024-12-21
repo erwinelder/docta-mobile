@@ -29,6 +29,7 @@ fun CourseSectionsScreenPreview() {
 
     ScreenPreviewContainer {
         CourseSectionsScreen(
+            onBackButtonClick = {},
             courseSectionList = courseSectionList,
             onSectionClick = {}
         )

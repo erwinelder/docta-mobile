@@ -14,12 +14,14 @@ import cz.cvut.docta.course.domain.model.CourseSectionLightweight
 
 @Composable
 fun CourseSectionsScreen(
+    onBackButtonClick: () -> Unit,
     courseSectionList: List<CourseSectionLightweight>,
     onSectionClick: (CourseSectionLightweight) -> Unit
 ) {
     val lazyListState = rememberLazyListState()
 
     ScreenContainer(
+        onBackButtonClick = onBackButtonClick,
         padding = PaddingValues(horizontal = 16.dp, vertical = 24.dp)
     ) {
         LazyColumn(
