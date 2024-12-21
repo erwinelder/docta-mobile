@@ -107,3 +107,9 @@ dependencies {
     debugImplementation(compose.uiTooling)
     ksp(libs.room.compiler)
 }
+
+afterEvaluate {
+    tasks.named("copyRoomSchemasToAndroidTestAssetsDebugAndroidTest").configure {
+        enabled = false
+    }
+}
