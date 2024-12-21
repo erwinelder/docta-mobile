@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import cz.cvut.docta.core.domain.app.AppTheme
+import cz.cvut.docta.core.presentation.theme.CurrAppTheme
 import docta.composeapp.generated.resources.Res
 import docta.composeapp.generated.resources.main_background_dark
 import docta.composeapp.generated.resources.main_background_light
@@ -19,7 +20,9 @@ import org.jetbrains.compose.resources.painterResource
 
 
 @Composable
-fun AppBackground(appTheme: AppTheme?) {
+fun AppBackground(
+    appTheme: AppTheme? = CurrAppTheme
+) {
     AnimatedContent(
         targetState = appTheme,
         label = "App background",
