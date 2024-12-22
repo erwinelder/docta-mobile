@@ -7,11 +7,8 @@ import cz.cvut.docta.course.data.repository.CourseRepositoryImpl
 import cz.cvut.docta.course.domain.usecase.GetAllCoursesUseCase
 import cz.cvut.docta.course.domain.usecase.GetAllCoursesUseCaseImpl
 import cz.cvut.docta.course.presentation.viewModel.CoursesViewModel
-import org.koin.core.module.Module
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
-
-expect val platformModule: Module
 
 val courseModule = module {
 
@@ -32,9 +29,5 @@ val courseModule = module {
             getAllCoursesUseCase = get()
         )
     }
-
-}
-
-val courseSectionModule = module {
 
 }
