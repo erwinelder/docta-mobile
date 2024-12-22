@@ -1,7 +1,7 @@
 package cz.cvut.docta
 
 import android.app.Application
-import cz.cvut.docta.core.di.initKoin
+import cz.cvut.docta.di.initKoin
 import org.koin.android.ext.koin.androidContext
 
 class DoctaApplication: Application() {

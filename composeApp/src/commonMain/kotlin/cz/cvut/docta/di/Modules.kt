@@ -1,4 +1,4 @@
-package cz.cvut.docta.core.di
+package cz.cvut.docta.di
 
 import cz.cvut.docta.course.data.local.source.CourseLocalDataSource
 import cz.cvut.docta.course.data.local.source.courseLocalDataSourceFactory

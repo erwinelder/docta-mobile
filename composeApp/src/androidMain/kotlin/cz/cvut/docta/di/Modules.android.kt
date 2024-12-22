@@ -1,4 +1,4 @@
-package cz.cvut.docta.core.di
+package cz.cvut.docta.di
 
 import cz.cvut.docta.core.data.local.AppLocalDatabase
 import cz.cvut.docta.core.data.local.getDatabaseBuilder
