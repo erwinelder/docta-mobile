@@ -10,4 +10,7 @@ sealed interface MainScreens {
     @Serializable
     data class CourseSections(val courseCode: String) : MainScreens
 
+    @Serializable
+    data class SectionLessons(val sectionId: Long): MainScreens
+
 }

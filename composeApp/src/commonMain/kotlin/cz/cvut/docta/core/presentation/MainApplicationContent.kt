@@ -11,6 +11,7 @@ import cz.cvut.docta.core.presentation.navigation.MainScreens
 import cz.cvut.docta.course.presentation.screen.CourseSectionsScreen
 import cz.cvut.docta.course.presentation.screen.CoursesScreen
 import cz.cvut.docta.course.presentation.viewModel.CoursesViewModel
+import cz.cvut.docta.section.presentation.screen.SectionLessonsScreen
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -42,6 +43,11 @@ fun MainApplicationContent() {
                 courseSectionList = emptyList(), // TODO-COURSE-SECTIONS: pass course sections,
                 onSectionClick = { /* TODO: navigation to the specific section screen */ }
             )
+        }
+        composable<MainScreens.SectionLessons> { backStack ->
+            val sectionId = backStack.toRoute<MainScreens.SectionLessons>().sectionId
+
+            SectionLessonsScreen()
         }
     }
 }
