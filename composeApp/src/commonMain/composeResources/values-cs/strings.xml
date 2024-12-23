@@ -7,5 +7,9 @@
     <string name="easy">Snadné</string>
     <string name="medium">Střední</string>
     <string name="hard">Obtížné</string>
+    <string name="one_step">Jednokrokové</string>
+    <string name="step_by_step">Krok za krokem</string>
+    <string name="not_done">Nedokončeno</string>
+    <string name="tests">Testy</string>
 
 </resources>
