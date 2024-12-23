@@ -60,6 +60,7 @@ fun MainApplicationContent() {
 
             SectionLessonsScreen(
                 sectionName = sectionName,
+                onNavigateBack = navController::popBackStack,
                 activeDifficulty = activeDifficulty,
                 onDifficultyChange = onDifficultyChange,
                 activeType = activeType,

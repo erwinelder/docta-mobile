@@ -21,10 +21,13 @@ import cz.cvut.docta.lesson.presentation.component.StepByStepLessonComponent
 import cz.cvut.docta.lesson.presentation.component.TestLessonComponent
 import cz.cvut.docta.lesson.presentation.container.LessonDifficultyFilterBar
 import cz.cvut.docta.lesson.presentation.container.LessonTypeFilterBar
+import org.jetbrains.compose.resources.DrawableResource
 
 @Composable
 fun SectionLessonsScreen(
     sectionName: String,
+    sectionIconRes: DrawableResource? = null,
+    onNavigateBack: () -> Unit,
     activeDifficulty: LessonDifficulty?,
     onDifficultyChange: (LessonDifficulty) -> Unit,
     activeType: LessonFilterType?,
@@ -45,8 +48,8 @@ fun SectionLessonsScreen(
         ) {
             GlassSurfaceTopBackNavButton(
                 text = sectionName,
-                iconRes = null,
-                onClick = {}
+                iconRes = sectionIconRes,
+                onClick = onNavigateBack
             )
             LessonTypeFilterBar(
                 activeType = activeType,

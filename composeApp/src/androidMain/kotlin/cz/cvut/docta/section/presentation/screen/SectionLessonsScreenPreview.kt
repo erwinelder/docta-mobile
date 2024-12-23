@@ -57,6 +57,7 @@ fun SectionLessonsScreenPreview() {
     ScreenPreviewContainer {
         SectionLessonsScreen(
             sectionName = sectionName,
+            onNavigateBack = {},
             activeDifficulty = activeDifficulty,
             onDifficultyChange = {},
             activeType = activeType,
