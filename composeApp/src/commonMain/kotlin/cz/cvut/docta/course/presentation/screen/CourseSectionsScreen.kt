@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.core.presentation.components.buttons.GlassSurfaceNavigationButton
-import cz.cvut.docta.core.presentation.components.screenContainers.ScreenContainer
+import cz.cvut.docta.core.presentation.components.screenContainers.ScreenContainerWithBackNavButton
 import cz.cvut.docta.course.domain.model.CourseSectionLightweight
 
 @Composable
@@ -20,7 +20,7 @@ fun CourseSectionsScreen(
 ) {
     val lazyListState = rememberLazyListState()
 
-    ScreenContainer(
+    ScreenContainerWithBackNavButton(
         onBackButtonClick = onBackButtonClick,
         padding = PaddingValues(horizontal = 16.dp, vertical = 24.dp)
     ) {

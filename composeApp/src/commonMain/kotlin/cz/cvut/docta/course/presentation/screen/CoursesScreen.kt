@@ -2,18 +2,15 @@ package cz.cvut.docta.course.presentation.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import cz.cvut.docta.core.presentation.components.buttons.GlassSurfaceNavigationButton
-import cz.cvut.docta.core.presentation.components.containers.GlassSurface
 import cz.cvut.docta.core.presentation.components.screenContainers.ScreenContainer
+import cz.cvut.docta.core.presentation.components.screenContainers.ScreenContainerWithBackNavButton
 import cz.cvut.docta.course.domain.model.CourseLightweight
 
 @Composable
