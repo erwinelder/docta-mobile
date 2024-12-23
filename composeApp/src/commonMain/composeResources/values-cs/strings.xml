@@ -3,4 +3,9 @@
     <!-- Buttons -->
     <string name="back">Zpět</string>
 
+    <!-- Lesson -->
+    <string name="easy">Snadné</string>
+    <string name="medium">Střední</string>
+    <string name="hard">Obtížné</string>
+
 </resources>

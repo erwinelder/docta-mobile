@@ -3,4 +3,9 @@
     <!-- Buttons -->
     <string name="back">Back</string>
 
+    <!-- Lesson -->
+    <string name="easy">Easy</string>
+    <string name="medium">Medium</string>
+    <string name="hard">Hard</string>
+
 </resources>
