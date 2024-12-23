@@ -11,5 +11,6 @@
     <string name="step_by_step">Step-by-step</string>
     <string name="not_done">Not done</string>
     <string name="tests">Tests</string>
+    <string name="test">Test</string>
 
 </resources>
