@@ -1,4 +1,4 @@
-package cz.cvut.docta.core.presentation.components.containers
+package cz.cvut.docta.core.presentation.component.containers
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -23,6 +23,7 @@ fun GlassSurface(
     modifier: Modifier = Modifier,
     filledWidths: FilledWidthByScreenType = FilledWidthByScreenType(),
     cornerSize: Dp = 32.dp,
+    borderSize: Dp = 2.dp,
     content: @Composable BoxScope.() -> Unit
 ) {
     Box(
@@ -37,11 +38,11 @@ fun GlassSurface(
                 )
             )
             .border(
-                width = 2.dp,
+                width = borderSize,
                 color = DoctaColors.glassSurfaceBorder,
                 shape = RoundedCornerShape(cornerSize)
             )
-            .padding(2.dp)
+            .padding(borderSize)
     ) {
         content()
     }

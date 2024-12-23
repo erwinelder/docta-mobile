@@ -1,4 +1,4 @@
-package cz.cvut.docta.core.presentation.components.screenContainers
+package cz.cvut.docta.core.presentation.component.screenContainers
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,12 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import cz.cvut.docta.core.presentation.components.containers.BackButtonBlock
 
 @Composable
-fun ScreenContainerWithBackNavButton(
+fun ScreenContainer(
     verticalArrangement: Arrangement.Vertical = Arrangement.Center,
-    onBackButtonClick: (() -> Unit)? = null,
     padding: PaddingValues = PaddingValues(vertical = 24.dp),
     content: @Composable ColumnScope.() -> Unit
 ) {
@@ -26,15 +24,6 @@ fun ScreenContainerWithBackNavButton(
             .padding(padding)
             .fillMaxSize()
     ) {
-        onBackButtonClick?.let { BackButtonBlock(it) }
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = verticalArrangement,
-            modifier = Modifier
-                .fillMaxSize()
-                .weight(1f)
-        ) {
-            content()
-        }
+        content()
     }
 }

@@ -1,4 +1,4 @@
-package cz.cvut.docta.core.presentation.components.containers
+package cz.cvut.docta.core.presentation.component.containers
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import cz.cvut.docta.core.presentation.components.buttons.BackButton
+import cz.cvut.docta.core.presentation.component.buttons.BackButton
 import docta.composeapp.generated.resources.Res
 import docta.composeapp.generated.resources.back
 import org.jetbrains.compose.resources.stringResource

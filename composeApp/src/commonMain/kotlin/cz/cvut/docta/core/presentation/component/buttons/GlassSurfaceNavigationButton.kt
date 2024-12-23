@@ -1,4 +1,4 @@
-package cz.cvut.docta.core.presentation.components.buttons
+package cz.cvut.docta.core.presentation.component.buttons
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -17,7 +17,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cz.cvut.docta.core.domain.app.FilledWidthByScreenType
-import cz.cvut.docta.core.presentation.components.containers.GlassSurface
+import cz.cvut.docta.core.presentation.component.containers.GlassSurface
 import cz.cvut.docta.core.presentation.modifier.bounceClickEffect
 import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.core.presentation.theme.Manrope

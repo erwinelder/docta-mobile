@@ -1,4 +1,4 @@
-package cz.cvut.docta.core.presentation.components.other
+package cz.cvut.docta.core.presentation.component.other
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.fadeIn
@@ -15,7 +15,6 @@ import cz.cvut.docta.core.presentation.theme.CurrAppTheme
 import docta.composeapp.generated.resources.Res
 import docta.composeapp.generated.resources.main_background_dark
 import docta.composeapp.generated.resources.main_background_light
-import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
 

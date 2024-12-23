@@ -3,7 +3,7 @@ package cz.cvut.docta.core.data.model
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import cz.cvut.docta.course.data.model.CourseSectionEntity
-import cz.cvut.docta.course.data.model.LessonEntity
+import cz.cvut.docta.lesson.data.model.LessonEntity
 
 @Entity(
     tableName = "section_to_lesson",

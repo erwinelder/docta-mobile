@@ -1,4 +1,4 @@
-package cz.cvut.docta.core.presentation.components.buttons
+package cz.cvut.docta.core.presentation.component.buttons
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer

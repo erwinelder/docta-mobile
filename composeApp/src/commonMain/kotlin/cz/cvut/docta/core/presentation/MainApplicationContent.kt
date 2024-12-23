@@ -11,6 +11,9 @@ import cz.cvut.docta.core.presentation.navigation.MainScreens
 import cz.cvut.docta.course.presentation.screen.CourseSectionsScreen
 import cz.cvut.docta.course.presentation.screen.CoursesScreen
 import cz.cvut.docta.course.presentation.viewModel.CoursesViewModel
+import cz.cvut.docta.lesson.domain.model.Lesson
+import cz.cvut.docta.lesson.domain.model.LessonDifficulty
+import cz.cvut.docta.lesson.domain.model.LessonFilterType
 import cz.cvut.docta.section.presentation.screen.SectionLessonsScreen
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -47,7 +50,22 @@ fun MainApplicationContent() {
         composable<MainScreens.SectionLessons> { backStack ->
             val sectionId = backStack.toRoute<MainScreens.SectionLessons>().sectionId
 
-            SectionLessonsScreen()
+            // TODO-SECTION-LESSONS
+            val sectionName: String = "Section name"
+            val activeDifficulty: LessonDifficulty? = LessonDifficulty.Easy
+            val onDifficultyChange: (LessonDifficulty) -> Unit = {}
+            val activeType: LessonFilterType? = null
+            val onTypeSelect: (LessonFilterType) -> Unit = {}
+            val lessonList: List<Lesson> = listOf()
+
+            SectionLessonsScreen(
+                sectionName = sectionName,
+                activeDifficulty = activeDifficulty,
+                onDifficultyChange = onDifficultyChange,
+                activeType = activeType,
+                onTypeSelect = onTypeSelect,
+                lessonList = lessonList
+            )
         }
     }
 }

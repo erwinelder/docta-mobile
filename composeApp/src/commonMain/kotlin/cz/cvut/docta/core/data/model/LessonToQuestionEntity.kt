@@ -2,7 +2,7 @@ package cz.cvut.docta.core.data.model
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import cz.cvut.docta.course.data.model.LessonEntity
+import cz.cvut.docta.lesson.data.model.LessonEntity
 import cz.cvut.docta.question.data.model.QuestionEntity
 
 @Entity(

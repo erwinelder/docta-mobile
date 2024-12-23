@@ -1,4 +1,4 @@
-package cz.cvut.docta.course.data.model
+package cz.cvut.docta.lesson.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

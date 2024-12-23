@@ -8,9 +8,8 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import cz.cvut.docta.core.presentation.components.buttons.GlassSurfaceNavigationButton
-import cz.cvut.docta.core.presentation.components.screenContainers.ScreenContainer
-import cz.cvut.docta.core.presentation.components.screenContainers.ScreenContainerWithBackNavButton
+import cz.cvut.docta.core.presentation.component.buttons.GlassSurfaceNavigationButton
+import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainer
 import cz.cvut.docta.course.domain.model.CourseLightweight
 
 @Composable
