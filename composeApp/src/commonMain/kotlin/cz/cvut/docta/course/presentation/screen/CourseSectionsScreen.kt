@@ -10,13 +10,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.core.presentation.component.buttons.GlassSurfaceNavigationButton
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainerWithBackNavButton
-import cz.cvut.docta.course.domain.model.CourseSectionLightweight
+import cz.cvut.docta.section.domain.model.CourseSection
 
 @Composable
 fun CourseSectionsScreen(
     onBackButtonClick: () -> Unit,
-    courseSectionList: List<CourseSectionLightweight>,
-    onSectionClick: (CourseSectionLightweight) -> Unit
+    courseSectionList: List<CourseSection>,
+    onSectionClick: (CourseSection) -> Unit
 ) {
     val lazyListState = rememberLazyListState()
 
