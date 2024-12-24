@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -8,12 +7,12 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
 
     androidTarget {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
@@ -41,6 +40,12 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
+            // Koin
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+            implementation(libs.koin.compose.viewmodel.navigation)
             // Room
             implementation(libs.room.runtime)
             // SQLight
@@ -48,11 +53,16 @@ kotlin {
             // Firebase
 //            implementation(libs.firebase.auth)
 //            implementation(libs.firebase.firestore)
+            // Serialization
+            implementation(libs.kotlinx.serialization.json)
         }
 
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            // Koin
+            implementation(libs.koin.android)
+            implementation(libs.koin.androidx.compose)
         }
 
         iosMain.dependencies {
@@ -96,4 +106,10 @@ room {
 dependencies {
     debugImplementation(compose.uiTooling)
     ksp(libs.room.compiler)
+}
+
+afterEvaluate {
+    tasks.named("copyRoomSchemasToAndroidTestAssetsDebugAndroidTest").configure {
+        enabled = false
+    }
 }

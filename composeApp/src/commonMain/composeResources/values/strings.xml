@@ -1,0 +1,16 @@
+<resources>
+
+    <!-- Buttons -->
+    <string name="back">Back</string>
+
+    <!-- Lesson -->
+    <string name="easy">Easy</string>
+    <string name="medium">Medium</string>
+    <string name="hard">Hard</string>
+    <string name="one_step">One-step</string>
+    <string name="step_by_step">Step-by-step</string>
+    <string name="not_done">Not done</string>
+    <string name="tests">Tests</string>
+    <string name="test">Test</string>
+
+</resources>
