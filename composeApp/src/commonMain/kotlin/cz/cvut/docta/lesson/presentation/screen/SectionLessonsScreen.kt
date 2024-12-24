@@ -43,8 +43,7 @@ fun SectionLessonsScreen(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier
-                .fillMaxWidth()
+            modifier = Modifier.fillMaxWidth()
         ) {
             GlassSurfaceTopBackNavButton(
                 text = sectionName,
