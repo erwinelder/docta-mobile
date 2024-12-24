@@ -18,7 +18,7 @@ class SectionLessonsViewModel(
     private val getSectionLessonsUseCase: GetSectionLessonsUseCase
 ) : ViewModel() {
 
-    private val _section: MutableStateFlow<SectionLightweight?> = MutableStateFlow(null)
+    private val _section = MutableStateFlow<SectionLightweight?>(null)
     val section = _section.asStateFlow()
 
     private suspend fun fetchSection(sectionId: Long) {
@@ -28,7 +28,7 @@ class SectionLessonsViewModel(
     }
 
 
-    private val _sectionLessons: MutableStateFlow<List<Lesson>> = MutableStateFlow(emptyList())
+    private val _sectionLessons = MutableStateFlow<List<Lesson>>(emptyList())
     val sectionLessons = _sectionLessons.asStateFlow()
 
     private suspend fun fetchSectionLessons() {
@@ -40,7 +40,7 @@ class SectionLessonsViewModel(
     }
 
 
-    private val _lessonDifficulty: MutableStateFlow<LessonDifficulty?> = MutableStateFlow(null)
+    private val _lessonDifficulty = MutableStateFlow<LessonDifficulty?>(null)
     val lessonDifficulty = _lessonDifficulty.asStateFlow()
 
     fun setLessonDifficulty(difficulty: LessonDifficulty?) {
@@ -48,7 +48,7 @@ class SectionLessonsViewModel(
     }
 
 
-    private val _lessonFilterType: MutableStateFlow<LessonFilterType?> = MutableStateFlow(null)
+    private val _lessonFilterType = MutableStateFlow<LessonFilterType?>(null)
     val lessonFilterType = _lessonFilterType.asStateFlow()
 
     fun setLessonFilterType(filterType: LessonFilterType?) {
