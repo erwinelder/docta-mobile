@@ -5,6 +5,7 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import cz.cvut.docta.core.data.model.LocaleEntity
+import cz.cvut.docta.course.domain.model.CourseLightweight
 
 @Entity(
     tableName = "course",
@@ -26,3 +27,19 @@ data class CourseEntity(
     val locale: String,
     val name: String
 )
+
+fun CourseEntity.toDomainModel(): CourseLightweight {
+    return CourseLightweight(
+        code = this.code,
+        locale = this.locale,
+        name = this.name
+    )
+}
+
+fun CourseLightweight.toEntity(): CourseEntity {
+    return CourseEntity(
+        code = this.code,
+        locale = this.locale,
+        name = this.name
+    )
+}

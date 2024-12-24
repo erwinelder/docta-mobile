@@ -6,5 +6,6 @@ import kotlinx.coroutines.flow.Flow
 interface CourseLocalDataSource {
 
     fun getAllCourses(): Flow<List<CourseEntity>>
+    fun getCourse(courseCode: String): CourseEntity?
 
 }

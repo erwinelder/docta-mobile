@@ -13,6 +13,10 @@ class CourseLocalDataSourceImpl(
         return dao.getAllCourses()
     }
 
+    override fun getCourse(courseCode: String): CourseEntity? {
+        return dao.getCourse(courseCode)
+    }
+
 }
 
 fun courseLocalDataSourceFactory(

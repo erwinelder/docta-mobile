@@ -1,10 +1,11 @@
 package cz.cvut.docta.course.data.repository
 
 import cz.cvut.docta.course.data.model.CourseEntity
-import kotlinx.coroutines.flow.Flow
+import cz.cvut.docta.course.domain.model.CourseLightweight
 
 interface CourseRepository {
 
-    fun getAllCourses(): Flow<List<CourseEntity>>
+    suspend fun getAllCourses(): List<CourseLightweight>
+    suspend fun getCourse(courseCode: String): CourseEntity?
 
 }
