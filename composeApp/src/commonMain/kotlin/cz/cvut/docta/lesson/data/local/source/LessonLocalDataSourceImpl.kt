@@ -8,9 +8,8 @@ import kotlinx.coroutines.flow.Flow
 class LessonLocalDataSourceImpl(
     private val dao: LessonDao
 ) : LessonLocalDataSource {
-
-    override suspend fun getSectionLessons(sectionId: Long): Flow<List<LessonEntity>> {
-        return dao.getSectionLessons(sectionId)
+    override suspend fun getSectionLessons(sectionId: Long): List<LessonEntity> {
+        return dao.getSectionLessons(sectionId = sectionId)
     }
 }
 

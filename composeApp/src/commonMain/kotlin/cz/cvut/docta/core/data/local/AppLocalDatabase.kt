@@ -15,7 +15,8 @@ import kotlinx.coroutines.IO
 @Database(
     entities = [
         CourseEntity::class,
-        SectionEntity::class
+        SectionEntity::class,
+        // TODO-LESSON
     ],
     version = 1
 )

@@ -3,6 +3,12 @@ package cz.cvut.docta.lesson.mapper
 import cz.cvut.docta.lesson.data.model.LessonEntity
 import cz.cvut.docta.lesson.domain.model.Lesson
 
+// TODO-LESSON
+
+fun List<LessonEntity>.toDomainModels(): List<Lesson> {
+    return map { it.toDomainModel() }
+}
+
 fun LessonEntity.toDomainModel(): Lesson {
     return when {
         difficulty != null && description != null -> Lesson.StepByStepLesson(
@@ -24,14 +30,4 @@ fun LessonEntity.toDomainModel(): Lesson {
             isDone = this.isDone
         )
     }
-}
-
-fun Lesson.toEntity(): LessonEntity {
-    return LessonEntity(
-        id = this.id,
-        name = this.name,
-        isDone = this.isDone,
-        difficulty = if (this is Lesson.OneStepQuestionsLesson) this.difficulty else if (this is Lesson.StepByStepLesson) this.difficulty else null,
-        description = if (this is Lesson.StepByStepLesson) this.description else null
-    )
 }

@@ -2,22 +2,18 @@ package cz.cvut.docta.course.data.repository
 
 import cz.cvut.docta.course.data.local.source.CourseLocalDataSource
 import cz.cvut.docta.course.data.model.CourseEntity
-import cz.cvut.docta.course.data.model.toDomainModel
-import cz.cvut.docta.course.domain.model.CourseLightweight
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.Flow
 
 class CourseRepositoryImpl(
     private val localSource: CourseLocalDataSource
 ) : CourseRepository {
 
-    override suspend fun getAllCourses(): List<CourseLightweight> {
+    override fun getAllCourses(): Flow<List<CourseEntity>> {
         return localSource.getAllCourses()
-            .map { entities -> entities.map { it.toDomainModel() } }
-            .first()
     }
 
     override suspend fun getCourse(courseCode: String): CourseEntity? {
-        return localSource.getCourse(courseCode)
+        return localSource.getCourse(courseCode = courseCode)
     }
+
 }

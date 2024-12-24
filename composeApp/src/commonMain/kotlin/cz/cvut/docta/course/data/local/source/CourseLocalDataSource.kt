@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 interface CourseLocalDataSource {
 
     fun getAllCourses(): Flow<List<CourseEntity>>
+
     suspend fun getCourse(courseCode: String): CourseEntity?
 
 }

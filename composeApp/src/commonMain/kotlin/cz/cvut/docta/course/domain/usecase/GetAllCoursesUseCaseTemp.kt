@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
 class GetAllCoursesUseCaseTemp : GetAllCoursesUseCase {
-    override suspend fun execute(): Flow<List<CourseLightweight>> {
+    override fun execute(): Flow<List<CourseLightweight>> {
         return flowOf(
             listOf(
                 CourseLightweight(
@@ -17,7 +17,7 @@ class GetAllCoursesUseCaseTemp : GetAllCoursesUseCase {
                     code = "course_code_2",
                     locale = "en",
                     name = "2. Course name"
-                )
+                ),
             )
         )
     }

@@ -6,6 +6,7 @@ import cz.cvut.docta.lesson.domain.model.LessonDifficulty
 
 @Entity(tableName = "lesson")
 data class LessonEntity(
+    // TODO-LESSON
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     val name: String,

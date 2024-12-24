@@ -14,7 +14,7 @@ class CourseLocalDataSourceImpl(
     }
 
     override suspend fun getCourse(courseCode: String): CourseEntity? {
-        return dao.getCourse(courseCode)
+        return dao.getCourse(courseCode = courseCode)
     }
 
 }

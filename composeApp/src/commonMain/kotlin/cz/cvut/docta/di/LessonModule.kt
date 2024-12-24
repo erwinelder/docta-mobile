@@ -30,4 +30,5 @@ val lessonModule = module {
             getSectionLessonsUseCase = get()
         )
     }
+
 }
