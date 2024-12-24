@@ -1,7 +1,7 @@
 package cz.cvut.docta.section.domain.model
 
-data class CourseSection(
+data class Section(
     val id: Long,
     val name: String,
-    val statistics: CourseSectionStatistics
+    val statistics: SectionStatistics
 )

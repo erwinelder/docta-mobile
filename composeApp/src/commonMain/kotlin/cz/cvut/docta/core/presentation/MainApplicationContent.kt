@@ -14,6 +14,8 @@ import cz.cvut.docta.course.presentation.screen.CoursesScreen
 import cz.cvut.docta.course.presentation.viewModel.CoursesViewModel
 import cz.cvut.docta.lesson.presentation.screen.SectionLessonsScreen
 import cz.cvut.docta.lesson.presentation.viewmodel.SectionLessonsViewModel
+import cz.cvut.docta.section.domain.model.Section
+import cz.cvut.docta.section.presentation.viewmodel.CourseSectionsViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -39,12 +41,21 @@ fun MainApplicationContent() {
         composable<MainScreens.CourseSections> { backStack ->
             val courseCode = backStack.toRoute<MainScreens.CourseSections>().courseCode
 
-            // TODO-COURSE-SECTIONS: collect course sections from relative view model
+            val viewModel = koinViewModel<CourseSectionsViewModel>()
+            LaunchedEffect(courseCode) {
+                viewModel.fetchData(courseCode = courseCode)
+            }
+
+            val course by viewModel.course.collectAsStateWithLifecycle()
+            val sectionList by viewModel.sectionList.collectAsStateWithLifecycle()
 
             CourseSectionsScreen(
-                onBackButtonClick = navController::popBackStack,
-                courseSectionList = emptyList(), // TODO-COURSE-SECTIONS: pass course sections,
-                onSectionClick = { /* TODO: navigation to the specific section screen */ }
+                courseName = course?.name ?: "",
+                onNavigateBack = navController::popBackStack,
+                sectionList = sectionList,
+                onSectionClick = { section ->
+                    navController.navigate(MainScreens.SectionLessons(sectionId = section.id))
+                }
             )
         }
         composable<MainScreens.SectionLessons> { backStack ->

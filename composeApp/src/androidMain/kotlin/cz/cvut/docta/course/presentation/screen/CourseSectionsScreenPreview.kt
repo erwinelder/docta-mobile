@@ -4,25 +4,26 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import cz.cvut.docta.core.presentation.screen.ScreenPreviewContainer
-import cz.cvut.docta.section.domain.model.CourseSection
-import cz.cvut.docta.section.domain.model.CourseSectionStatistics
+import cz.cvut.docta.section.domain.model.Section
+import cz.cvut.docta.section.domain.model.SectionStatistics
 import cz.cvut.docta.section.presentation.screen.CourseSectionsScreen
 
 @Preview(device = Devices.PIXEL_7_PRO)
 @Composable
 fun CourseSectionsScreenPreview() {
-    val courseSectionList = listOf(
-        CourseSection(
+    val courseName = "Course name"
+    val sectionList = listOf(
+        Section(
             id = 1,
             name = "Section name 1",
-            statistics = CourseSectionStatistics(
+            statistics = SectionStatistics(
                 correctAnswerAmount = 10, wrongAnswerAmount = 20
             )
         ),
-        CourseSection(
+        Section(
             id = 2,
             name = "Section name 2",
-            statistics = CourseSectionStatistics(
+            statistics = SectionStatistics(
                 correctAnswerAmount = 30, wrongAnswerAmount = 40
             )
         ),
@@ -30,8 +31,9 @@ fun CourseSectionsScreenPreview() {
 
     ScreenPreviewContainer {
         CourseSectionsScreen(
-            onBackButtonClick = {},
-            courseSectionList = courseSectionList,
+            courseName = courseName,
+            onNavigateBack = {},
+            sectionList = sectionList,
             onSectionClick = {}
         )
     }
