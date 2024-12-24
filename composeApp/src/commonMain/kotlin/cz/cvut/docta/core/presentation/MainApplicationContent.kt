@@ -74,10 +74,10 @@ fun MainApplicationContent() {
             SectionLessonsScreen(
                 sectionName = section?.name ?: "",
                 onNavigateBack = navController::popBackStack,
-                activeDifficulty = activeDifficulty,
-                onDifficultyChange = viewModel::setLessonDifficulty,
                 activeType = activeType,
                 onTypeSelect = viewModel::setLessonFilterType,
+                activeDifficulty = activeDifficulty,
+                onDifficultyChange = viewModel::setLessonDifficulty,
                 lessonList = lessonList
             )
         }

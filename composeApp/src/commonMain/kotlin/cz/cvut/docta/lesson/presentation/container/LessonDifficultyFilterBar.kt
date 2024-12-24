@@ -9,12 +9,14 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun LessonDifficultyFilterBar(
     activeDifficulty: LessonDifficulty?,
-    onDifficultySelect: (LessonDifficulty) -> Unit
+    onDifficultySelect: (LessonDifficulty?) -> Unit
 ) {
     FullLengthFilterBar(
         buttonStates = LessonDifficulty.entries.toList(),
         onIsButtonActive = { it == activeDifficulty },
         onGetButtonText = { stringResource(it.asStringRes()) },
-        onButtonClick = { onDifficultySelect(it) }
+        onButtonClick = { difficulty ->
+            difficulty.takeIf { it != activeDifficulty }.let(onDifficultySelect)
+        }
     )
 }

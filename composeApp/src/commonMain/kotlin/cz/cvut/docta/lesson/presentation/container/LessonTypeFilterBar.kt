@@ -10,12 +10,14 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun LessonTypeFilterBar(
     activeType: LessonFilterType?,
-    onTypeSelect: (LessonFilterType) -> Unit
+    onTypeSelect: (LessonFilterType?) -> Unit
 ) {
     FullLengthFilterBar(
         buttonStates = LessonFilterType.entries.toList(),
         onIsButtonActive = { it == activeType },
         onGetButtonText = { stringResource(it.asStringRes()) },
-        onButtonClick = { onTypeSelect(it) }
+        onButtonClick = { type ->
+            type.takeIf { it != activeType }.let(onTypeSelect)
+        }
     )
 }

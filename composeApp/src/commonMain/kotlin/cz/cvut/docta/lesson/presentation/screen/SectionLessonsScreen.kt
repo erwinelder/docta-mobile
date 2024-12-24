@@ -28,10 +28,10 @@ fun SectionLessonsScreen(
     sectionName: String,
     sectionIconRes: DrawableResource? = null,
     onNavigateBack: () -> Unit,
-    activeDifficulty: LessonDifficulty?,
-    onDifficultyChange: (LessonDifficulty) -> Unit,
     activeType: LessonFilterType?,
-    onTypeSelect: (LessonFilterType) -> Unit,
+    onTypeSelect: (LessonFilterType?) -> Unit,
+    activeDifficulty: LessonDifficulty?,
+    onDifficultyChange: (LessonDifficulty?) -> Unit,
     lessonList: List<Lesson>
 ) {
     val lazyListState = rememberLazyListState()
