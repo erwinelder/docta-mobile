@@ -18,7 +18,7 @@ class CoursesViewModel(
     )
     val courseList = _courseList.asStateFlow()
 
-    fun fetchAllCourses() {
+    private fun fetchAllCourses() {
         viewModelScope.launch {
             getAllCoursesUseCase.execute().collect { courseList ->
                 _courseList.update {
@@ -28,7 +28,7 @@ class CoursesViewModel(
         }
     }
 
-    fun getTestCourseList(): List<CourseLightweight> {
+    private fun getTestCourseList(): List<CourseLightweight> {
         return listOf(
             CourseLightweight(
                 code = "course_code_1",
