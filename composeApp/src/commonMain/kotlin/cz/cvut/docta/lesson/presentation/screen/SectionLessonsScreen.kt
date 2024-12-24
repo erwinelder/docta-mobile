@@ -1,4 +1,4 @@
-package cz.cvut.docta.section.presentation.screen
+package cz.cvut.docta.lesson.presentation.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

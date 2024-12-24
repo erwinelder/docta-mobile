@@ -1,6 +1,7 @@
 package cz.cvut.docta.core.presentation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
@@ -14,7 +15,8 @@ import cz.cvut.docta.course.presentation.viewModel.CoursesViewModel
 import cz.cvut.docta.lesson.domain.model.Lesson
 import cz.cvut.docta.lesson.domain.model.LessonDifficulty
 import cz.cvut.docta.lesson.domain.model.LessonFilterType
-import cz.cvut.docta.section.presentation.screen.SectionLessonsScreen
+import cz.cvut.docta.lesson.presentation.screen.SectionLessonsScreen
+import cz.cvut.docta.lesson.presentation.viewmodel.SectionLessonsViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -26,8 +28,9 @@ fun MainApplicationContent() {
         startDestination = MainScreens.Courses
     ) {
         composable<MainScreens.Courses> {
-            val coursesViewModel = koinViewModel<CoursesViewModel>()
-            val courseList by coursesViewModel.courseList.collectAsStateWithLifecycle()
+            val viewModel = koinViewModel<CoursesViewModel>()
+
+            val courseList by viewModel.courseList.collectAsStateWithLifecycle()
 
             CoursesScreen(
                 courseList = courseList,
@@ -50,21 +53,23 @@ fun MainApplicationContent() {
         composable<MainScreens.SectionLessons> { backStack ->
             val sectionId = backStack.toRoute<MainScreens.SectionLessons>().sectionId
 
-            // TODO-SECTION-LESSONS
-            val sectionName: String = "Section name"
-            val activeDifficulty: LessonDifficulty? = LessonDifficulty.Easy
-            val onDifficultyChange: (LessonDifficulty) -> Unit = {}
-            val activeType: LessonFilterType? = null
-            val onTypeSelect: (LessonFilterType) -> Unit = {}
-            val lessonList: List<Lesson> = listOf()
+            val viewModel = koinViewModel<SectionLessonsViewModel>()
+            LaunchedEffect(sectionId) {
+                viewModel.fetchData(sectionId = sectionId)
+            }
+
+            val section by viewModel.section.collectAsStateWithLifecycle()
+            val activeDifficulty by viewModel.lessonDifficulty.collectAsStateWithLifecycle()
+            val activeType by viewModel.lessonFilterType.collectAsStateWithLifecycle()
+            val lessonList by viewModel.sectionLessons.collectAsStateWithLifecycle()
 
             SectionLessonsScreen(
-                sectionName = sectionName,
+                sectionName = section?.name ?: "",
                 onNavigateBack = navController::popBackStack,
                 activeDifficulty = activeDifficulty,
-                onDifficultyChange = onDifficultyChange,
+                onDifficultyChange = viewModel::setLessonDifficulty,
                 activeType = activeType,
-                onTypeSelect = onTypeSelect,
+                onTypeSelect = viewModel::setLessonFilterType,
                 lessonList = lessonList
             )
         }
