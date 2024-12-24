@@ -6,12 +6,8 @@ import cz.cvut.docta.course.domain.model.CourseLightweight
 class GetCourseUseCaseImpl(
     private val courseRepository: CourseRepository
 ) : GetCourseUseCase {
-    override suspend fun execute(courseCode: String): CourseLightweight {
+    override suspend fun execute(courseCode: String): CourseLightweight? {
         // TODO-USECASE
-        return CourseLightweight(
-            code = courseCode,
-            locale = "cs",
-            name = "Course name"
-        )
+        return null
     }
 }

@@ -8,7 +8,7 @@ class SectionRepositoryImpl(
     private val localSource: SectionLocalDataSource
 ) : SectionRepository {
 
-    override suspend fun getSection(sectionId: Long): SectionEntity {
+    override suspend fun getSection(sectionId: Long): SectionEntity? {
         return localSource.getSection(sectionId = sectionId)
     }
 

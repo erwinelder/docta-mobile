@@ -6,8 +6,10 @@ import cz.cvut.docta.course.data.repository.CourseRepository
 import cz.cvut.docta.course.data.repository.CourseRepositoryImpl
 import cz.cvut.docta.course.domain.usecase.GetAllCoursesUseCase
 import cz.cvut.docta.course.domain.usecase.GetAllCoursesUseCaseImpl
+import cz.cvut.docta.course.domain.usecase.GetAllCoursesUseCaseTemp
 import cz.cvut.docta.course.domain.usecase.GetCourseUseCase
 import cz.cvut.docta.course.domain.usecase.GetCourseUseCaseImpl
+import cz.cvut.docta.course.domain.usecase.GetCourseUseCaseTemp
 import cz.cvut.docta.course.presentation.viewModel.CoursesViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
@@ -23,10 +25,14 @@ val courseModule = module {
     }
 
     single<GetAllCoursesUseCase> {
-        GetAllCoursesUseCaseImpl(courseRepository = get())
+        // TODO
+//        GetAllCoursesUseCaseImpl(courseRepository = get())
+        GetAllCoursesUseCaseTemp()
     }
     single<GetCourseUseCase> {
-        GetCourseUseCaseImpl(courseRepository = get())
+        // TODO
+//        GetCourseUseCaseImpl(courseRepository = get())
+        GetCourseUseCaseTemp()
     }
 
     viewModel {

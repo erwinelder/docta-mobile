@@ -15,7 +15,7 @@ fun SectionLessonsScreenPreview() {
     val sectionName = "Section name"
     val activeDifficulty = LessonDifficulty.Easy
     val activeType = null
-    val lessonList = listOf<Lesson>(
+    val lessonList = listOf(
         Lesson.OneStepQuestionsLesson(
             id = 1,
             name = "Practice theory",

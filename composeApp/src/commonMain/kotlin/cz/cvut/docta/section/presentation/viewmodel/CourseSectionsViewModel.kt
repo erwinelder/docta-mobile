@@ -34,39 +34,8 @@ class CourseSectionsViewModel(
         val courseCode = course.value?.code ?: return
 
         _sectionList.update {
-            getCourseSectionsUseCase.execute(courseCode = courseCode).takeIf { it.isNotEmpty() }
-                ?: getTestSectionList()
+            getCourseSectionsUseCase.execute(courseCode = courseCode)
         }
-    }
-
-    private fun getTestSectionList(): List<Section> {
-        return listOf(
-            Section(
-                id = 1,
-                name = "Úvod do matematické analýzy, základní principy kalkulu",
-                statistics = SectionStatistics()
-            ),
-            Section(
-                id = 2,
-                name = "Reálná čísla, základní matematická terminologie",
-                statistics = SectionStatistics()
-            ),
-            Section(
-                id = 3,
-                name = "Limita funkce, spojitost.",
-                statistics = SectionStatistics()
-            ),
-            Section(
-                id = 4,
-                name = "Derivace funkce, její vlastnosti a význam",
-                statistics = SectionStatistics()
-            ),
-            Section(
-                id = 5,
-                name = "L'Hospitalovo pravidlo, Taylorův polynom",
-                statistics = SectionStatistics()
-            ),
-        )
     }
 
 

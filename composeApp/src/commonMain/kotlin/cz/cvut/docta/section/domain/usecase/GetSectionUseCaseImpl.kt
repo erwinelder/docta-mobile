@@ -7,7 +7,7 @@ import cz.cvut.docta.section.mapper.toSectionLightweight
 class GetSectionUseCaseImpl(
     private val sectionRepository: SectionRepository
 ) : GetSectionUseCase {
-    override suspend fun execute(sectionId: Long): SectionLightweight {
-        return sectionRepository.getSection(sectionId = sectionId).toSectionLightweight()
+    override suspend fun execute(sectionId: Long): SectionLightweight? {
+        return sectionRepository.getSection(sectionId = sectionId)?.toSectionLightweight()
     }
 }

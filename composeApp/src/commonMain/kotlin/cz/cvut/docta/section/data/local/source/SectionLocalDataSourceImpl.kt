@@ -8,7 +8,7 @@ class SectionLocalDataSourceImpl(
     private val dao: SectionDao
 ) : SectionLocalDataSource {
 
-    override suspend fun getSection(sectionId: Long): SectionEntity {
+    override suspend fun getSection(sectionId: Long): SectionEntity? {
         return dao.getSection(id = sectionId)
     }
 
