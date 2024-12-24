@@ -1,6 +1,6 @@
 package cz.cvut.docta.section.domain.model
 
-data class CourseSectionLightweight(
+data class SectionLightweight(
     val id: Long,
     val name: String
 )

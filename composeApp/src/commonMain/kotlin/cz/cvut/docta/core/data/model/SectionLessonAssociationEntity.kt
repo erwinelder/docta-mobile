@@ -2,15 +2,15 @@ package cz.cvut.docta.core.data.model
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import cz.cvut.docta.course.data.model.CourseSectionEntity
+import cz.cvut.docta.section.data.model.SectionEntity
 import cz.cvut.docta.lesson.data.model.LessonEntity
 
 @Entity(
-    tableName = "section_to_lesson",
+    tableName = "section_lesson_association",
     primaryKeys = ["sectionId", "lessonId"],
     foreignKeys = [
         ForeignKey(
-            entity = CourseSectionEntity::class,
+            entity = SectionEntity::class,
             parentColumns = ["id"],
             childColumns = ["sectionId"],
             onDelete = ForeignKey.CASCADE
@@ -23,7 +23,7 @@ import cz.cvut.docta.lesson.data.model.LessonEntity
         )
     ]
 )
-data class SectionToLessonEntity(
+data class SectionLessonAssociationEntity(
     val sectionId: Int,
     val lessonId: Long
 )

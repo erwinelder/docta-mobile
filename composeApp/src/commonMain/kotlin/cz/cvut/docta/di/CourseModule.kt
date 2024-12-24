@@ -12,12 +12,12 @@ import org.koin.dsl.module
 
 val courseModule = module {
 
-    single<CourseRepository> {
-        CourseRepositoryImpl(localSource = get())
-    }
-
     single<CourseLocalDataSource> {
         courseLocalDataSourceFactory(appLocalDatabase = get())
+    }
+
+    single<CourseRepository> {
+        CourseRepositoryImpl(localSource = get())
     }
 
     single<GetAllCoursesUseCase> {

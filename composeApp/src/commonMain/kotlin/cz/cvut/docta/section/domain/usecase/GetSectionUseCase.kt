@@ -1,7 +1,7 @@
 package cz.cvut.docta.section.domain.usecase
 
-import cz.cvut.docta.section.domain.model.CourseSectionLightweight
+import cz.cvut.docta.section.domain.model.SectionLightweight
 
 interface GetSectionUseCase {
-    suspend fun execute(sectionId: Long): CourseSectionLightweight
+    suspend fun execute(sectionId: Long): SectionLightweight
 }

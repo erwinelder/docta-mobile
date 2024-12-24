@@ -9,12 +9,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import cz.cvut.docta.core.presentation.navigation.MainScreens
-import cz.cvut.docta.course.presentation.screen.CourseSectionsScreen
+import cz.cvut.docta.section.presentation.screen.CourseSectionsScreen
 import cz.cvut.docta.course.presentation.screen.CoursesScreen
 import cz.cvut.docta.course.presentation.viewModel.CoursesViewModel
-import cz.cvut.docta.lesson.domain.model.Lesson
-import cz.cvut.docta.lesson.domain.model.LessonDifficulty
-import cz.cvut.docta.lesson.domain.model.LessonFilterType
 import cz.cvut.docta.lesson.presentation.screen.SectionLessonsScreen
 import cz.cvut.docta.lesson.presentation.viewmodel.SectionLessonsViewModel
 import org.koin.compose.viewmodel.koinViewModel
