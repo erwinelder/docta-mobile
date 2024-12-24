@@ -4,6 +4,7 @@ import androidx.room.ConstructedBy
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
+import cz.cvut.docta.core.data.model.CourseSectionAssociationEntity
 import cz.cvut.docta.core.data.model.LocaleEntity
 import cz.cvut.docta.course.data.local.dao.CourseDao
 import cz.cvut.docta.section.data.local.dao.SectionDao
@@ -16,8 +17,9 @@ import kotlinx.coroutines.IO
 @Database(
     entities = [
         CourseEntity::class,
-        SectionEntity::class,
         LocaleEntity::class,
+        SectionEntity::class,
+        CourseSectionAssociationEntity::class
     ],
     version = 1
 )
@@ -32,7 +34,6 @@ fun getRoomDatabase(builder: RoomDatabase.Builder<AppLocalDatabase>): AppLocalDa
     return builder
 //        .addMigrations()
         .fallbackToDestructiveMigration(dropAllTables = true)
-        .fallbackToDestructiveMigrationOnDowngrade(dropAllTables = true)
         .setDriver(BundledSQLiteDriver())
         .setQueryCoroutineContext(Dispatchers.IO)
         .build()
