@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import cz.cvut.docta.course.domain.model.CourseLightweight
 import cz.cvut.docta.course.domain.usecase.GetCourseUseCase
 import cz.cvut.docta.section.domain.model.Section
+import cz.cvut.docta.section.domain.model.SectionStatistics
 import cz.cvut.docta.section.domain.usecase.GetCourseSectionsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -33,8 +34,39 @@ class CourseSectionsViewModel(
         val courseCode = course.value?.code ?: return
 
         _sectionList.update {
-            getCourseSectionsUseCase.execute(courseCode = courseCode)
+            getCourseSectionsUseCase.execute(courseCode = courseCode).takeIf { it.isNotEmpty() }
+                ?: getTestSectionList()
         }
+    }
+
+    private fun getTestSectionList(): List<Section> {
+        return listOf(
+            Section(
+                id = 1,
+                name = "Úvod do matematické analýzy, základní principy kalkulu",
+                statistics = SectionStatistics()
+            ),
+            Section(
+                id = 2,
+                name = "Reálná čísla, základní matematická terminologie",
+                statistics = SectionStatistics()
+            ),
+            Section(
+                id = 3,
+                name = "Limita funkce, spojitost.",
+                statistics = SectionStatistics()
+            ),
+            Section(
+                id = 4,
+                name = "Derivace funkce, její vlastnosti a význam",
+                statistics = SectionStatistics()
+            ),
+            Section(
+                id = 5,
+                name = "L'Hospitalovo pravidlo, Taylorův polynom",
+                statistics = SectionStatistics()
+            ),
+        )
     }
 
 
