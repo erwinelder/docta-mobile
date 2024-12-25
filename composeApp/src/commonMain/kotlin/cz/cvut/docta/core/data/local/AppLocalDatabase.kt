@@ -4,10 +4,8 @@ import androidx.room.ConstructedBy
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
-import cz.cvut.docta.core.data.model.LocaleEntity
 import cz.cvut.docta.course.data.local.dao.CourseDao
 import cz.cvut.docta.section.data.local.dao.SectionDao
-import cz.cvut.docta.course.data.local.dao.LocaleDao
 import cz.cvut.docta.course.data.model.CourseEntity
 import cz.cvut.docta.section.data.model.SectionEntity
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +14,6 @@ import kotlinx.coroutines.IO
 @Database(
     entities = [
         CourseEntity::class,
-        LocaleEntity::class,
         SectionEntity::class
     ],
     version = 1
@@ -25,7 +22,6 @@ import kotlinx.coroutines.IO
 abstract class AppLocalDatabase : RoomDatabase() {
     abstract fun courseDao(): CourseDao
     abstract fun sectionDao(): SectionDao
-    abstract fun localeDao(): LocaleDao
 }
 
 fun getRoomDatabase(builder: RoomDatabase.Builder<AppLocalDatabase>): AppLocalDatabase {
