@@ -4,7 +4,6 @@ import androidx.room.ConstructedBy
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
-import cz.cvut.docta.core.data.model.CourseSectionAssociationEntity
 import cz.cvut.docta.core.data.model.LocaleEntity
 import cz.cvut.docta.course.data.local.dao.CourseDao
 import cz.cvut.docta.section.data.local.dao.SectionDao
@@ -18,8 +17,7 @@ import kotlinx.coroutines.IO
     entities = [
         CourseEntity::class,
         LocaleEntity::class,
-        SectionEntity::class,
-        CourseSectionAssociationEntity::class
+        SectionEntity::class
     ],
     version = 1
 )
