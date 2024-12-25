@@ -13,7 +13,7 @@ class CourseLocalDataSourceImpl(
         return dao.getAllCourses()
     }
 
-    override fun getCourse(courseCode: String): CourseEntity? {
+    override suspend fun getCourse(courseCode: String): CourseEntity? {
         return dao.getCourse(courseCode)
     }
 

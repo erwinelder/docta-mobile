@@ -9,6 +9,6 @@ import kotlinx.coroutines.flow.Flow
 interface LessonDao {
 
     @Query("SELECT * FROM lesson WHERE section_id = :sectionId")
-    fun getSectionLessons(sectionId: Long): Flow<List<LessonEntity>>
+    suspend fun getSectionLessons(sectionId: Long): Flow<List<LessonEntity>>
 
 }

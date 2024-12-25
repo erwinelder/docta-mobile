@@ -1,7 +1,7 @@
 package cz.cvut.docta.di
 
 import cz.cvut.docta.lesson.data.local.source.LessonLocalDataSource
-import cz.cvut.docta.lesson.data.local.source.LessonLocalDataSourceImpl
+import cz.cvut.docta.lesson.data.local.source.lessonLocalDataSourceFactory
 import cz.cvut.docta.lesson.data.repository.LessonRepository
 import cz.cvut.docta.lesson.data.repository.LessonRepositoryImpl
 import cz.cvut.docta.lesson.domain.usecase.GetSectionLessonsUseCase
@@ -13,7 +13,7 @@ import org.koin.dsl.module
 val lessonModule = module {
 
     single<LessonLocalDataSource> {
-        LessonLocalDataSourceImpl(dao = get())
+        lessonLocalDataSourceFactory(appLocalDatabase = get())
     }
 
     single<LessonRepository> {
