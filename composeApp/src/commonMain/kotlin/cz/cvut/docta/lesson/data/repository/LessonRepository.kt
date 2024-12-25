@@ -1,9 +1,9 @@
 package cz.cvut.docta.lesson.data.repository
 
-import cz.cvut.docta.lesson.domain.model.Lesson
+import cz.cvut.docta.lesson.data.model.LessonEntity
 
 interface LessonRepository {
 
-    suspend fun getSectionLessons(sectionId: Long): List<Lesson>
+    suspend fun getSectionLessons(sectionId: Long): List<LessonEntity>
 
 }
