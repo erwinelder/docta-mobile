@@ -10,11 +10,7 @@ interface SectionDao {
     @Query("SELECT * FROM section WHERE id = :id")
     suspend fun getSection(id: Long): SectionEntity?
 
-    @Query("""
-        SELECT s.* FROM section s
-        INNER JOIN course_section_association csa ON s.id = csa.sectionId
-        WHERE csa.courseCode = :courseCode
-    """)
+    @Query("SELECT * FROM section WHERE courseCode = :courseCode")
     suspend fun getCourseSections(courseCode: String): List<SectionEntity>
 
 }
