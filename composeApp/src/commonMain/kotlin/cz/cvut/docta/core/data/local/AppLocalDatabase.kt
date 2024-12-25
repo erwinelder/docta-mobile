@@ -8,6 +8,7 @@ import cz.cvut.docta.course.data.local.dao.CourseDao
 import cz.cvut.docta.section.data.local.dao.SectionDao
 import cz.cvut.docta.course.data.model.CourseEntity
 import cz.cvut.docta.lesson.data.local.dao.LessonDao
+import cz.cvut.docta.lesson.data.model.LessonEntity
 import cz.cvut.docta.section.data.model.SectionEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -17,8 +18,9 @@ import kotlinx.coroutines.IO
         CourseEntity::class,
         SectionEntity::class,
         // TODO-LESSON
+        LessonEntity::class
     ],
-    version = 1
+    version = 3
 )
 @ConstructedBy(AppLocalDatabaseConstructor::class)
 abstract class AppLocalDatabase : RoomDatabase() {

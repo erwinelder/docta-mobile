@@ -8,6 +8,7 @@ import cz.cvut.docta.lesson.domain.model.LessonDifficulty
 data class LessonEntity(
     // TODO-LESSON
     @PrimaryKey(autoGenerate = true)
+    val sectionId: Long,
     val id: Long,
     val name: String,
     val isDone: Boolean,
