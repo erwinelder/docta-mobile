@@ -7,4 +7,6 @@ interface CourseRepository {
 
     fun getAllCourses(): Flow<List<CourseEntity>>
 
+    suspend fun getCourse(courseCode: String): CourseEntity?
+
 }

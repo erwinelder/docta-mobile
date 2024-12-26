@@ -24,15 +24,15 @@ import org.jetbrains.compose.resources.StringResource
 
 fun Lesson.getLessonIconRes(): IconResByAppTheme {
     return when (this) {
-        is Lesson.OneStepQuestionsLesson -> IconResByAppTheme(
+        is Lesson.Default -> IconResByAppTheme(
             Res.drawable.one_step_questions_lesson_light_icon,
             Res.drawable.one_step_questions_lesson_dark_icon
         )
-        is Lesson.StepByStepLesson -> IconResByAppTheme(
+        is Lesson.StepByStep -> IconResByAppTheme(
             Res.drawable.step_by_step_lesson_light_icon,
             Res.drawable.step_by_step_lesson_dark_icon
         )
-        is Lesson.TestLesson -> IconResByAppTheme(
+        is Lesson.Test -> IconResByAppTheme(
             Res.drawable.test_lesson_light_icon,
             Res.drawable.test_lesson_dark_icon
         )

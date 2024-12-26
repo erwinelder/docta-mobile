@@ -66,13 +66,13 @@ fun SectionLessonsScreen(
         ) {
             items(items = lessonList) { lesson ->
                 when (lesson) {
-                    is Lesson.OneStepQuestionsLesson -> {
+                    is Lesson.Default -> {
                         OneStepQuestionsLessonComponent(state = lesson) {}
                     }
-                    is Lesson.StepByStepLesson -> {
+                    is Lesson.StepByStep -> {
                         StepByStepLessonComponent(state = lesson) {}
                     }
-                    is Lesson.TestLesson -> {
+                    is Lesson.Test -> {
                         TestLessonComponent(state = lesson) {}
                     }
                 }

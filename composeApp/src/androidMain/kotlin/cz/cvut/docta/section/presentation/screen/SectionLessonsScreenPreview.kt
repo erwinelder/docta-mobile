@@ -6,7 +6,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import cz.cvut.docta.core.presentation.screen.ScreenPreviewContainer
 import cz.cvut.docta.lesson.domain.model.Lesson
 import cz.cvut.docta.lesson.domain.model.LessonDifficulty
-import cz.cvut.docta.lesson.domain.model.LessonFilterType
+import cz.cvut.docta.lesson.domain.model.LessonStatistics
 import cz.cvut.docta.lesson.presentation.screen.SectionLessonsScreen
 
 @Preview(device = Devices.PIXEL_7_PRO)
@@ -16,42 +16,42 @@ fun SectionLessonsScreenPreview() {
     val activeDifficulty = LessonDifficulty.Easy
     val activeType = null
     val lessonList = listOf(
-        Lesson.OneStepQuestionsLesson(
+        Lesson.Default(
             id = 1,
             name = "Practice theory",
-            isDone = true,
+            statistics = LessonStatistics(isDone = true),
             difficulty = LessonDifficulty.Easy
         ),
-        Lesson.OneStepQuestionsLesson(
+        Lesson.Default(
             id = 2,
             name = "Practice limits vol.1",
-            isDone = false,
+            statistics = LessonStatistics(isDone = false),
             difficulty = LessonDifficulty.Medium
         ),
-        Lesson.StepByStepLesson(
+        Lesson.StepByStep(
             id = 3,
             name = "(x→2) lim x² = 4",
-            isDone = true,
+            statistics = LessonStatistics(isDone = true),
             difficulty = LessonDifficulty.Medium,
             description = "Solve the limit by definition"
         ),
-        Lesson.OneStepQuestionsLesson(
+        Lesson.Default(
             id = 4,
             name = "Practice limits vol.2",
-            isDone = false,
+            statistics = LessonStatistics(isDone = false),
             difficulty = LessonDifficulty.Medium
         ),
-        Lesson.StepByStepLesson(
+        Lesson.StepByStep(
             id = 5,
             name = "(x→∞) lim (3x³−2x²−1)",
-            isDone = false,
+            statistics = LessonStatistics(isDone = false),
             difficulty = LessonDifficulty.Medium,
             description = "Solve the limit"
         ),
-        Lesson.TestLesson(
+        Lesson.Test(
             id = 6,
             name = "Review limits",
-            isDone = false
+            statistics = LessonStatistics(isDone = false)
         ),
     )
 

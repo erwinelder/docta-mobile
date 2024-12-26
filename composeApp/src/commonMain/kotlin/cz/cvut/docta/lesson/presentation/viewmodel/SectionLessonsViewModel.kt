@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import cz.cvut.docta.lesson.domain.model.Lesson
 import cz.cvut.docta.lesson.domain.model.LessonDifficulty
 import cz.cvut.docta.lesson.domain.model.LessonFilterType
-import cz.cvut.docta.lesson.domain.usecase.GetSectionLessonsUseCase
+import cz.cvut.docta.lesson.domain.usecase.GetSectionLessonsWithStatisticsUseCase
 import cz.cvut.docta.section.domain.model.SectionLightweight
 import cz.cvut.docta.section.domain.usecase.GetSectionUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 
 class SectionLessonsViewModel(
     private val getSectionUseCase: GetSectionUseCase,
-    private val getSectionLessonsUseCase: GetSectionLessonsUseCase
+    private val getSectionLessonsWithStatisticsUseCase: GetSectionLessonsWithStatisticsUseCase
 ) : ViewModel() {
 
     private val _section = MutableStateFlow<SectionLightweight?>(null)
@@ -57,10 +57,10 @@ class SectionLessonsViewModel(
         lessons
             .filter { lesson ->
                 when (filterType) {
-                    LessonFilterType.OneStepQuestions -> lesson is Lesson.OneStepQuestionsLesson
-                    LessonFilterType.StepByStep -> lesson is Lesson.StepByStepLesson
-                    LessonFilterType.NotDone -> !lesson.isDone
-                    LessonFilterType.Tests -> lesson is Lesson.TestLesson
+                    LessonFilterType.OneStepQuestions -> lesson is Lesson.Default
+                    LessonFilterType.StepByStep -> lesson is Lesson.StepByStep
+                    LessonFilterType.NotDone -> !lesson.statistics.isDone
+                    LessonFilterType.Tests -> lesson is Lesson.Test
                     null -> true
                 }
             }
@@ -69,8 +69,8 @@ class SectionLessonsViewModel(
                     true
                 } else {
                     when (lesson) {
-                        is Lesson.OneStepQuestionsLesson -> lesson.difficulty == difficulty
-                        is Lesson.StepByStepLesson -> lesson.difficulty == difficulty
+                        is Lesson.Default -> lesson.difficulty == difficulty
+                        is Lesson.StepByStep -> lesson.difficulty == difficulty
                         else -> false
                     }
                 }
@@ -85,7 +85,7 @@ class SectionLessonsViewModel(
         val sectionId = section.value?.id ?: return
 
         _sectionLessons.update {
-            getSectionLessonsUseCase.execute(sectionId = sectionId)
+            getSectionLessonsWithStatisticsUseCase.execute(sectionId = sectionId)
         }
     }
 

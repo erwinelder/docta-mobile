@@ -4,12 +4,13 @@ import androidx.room.ConstructedBy
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
-import cz.cvut.docta.core.data.model.CourseSectionAssociationEntity
-import cz.cvut.docta.core.data.model.LocaleEntity
 import cz.cvut.docta.course.data.local.dao.CourseDao
 import cz.cvut.docta.section.data.local.dao.SectionDao
-import cz.cvut.docta.course.data.local.dao.LocaleDao
 import cz.cvut.docta.course.data.model.CourseEntity
+import cz.cvut.docta.lesson.data.local.dao.LessonDao
+import cz.cvut.docta.lesson.data.model.DefaultLessonEntity
+import cz.cvut.docta.lesson.data.model.LessonEntity
+import cz.cvut.docta.lesson.data.model.StepByStepLessonEntity
 import cz.cvut.docta.section.data.model.SectionEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -17,9 +18,10 @@ import kotlinx.coroutines.IO
 @Database(
     entities = [
         CourseEntity::class,
-        LocaleEntity::class,
         SectionEntity::class,
-        CourseSectionAssociationEntity::class
+        LessonEntity::class,
+        DefaultLessonEntity::class,
+        StepByStepLessonEntity::class
     ],
     version = 1
 )
@@ -27,7 +29,7 @@ import kotlinx.coroutines.IO
 abstract class AppLocalDatabase : RoomDatabase() {
     abstract fun courseDao(): CourseDao
     abstract fun sectionDao(): SectionDao
-    abstract fun localeDao(): LocaleDao
+    abstract fun lessonDao(): LessonDao
 }
 
 fun getRoomDatabase(builder: RoomDatabase.Builder<AppLocalDatabase>): AppLocalDatabase {

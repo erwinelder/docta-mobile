@@ -25,14 +25,12 @@ val courseModule = module {
     }
 
     single<GetAllCoursesUseCase> {
-        // TODO
-//        GetAllCoursesUseCaseImpl(courseRepository = get())
-        GetAllCoursesUseCaseTemp()
+        GetAllCoursesUseCaseImpl(courseRepository = get())
+//        GetAllCoursesUseCaseTemp()
     }
     single<GetCourseUseCase> {
-        // TODO
-//        GetCourseUseCaseImpl(courseRepository = get())
-        GetCourseUseCaseTemp()
+        GetCourseUseCaseImpl(courseRepository = get())
+//        GetCourseUseCaseTemp()
     }
 
     viewModel {
