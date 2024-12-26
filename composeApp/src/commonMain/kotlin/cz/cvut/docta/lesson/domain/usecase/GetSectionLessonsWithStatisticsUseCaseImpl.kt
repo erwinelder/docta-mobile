@@ -2,12 +2,12 @@ package cz.cvut.docta.lesson.domain.usecase
 
 import cz.cvut.docta.lesson.data.repository.LessonRepository
 import cz.cvut.docta.lesson.domain.model.Lesson
-import cz.cvut.docta.lesson.mapper.toDomainModels
+import cz.cvut.docta.lesson.mapper.toLessonList
 
-class GetSectionLessonsUseCaseImpl(
+class GetSectionLessonsWithStatisticsUseCaseImpl(
     private val lessonRepository: LessonRepository
-) : GetSectionLessonsUseCase {
+) : GetSectionLessonsWithStatisticsUseCase {
     override suspend fun execute(sectionId: Long): List<Lesson> {
-        return lessonRepository.getSectionLessons(sectionId).toDomainModels()
+        return lessonRepository.getSectionLessonsWithStatistics(sectionId).toLessonList()
     }
 }

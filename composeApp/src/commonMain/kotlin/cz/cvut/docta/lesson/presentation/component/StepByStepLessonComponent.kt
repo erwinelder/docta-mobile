@@ -14,7 +14,7 @@ import cz.cvut.docta.lesson.domain.model.Lesson
 
 @Composable
 fun StepByStepLessonComponent(
-    state: Lesson.StepByStepLesson,
+    state: Lesson.StepByStep,
     onClick: (Lesson) -> Unit
 ) {
     LessonComponent(state = state, onClick = onClick, buttonVerticalPadding = 34.dp) {

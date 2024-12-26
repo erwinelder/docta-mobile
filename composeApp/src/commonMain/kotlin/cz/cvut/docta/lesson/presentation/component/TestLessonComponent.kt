@@ -17,7 +17,7 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun TestLessonComponent(
-    state: Lesson.TestLesson,
+    state: Lesson.Test,
     onClick: (Lesson) -> Unit
 ) {
     LessonComponent(state = state, onClick = onClick) {

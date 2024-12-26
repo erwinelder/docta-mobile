@@ -44,7 +44,7 @@ fun LessonComponent(
             )
             content()
             LessonDoneOrStartComponent(
-                isDone = state.isDone,
+                isDone = state.statistics.isDone,
                 verticalPadding = buttonVerticalPadding
             )
         }

@@ -14,7 +14,7 @@ import cz.cvut.docta.lesson.domain.model.Lesson
 
 @Composable
 fun OneStepQuestionsLessonComponent(
-    state: Lesson.OneStepQuestionsLesson,
+    state: Lesson.Default,
     onClick: (Lesson) -> Unit
 ) {
     LessonComponent(state = state, onClick = onClick) {
