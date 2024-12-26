@@ -1,4 +1,4 @@
-package cz.cvut.docta.section.presentation.screen
+package cz.cvut.docta.lesson.presentation.screen
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Devices
@@ -7,7 +7,6 @@ import cz.cvut.docta.core.presentation.screen.ScreenPreviewContainer
 import cz.cvut.docta.lesson.domain.model.Lesson
 import cz.cvut.docta.lesson.domain.model.LessonDifficulty
 import cz.cvut.docta.lesson.domain.model.LessonStatistics
-import cz.cvut.docta.lesson.presentation.screen.SectionLessonsScreen
 
 @Preview(device = Devices.PIXEL_7_PRO)
 @Composable
