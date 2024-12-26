@@ -50,7 +50,7 @@ fun AnswerTextField(
                 fontWeight = FontWeight.W500,
                 fontFamily = Manrope
             ),
-            modifier = Modifier.height(300.dp)
+            modifier = Modifier.height(280.dp)
             ) {
             TextFieldDefaults.TextFieldDecorationBox(
                 value = text,
@@ -65,22 +65,18 @@ fun AnswerTextField(
                     disabledIndicatorColor = Color.Transparent,
                     errorIndicatorColor = Color.Transparent,
                 ),
-                contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp),
+                contentPadding = PaddingValues(horizontal = 24.dp, vertical = 16.dp),
                 innerTextField = {
-                    Box(
-                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
-                    ) {
-                        if (text.isNotBlank()) {
-                            it()
-                        } else {
-                            Text(
-                                text = "Type your answer here…",
-                                fontSize = 17.sp,
-                                color = DoctaColors.outline,
-                                fontWeight = FontWeight.W500,
-                                fontFamily = Manrope
-                            )
-                        }
+                    if (text.isNotBlank()) {
+                        it()
+                    } else {
+                        Text(
+                            text = "Type your answer here…",
+                            fontSize = 17.sp,
+                            color = DoctaColors.outline,
+                            fontWeight = FontWeight.W500,
+                            fontFamily = Manrope
+                        )
                     }
                 }
             )

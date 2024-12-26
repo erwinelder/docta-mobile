@@ -48,7 +48,7 @@ fun PrimaryButton(
         label = "PrimaryButton container color"
     )
     val modifier = if (WindowTypeIsCompact) {
-        Modifier.fillMaxWidth(.82f)
+        Modifier.fillMaxWidth(.86f)
     } else {
         Modifier.width(400.dp)
     }
@@ -57,7 +57,7 @@ fun PrimaryButton(
         contentAlignment = Alignment.Center,
         modifier = Modifier.bounceClickEffect(.97f, enabled)
     ) {
-        Shadow(enabled, buttonLighterColor)
+        Shadow(enabled, buttonDarkerColor)
         Button(
             onClick = onClick,
             enabled = enabled,
@@ -68,9 +68,9 @@ fun PrimaryButton(
                 disabledContentColor = DoctaColors.onPrimary,
             ),
             elevation = null,
-            contentPadding = PaddingValues(vertical = 16.dp),
+            contentPadding = PaddingValues(vertical = 12.dp),
             modifier = modifier
-                .clip(RoundedCornerShape(25.dp))
+                .clip(RoundedCornerShape(21.dp))
                 .background(
                     brush = Brush.linearGradient(
                         colors = listOf(buttonDarkerColor, buttonLighterColor),
@@ -92,26 +92,22 @@ fun PrimaryButton(
 @Composable
 private fun Shadow(enabled: Boolean, enabledColor: Color) {
     val modifier = if (WindowTypeIsCompact) {
-        Modifier.fillMaxWidth(.62f)
+        Modifier.fillMaxWidth(.66f)
     } else {
         Modifier.width(300.dp)
     }
     val color by animateColorAsState(
-        targetValue = if (enabled) {
-            enabledColor
-        } else {
-            DoctaColors.outline
-        },
+        targetValue = if (enabled) enabledColor else DoctaColors.outline,
         label = "primary button shadow color"
     )
 
     Spacer(
         modifier = modifier
             .offset(y = -(5).dp)
-            .height(20.dp)
+            .height(13.dp)
             .shadow(
                 elevation = 24.dp,
-                shape = RoundedCornerShape(25.dp),
+                shape = RoundedCornerShape(21.dp),
                 spotColor = color,
                 ambientColor = Color.Transparent
             )
