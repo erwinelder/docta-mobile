@@ -3,10 +3,10 @@ package cz.cvut.docta.answer.data.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "answer_pair")
-data class AnswerPairEntity(
+@Entity(tableName = "question_answer_pair")
+data class QuestionAnswerPairEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
-    val firstAnswerId: Long,
-    val secondAnswerId: Long
+    val questionText: String,
+    val answerText: String
 )

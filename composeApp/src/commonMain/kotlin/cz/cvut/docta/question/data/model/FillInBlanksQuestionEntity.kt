@@ -5,7 +5,7 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "answer_pairs_question",
+    tableName = "fill_in_blanks_question",
     foreignKeys = [
         ForeignKey(
             entity = QuestionEntity::class,
@@ -15,10 +15,8 @@ import androidx.room.PrimaryKey
         )
     ]
 )
-data class AnswerPairsQuestionEntity(
-    override val id: Long,
-    override val text: String,
-) : QuestionEntity(id = id, text = text) {
+data class FillInBlanksQuestionEntity(
     @PrimaryKey
-    val questionId: Long = id
-}
+    val questionId: Long,
+    val text: String
+)
