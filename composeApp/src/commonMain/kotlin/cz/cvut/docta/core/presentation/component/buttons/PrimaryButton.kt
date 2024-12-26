@@ -22,6 +22,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,7 +35,7 @@ import cz.cvut.docta.core.presentation.theme.WindowTypeIsCompact
 fun PrimaryButton(
     text: String,
     enabled: Boolean = true,
-    fontSize: TextUnit = 18.sp,
+    fontSize: TextUnit = 17.sp,
     enabledGradientColor: Pair<Color, Color> = DoctaColors.primaryGradientPair,
     onClick: () -> Unit = {}
 ) {
@@ -81,7 +82,8 @@ fun PrimaryButton(
             Text(
                 text = text,
                 fontSize = fontSize,
-                fontFamily = Manrope
+                fontFamily = Manrope,
+                fontWeight = FontWeight.W600
             )
         }
     }
