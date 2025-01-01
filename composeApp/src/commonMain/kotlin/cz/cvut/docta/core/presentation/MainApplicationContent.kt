@@ -11,6 +11,7 @@ import androidx.navigation.toRoute
 import cz.cvut.docta.core.presentation.navigation.MainScreens
 import cz.cvut.docta.course.presentation.screen.CoursesScreen
 import cz.cvut.docta.course.presentation.viewModel.CoursesViewModel
+import cz.cvut.docta.course_edit.presentation.screen.CourseEditingScreen
 import cz.cvut.docta.lesson.domain.model.LessonState
 import cz.cvut.docta.lesson.presentation.screen.LessonResultsScreen
 import cz.cvut.docta.lesson.presentation.screen.LessonScreen
@@ -137,6 +138,14 @@ fun MainApplicationContent() {
                         popUpTo(MainScreens.SectionLessons) { inclusive = false}
                     }
                 }
+            )
+        }
+
+        composable("courseEditing/{courseCode}") { backStackEntry ->
+            val courseCode = backStackEntry.arguments?.getString("courseCode") ?: return@composable
+            CourseEditingScreen(
+                courseCode = courseCode,
+                onNavigateBack = navController::popBackStack
             )
         }
     }
