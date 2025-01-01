@@ -1,10 +1,8 @@
 package cz.cvut.docta.answer.presentation.component.field
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.ExperimentalMaterialApi
@@ -27,7 +25,7 @@ import cz.cvut.docta.core.presentation.theme.Manrope
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun AnswerTextField(
+fun OpenAnswerTextField(
     text: String,
     onValueChange: (String) -> Unit
 ) {
@@ -51,7 +49,7 @@ fun AnswerTextField(
                 fontFamily = Manrope
             ),
             modifier = Modifier.height(280.dp)
-            ) {
+        ) {
             TextFieldDefaults.TextFieldDecorationBox(
                 value = text,
                 singleLine = false,
@@ -71,6 +69,7 @@ fun AnswerTextField(
                         it()
                     } else {
                         Text(
+                            // TODO-STRING-RESOURCE
                             text = "Type your answer here…",
                             fontSize = 17.sp,
                             color = DoctaColors.outline,

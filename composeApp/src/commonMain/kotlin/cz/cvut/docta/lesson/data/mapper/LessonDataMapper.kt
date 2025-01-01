@@ -5,9 +5,7 @@ import cz.cvut.docta.lesson.data.model.LessonDetails
 import cz.cvut.docta.lesson.data.model.StepByStepLessonWithDetails
 
 
-fun List<DefaultLessonWithDetails>.toDefaultLessonDetailsList(): List<LessonDetails.Default> {
-    return map { it.toLessonDetails() }
-}
+fun List<DefaultLessonWithDetails>.toDefaultLessonDetailsList() = map { it.toLessonDetails() }
 
 fun DefaultLessonWithDetails.toLessonDetails(): LessonDetails.Default {
     return LessonDetails.Default(
@@ -16,15 +14,13 @@ fun DefaultLessonWithDetails.toLessonDetails(): LessonDetails.Default {
         orderNum = orderNum,
         name = name,
         difficulty = difficulty,
-        type = type,
+        type = defaultLessonType,
         matchAllTags = matchAllTags
     )
 }
 
 
-fun List<StepByStepLessonWithDetails>.toStepByStepLessonDetailsList(): List<LessonDetails.StepByStep> {
-    return map { it.toLessonDetails() }
-}
+fun List<StepByStepLessonWithDetails>.toStepByStepLessonDetailsList() = map { it.toLessonDetails() }
 
 fun StepByStepLessonWithDetails.toLessonDetails(): LessonDetails.StepByStep {
     return LessonDetails.StepByStep(

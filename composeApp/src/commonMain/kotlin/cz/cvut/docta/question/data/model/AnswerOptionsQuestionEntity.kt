@@ -5,7 +5,7 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "choose_answer_question",
+    tableName = "answer_options_question",
     foreignKeys = [
         ForeignKey(
             entity = QuestionEntity::class,
@@ -15,7 +15,7 @@ import androidx.room.PrimaryKey
         )
     ]
 )
-data class ChooseAnswerQuestionEntity(
+data class AnswerOptionsQuestionEntity(
     @PrimaryKey
     val questionId: Long,
     val text: String,

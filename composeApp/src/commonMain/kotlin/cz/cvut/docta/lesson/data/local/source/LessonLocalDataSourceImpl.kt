@@ -2,8 +2,9 @@ package cz.cvut.docta.lesson.data.local.source
 
 import cz.cvut.docta.core.data.local.AppLocalDatabase
 import cz.cvut.docta.lesson.data.local.dao.LessonDao
-import cz.cvut.docta.lesson.data.mapper.toStepByStepLessonDetailsList
 import cz.cvut.docta.lesson.data.mapper.toDefaultLessonDetailsList
+import cz.cvut.docta.lesson.data.mapper.toLessonDetails
+import cz.cvut.docta.lesson.data.mapper.toStepByStepLessonDetailsList
 import cz.cvut.docta.lesson.data.model.LessonDetails
 import cz.cvut.docta.lesson.data.model.LessonDetailsStatistics
 import cz.cvut.docta.lesson.data.model.LessonDetailsWithStatistics
@@ -12,10 +13,18 @@ class LessonLocalDataSourceImpl(
     private val dao: LessonDao
 ) : LessonLocalDataSource {
 
+    override suspend fun getLessonType(lessonId: Long): String {
+        return dao.getLessonType(lessonId = lessonId)
+    }
+
+    override suspend fun getDefaultLesson(lessonId: Long): LessonDetails.Default? {
+        return dao.getDefaultLesson(lessonId = lessonId)?.toLessonDetails()
+    }
+
     override suspend fun getSectionLessons(sectionId: Long): List<LessonDetails> {
-        val defaultLessons = dao.getDefaultLessons(sectionId = sectionId)
+        val defaultLessons = dao.getSectionDefaultLessons(sectionId = sectionId)
             .toDefaultLessonDetailsList()
-        val stepByStepLessons = dao.getStepByStepLessons(sectionId = sectionId)
+        val stepByStepLessons = dao.getSectionStepByStepLessons(sectionId = sectionId)
             .toStepByStepLessonDetailsList()
 
         return (defaultLessons + stepByStepLessons).sortedBy { it.orderNum }
@@ -26,7 +35,7 @@ class LessonLocalDataSourceImpl(
     ): List<LessonDetailsWithStatistics> {
         // TODO-LESSON: query statistics from database
 
-        val defaultLessons = dao.getDefaultLessons(sectionId = sectionId)
+        val defaultLessons = dao.getSectionDefaultLessons(sectionId = sectionId)
             .toDefaultLessonDetailsList()
             .map { lesson ->
                 LessonDetailsWithStatistics.DefaultLesson(
@@ -40,7 +49,7 @@ class LessonLocalDataSourceImpl(
                     matchAllTags = lesson.matchAllTags
                 )
             }
-        val stepByStepLessons = dao.getStepByStepLessons(sectionId = sectionId)
+        val stepByStepLessons = dao.getSectionStepByStepLessons(sectionId = sectionId)
             .toStepByStepLessonDetailsList()
             .map { lesson ->
                 LessonDetailsWithStatistics.StepByStepLesson(

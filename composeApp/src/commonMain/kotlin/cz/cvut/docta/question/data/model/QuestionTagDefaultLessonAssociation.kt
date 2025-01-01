@@ -10,8 +10,8 @@ import cz.cvut.docta.lesson.data.model.DefaultLessonEntity
     foreignKeys = [
         ForeignKey(
             entity = QuestionTagEntity::class,
-            parentColumns = ["tag"],
-            childColumns = ["tag"],
+            parentColumns = ["courseCode", "tag"],
+            childColumns = ["courseCode", "tag"],
             onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(
@@ -23,6 +23,7 @@ import cz.cvut.docta.lesson.data.model.DefaultLessonEntity
     ]
 )
 data class QuestionTagDefaultLessonAssociation(
+    val courseCode: String,
     val tag: String,
     val lessonId: Long
 )

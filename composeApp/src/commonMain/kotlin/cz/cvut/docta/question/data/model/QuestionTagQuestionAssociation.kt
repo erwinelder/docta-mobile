@@ -5,12 +5,12 @@ import androidx.room.ForeignKey
 
 @Entity(
     tableName = "question_tag_question_association",
-    primaryKeys = ["tag", "questionId"],
+    primaryKeys = ["courseCode", "tag", "questionId"],
     foreignKeys = [
         ForeignKey(
             entity = QuestionTagEntity::class,
-            parentColumns = ["tag"],
-            childColumns = ["tag"],
+            parentColumns = ["courseCode", "tag"],
+            childColumns = ["courseCode", "tag"],
             onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(
@@ -22,6 +22,7 @@ import androidx.room.ForeignKey
     ]
 )
 data class QuestionTagQuestionAssociation(
+    val courseCode: String,
     val tag: String,
     val questionId: Long
 )

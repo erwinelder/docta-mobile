@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 data class QuestionAnswerPairEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
+    val difficulty: String,
     val questionText: String,
     val answerText: String
 )

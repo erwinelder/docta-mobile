@@ -3,13 +3,13 @@ package cz.cvut.docta.answer.data.model
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import cz.cvut.docta.question.data.model.ChooseAnswerQuestionEntity
+import cz.cvut.docta.question.data.model.AnswerOptionsQuestionEntity
 
 @Entity(
     tableName = "answer_option",
     foreignKeys = [
         ForeignKey(
-            entity = ChooseAnswerQuestionEntity::class,
+            entity = AnswerOptionsQuestionEntity::class,
             parentColumns = ["questionId"],
             childColumns = ["questionId"],
             onDelete = ForeignKey.CASCADE

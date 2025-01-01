@@ -10,8 +10,8 @@ import cz.cvut.docta.question.data.model.QuestionAnswerPairsQuestionEntity
     foreignKeys = [
         ForeignKey(
             entity = QuestionAnswerPairTagEntity::class,
-            parentColumns = ["tag"],
-            childColumns = ["tag"],
+            parentColumns = ["courseCode", "tag"],
+            childColumns = ["courseCode", "tag"],
             onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(
@@ -23,6 +23,7 @@ import cz.cvut.docta.question.data.model.QuestionAnswerPairsQuestionEntity
     ]
 )
 data class PairTagQuestionAssociation(
+    val courseCode: String,
     val tag: String,
     val questionId: Long
 )

@@ -9,8 +9,8 @@ import androidx.room.ForeignKey
     foreignKeys = [
         ForeignKey(
             entity = QuestionAnswerPairTagEntity::class,
-            parentColumns = ["tag"],
-            childColumns = ["tag"],
+            parentColumns = ["courseCode", "tag"],
+            childColumns = ["courseCode", "tag"],
             onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(
@@ -22,6 +22,7 @@ import androidx.room.ForeignKey
     ]
 )
 data class PairTagPairAssociation(
+    val courseCode: String,
     val tag: String,
     val pairId: Long
 )
