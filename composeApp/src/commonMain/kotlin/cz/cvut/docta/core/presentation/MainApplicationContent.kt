@@ -11,7 +11,8 @@ import androidx.navigation.toRoute
 import cz.cvut.docta.core.presentation.navigation.MainScreens
 import cz.cvut.docta.course.presentation.screen.CoursesScreen
 import cz.cvut.docta.course.presentation.viewModel.CoursesViewModel
-import cz.cvut.docta.course_edit.presentation.screen.CourseEditingScreen
+import cz.cvut.docta.course_draft.presentation.screen.CourseEditingScreen
+import cz.cvut.docta.course_draft.presentation.viewmodel.CourseDraftViewModel
 import cz.cvut.docta.lesson.domain.model.LessonState
 import cz.cvut.docta.lesson.presentation.screen.LessonResultsScreen
 import cz.cvut.docta.lesson.presentation.screen.LessonScreen
@@ -39,6 +40,9 @@ fun MainApplicationContent() {
                 courseList = courseList,
                 onCourseClick = { course ->
                     navController.navigate(MainScreens.CourseSections(courseCode = course.code))
+                },
+                onNavigateToCourseEditingScreen = {
+                    navController.navigate(MainScreens.CourseEdit(courseCode = it))
                 }
             )
         }
@@ -140,12 +144,27 @@ fun MainApplicationContent() {
                 }
             )
         }
+        composable<MainScreens.CourseEdit> { backStackEntry ->
+            val courseCode = backStackEntry.toRoute<MainScreens.CourseEdit>().courseCode
 
-        composable("courseEditing/{courseCode}") { backStackEntry ->
-            val courseCode = backStackEntry.arguments?.getString("courseCode") ?: return@composable
+            val viewModel = koinViewModel<CourseDraftViewModel>()
+
+            val courseName by viewModel.courseName.collectAsStateWithLifecycle()
+            val courseLocale by viewModel.courseLocale.collectAsStateWithLifecycle()
+
+            LaunchedEffect(courseCode) {
+                viewModel.fetchCourseDraftData(courseCode)
+            }
+
             CourseEditingScreen(
-                courseCode = courseCode,
-                onNavigateBack = navController::popBackStack
+                onNavigateBack = navController::popBackStack,
+                courseName = courseName,
+                onNameChange = viewModel::changeCourseName,
+                courseLocale = courseLocale,
+                onLocaleChange = viewModel::changeCourseLocale,
+                onSaveButtonClick = {
+                    viewModel.saveCourseDraftToDatabase(courseCode = courseCode)
+                }
             )
         }
     }

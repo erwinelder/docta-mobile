@@ -25,7 +25,8 @@ fun CoursesScreenPreview() {
     ScreenPreviewContainer {
         CoursesScreen(
             courseList = courseList,
-            onCourseClick = {}
+            onCourseClick = {},
+            onNavigateToCourseEditingScreen = {}
         )
     }
 }

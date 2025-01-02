@@ -13,10 +13,12 @@ import cz.cvut.docta.answer.data.model.PairTagQuestionAssociation
 import cz.cvut.docta.answer.data.model.QuestionAnswerPairEntity
 import cz.cvut.docta.answer.data.model.QuestionAnswerPairTagEntity
 import cz.cvut.docta.course.data.local.dao.CourseDao
+import cz.cvut.docta.course.data.model.CourseBasicDataUpdateTime
+import cz.cvut.docta.course.data.model.CourseContentUpdateTime
 import cz.cvut.docta.section.data.local.dao.SectionDao
 import cz.cvut.docta.course.data.model.CourseEntity
-import cz.cvut.docta.course_edit.data.local.dao.CourseEditingDao
-import cz.cvut.docta.course_edit.data.model.CourseEditingEntity
+import cz.cvut.docta.course_draft.data.local.dao.CourseDraftDao
+import cz.cvut.docta.course_draft.data.model.CourseDraftEntity
 import cz.cvut.docta.lesson.data.local.dao.LessonDao
 import cz.cvut.docta.lesson.data.model.DefaultLessonEntity
 import cz.cvut.docta.lesson.data.model.LessonEntity
@@ -38,7 +40,9 @@ import kotlinx.coroutines.IO
 @Database(
     entities = [
         CourseEntity::class,
-        CourseEditingEntity::class,
+        CourseDraftEntity::class,
+        CourseBasicDataUpdateTime::class,
+        CourseContentUpdateTime::class,
 
         SectionEntity::class,
 
@@ -64,12 +68,12 @@ import kotlinx.coroutines.IO
         PairTagQuestionAssociation::class,
         PairTagPairAssociation::class,
     ],
-    version = 3
+    version = 1
 )
 @ConstructedBy(AppLocalDatabaseConstructor::class)
 abstract class AppLocalDatabase : RoomDatabase() {
     abstract fun courseDao(): CourseDao
-    abstract fun courseEditingDao(): CourseEditingDao
+    abstract fun courseEditingDao(): CourseDraftDao
     abstract fun sectionDao(): SectionDao
     abstract fun lessonDao(): LessonDao
     abstract fun questionDao(): QuestionDao

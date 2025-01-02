@@ -1,6 +1,7 @@
 package cz.cvut.docta.course.presentation.screen
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -15,7 +16,8 @@ import cz.cvut.docta.course.domain.model.CourseLightweight
 @Composable
 fun CoursesScreen(
     courseList: List<CourseLightweight>,
-    onCourseClick: (CourseLightweight) -> Unit
+    onCourseClick: (CourseLightweight) -> Unit,
+    onNavigateToCourseEditingScreen: (String) -> Unit
 ) {
     val lazyListState = rememberLazyListState()
 
@@ -28,13 +30,22 @@ fun CoursesScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             items(items = courseList) { course ->
-                GlassSurfaceNavigationButton(
-                    text = course.name,
-                    padding = PaddingValues(horizontal = 24.dp, vertical = 16.dp),
-                    onClick = {
-                        onCourseClick(course)
-                    }
-                )
+                Column {
+                    GlassSurfaceNavigationButton(
+                        text = course.name,
+                        padding = PaddingValues(horizontal = 24.dp, vertical = 16.dp),
+                        onClick = {
+                            onCourseClick(course)
+                        }
+                    )
+                    GlassSurfaceNavigationButton(
+                        text = course.name + " edit",
+                        padding = PaddingValues(horizontal = 24.dp, vertical = 16.dp),
+                        onClick = {
+                            onNavigateToCourseEditingScreen(course.code)
+                        }
+                    )
+                }
             }
         }
     }
