@@ -34,6 +34,8 @@ import cz.cvut.docta.question.data.model.QuestionTagEntity
 import cz.cvut.docta.question.data.model.QuestionTagQuestionAssociation
 import cz.cvut.docta.question.data.model.StepByStepLessonQuestionEntity
 import cz.cvut.docta.section.data.model.SectionEntity
+import cz.cvut.docta.section_draft.data.local.dao.SectionDraftDao
+import cz.cvut.docta.section_draft.data.model.SectionDraftEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 
@@ -45,6 +47,7 @@ import kotlinx.coroutines.IO
         CourseContentUpdateTime::class,
 
         SectionEntity::class,
+        SectionDraftEntity::class,
 
         LessonEntity::class,
         DefaultLessonEntity::class,
@@ -75,6 +78,7 @@ abstract class AppLocalDatabase : RoomDatabase() {
     abstract fun courseDao(): CourseDao
     abstract fun courseEditingDao(): CourseDraftDao
     abstract fun sectionDao(): SectionDao
+    abstract fun sectionEditingDao(): SectionDraftDao
     abstract fun lessonDao(): LessonDao
     abstract fun questionDao(): QuestionDao
     abstract fun answerDao(): AnswerDao

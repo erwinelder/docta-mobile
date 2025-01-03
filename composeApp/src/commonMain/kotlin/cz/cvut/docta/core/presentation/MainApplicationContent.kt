@@ -21,6 +21,8 @@ import cz.cvut.docta.lesson.presentation.viewmodel.LessonQuestionsViewModel
 import cz.cvut.docta.lesson.presentation.viewmodel.SectionLessonsViewModel
 import cz.cvut.docta.section.presentation.screen.CourseSectionsScreen
 import cz.cvut.docta.section.presentation.viewmodel.CourseSectionsViewModel
+import cz.cvut.docta.section_draft.presentation.screen.SectionEditingScreen
+import cz.cvut.docta.section_draft.presentation.viewmodel.SectionDraftViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -164,6 +166,26 @@ fun MainApplicationContent() {
                 onLocaleChange = viewModel::changeCourseLocale,
                 onSaveButtonClick = {
                     viewModel.saveCourseDraftToDatabase(courseCode = courseCode)
+                }
+            )
+        }
+        composable<MainScreens.SectionEdit> { backStackEntry ->
+            val sectionId = backStackEntry.toRoute<MainScreens.SectionEdit>().sectionId
+
+            val viewModel = koinViewModel<SectionDraftViewModel>()
+
+            val sectionName by viewModel.sectionName.collectAsStateWithLifecycle()
+
+            LaunchedEffect(sectionId) {
+                viewModel.fetchSectionDraftData(sectionId)
+            }
+
+            SectionEditingScreen(
+                onNavigateBack = navController::popBackStack,
+                sectionName = sectionName,
+                onNameChange = viewModel::changeSectionName,
+                onSaveButtonClick = {
+                    viewModel.saveSectionDraftToDatabase(sectionId = sectionId)
                 }
             )
         }
