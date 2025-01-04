@@ -1,6 +1,8 @@
 package cz.cvut.docta.section_draft.data.local.dao
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Query
+import androidx.room.Upsert
 import cz.cvut.docta.section_draft.data.model.SectionDraftEntity
 
 @Dao
