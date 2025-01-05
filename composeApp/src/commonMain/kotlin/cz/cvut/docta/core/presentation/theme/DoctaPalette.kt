@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.Color
 sealed class DoctaPalette(
     val primary: Color,
     val primaryGradient: List<Color>,
+    val primaryGradientPair: Pair<Color, Color> = Pair(primaryGradient[0], primaryGradient[1]),
     val onPrimary: Color,
     val surface: Color,
     val onSurface: Color,
@@ -15,6 +16,8 @@ sealed class DoctaPalette(
     val glassSurfaceLightAndDarkShadow: Pair<Color, Color>,
     val outline: Color,
     val outlineBackgroundGradient: List<Color>,
+    val disabledGradient: List<Color>,
+    val disabledGradientPair: Pair<Color, Color> = Pair(disabledGradient[0], disabledGradient[1])
 ) {
     data object Light : DoctaPalette(
         primary = Color(152, 164, 211),
@@ -39,6 +42,10 @@ sealed class DoctaPalette(
         outlineBackgroundGradient = listOf(
             Color(196, 196, 196, 102),
             Color(186, 186, 186, 102)
+        ),
+        disabledGradient = listOf(
+            Color(180, 171, 175),
+            Color(107, 102, 104)
         ),
     )
     data object Dark : DoctaPalette(
@@ -65,5 +72,9 @@ sealed class DoctaPalette(
             Color(196, 196, 196, 102),
             Color(186, 186, 186, 102)
         ),
+        disabledGradient = listOf(
+            Color(122, 115, 119),
+            Color(51, 48, 50)
+        )
     )
 }

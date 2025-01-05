@@ -32,6 +32,7 @@ kotlin {
     sourceSets {
 
         commonMain.dependencies {
+            // Core, Compose, and Lifecycle
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
@@ -40,24 +41,24 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
+            // Room & SQLite
+            implementation(libs.room.runtime)
+            implementation(libs.sqlite.bundled)
+            // Firebase
+//            implementation(libs.firebase.auth)
+//            implementation(libs.firebase.firestore)
             // Koin
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.koin.compose.viewmodel.navigation)
-            // Room
-            implementation(libs.room.runtime)
-            // SQLight
-            implementation(libs.sqlite.bundled)
-            // Firebase
-//            implementation(libs.firebase.auth)
-//            implementation(libs.firebase.firestore)
-            // Serialization
+            // Utilities
             implementation(libs.kotlinx.serialization.json)
         }
 
         androidMain.dependencies {
+            // Core, Compose, and Lifecycle
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
             // Koin

@@ -8,6 +8,14 @@ class LessonRepositoryImpl(
     private val localSource: LessonLocalDataSource
 ) : LessonRepository {
 
+    override suspend fun getLessonType(lessonId: Long): String {
+        return localSource.getLessonType(lessonId = lessonId)
+    }
+
+    override suspend fun getDefaultLesson(lessonId: Long): LessonDetails.Default? {
+        return localSource.getDefaultLesson(lessonId = lessonId)
+    }
+
     override suspend fun getSectionLessons(sectionId: Long): List<LessonDetails> {
         return localSource.getSectionLessons(sectionId = sectionId)
     }

@@ -2,6 +2,7 @@ package cz.cvut.docta.question.data.model
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "open_answer_question",
@@ -15,6 +16,7 @@ import androidx.room.ForeignKey
     ]
 )
 data class OpenAnswerQuestionEntity(
-    override val id: Long,
-    override val text: String,
-) : QuestionEntity(id = id, text = text)
+    @PrimaryKey
+    val questionId: Long,
+    val text: String
+)

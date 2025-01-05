@@ -18,6 +18,6 @@ import androidx.room.PrimaryKey
 data class DefaultLessonEntity(
     @PrimaryKey
     val lessonId: Long,
-    val type: String,
+    val defaultLessonType: String,
     val matchAllTags: Boolean
 )
