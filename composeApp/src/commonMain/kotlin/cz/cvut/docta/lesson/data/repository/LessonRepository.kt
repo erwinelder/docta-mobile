@@ -1,16 +1,16 @@
 package cz.cvut.docta.lesson.data.repository
 
-import cz.cvut.docta.lesson.data.model.LessonDetails
-import cz.cvut.docta.lesson.data.model.LessonDetailsWithStatistics
+import cz.cvut.docta.lesson.data.local.model.entity_with_details.LessonDetails
+import cz.cvut.docta.lesson.data.local.model.entity_with_details.LessonDetailsWithStatistics
 
 interface LessonRepository {
 
-    suspend fun getLessonType(lessonId: Long): String
+    suspend fun getLessonType(courseCode: String, lessonId: Long): String
 
-    suspend fun getDefaultLesson(lessonId: Long): LessonDetails.Default?
+    suspend fun getDefaultLesson(courseCode: String, lessonId: Long): LessonDetails.Default?
 
-    suspend fun getSectionLessons(sectionId: Long): List<LessonDetails>
+    suspend fun getSectionLessons(courseCode: String, sectionId: Long): List<LessonDetails>
 
-    suspend fun getSectionLessonsWithStatistics(sectionId: Long): List<LessonDetailsWithStatistics>
+    suspend fun getSectionLessonsWithStatistics(courseCode: String, sectionId: Long): List<LessonDetailsWithStatistics>
 
 }

@@ -2,6 +2,8 @@ package cz.cvut.docta.di
 
 import cz.cvut.docta.answer.data.local.source.AnswerLocalDataSource
 import cz.cvut.docta.answer.data.local.source.answerLocalDataSourceFactory
+import cz.cvut.docta.answer.data.remote.source.AnswerRemoteDataSource
+import cz.cvut.docta.answer.data.remote.source.answerRemoteDataSourceFactory
 import cz.cvut.docta.answer.data.repository.AnswerRepository
 import cz.cvut.docta.answer.data.repository.AnswerRepositoryImpl
 import cz.cvut.docta.answer.domain.usecase.GetAnswerOptionsQuestionWithAnswerUseCase
@@ -16,29 +18,42 @@ import org.koin.dsl.module
 
 val answerModule = module {
 
+    /* ---------- Data Sources ---------- */
+
     single<AnswerLocalDataSource> {
         answerLocalDataSourceFactory(appLocalDatabase = get())
     }
+    single<AnswerRemoteDataSource> {
+        answerRemoteDataSourceFactory(appRemoteDatabase = get())
+    }
+
+    /* ---------- Repositories ---------- */
 
     single<AnswerRepository> {
         AnswerRepositoryImpl(
-            localDataSource = get()
+            localSource = get(),
+            remoteSource = get()
         )
     }
 
+    /* ---------- Use Cases ---------- */
+
     single<GetOpenAnswerQuestionWithAnswersUseCase> {
         GetOpenAnswerQuestionWithAnswersUseCaseImpl(
-            answerRepository = get()
+            answerRepository = get(),
+            courseContext = get()
         )
     }
     single<GetFillInBlanksQuestionWithAnswersUseCase> {
         GetFillInBlanksQuestionWithAnswersUseCaseImpl(
-            answerRepository = get()
+            answerRepository = get(),
+            courseContext = get()
         )
     }
     single<GetAnswerOptionsQuestionWithAnswerUseCase> {
         GetAnswerOptionsQuestionWithAnswerUseCaseImpl(
-            answerRepository = get()
+            answerRepository = get(),
+            courseContext = get()
         )
     }
     single<GetQuestionAnswerPairsQuestionWithAnswersUseCase> {

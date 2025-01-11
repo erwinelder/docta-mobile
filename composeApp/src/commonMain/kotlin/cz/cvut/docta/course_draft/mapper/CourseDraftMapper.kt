@@ -1,6 +1,6 @@
 package cz.cvut.docta.course_draft.mapper
 
-import cz.cvut.docta.course.data.model.CourseEntity
+import cz.cvut.docta.course.data.local.model.CourseEntity
 import cz.cvut.docta.course.domain.model.CourseLocale
 import cz.cvut.docta.course_draft.data.model.CourseDraftEntity
 import cz.cvut.docta.course_draft.domain.model.CourseDraft

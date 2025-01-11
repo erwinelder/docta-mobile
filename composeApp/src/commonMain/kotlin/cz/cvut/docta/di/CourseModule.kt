@@ -1,11 +1,14 @@
 package cz.cvut.docta.di
 
+import cz.cvut.docta.core.domain.app.CourseContext
 import cz.cvut.docta.course.data.local.source.CourseLocalDataSource
 import cz.cvut.docta.course.data.local.source.courseLocalDataSourceFactory
+import cz.cvut.docta.course.data.remote.source.CourseRemoteDataSource
+import cz.cvut.docta.course.data.remote.source.courseRemoteDataSourceFactory
 import cz.cvut.docta.course.data.repository.CourseRepository
 import cz.cvut.docta.course.data.repository.CourseRepositoryImpl
 import cz.cvut.docta.course.domain.usecase.GetAllCoursesUseCase
-import cz.cvut.docta.course.domain.usecase.GetAllCoursesUseCaseTemp
+import cz.cvut.docta.course.domain.usecase.GetAllCoursesUseCaseImpl
 import cz.cvut.docta.course.domain.usecase.GetCourseUseCase
 import cz.cvut.docta.course.domain.usecase.GetCourseUseCaseImpl
 import cz.cvut.docta.course.presentation.viewModel.CoursesViewModel
@@ -23,27 +26,39 @@ import org.koin.dsl.module
 
 val courseModule = module {
 
+    /* ---------- Data Sources ---------- */
+
     single<CourseLocalDataSource> {
         courseLocalDataSourceFactory(appLocalDatabase = get())
     }
+    single<CourseRemoteDataSource> {
+        courseRemoteDataSourceFactory(appRemoteDatabase = get())
+    }
+
     single<CourseDraftLocalDataSource> {
         courseDraftLocalDataSourceFactory(appLocalDatabase = get())
     }
 
+    /* ---------- Repositories ---------- */
+
     single<CourseRepository> {
-        CourseRepositoryImpl(localSource = get())
+        CourseRepositoryImpl(
+            localSource = get(),
+            remoteSource = get()
+        )
     }
+
     single<CourseDraftRepository> {
         CourseDraftRepositoryImpl(localSource = get())
     }
 
+    /* ---------- Use Cases ---------- */
+
     single<GetAllCoursesUseCase> {
-//        GetAllCoursesUseCaseImpl(courseRepository = get())
-        GetAllCoursesUseCaseTemp()
+        GetAllCoursesUseCaseImpl(courseRepository = get())
     }
     single<GetCourseUseCase> {
         GetCourseUseCaseImpl(courseRepository = get())
-//        GetCourseUseCaseTemp()
     }
     single<GetCourseDraftUseCase> {
         GetCourseDraftUseCaseImpl(
@@ -55,6 +70,8 @@ val courseModule = module {
         SaveCourseDraftUseCaseImpl(repository = get())
     }
 
+    /* ---------- View Models ---------- */
+
     viewModel {
         CoursesViewModel(
             getAllCoursesUseCase = get()
@@ -65,6 +82,12 @@ val courseModule = module {
             getCourseDraftUseCase = get(),
             saveCourseDraftUseCase = get()
         )
+    }
+
+    /* ---------- Other ---------- */
+
+    single {
+        CourseContext()
     }
 
 }

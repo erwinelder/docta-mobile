@@ -1,31 +1,72 @@
 package cz.cvut.docta.lesson.data.local.source
 
 import cz.cvut.docta.core.data.local.AppLocalDatabase
+import cz.cvut.docta.core.data.local.dao.LocalUpdateTimeDao
+import cz.cvut.docta.core.data.local.model.EntitiesToSynchronise
+import cz.cvut.docta.core.data.local.model.LocalUpdateTime
+import cz.cvut.docta.core.data.model.TableName
 import cz.cvut.docta.lesson.data.local.dao.LessonDao
-import cz.cvut.docta.lesson.data.mapper.toDefaultLessonDetailsList
-import cz.cvut.docta.lesson.data.mapper.toLessonDetails
-import cz.cvut.docta.lesson.data.mapper.toStepByStepLessonDetailsList
-import cz.cvut.docta.lesson.data.model.LessonDetails
-import cz.cvut.docta.lesson.data.model.LessonDetailsStatistics
-import cz.cvut.docta.lesson.data.model.LessonDetailsWithStatistics
+import cz.cvut.docta.lesson.data.mapper.wrapInSealedClass
+import cz.cvut.docta.lesson.data.mapper.toSealedStepByStepLessonDetails
+import cz.cvut.docta.lesson.data.mapper.toSealedDefaultLessonDetails
+import cz.cvut.docta.lesson.data.mapper.toDefaultLessonEntities
+import cz.cvut.docta.lesson.data.mapper.toLessonEntities
+import cz.cvut.docta.lesson.data.mapper.toStepByStepLessonEntities
+import cz.cvut.docta.lesson.data.local.model.entity_with_details.LessonDetails
+import cz.cvut.docta.lesson.data.local.model.LessonDetailsStatistics
+import cz.cvut.docta.lesson.data.local.model.entity_with_details.LessonDetailsWithStatistics
 
 class LessonLocalDataSourceImpl(
-    private val dao: LessonDao
+    private val lessonDao: LessonDao,
+    private val updateTimeDao: LocalUpdateTimeDao
 ) : LessonLocalDataSource {
 
+    override suspend fun getUpdateTime(courseCode: String): Long? {
+        return updateTimeDao.getUpdateTime(
+            tableName = TableName.Lesson.name, courseCode = courseCode
+        )
+    }
+
+    override suspend fun saveUpdateTime(courseCode: String, timestamp: Long) {
+        val updateTime = LocalUpdateTime(
+            tableName = TableName.Lesson.name, courseCode = courseCode, updateTime = timestamp
+        )
+        updateTimeDao.saveUpdateTime(updateTime = updateTime)
+    }
+
+    override suspend fun synchroniseLessons(
+        lessonsToSync: EntitiesToSynchronise<LessonDetails>,
+        courseCode: String,
+        timestamp: Long
+    ) {
+        val lessonsToDelete = lessonsToSync.toDelete.toLessonEntities()
+        val lessonsToUpsert = lessonsToSync.toUpsert.toLessonEntities()
+
+        val defaultLessonsToUpsert = lessonsToSync.toUpsert.toDefaultLessonEntities()
+        val stepByStepLessonsToUpsert = lessonsToSync.toUpsert.toStepByStepLessonEntities()
+
+        lessonDao.deleteAndUpsertLessonsAndInheritedLessons(
+            lessonsToDelete = lessonsToDelete,
+            lessonsToUpsert = lessonsToUpsert,
+            defaultLessonsToUpsert = defaultLessonsToUpsert,
+            stepByStepLessonsToUpsert = stepByStepLessonsToUpsert
+        )
+        saveUpdateTime(courseCode = courseCode, timestamp = timestamp)
+    }
+
     override suspend fun getLessonType(lessonId: Long): String {
-        return dao.getLessonType(lessonId = lessonId)
+        return lessonDao.getLessonType(lessonId = lessonId)
     }
 
     override suspend fun getDefaultLesson(lessonId: Long): LessonDetails.Default? {
-        return dao.getDefaultLesson(lessonId = lessonId)?.toLessonDetails()
+        return lessonDao.getDefaultLesson(lessonId = lessonId)?.wrapInSealedClass()
     }
 
     override suspend fun getSectionLessons(sectionId: Long): List<LessonDetails> {
-        val defaultLessons = dao.getSectionDefaultLessons(sectionId = sectionId)
-            .toDefaultLessonDetailsList()
-        val stepByStepLessons = dao.getSectionStepByStepLessons(sectionId = sectionId)
-            .toStepByStepLessonDetailsList()
+        val defaultLessons = lessonDao.getSectionDefaultLessons(sectionId = sectionId)
+            .toSealedDefaultLessonDetails()
+        val stepByStepLessons = lessonDao.getSectionStepByStepLessons(sectionId = sectionId)
+            .toSealedStepByStepLessonDetails()
 
         return (defaultLessons + stepByStepLessons).sortedBy { it.orderNum }
     }
@@ -35,9 +76,10 @@ class LessonLocalDataSourceImpl(
     ): List<LessonDetailsWithStatistics> {
         // TODO-LESSON: query statistics from database
 
-        val defaultLessons = dao.getSectionDefaultLessons(sectionId = sectionId)
-            .toDefaultLessonDetailsList()
+        val defaultLessons = lessonDao.getSectionDefaultLessons(sectionId = sectionId)
+            .toSealedDefaultLessonDetails()
             .map { lesson ->
+                // temporary primitive mapper, since statistics are not yet implemented
                 LessonDetailsWithStatistics.DefaultLesson(
                     sectionId = lesson.sectionId,
                     id = lesson.id,
@@ -49,9 +91,10 @@ class LessonLocalDataSourceImpl(
                     matchAllTags = lesson.matchAllTags
                 )
             }
-        val stepByStepLessons = dao.getSectionStepByStepLessons(sectionId = sectionId)
-            .toStepByStepLessonDetailsList()
+        val stepByStepLessons = lessonDao.getSectionStepByStepLessons(sectionId = sectionId)
+            .toSealedStepByStepLessonDetails()
             .map { lesson ->
+                // temporary primitive mapper, since statistics are not yet implemented
                 LessonDetailsWithStatistics.StepByStepLesson(
                     sectionId = lesson.sectionId,
                     id = lesson.id,
@@ -68,8 +111,9 @@ class LessonLocalDataSourceImpl(
 
 }
 
-fun lessonLocalDataSourceFactory(
-    appLocalDatabase: AppLocalDatabase
-): LessonLocalDataSourceImpl {
-    return LessonLocalDataSourceImpl(dao = appLocalDatabase.lessonDao())
+fun lessonLocalDataSourceFactory(appLocalDatabase: AppLocalDatabase): LessonLocalDataSourceImpl {
+    return LessonLocalDataSourceImpl(
+        lessonDao = appLocalDatabase.lessonDao(),
+        updateTimeDao = appLocalDatabase.localUpdateTimeDao()
+    )
 }

@@ -1,48 +1,48 @@
 package cz.cvut.docta.lesson.mapper
 
-import cz.cvut.docta.lesson.data.model.LessonDetails
-import cz.cvut.docta.lesson.data.model.LessonDetailsStatistics
-import cz.cvut.docta.lesson.data.model.LessonDetailsWithStatistics
+import cz.cvut.docta.core.utils.enumValueOrNull
+import cz.cvut.docta.lesson.data.local.model.DefaultLessonType
+import cz.cvut.docta.lesson.data.local.model.entity_with_details.LessonDetails
+import cz.cvut.docta.lesson.data.local.model.LessonDetailsStatistics
+import cz.cvut.docta.lesson.data.local.model.entity_with_details.LessonDetailsWithStatistics
 import cz.cvut.docta.lesson.domain.model.Lesson
 import cz.cvut.docta.lesson.domain.model.LessonDifficulty
 import cz.cvut.docta.lesson.domain.model.LessonDraft
 import cz.cvut.docta.lesson.domain.model.LessonStatistics
-import cz.cvut.docta.lesson.domain.model.LessonType
 
 
-fun LessonDetailsStatistics.toLessonStatistics(): LessonStatistics {
+fun LessonDetailsStatistics.toDomainLessonStatistics(): LessonStatistics {
     return LessonStatistics(
         isDone = isDone
     )
 }
 
 
-fun List<LessonDetailsWithStatistics>.toLessonList(): List<Lesson> {
-    return mapNotNull { it.toLesson() }
+fun List<LessonDetailsWithStatistics>.toDomainLessons(): List<Lesson> {
+    return mapNotNull { it.toDomainLesson() }
 }
 
-fun LessonDetailsWithStatistics.toLesson(): Lesson? {
-    val difficulty = LessonDifficulty.entries.find { it.name == difficulty } ?: return null
+fun LessonDetailsWithStatistics.toDomainLesson(): Lesson? {
+    val difficulty = enumValueOrNull<LessonDifficulty>(difficulty) ?: return null
 
     return when (this) {
         is LessonDetailsWithStatistics.DefaultLesson -> when (this.type) {
-            LessonType.Default.name -> Lesson.Default(
+            DefaultLessonType.Default -> Lesson.Default(
                 id = id,
                 name = name,
-                statistics = statistics.toLessonStatistics(),
+                statistics = statistics.toDomainLessonStatistics(),
                 difficulty = difficulty
             )
-            LessonType.Test.name -> Lesson.Test(
+            DefaultLessonType.Test -> Lesson.Test(
                 id = id,
                 name = name,
-                statistics = statistics.toLessonStatistics()
+                statistics = statistics.toDomainLessonStatistics()
             )
-            else -> null
         }
         is LessonDetailsWithStatistics.StepByStepLesson -> Lesson.StepByStep(
             id = id,
             name = name,
-            statistics = statistics.toLessonStatistics(),
+            statistics = statistics.toDomainLessonStatistics(),
             difficulty = difficulty,
             description = description
         )
@@ -55,20 +55,19 @@ fun List<LessonDetails>.toLessonDraftList(): List<LessonDraft> {
 }
 
 fun LessonDetails.toLessonDraft(): LessonDraft? {
-    val difficulty = LessonDifficulty.entries.find { it.name == difficulty } ?: return null
+    val difficulty = enumValueOrNull<LessonDifficulty>(difficulty) ?: return null
 
     return when (this) {
         is LessonDetails.Default -> when (this.type) {
-            LessonType.Default.name -> LessonDraft.Default(
+            DefaultLessonType.Default -> LessonDraft.Default(
                 id = id,
                 name = name,
                 difficulty = difficulty
             )
-            LessonType.Test.name -> LessonDraft.Test(
+            DefaultLessonType.Test -> LessonDraft.Test(
                 id = id,
                 name = name
             )
-            else -> null
         }
         is LessonDetails.StepByStep -> LessonDraft.StepByStep(
             id = id,

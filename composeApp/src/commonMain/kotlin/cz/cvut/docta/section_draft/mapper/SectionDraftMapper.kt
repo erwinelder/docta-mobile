@@ -1,6 +1,6 @@
 package cz.cvut.docta.section_draft.mapper
 
-import cz.cvut.docta.section.data.model.SectionEntity
+import cz.cvut.docta.section.data.local.model.SectionEntity
 import cz.cvut.docta.section_draft.data.model.SectionDraftEntity
 import cz.cvut.docta.section_draft.domain.model.SectionDraft
 

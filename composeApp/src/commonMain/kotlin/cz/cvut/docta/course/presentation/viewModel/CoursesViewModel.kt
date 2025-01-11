@@ -20,8 +20,8 @@ class CoursesViewModel(
 
     private fun fetchAllCourses() {
         viewModelScope.launch {
-            getAllCoursesUseCase.execute().collect { courseList ->
-                _courseList.update { courseList }
+            _courseList.update {
+                getAllCoursesUseCase.execute()
             }
         }
     }

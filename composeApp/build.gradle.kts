@@ -44,6 +44,9 @@ kotlin {
             // Room & SQLite
             implementation(libs.room.runtime)
             implementation(libs.sqlite.bundled)
+            // DataStore
+            implementation(libs.androidx.datastore)
+            implementation(libs.androidx.datastore.preferences)
             // Firebase
 //            implementation(libs.firebase.auth)
 //            implementation(libs.firebase.firestore)

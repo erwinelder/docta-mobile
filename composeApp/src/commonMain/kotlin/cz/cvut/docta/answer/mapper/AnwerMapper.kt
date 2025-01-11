@@ -1,9 +1,9 @@
 package cz.cvut.docta.answer.mapper
 
-import cz.cvut.docta.answer.data.model.BlankAnswerEntity
-import cz.cvut.docta.answer.data.model.CorrectOpenAnswerEntity
+import cz.cvut.docta.answer.data.local.model.BlankAnswerEntity
+import cz.cvut.docta.answer.data.local.model.CorrectOpenAnswerEntity
 import cz.cvut.docta.answer.domain.model.CorrectAnswer
-import cz.cvut.docta.question.data.model.QuestionDetails
+import cz.cvut.docta.question.data.local.model.entity_with_details.QuestionDetails
 
 
 fun List<CorrectOpenAnswerEntity>.toDomainOpenAnswers(questionId: Long): CorrectAnswer.OpenAnswers {
