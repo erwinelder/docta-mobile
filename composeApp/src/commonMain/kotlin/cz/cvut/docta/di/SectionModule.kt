@@ -2,6 +2,8 @@ package cz.cvut.docta.di
 
 import cz.cvut.docta.section.data.local.source.SectionLocalDataSource
 import cz.cvut.docta.section.data.local.source.sectionLocalDataSourceFactory
+import cz.cvut.docta.section.data.remote.source.SectionRemoteDataSource
+import cz.cvut.docta.section.data.remote.source.sectionRemoteDataSourceFactory
 import cz.cvut.docta.section.data.repository.SectionRepository
 import cz.cvut.docta.section.data.repository.SectionRepositoryImpl
 import cz.cvut.docta.section.domain.usecase.GetCourseSectionsUseCase
@@ -23,36 +25,56 @@ import org.koin.dsl.module
 
 val sectionModule = module {
 
+    /* ---------- Data Sources ---------- */
+
     single<SectionLocalDataSource> {
         sectionLocalDataSourceFactory(appLocalDatabase = get())
     }
+    single<SectionRemoteDataSource> {
+        sectionRemoteDataSourceFactory(appRemoteDatabase = get())
+    }
+
     single<SectionDraftLocalDataSource> {
         sectionDraftLocalDataSourceFactory(appLocalDatabase = get())
     }
 
+    /* ---------- Repositories ---------- */
+
     single<SectionRepository> {
-        SectionRepositoryImpl(localSource = get())
+        SectionRepositoryImpl(
+            localSource = get(),
+            remoteSource = get()
+        )
     }
+
     single<SectionDraftRepository> {
         SectionDraftRepositoryImpl(localSource = get())
     }
+
+    /* ---------- Use Cases ---------- */
 
     single<GetCourseSectionsUseCase> {
         GetCourseSectionsUseCaseImpl(sectionRepository = get())
     }
     single<GetSectionUseCase> {
-        GetSectionUseCaseImpl(sectionRepository = get())
+        GetSectionUseCaseImpl(
+            sectionRepository = get(),
+            courseContext = get()
+        )
     }
 
     single<GetSectionDraftUseCase> {
         GetSectionDraftUseCaseImpl(
             sectionRepository = get(),
-            sectionDraftRepository = get()
+            sectionDraftRepository = get(),
+            courseContext = get()
         )
     }
     single<SaveSectionDraftUseCase> {
         SaveSectionDraftUseCaseImpl(repository = get())
     }
+
+    /* ---------- View Models ---------- */
 
     viewModel {
         CourseSectionsViewModel(

@@ -18,9 +18,7 @@ class SectionDraftLocalDataSourceImpl(
 
 }
 
-fun sectionDraftLocalDataSourceFactory(
-    appLocalDatabase: AppLocalDatabase
-): SectionDraftLocalDataSource {
+fun sectionDraftLocalDataSourceFactory(appLocalDatabase: AppLocalDatabase): SectionDraftLocalDataSource {
     return SectionDraftLocalDataSourceImpl(
         dao = appLocalDatabase.sectionEditingDao()
     )

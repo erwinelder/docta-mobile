@@ -1,10 +1,12 @@
 package cz.cvut.docta.di
 
-import cz.cvut.docta.lesson.domain.usecase.GetLessonQuestionsQueryOptionsUseCase
-import cz.cvut.docta.lesson.domain.usecase.GetLessonQuestionsQueryOptionsUseCaseImpl
+import cz.cvut.docta.lesson.domain.usecase.GetQuestionsQueryOptionsUseCase
+import cz.cvut.docta.lesson.domain.usecase.GetQuestionsQueryOptionsUseCaseImpl
 import cz.cvut.docta.lesson.presentation.viewmodel.LessonQuestionsViewModel
 import cz.cvut.docta.question.data.local.source.QuestionLocalDataSource
 import cz.cvut.docta.question.data.local.source.questionLocalDataSourceFactory
+import cz.cvut.docta.question.data.remote.source.QuestionRemoteDataSource
+import cz.cvut.docta.question.data.remote.source.questionRemoteDataSourceFactory
 import cz.cvut.docta.question.data.repository.QuestionRepository
 import cz.cvut.docta.question.data.repository.QuestionRepositoryImpl
 import cz.cvut.docta.question.domain.usecase.GetDefaultLessonQuestionsWithAnswersUseCase
@@ -18,20 +20,30 @@ import org.koin.dsl.module
 
 val questionModule = module {
 
+    /* ---------- Data Sources ---------- */
+
     single<QuestionLocalDataSource> {
         questionLocalDataSourceFactory(appLocalDatabase = get())
     }
+    single<QuestionRemoteDataSource> {
+        questionRemoteDataSourceFactory(appRemoteDatabase = get())
+    }
+
+    /* ---------- Repositories ---------- */
 
     single<QuestionRepository> {
         QuestionRepositoryImpl(
-            questionLocalDataSource = get()
+            localSource = get(),
+            remoteSource = get()
         )
     }
 
-    single<GetLessonQuestionsQueryOptionsUseCase> {
-        GetLessonQuestionsQueryOptionsUseCaseImpl(
-            sectionRepository = get(),
-            lessonRepository = get()
+    /* ---------- Use Cases ---------- */
+
+    single<GetQuestionsQueryOptionsUseCase> {
+        GetQuestionsQueryOptionsUseCaseImpl(
+            lessonRepository = get(),
+            courseContext = get()
         )
     }
     single<GetDefaultLessonQuestionsWithAnswersUseCase> {
@@ -50,11 +62,13 @@ val questionModule = module {
     }
     single<GetLessonQuestionsWithAnswersUseCase> {
         GetLessonQuestionsWithAnswersUseCaseImpl(
-            getLessonQuestionsQueryOptionsUseCase = get(),
+            getQuestionsQueryOptionsUseCase = get(),
             getDefaultLessonQuestionsWithAnswersUseCase = get(),
             getStepByStepLessonQuestionsWithAnswersUseCase = get()
         )
     }
+
+    /* ---------- View Models ---------- */
 
     viewModel {
         LessonQuestionsViewModel(

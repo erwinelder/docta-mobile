@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import cz.cvut.docta.core.domain.app.CourseContext
 import cz.cvut.docta.core.presentation.navigation.MainScreens
 import cz.cvut.docta.course.presentation.screen.CoursesScreen
 import cz.cvut.docta.course.presentation.viewModel.CoursesViewModel
@@ -23,6 +24,7 @@ import cz.cvut.docta.section.presentation.screen.CourseSectionsScreen
 import cz.cvut.docta.section.presentation.viewmodel.CourseSectionsViewModel
 import cz.cvut.docta.section_draft.presentation.screen.SectionEditingScreen
 import cz.cvut.docta.section_draft.presentation.viewmodel.SectionDraftViewModel
+import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -35,12 +37,18 @@ fun MainApplicationContent() {
     ) {
         composable<MainScreens.Courses> {
             val viewModel = koinViewModel<CoursesViewModel>()
+            val courseContext = koinInject<CourseContext>()
+
+            LaunchedEffect(true) {
+                courseContext.resetCourseCode()
+            }
 
             val courseList by viewModel.courseList.collectAsStateWithLifecycle()
 
             CoursesScreen(
                 courseList = courseList,
                 onCourseClick = { course ->
+                    courseContext.setCourseCode(course.code)
                     navController.navigate(MainScreens.CourseSections(courseCode = course.code))
                 },
                 onNavigateToCourseEditingScreen = {

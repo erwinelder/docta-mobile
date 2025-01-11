@@ -1,6 +1,6 @@
 package cz.cvut.docta.course.mapper
 
-import cz.cvut.docta.course.data.model.CourseEntity
+import cz.cvut.docta.course.data.local.model.CourseEntity
 import cz.cvut.docta.course.domain.model.CourseLightweight
 
 

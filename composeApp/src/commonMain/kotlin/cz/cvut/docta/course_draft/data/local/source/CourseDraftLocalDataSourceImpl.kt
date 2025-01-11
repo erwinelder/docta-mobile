@@ -18,9 +18,7 @@ class CourseDraftLocalDataSourceImpl(
 
 }
 
-fun courseDraftLocalDataSourceFactory(
-    appLocalDatabase: AppLocalDatabase
-): CourseDraftLocalDataSource {
+fun courseDraftLocalDataSourceFactory(appLocalDatabase: AppLocalDatabase): CourseDraftLocalDataSource {
     return CourseDraftLocalDataSourceImpl(
         dao = appLocalDatabase.courseEditingDao()
     )

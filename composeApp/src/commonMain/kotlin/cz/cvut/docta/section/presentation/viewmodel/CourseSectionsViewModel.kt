@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import cz.cvut.docta.course.domain.model.CourseLightweight
 import cz.cvut.docta.course.domain.usecase.GetCourseUseCase
 import cz.cvut.docta.section.domain.model.Section
-import cz.cvut.docta.section.domain.model.SectionStatistics
 import cz.cvut.docta.section.domain.usecase.GetCourseSectionsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

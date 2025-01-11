@@ -1,12 +1,12 @@
 package cz.cvut.docta.question.domain.usecase
 
-import cz.cvut.docta.answer.data.model.QuestionAnswerPairsQueryOptions
+import cz.cvut.docta.answer.data.local.model.QuestionAnswerPairsQueryOptions
 import cz.cvut.docta.answer.domain.usecase.GetAnswerOptionsQuestionWithAnswerUseCase
 import cz.cvut.docta.answer.domain.usecase.GetFillInBlanksQuestionWithAnswersUseCase
 import cz.cvut.docta.answer.domain.usecase.GetOpenAnswerQuestionWithAnswersUseCase
 import cz.cvut.docta.answer.domain.usecase.GetQuestionAnswerPairsQuestionWithAnswersUseCase
-import cz.cvut.docta.question.data.model.LessonQuestionsQueryOptions
-import cz.cvut.docta.question.data.model.QuestionDetails
+import cz.cvut.docta.question.data.local.model.LessonQuestionsQueryOptions
+import cz.cvut.docta.question.data.local.model.entity_with_details.QuestionDetails
 import cz.cvut.docta.question.data.repository.QuestionRepository
 import cz.cvut.docta.question.domain.model.QuestionWithAnswers
 

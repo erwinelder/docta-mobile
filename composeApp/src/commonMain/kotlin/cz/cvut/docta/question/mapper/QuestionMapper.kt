@@ -1,11 +1,11 @@
 package cz.cvut.docta.question.mapper
 
-import cz.cvut.docta.answer.data.model.AnswerOptionEntity
-import cz.cvut.docta.answer.data.model.QuestionAnswerPairEntity
+import cz.cvut.docta.answer.data.local.model.AnswerOptionEntity
+import cz.cvut.docta.answer.data.local.model.QuestionAnswerPairEntity
 import cz.cvut.docta.answer.domain.model.AnswerText
 import cz.cvut.docta.answer.domain.model.CorrectAnswer
-import cz.cvut.docta.question.data.model.QuestionDetails
-import cz.cvut.docta.question.data.model.StepByStepLessonQuestionEntity
+import cz.cvut.docta.question.data.local.model.entity_with_details.QuestionDetails
+import cz.cvut.docta.question.data.local.model.entity.StepByStepLessonQuestionEntity
 import cz.cvut.docta.question.domain.model.Question
 import cz.cvut.docta.question.domain.model.QuestionDifficulty
 

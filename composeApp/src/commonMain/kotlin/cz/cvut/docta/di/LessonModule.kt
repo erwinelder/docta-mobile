@@ -2,6 +2,8 @@ package cz.cvut.docta.di
 
 import cz.cvut.docta.lesson.data.local.source.LessonLocalDataSource
 import cz.cvut.docta.lesson.data.local.source.lessonLocalDataSourceFactory
+import cz.cvut.docta.lesson.data.remote.source.LessonRemoteDataSource
+import cz.cvut.docta.lesson.data.remote.source.lessonRemoteDataSourceFactory
 import cz.cvut.docta.lesson.data.repository.LessonRepository
 import cz.cvut.docta.lesson.data.repository.LessonRepositoryImpl
 import cz.cvut.docta.lesson.domain.usecase.GetSectionLessonsDraftsUseCase
@@ -14,21 +16,41 @@ import org.koin.dsl.module
 
 val lessonModule = module {
 
+    /* ---------- Data Sources ---------- */
+
     single<LessonLocalDataSource> {
         lessonLocalDataSourceFactory(appLocalDatabase = get())
     }
+    single<LessonRemoteDataSource> {
+        lessonRemoteDataSourceFactory(appRemoteDatabase = get())
+    }
+
+    /* ---------- Repositories ---------- */
 
     single<LessonRepository> {
-        LessonRepositoryImpl(localSource = get())
+        LessonRepositoryImpl(
+            localSource = get(),
+            remoteSource = get()
+        )
+    }
+
+    /* ---------- Use Cases ---------- */
+
+    single<GetSectionLessonsDraftsUseCase> {
+        GetSectionLessonsDraftsUseCaseImpl(
+            lessonRepository = get(),
+            courseContext = get()
+        )
     }
 
     single<GetSectionLessonsWithStatisticsUseCase> {
-        GetSectionLessonsWithStatisticsUseCaseImpl(lessonRepository = get())
+        GetSectionLessonsWithStatisticsUseCaseImpl(
+            lessonRepository = get(),
+            courseContext = get()
+        )
     }
 
-    single<GetSectionLessonsDraftsUseCase> {
-        GetSectionLessonsDraftsUseCaseImpl(lessonRepository = get())
-    }
+    /* ---------- View Models ---------- */
 
     viewModel {
         SectionLessonsViewModel(
