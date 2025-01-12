@@ -1,6 +1,6 @@
 package cz.cvut.docta.di
 
-import cz.cvut.docta.core.domain.course.CourseContext
+import cz.cvut.docta.core.domain.app.CourseContext
 import cz.cvut.docta.course.data.local.source.CourseLocalDataSource
 import cz.cvut.docta.course.data.local.source.courseLocalDataSourceFactory
 import cz.cvut.docta.course.data.remote.source.CourseRemoteDataSource

@@ -1,6 +1,6 @@
 package cz.cvut.docta.lesson.domain.usecase
 
-import cz.cvut.docta.core.domain.course.CourseContext
+import cz.cvut.docta.core.domain.app.CourseContext
 import cz.cvut.docta.lesson.data.repository.LessonRepository
 import cz.cvut.docta.lesson.domain.model.LessonDraft
 import cz.cvut.docta.lesson.mapper.toLessonDraftList
