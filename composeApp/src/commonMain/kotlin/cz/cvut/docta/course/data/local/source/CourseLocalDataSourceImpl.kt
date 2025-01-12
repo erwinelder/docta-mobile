@@ -3,7 +3,6 @@ package cz.cvut.docta.course.data.local.source
 import cz.cvut.docta.core.data.local.AppLocalDatabase
 import cz.cvut.docta.core.data.local.dao.LocalUpdateTimeDao
 import cz.cvut.docta.core.data.local.model.EntitiesToSynchronise
-import cz.cvut.docta.core.data.local.model.LocalUpdateTime
 import cz.cvut.docta.core.data.model.TableName
 import cz.cvut.docta.course.data.local.dao.CourseDao
 import cz.cvut.docta.course.data.local.model.CourseEntity
@@ -18,10 +17,7 @@ class CourseLocalDataSourceImpl(
     }
 
     override suspend fun saveUpdateTime(timestamp: Long) {
-        val updateTime = LocalUpdateTime(
-            tableName = TableName.Course.name, courseCode = "", updateTime = timestamp
-        )
-        updateTimeDao.saveUpdateTime(updateTime = updateTime)
+        updateTimeDao.saveUpdateTime(tableName = TableName.Course.name, updateTime = timestamp)
     }
 
     override suspend fun synchroniseCourses(

@@ -4,20 +4,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import cz.cvut.docta.core.presentation.screen.ScreenPreviewContainer
-import cz.cvut.docta.course.domain.model.CourseLightweight
+import cz.cvut.docta.course.domain.model.Course
+import cz.cvut.docta.course.domain.model.CourseLocale
 
 @Preview(device = Devices.PIXEL_7_PRO)
 @Composable
 fun CoursesScreenPreview() {
     val courseList = listOf(
-        CourseLightweight(
+        Course(
             code = "course_code_1",
-            locale = "cs",
+            locale = CourseLocale.Czech,
             name = "Course name 1"
         ),
-        CourseLightweight(
+        Course(
             code = "course_code_2",
-            locale = "en",
+            locale = CourseLocale.English,
             name = "Course name 2"
         ),
     )
@@ -25,8 +26,7 @@ fun CoursesScreenPreview() {
     ScreenPreviewContainer {
         CoursesScreen(
             courseList = courseList,
-            onCourseClick = {},
-            onNavigateToCourseEditingScreen = {}
+            onCourseClick = {}
         )
     }
 }

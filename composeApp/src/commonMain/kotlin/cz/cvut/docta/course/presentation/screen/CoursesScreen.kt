@@ -11,13 +11,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.core.presentation.component.buttons.GlassSurfaceNavigationButton
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainer
-import cz.cvut.docta.course.domain.model.CourseLightweight
+import cz.cvut.docta.course.domain.model.Course
 
 @Composable
 fun CoursesScreen(
-    courseList: List<CourseLightweight>,
-    onCourseClick: (CourseLightweight) -> Unit,
-    onNavigateToCourseEditingScreen: (String) -> Unit
+    courseList: List<Course>,
+    onCourseClick: (Course) -> Unit
 ) {
     val lazyListState = rememberLazyListState()
 
@@ -36,13 +35,6 @@ fun CoursesScreen(
                         padding = PaddingValues(horizontal = 24.dp, vertical = 16.dp),
                         onClick = {
                             onCourseClick(course)
-                        }
-                    )
-                    GlassSurfaceNavigationButton(
-                        text = course.name + " edit",
-                        padding = PaddingValues(horizontal = 24.dp, vertical = 16.dp),
-                        onClick = {
-                            onNavigateToCourseEditingScreen(course.code)
                         }
                     )
                 }

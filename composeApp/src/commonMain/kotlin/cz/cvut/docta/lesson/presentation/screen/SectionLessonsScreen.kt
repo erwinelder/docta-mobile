@@ -32,7 +32,8 @@ fun SectionLessonsScreen(
     onTypeSelect: (LessonFilterType?) -> Unit,
     activeDifficulty: LessonDifficulty?,
     onDifficultyChange: (LessonDifficulty?) -> Unit,
-    lessonList: List<Lesson>
+    lessonList: List<Lesson>,
+    onLessonClick: (Lesson) -> Unit
 ) {
     val lazyListState = rememberLazyListState()
 
@@ -67,13 +68,22 @@ fun SectionLessonsScreen(
             items(items = lessonList) { lesson ->
                 when (lesson) {
                     is Lesson.Default -> {
-                        OneStepQuestionsLessonComponent(state = lesson) {}
+                        OneStepQuestionsLessonComponent(
+                            state = lesson,
+                            onClick = onLessonClick
+                        )
                     }
                     is Lesson.StepByStep -> {
-                        StepByStepLessonComponent(state = lesson) {}
+                        StepByStepLessonComponent(
+                            state = lesson,
+                            onClick = onLessonClick
+                        )
                     }
                     is Lesson.Test -> {
-                        TestLessonComponent(state = lesson) {}
+                        TestLessonComponent(
+                            state = lesson,
+                            onClick = onLessonClick
+                        )
                     }
                 }
             }

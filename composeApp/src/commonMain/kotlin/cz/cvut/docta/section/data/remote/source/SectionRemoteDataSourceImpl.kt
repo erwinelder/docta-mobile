@@ -3,7 +3,6 @@ package cz.cvut.docta.section.data.remote.source
 import cz.cvut.docta.core.data.model.TableName
 import cz.cvut.docta.core.data.remote.AppRemoteDatabase
 import cz.cvut.docta.core.data.remote.dao.RemoteUpdateTimeDao
-import cz.cvut.docta.core.data.remote.model.RemoteUpdateTime
 import cz.cvut.docta.section.data.remote.dao.SectionRemoteDao
 import cz.cvut.docta.section.data.remote.model.SectionRemoteEntity
 
@@ -17,10 +16,9 @@ class SectionRemoteDataSourceImpl(
     }
 
     override suspend fun saveUpdateTime(courseCode: String, timestamp: Long) {
-        val updateTime = RemoteUpdateTime(
-            tableName = TableName.Section.name, courseCode = courseCode, updateTime = timestamp
+        updateTimeDao.saveUpdateTime(
+            tableName = TableName.Section.name, updateTime = timestamp, courseCode = courseCode
         )
-        updateTimeDao.saveUpdateTime(updateTime = updateTime)
     }
 
     override suspend fun getSectionsAfterTimestamp(

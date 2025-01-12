@@ -2,9 +2,9 @@ package cz.cvut.docta.section.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cz.cvut.docta.course.domain.model.CourseLightweight
+import cz.cvut.docta.course.domain.model.Course
 import cz.cvut.docta.course.domain.usecase.GetCourseUseCase
-import cz.cvut.docta.section.domain.model.Section
+import cz.cvut.docta.section.domain.model.SectionWithStatistics
 import cz.cvut.docta.section.domain.usecase.GetCourseSectionsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,7 +16,7 @@ class CourseSectionsViewModel(
     private val getCourseSectionsUseCase: GetCourseSectionsUseCase
 ) : ViewModel() {
 
-    private val _course = MutableStateFlow<CourseLightweight?>(null)
+    private val _course = MutableStateFlow<Course?>(null)
     val course = _course.asStateFlow()
 
     private suspend fun fetchCourse(courseCode: String) {
@@ -26,7 +26,7 @@ class CourseSectionsViewModel(
     }
 
 
-    private val _sectionList = MutableStateFlow<List<Section>>(emptyList())
+    private val _sectionList = MutableStateFlow<List<SectionWithStatistics>>(emptyList())
     val sectionList = _sectionList.asStateFlow()
 
     private suspend fun fetchCourseSections() {

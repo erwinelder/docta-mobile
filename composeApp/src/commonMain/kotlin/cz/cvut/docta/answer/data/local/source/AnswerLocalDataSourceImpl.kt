@@ -12,7 +12,6 @@ import cz.cvut.docta.answer.data.local.model.QuestionAnswerPairsQueryOptions
 import cz.cvut.docta.core.data.local.AppLocalDatabase
 import cz.cvut.docta.core.data.local.dao.LocalUpdateTimeDao
 import cz.cvut.docta.core.data.local.model.EntitiesToSynchronise
-import cz.cvut.docta.core.data.local.model.LocalUpdateTime
 import cz.cvut.docta.core.data.model.TableName
 
 class AnswerLocalDataSourceImpl(
@@ -27,10 +26,11 @@ class AnswerLocalDataSourceImpl(
     }
 
     override suspend fun saveOpenAnswerUpdateTime(courseCode: String, timestamp: Long) {
-        val updateTime = LocalUpdateTime(
-            tableName = TableName.CorrectOpenAnswer.name, courseCode = courseCode, updateTime = timestamp
+        updateTimeDao.saveUpdateTime(
+            tableName = TableName.CorrectOpenAnswer.name,
+            updateTime = timestamp,
+            courseCode = courseCode
         )
-        updateTimeDao.saveUpdateTime(updateTime = updateTime)
     }
 
     override suspend fun synchroniseOpenAnswers(
@@ -55,10 +55,9 @@ class AnswerLocalDataSourceImpl(
     }
 
     override suspend fun saveBlankAnswerUpdateTime(courseCode: String, timestamp: Long) {
-        val updateTime = LocalUpdateTime(
-            tableName = TableName.BlankAnswer.name, courseCode = courseCode, updateTime = timestamp
+        updateTimeDao.saveUpdateTime(
+            tableName = TableName.BlankAnswer.name, updateTime = timestamp, courseCode = courseCode
         )
-        updateTimeDao.saveUpdateTime(updateTime = updateTime)
     }
 
     override suspend fun synchroniseBlanksAnswers(
@@ -83,10 +82,9 @@ class AnswerLocalDataSourceImpl(
     }
 
     override suspend fun saveAnswerOptionUpdateTime(courseCode: String, timestamp: Long) {
-        val updateTime = LocalUpdateTime(
-            tableName = TableName.AnswerOption.name, courseCode = courseCode, updateTime = timestamp
+        updateTimeDao.saveUpdateTime(
+            tableName = TableName.AnswerOption.name, updateTime = timestamp, courseCode = courseCode
         )
-        updateTimeDao.saveUpdateTime(updateTime = updateTime)
     }
 
     override suspend fun synchroniseAnswerOptions(
@@ -111,12 +109,11 @@ class AnswerLocalDataSourceImpl(
     }
 
     override suspend fun savePairTagUpdateTime(courseCode: String, timestamp: Long) {
-        val updateTime = LocalUpdateTime(
+        updateTimeDao.saveUpdateTime(
             tableName = TableName.QuestionAnswerPairTag.name,
-            courseCode = courseCode,
-            updateTime = timestamp
+            updateTime = timestamp,
+            courseCode = courseCode
         )
-        updateTimeDao.saveUpdateTime(updateTime = updateTime)
     }
 
     override suspend fun synchronisePairTags(
@@ -140,12 +137,11 @@ class AnswerLocalDataSourceImpl(
         courseCode: String,
         timestamp: Long
     ) {
-        val updateTime = LocalUpdateTime(
+        updateTimeDao.saveUpdateTime(
             tableName = TableName.PairTagQuestionAssociation.name,
-            courseCode = courseCode,
-            updateTime = timestamp
+            updateTime = timestamp,
+            courseCode = courseCode
         )
-        updateTimeDao.saveUpdateTime(updateTime = updateTime)
     }
 
     override suspend fun synchronisePairTagQuestionAssociations(
@@ -166,12 +162,11 @@ class AnswerLocalDataSourceImpl(
     }
 
     override suspend fun savePairTagPairAssociationUpdateTime(courseCode: String, timestamp: Long) {
-        val updateTime = LocalUpdateTime(
+        updateTimeDao.saveUpdateTime(
             tableName = TableName.PairTagPairAssociation.name,
-            courseCode = courseCode,
-            updateTime = timestamp
+            updateTime = timestamp,
+            courseCode = courseCode
         )
-        updateTimeDao.saveUpdateTime(updateTime = updateTime)
     }
 
     override suspend fun synchronisePairTagPairAssociations(
@@ -192,12 +187,11 @@ class AnswerLocalDataSourceImpl(
     }
 
     override suspend fun saveQuestionAnswerPairUpdateTime(courseCode: String, timestamp: Long) {
-        val updateTime = LocalUpdateTime(
+        updateTimeDao.saveUpdateTime(
             tableName = TableName.QuestionAnswerPair.name,
-            courseCode = courseCode,
-            updateTime = timestamp
+            updateTime = timestamp,
+            courseCode = courseCode
         )
-        updateTimeDao.saveUpdateTime(updateTime = updateTime)
     }
 
     override suspend fun synchroniseQuestionAnswerPairs(

@@ -2,7 +2,7 @@ package cz.cvut.docta.course.presentation.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cz.cvut.docta.course.domain.model.CourseLightweight
+import cz.cvut.docta.course.domain.model.Course
 import cz.cvut.docta.course.domain.usecase.GetAllCoursesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,7 +13,7 @@ class CoursesViewModel(
     private val getAllCoursesUseCase: GetAllCoursesUseCase
 ) : ViewModel() {
 
-    private val _courseList: MutableStateFlow<List<CourseLightweight>> = MutableStateFlow(
+    private val _courseList: MutableStateFlow<List<Course>> = MutableStateFlow(
         emptyList()
     )
     val courseList = _courseList.asStateFlow()

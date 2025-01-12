@@ -3,25 +3,24 @@ package cz.cvut.docta.question.data.local.source
 import cz.cvut.docta.core.data.local.AppLocalDatabase
 import cz.cvut.docta.core.data.local.dao.LocalUpdateTimeDao
 import cz.cvut.docta.core.data.local.model.EntitiesToSynchronise
-import cz.cvut.docta.core.data.local.model.LocalUpdateTime
 import cz.cvut.docta.core.data.model.TableName
-import cz.cvut.docta.question.data.local.model.LessonQuestionsQueryOptions
 import cz.cvut.docta.question.data.local.dao.QuestionDao
+import cz.cvut.docta.question.data.local.model.LessonQuestionsQueryOptions
+import cz.cvut.docta.question.data.local.model.entity.StepByStepLessonQuestionEntity
+import cz.cvut.docta.question.data.local.model.entity_with_details.QuestionDetails
+import cz.cvut.docta.question.data.local.model.tag.QuestionIdWithTag
+import cz.cvut.docta.question.data.local.model.tag.QuestionTagDefaultLessonAssociation
+import cz.cvut.docta.question.data.local.model.tag.QuestionTagEntity
+import cz.cvut.docta.question.data.local.model.tag.QuestionTagQuestionAssociation
 import cz.cvut.docta.question.data.mapper.toAnswerOptionsQuestionEntities
 import cz.cvut.docta.question.data.mapper.toFillInBlanksQuestionEntities
 import cz.cvut.docta.question.data.mapper.toOpenAnswerQuestionEntities
 import cz.cvut.docta.question.data.mapper.toQuestionAnswerPairsQuestionEntities
 import cz.cvut.docta.question.data.mapper.toQuestionEntities
-import cz.cvut.docta.question.data.mapper.toSealedQuestionAnswerPairsQuestionDetails
 import cz.cvut.docta.question.data.mapper.toSealedAnswerOptionsQuestionDetails
 import cz.cvut.docta.question.data.mapper.toSealedFillInBlanksQuestionDetails
 import cz.cvut.docta.question.data.mapper.toSealedOpenAnswerQuestionDetails
-import cz.cvut.docta.question.data.local.model.entity_with_details.QuestionDetails
-import cz.cvut.docta.question.data.local.model.entity.StepByStepLessonQuestionEntity
-import cz.cvut.docta.question.data.local.model.tag.QuestionIdWithTag
-import cz.cvut.docta.question.data.local.model.tag.QuestionTagDefaultLessonAssociation
-import cz.cvut.docta.question.data.local.model.tag.QuestionTagEntity
-import cz.cvut.docta.question.data.local.model.tag.QuestionTagQuestionAssociation
+import cz.cvut.docta.question.data.mapper.toSealedQuestionAnswerPairsQuestionDetails
 
 class QuestionLocalDataSourceImpl(
     private val questionDao: QuestionDao,
@@ -35,10 +34,9 @@ class QuestionLocalDataSourceImpl(
     }
 
     override suspend fun saveQuestionTagUpdateTime(courseCode: String, timestamp: Long) {
-        val updateTime = LocalUpdateTime(
-            tableName = TableName.QuestionTag.name, courseCode = courseCode, updateTime = timestamp
+        updateTimeDao.saveUpdateTime(
+            tableName = TableName.QuestionTag.name, updateTime = timestamp, courseCode = courseCode
         )
-        updateTimeDao.saveUpdateTime(updateTime = updateTime)
     }
 
     override suspend fun synchroniseQuestionTags(
@@ -62,12 +60,11 @@ class QuestionLocalDataSourceImpl(
         courseCode: String,
         timestamp: Long
     ) {
-        val updateTime = LocalUpdateTime(
+        updateTimeDao.saveUpdateTime(
             tableName = TableName.QuestionTagDefaultLessonAssociation.name,
-            courseCode = courseCode,
-            updateTime = timestamp
+            updateTime = timestamp,
+            courseCode = courseCode
         )
-        updateTimeDao.saveUpdateTime(updateTime = updateTime)
     }
 
     override suspend fun synchroniseQuestionTagDefaultLessonAssociations(
@@ -91,12 +88,11 @@ class QuestionLocalDataSourceImpl(
         courseCode: String,
         timestamp: Long
     ) {
-        val updateTime = LocalUpdateTime(
+        updateTimeDao.saveUpdateTime(
             tableName = TableName.QuestionTagQuestionAssociation.name,
-            courseCode = courseCode,
-            updateTime = timestamp
+            updateTime = timestamp,
+            courseCode = courseCode
         )
-        updateTimeDao.saveUpdateTime(updateTime = updateTime)
     }
 
     override suspend fun synchroniseQuestionTagQuestionAssociations(
@@ -117,10 +113,9 @@ class QuestionLocalDataSourceImpl(
     }
 
     override suspend fun saveQuestionUpdateTime(courseCode: String, timestamp: Long) {
-        val updateTime = LocalUpdateTime(
-            tableName = TableName.Question.name, courseCode = courseCode, updateTime = timestamp
+        updateTimeDao.saveUpdateTime(
+            tableName = TableName.Question.name, updateTime = timestamp, courseCode = courseCode
         )
-        updateTimeDao.saveUpdateTime(updateTime = updateTime)
     }
 
     override suspend fun synchroniseQuestions(
@@ -210,10 +205,11 @@ class QuestionLocalDataSourceImpl(
     }
 
     override suspend fun saveStepByStepQuestionUpdateTime(courseCode: String, timestamp: Long) {
-        val updateTime = LocalUpdateTime(
-            tableName = TableName.StepByStepQuestion.name, courseCode = courseCode, updateTime = timestamp
+        updateTimeDao.saveUpdateTime(
+            tableName = TableName.StepByStepQuestion.name,
+            updateTime = timestamp,
+            courseCode = courseCode
         )
-        updateTimeDao.saveUpdateTime(updateTime = updateTime)
     }
 
     override suspend fun synchroniseStepByStepLessonQuestions(

@@ -75,8 +75,6 @@ abstract class AppRemoteDatabase : RoomDatabase() {
     abstract fun lessonRemoteDao(): LessonRemoteDao
     abstract fun questionRemoteDao(): QuestionRemoteDao
     abstract fun answerRemoteDao(): AnswerRemoteDao
-//    abstract fun courseEditingDao(): CourseDraftDao
-//    abstract fun sectionEditingDao(): SectionDraftDao
 }
 
 fun getRoomRemoteDatabase(builder: RoomDatabase.Builder<AppRemoteDatabase>): AppRemoteDatabase {

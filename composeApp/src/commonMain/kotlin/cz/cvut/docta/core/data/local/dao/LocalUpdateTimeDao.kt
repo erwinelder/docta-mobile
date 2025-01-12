@@ -17,4 +17,14 @@ interface LocalUpdateTimeDao {
     @Upsert
     suspend fun saveUpdateTime(updateTime: LocalUpdateTime)
 
+    suspend fun saveUpdateTime(tableName: String, updateTime: Long, courseCode: String = "") {
+        saveUpdateTime(
+            updateTime = LocalUpdateTime(
+                tableName = tableName,
+                courseCode = courseCode,
+                updateTime = updateTime
+            )
+        )
+    }
+
 }

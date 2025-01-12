@@ -3,7 +3,6 @@ package cz.cvut.docta.lesson.data.remote.source
 import cz.cvut.docta.core.data.model.TableName
 import cz.cvut.docta.core.data.remote.AppRemoteDatabase
 import cz.cvut.docta.core.data.remote.dao.RemoteUpdateTimeDao
-import cz.cvut.docta.core.data.remote.model.RemoteUpdateTime
 import cz.cvut.docta.lesson.data.remote.dao.LessonRemoteDao
 import cz.cvut.docta.lesson.data.remote.mapper.toDefaultLessonDetailsList
 import cz.cvut.docta.lesson.data.remote.mapper.toStepByStepLessonDetailsList
@@ -19,10 +18,9 @@ class LessonRemoteDataSourceImpl(
     }
 
     override suspend fun saveUpdateTime(courseCode: String, timestamp: Long) {
-        val updateTime = RemoteUpdateTime(
-            tableName = TableName.Lesson.name, courseCode = courseCode, updateTime = timestamp
+        updateTimeDao.saveUpdateTime(
+            tableName = TableName.Lesson.name, updateTime = timestamp, courseCode = courseCode
         )
-        updateTimeDao.saveUpdateTime(updateTime = updateTime)
     }
 
     override suspend fun getLessonsAfterTimestamp(

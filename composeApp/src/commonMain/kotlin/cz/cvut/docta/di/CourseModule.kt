@@ -1,6 +1,8 @@
 package cz.cvut.docta.di
 
 import cz.cvut.docta.core.domain.app.CourseContext
+import cz.cvut.docta.core.domain.usecase.SaveOMOCourseToDatabaseUseCase
+import cz.cvut.docta.core.domain.usecase.saveOMOCourseToDatabaseUseCaseFactory
 import cz.cvut.docta.course.data.local.source.CourseLocalDataSource
 import cz.cvut.docta.course.data.local.source.courseLocalDataSourceFactory
 import cz.cvut.docta.course.data.remote.source.CourseRemoteDataSource
@@ -12,15 +14,15 @@ import cz.cvut.docta.course.domain.usecase.GetAllCoursesUseCaseImpl
 import cz.cvut.docta.course.domain.usecase.GetCourseUseCase
 import cz.cvut.docta.course.domain.usecase.GetCourseUseCaseImpl
 import cz.cvut.docta.course.presentation.viewModel.CoursesViewModel
-import cz.cvut.docta.course_draft.data.local.source.CourseDraftLocalDataSource
-import cz.cvut.docta.course_draft.data.local.source.courseDraftLocalDataSourceFactory
-import cz.cvut.docta.course_draft.data.repository.CourseDraftRepository
-import cz.cvut.docta.course_draft.data.repository.CourseDraftRepositoryImpl
-import cz.cvut.docta.course_draft.domain.usecase.GetCourseDraftUseCase
-import cz.cvut.docta.course_draft.domain.usecase.GetCourseDraftUseCaseImpl
-import cz.cvut.docta.course_draft.domain.usecase.SaveCourseDraftUseCase
-import cz.cvut.docta.course_draft.domain.usecase.SaveCourseDraftUseCaseImpl
-import cz.cvut.docta.course_draft.presentation.viewmodel.CourseDraftViewModel
+import cz.cvut.docta.course_editing.data.local.source.CourseDraftLocalDataSource
+import cz.cvut.docta.course_editing.data.local.source.courseDraftLocalDataSourceFactory
+import cz.cvut.docta.course_editing.data.repository.CourseDraftRepository
+import cz.cvut.docta.course_editing.data.repository.CourseDraftRepositoryImpl
+import cz.cvut.docta.course_editing.domain.usecase.GetCourseDraftUseCase
+import cz.cvut.docta.course_editing.domain.usecase.GetCourseDraftUseCaseImpl
+import cz.cvut.docta.course_editing.domain.usecase.SaveCourseDraftUseCase
+import cz.cvut.docta.course_editing.domain.usecase.SaveCourseDraftUseCaseImpl
+import cz.cvut.docta.course_editing.presentation.viewmodel.CourseDraftViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
@@ -68,6 +70,11 @@ val courseModule = module {
     }
     single<SaveCourseDraftUseCase> {
         SaveCourseDraftUseCaseImpl(repository = get())
+    }
+
+    // Temporary use case
+    single<SaveOMOCourseToDatabaseUseCase> {
+        saveOMOCourseToDatabaseUseCaseFactory(appRemoteDatabase = get())
     }
 
     /* ---------- View Models ---------- */

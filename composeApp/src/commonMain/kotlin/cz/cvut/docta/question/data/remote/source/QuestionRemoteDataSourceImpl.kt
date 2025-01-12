@@ -3,12 +3,11 @@ package cz.cvut.docta.question.data.remote.source
 import cz.cvut.docta.core.data.model.TableName
 import cz.cvut.docta.core.data.remote.AppRemoteDatabase
 import cz.cvut.docta.core.data.remote.dao.RemoteUpdateTimeDao
-import cz.cvut.docta.core.data.remote.model.RemoteUpdateTime
 import cz.cvut.docta.question.data.remote.dao.QuestionRemoteDao
-import cz.cvut.docta.question.data.remote.mapper.toSealedQuestionAnswerPairsQuestionDetails
 import cz.cvut.docta.question.data.remote.mapper.toSealedAnswerOptionsQuestionDetails
 import cz.cvut.docta.question.data.remote.mapper.toSealedFillInBlanksQuestionDetails
 import cz.cvut.docta.question.data.remote.mapper.toSealedOpenAnswerQuestionDetails
+import cz.cvut.docta.question.data.remote.mapper.toSealedQuestionAnswerPairsQuestionDetails
 import cz.cvut.docta.question.data.remote.model.QuestionRemoteDetails
 import cz.cvut.docta.question.data.remote.model.entity.StepByStepLessonQuestionRemoteEntity
 import cz.cvut.docta.question.data.remote.model.tag.QuestionTagDefaultLessonRemoteAssociation
@@ -27,10 +26,9 @@ class QuestionRemoteDataSourceImpl(
     }
 
     override suspend fun saveQuestionTagUpdateTime(courseCode: String, timestamp: Long) {
-        val updateTime = RemoteUpdateTime(
-            tableName = TableName.QuestionTag.name, courseCode = courseCode, updateTime = timestamp
+        updateTimeDao.saveUpdateTime(
+            tableName = TableName.QuestionTag.name, updateTime = timestamp, courseCode = courseCode
         )
-        updateTimeDao.saveUpdateTime(updateTime = updateTime)
     }
 
     override suspend fun getQuestionTagsAfterTimestamp(
@@ -53,12 +51,11 @@ class QuestionRemoteDataSourceImpl(
         courseCode: String,
         timestamp: Long
     ) {
-        val updateTime = RemoteUpdateTime(
+        updateTimeDao.saveUpdateTime(
             tableName = TableName.QuestionTagDefaultLessonAssociation.name,
-            courseCode = courseCode,
-            updateTime = timestamp
+            updateTime = timestamp,
+            courseCode = courseCode
         )
-        updateTimeDao.saveUpdateTime(updateTime = updateTime)
     }
 
     override suspend fun getQuestionTagDefaultLessonAssociationsAfterTimestamp(
@@ -81,12 +78,11 @@ class QuestionRemoteDataSourceImpl(
         courseCode: String,
         timestamp: Long
     ) {
-        val updateTime = RemoteUpdateTime(
+        updateTimeDao.saveUpdateTime(
             tableName = TableName.QuestionTagQuestionAssociation.name,
-            courseCode = courseCode,
-            updateTime = timestamp
+            updateTime = timestamp,
+            courseCode = courseCode
         )
-        updateTimeDao.saveUpdateTime(updateTime = updateTime)
     }
 
     override suspend fun getQuestionTagQuestionAssociationsAfterTimestamp(
@@ -106,10 +102,9 @@ class QuestionRemoteDataSourceImpl(
     }
 
     override suspend fun saveQuestionUpdateTime(courseCode: String, timestamp: Long) {
-        val updateTime = RemoteUpdateTime(
-            tableName = TableName.Question.name, courseCode = courseCode, updateTime = timestamp
+        updateTimeDao.saveUpdateTime(
+            tableName = TableName.Question.name, updateTime = timestamp, courseCode = courseCode
         )
-        updateTimeDao.saveUpdateTime(updateTime = updateTime)
     }
 
     override suspend fun getQuestionsAfterTimestamp(
@@ -141,10 +136,9 @@ class QuestionRemoteDataSourceImpl(
     }
 
     override suspend fun saveStepByStepQuestionUpdateTime(courseCode: String, timestamp: Long) {
-        val updateTime = RemoteUpdateTime(
-            tableName = TableName.StepByStepQuestion.name, courseCode = courseCode, updateTime = timestamp
+        updateTimeDao.saveUpdateTime(
+            tableName = TableName.StepByStepQuestion.name, updateTime = timestamp, courseCode = courseCode
         )
-        updateTimeDao.saveUpdateTime(updateTime = updateTime)
     }
 
     override suspend fun getStepByStepQuestionsAfterTimestamp(
