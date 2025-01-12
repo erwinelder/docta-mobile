@@ -50,9 +50,6 @@ fun MainApplicationContent() {
                 onCourseClick = { course ->
                     courseContext.setCourseCode(course.code)
                     navController.navigate(MainScreens.CourseSections(courseCode = course.code))
-                },
-                onNavigateToCourseEditingScreen = {
-                    navController.navigate(MainScreens.CourseEdit(courseCode = it))
                 }
             )
         }
@@ -96,7 +93,10 @@ fun MainApplicationContent() {
                 onTypeSelect = viewModel::setLessonFilterType,
                 activeDifficulty = activeDifficulty,
                 onDifficultyChange = viewModel::setLessonDifficulty,
-                lessonList = lessonList
+                lessonList = lessonList,
+                onLessonClick = { lesson ->
+                    navController.navigate(MainScreens.Lesson(lessonId = lesson.id))
+                }
             )
         }
         composable<MainScreens.Lesson> { backStack ->
@@ -110,9 +110,9 @@ fun MainApplicationContent() {
             val progression by viewModel.progression.collectAsStateWithLifecycle()
             val lessonState by viewModel.lessonState.collectAsStateWithLifecycle()
             LaunchedEffect(lessonState) {
-                if (lessonState !is LessonState.LessonQuestion) {
+                if (lessonState is LessonState.Results) {
                     navController.navigate(MainScreens.LessonResults) {
-                        popUpTo(MainScreens.Lesson) { inclusive = true }
+                        popUpTo(MainScreens.Lesson(lessonId = lessonId)) { inclusive = true }
                     }
                 }
             }

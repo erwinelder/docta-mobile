@@ -62,7 +62,8 @@ fun SectionLessonsScreenPreview() {
             onDifficultyChange = {},
             activeType = activeType,
             onTypeSelect = {},
-            lessonList = lessonList
+            lessonList = lessonList,
+            onLessonClick = {}
         )
     }
 }

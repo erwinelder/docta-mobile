@@ -3,18 +3,17 @@ package cz.cvut.docta.lesson.data.local.source
 import cz.cvut.docta.core.data.local.AppLocalDatabase
 import cz.cvut.docta.core.data.local.dao.LocalUpdateTimeDao
 import cz.cvut.docta.core.data.local.model.EntitiesToSynchronise
-import cz.cvut.docta.core.data.local.model.LocalUpdateTime
 import cz.cvut.docta.core.data.model.TableName
 import cz.cvut.docta.lesson.data.local.dao.LessonDao
-import cz.cvut.docta.lesson.data.mapper.wrapInSealedClass
-import cz.cvut.docta.lesson.data.mapper.toSealedStepByStepLessonDetails
-import cz.cvut.docta.lesson.data.mapper.toSealedDefaultLessonDetails
+import cz.cvut.docta.lesson.data.local.model.LessonDetailsStatistics
+import cz.cvut.docta.lesson.data.local.model.entity_with_details.LessonDetails
+import cz.cvut.docta.lesson.data.local.model.entity_with_details.LessonDetailsWithStatistics
 import cz.cvut.docta.lesson.data.mapper.toDefaultLessonEntities
 import cz.cvut.docta.lesson.data.mapper.toLessonEntities
+import cz.cvut.docta.lesson.data.mapper.toSealedDefaultLessonDetails
+import cz.cvut.docta.lesson.data.mapper.toSealedStepByStepLessonDetails
 import cz.cvut.docta.lesson.data.mapper.toStepByStepLessonEntities
-import cz.cvut.docta.lesson.data.local.model.entity_with_details.LessonDetails
-import cz.cvut.docta.lesson.data.local.model.LessonDetailsStatistics
-import cz.cvut.docta.lesson.data.local.model.entity_with_details.LessonDetailsWithStatistics
+import cz.cvut.docta.lesson.data.mapper.wrapInSealedClass
 
 class LessonLocalDataSourceImpl(
     private val lessonDao: LessonDao,
@@ -28,10 +27,9 @@ class LessonLocalDataSourceImpl(
     }
 
     override suspend fun saveUpdateTime(courseCode: String, timestamp: Long) {
-        val updateTime = LocalUpdateTime(
-            tableName = TableName.Lesson.name, courseCode = courseCode, updateTime = timestamp
+        updateTimeDao.saveUpdateTime(
+            tableName = TableName.Lesson.name, updateTime = timestamp, courseCode = courseCode
         )
-        updateTimeDao.saveUpdateTime(updateTime = updateTime)
     }
 
     override suspend fun synchroniseLessons(

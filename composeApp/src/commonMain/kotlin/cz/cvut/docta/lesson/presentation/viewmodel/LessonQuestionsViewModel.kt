@@ -20,7 +20,7 @@ class LessonQuestionsViewModel(
     private val getLessonQuestionsWithAnswersUseCase: GetLessonQuestionsWithAnswersUseCase
 ) : ViewModel() {
 
-    private val _progression = MutableStateFlow(IntProgression.fromClosedRange(0, 0, 0))
+    private val _progression = MutableStateFlow(IntProgression.fromClosedRange(0, 1, 1))
     val progression = _progression.asStateFlow()
 
     private fun setProgression(rangeEnd: Int) {
