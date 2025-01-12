@@ -16,8 +16,8 @@ import cz.cvut.docta.core.data.local.dao.LocalUpdateTimeDao
 import cz.cvut.docta.core.data.local.model.LocalUpdateTime
 import cz.cvut.docta.course.data.local.dao.CourseDao
 import cz.cvut.docta.course.data.local.model.CourseEntity
-import cz.cvut.docta.course_draft.data.local.dao.CourseDraftDao
-import cz.cvut.docta.course_draft.data.model.CourseDraftEntity
+import cz.cvut.docta.course_editing.data.local.dao.CourseDraftDao
+import cz.cvut.docta.course_editing.data.model.CourseDraftEntity
 import cz.cvut.docta.lesson.data.local.dao.LessonDao
 import cz.cvut.docta.lesson.data.local.model.entity.DefaultLessonEntity
 import cz.cvut.docta.lesson.data.local.model.entity.LessonEntity
@@ -34,8 +34,8 @@ import cz.cvut.docta.question.data.local.model.tag.QuestionTagQuestionAssociatio
 import cz.cvut.docta.question.data.local.model.entity.StepByStepLessonQuestionEntity
 import cz.cvut.docta.section.data.local.dao.SectionDao
 import cz.cvut.docta.section.data.local.model.SectionEntity
-import cz.cvut.docta.section_draft.data.local.dao.SectionDraftDao
-import cz.cvut.docta.section_draft.data.model.SectionDraftEntity
+import cz.cvut.docta.section_editing.data.local.dao.SectionDraftDao
+import cz.cvut.docta.section_editing.data.model.SectionDraftEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 

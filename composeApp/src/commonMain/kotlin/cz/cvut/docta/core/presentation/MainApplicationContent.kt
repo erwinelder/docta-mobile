@@ -12,8 +12,8 @@ import cz.cvut.docta.core.domain.app.CourseContext
 import cz.cvut.docta.core.presentation.navigation.MainScreens
 import cz.cvut.docta.course.presentation.screen.CoursesScreen
 import cz.cvut.docta.course.presentation.viewModel.CoursesViewModel
-import cz.cvut.docta.course_draft.presentation.screen.CourseEditingScreen
-import cz.cvut.docta.course_draft.presentation.viewmodel.CourseDraftViewModel
+import cz.cvut.docta.course_editing.presentation.screen.CourseEditingScreen
+import cz.cvut.docta.course_editing.presentation.viewmodel.CourseDraftViewModel
 import cz.cvut.docta.lesson.domain.model.LessonState
 import cz.cvut.docta.lesson.presentation.screen.LessonResultsScreen
 import cz.cvut.docta.lesson.presentation.screen.LessonScreen
@@ -22,8 +22,8 @@ import cz.cvut.docta.lesson.presentation.viewmodel.LessonQuestionsViewModel
 import cz.cvut.docta.lesson.presentation.viewmodel.SectionLessonsViewModel
 import cz.cvut.docta.section.presentation.screen.CourseSectionsScreen
 import cz.cvut.docta.section.presentation.viewmodel.CourseSectionsViewModel
-import cz.cvut.docta.section_draft.presentation.screen.SectionEditingScreen
-import cz.cvut.docta.section_draft.presentation.viewmodel.SectionDraftViewModel
+import cz.cvut.docta.section_editing.presentation.screen.SectionEditingScreen
+import cz.cvut.docta.section_editing.presentation.viewmodel.SectionDraftViewModel
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 
