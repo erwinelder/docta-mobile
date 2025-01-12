@@ -1,6 +1,6 @@
 package cz.cvut.docta.section_editing.domain.usecase
 
-import cz.cvut.docta.core.domain.app.CourseContext
+import cz.cvut.docta.core.domain.course.CourseContext
 import cz.cvut.docta.section.data.repository.SectionRepository
 import cz.cvut.docta.section_editing.data.repository.SectionDraftRepository
 import cz.cvut.docta.section_editing.domain.model.SectionDraft

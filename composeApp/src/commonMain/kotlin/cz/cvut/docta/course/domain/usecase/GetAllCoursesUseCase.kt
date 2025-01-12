@@ -1,7 +1,7 @@
 package cz.cvut.docta.course.domain.usecase
 
-import cz.cvut.docta.course.domain.model.CourseLightweight
+import cz.cvut.docta.course.domain.model.Course
 
 interface GetAllCoursesUseCase {
-    suspend fun execute(): List<CourseLightweight>
+    suspend fun execute(): List<Course>
 }

@@ -6,7 +6,7 @@ import cz.cvut.docta.lesson.domain.model.Lesson
 import cz.cvut.docta.lesson.domain.model.LessonDifficulty
 import cz.cvut.docta.lesson.domain.model.LessonFilterType
 import cz.cvut.docta.lesson.domain.usecase.GetSectionLessonsWithStatisticsUseCase
-import cz.cvut.docta.section.domain.model.SectionLightweight
+import cz.cvut.docta.section.domain.model.Section
 import cz.cvut.docta.section.domain.usecase.GetSectionUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -22,7 +22,7 @@ class SectionLessonsViewModel(
     private val getSectionLessonsWithStatisticsUseCase: GetSectionLessonsWithStatisticsUseCase
 ) : ViewModel() {
 
-    private val _section = MutableStateFlow<SectionLightweight?>(null)
+    private val _section = MutableStateFlow<Section?>(null)
     val section = _section.asStateFlow()
 
     private suspend fun fetchSection(sectionId: Long) {

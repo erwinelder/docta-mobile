@@ -40,7 +40,7 @@ class CourseDraftViewModel(
     }
 
     private fun getCourseDraft(courseCode: String): CourseDraft? {
-        val locale = CourseLocale.entries.find { it.name == courseLocale.value } ?: return null
+        val locale = CourseLocale.fromString(courseLocale.value) ?: return null
 
         return CourseDraft(
             code = courseCode,
@@ -54,7 +54,7 @@ class CourseDraftViewModel(
         viewModelScope.launch {
             val courseDraft = getCourseDraftUseCase.execute(courseCode) ?: return@launch
             changeCourseName(courseDraft.name)
-            changeCourseLocale(courseDraft.locale.name)
+            changeCourseLocale(courseDraft.locale.langCode)
         }
     }
 

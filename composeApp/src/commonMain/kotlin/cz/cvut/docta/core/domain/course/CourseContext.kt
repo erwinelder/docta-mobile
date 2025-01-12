@@ -1,4 +1,4 @@
-package cz.cvut.docta.core.domain.app
+package cz.cvut.docta.core.domain.course
 
 class CourseContext {
 
