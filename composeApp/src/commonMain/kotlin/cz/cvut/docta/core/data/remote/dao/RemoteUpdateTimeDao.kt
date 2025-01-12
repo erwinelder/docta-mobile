@@ -17,4 +17,14 @@ interface RemoteUpdateTimeDao {
     @Upsert
     suspend fun saveUpdateTime(updateTime: RemoteUpdateTime)
 
+    suspend fun saveUpdateTime(tableName: String, updateTime: Long, courseCode: String = "") {
+        saveUpdateTime(
+            updateTime = RemoteUpdateTime(
+                tableName = tableName,
+                courseCode = courseCode,
+                updateTime = updateTime
+            )
+        )
+    }
+
 }
