@@ -11,13 +11,6 @@ import cz.cvut.docta.lesson.domain.model.LessonStatistics
 @Preview(device = Devices.PIXEL_7_PRO)
 @Composable
 fun LessonScreenPreview() {
-    val lesson = Lesson.Default(
-        id = 2,
-        name = "Practice limits vol.1",
-        statistics = LessonStatistics(isDone = false),
-        difficulty = LessonDifficulty.Medium
-    )
-
     ScreenPreviewContainer {
         LessonScreen()
     }
