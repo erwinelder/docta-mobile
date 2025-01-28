@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.core.domain.app.FilledWidthByScreenType
@@ -21,18 +22,21 @@ import cz.cvut.docta.core.presentation.theme.DoctaColors
 @Composable
 fun GlassSurface(
     modifier: Modifier = Modifier,
-    filledWidths: FilledWidthByScreenType = FilledWidthByScreenType(),
+    filledWidths: FilledWidthByScreenType? = FilledWidthByScreenType(),
+    gradientColor: List<Color> = DoctaColors.glassSurfaceGradient,
     cornerSize: Dp = 32.dp,
     borderSize: Dp = 2.dp,
     content: @Composable BoxScope.() -> Unit
 ) {
     Box(
         modifier = modifier
-            .fillMaxWidth(filledWidths.getByType(CurrWindowType))
+            .run {
+                filledWidths?.let { fillMaxWidth(it.getByType(CurrWindowType)) } ?: this
+            }
             .clip(RoundedCornerShape(cornerSize))
             .background(
                 brush = Brush.linearGradient(
-                    colors = DoctaColors.glassSurfaceGradient,
+                    colors = gradientColor,
                     start = Offset(0f, 1400f),
                     end = Offset(600f, 0f)
                 )

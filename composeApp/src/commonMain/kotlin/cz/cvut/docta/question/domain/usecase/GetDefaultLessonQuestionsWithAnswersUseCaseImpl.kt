@@ -8,7 +8,7 @@ import cz.cvut.docta.answer.domain.usecase.GetQuestionAnswerPairsQuestionWithAns
 import cz.cvut.docta.question.data.local.model.LessonQuestionsQueryOptions
 import cz.cvut.docta.question.data.local.model.entity_with_details.QuestionDetails
 import cz.cvut.docta.question.data.repository.QuestionRepository
-import cz.cvut.docta.question.domain.model.QuestionWithAnswers
+import cz.cvut.docta.question.domain.model.QuestionWithCorrectAnswers
 
 class GetDefaultLessonQuestionsWithAnswersUseCaseImpl(
     private val questionRepository: QuestionRepository,
@@ -19,7 +19,7 @@ class GetDefaultLessonQuestionsWithAnswersUseCaseImpl(
 ) : GetDefaultLessonQuestionsWithAnswersUseCase {
     override suspend fun execute(
         queryOptions: LessonQuestionsQueryOptions.Default
-    ): List<QuestionWithAnswers> {
+    ): List<QuestionWithCorrectAnswers> {
         return questionRepository.getDefaultLessonQuestions(queryOptions = queryOptions)
             .mapNotNull { question ->
                 when (question) {

@@ -9,6 +9,9 @@ import androidx.compose.ui.Modifier
 import cz.cvut.docta.core.presentation.component.buttons.PrimaryButton
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainer
 import cz.cvut.docta.lesson.domain.model.LessonResults
+import docta.composeapp.generated.resources.Res
+import docta.composeapp.generated.resources.continue_
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun LessonResultsScreen(
@@ -16,8 +19,7 @@ fun LessonResultsScreen(
     onContinueButtonClick: () -> Unit
 ) {
     AnimatedContent(
-        targetState = results,
-        label = "lesson results"
+        targetState = results
     ) { targetResults ->
         if (targetResults != null) {
             ScreenContainer {
@@ -30,8 +32,7 @@ fun LessonResultsScreen(
                     )
                 }
                 PrimaryButton(
-                    // TODO-STRING-RESOURCES
-                    text = "Continue",
+                    text = stringResource(Res.string.continue_),
                     onClick = onContinueButtonClick
                 )
             }

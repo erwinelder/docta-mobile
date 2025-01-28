@@ -15,12 +15,13 @@ import androidx.compose.ui.unit.dp
 fun ScreenContainer(
     verticalArrangement: Arrangement.Vertical = Arrangement.Center,
     padding: PaddingValues = PaddingValues(vertical = 24.dp),
+    modifier: Modifier = Modifier,
     content: @Composable ColumnScope.() -> Unit
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = verticalArrangement,
-        modifier = Modifier
+        modifier = modifier
             .padding(padding)
             .fillMaxSize()
     ) {

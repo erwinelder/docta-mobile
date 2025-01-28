@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
-import cz.cvut.docta.core.domain.usecase.SaveOMOCourseToDatabaseUseCase
+import cz.cvut.docta.core.domain.usecase.SaveTestCoursesToDatabaseUseCase
 import cz.cvut.docta.core.presentation.component.other.AppBackground
 import cz.cvut.docta.core.presentation.theme.DoctaTheme
 import kotlinx.coroutines.launch
@@ -32,9 +32,9 @@ fun App() {
 private fun saveTestCoursesToRemoteDatabase() {
     val coroutineScope = rememberCoroutineScope()
 
-    val omoCourseUseCase = koinInject<SaveOMOCourseToDatabaseUseCase>()
+    val testCourseUseCase = koinInject<SaveTestCoursesToDatabaseUseCase>()
 
     coroutineScope.launch {
-        omoCourseUseCase.execute()
+        testCourseUseCase.execute()
     }
 }

@@ -32,7 +32,8 @@ fun CoursesScreen(
                 Column {
                     GlassSurfaceNavigationButton(
                         text = course.name,
-                        padding = PaddingValues(horizontal = 24.dp, vertical = 16.dp),
+                        padding = PaddingValues(start = 24.dp, end = 16.dp, top = 16.dp, bottom = 16.dp),
+                        cornerSize = 18.dp,
                         onClick = {
                             onCourseClick(course)
                         }

@@ -1,8 +1,8 @@
 package cz.cvut.docta.di
 
 import cz.cvut.docta.core.domain.app.CourseContext
-import cz.cvut.docta.core.domain.usecase.SaveOMOCourseToDatabaseUseCase
-import cz.cvut.docta.core.domain.usecase.saveOMOCourseToDatabaseUseCaseFactory
+import cz.cvut.docta.core.domain.usecase.SaveTestCoursesToDatabaseUseCase
+import cz.cvut.docta.core.domain.usecase.saveTestCoursesToDatabaseUseCaseFactory
 import cz.cvut.docta.course.data.local.source.CourseLocalDataSource
 import cz.cvut.docta.course.data.local.source.courseLocalDataSourceFactory
 import cz.cvut.docta.course.data.remote.source.CourseRemoteDataSource
@@ -73,8 +73,8 @@ val courseModule = module {
     }
 
     // Temporary use case
-    single<SaveOMOCourseToDatabaseUseCase> {
-        saveOMOCourseToDatabaseUseCaseFactory(appRemoteDatabase = get())
+    single<SaveTestCoursesToDatabaseUseCase> {
+        saveTestCoursesToDatabaseUseCaseFactory(appRemoteDatabase = get())
     }
 
     /* ---------- View Models ---------- */

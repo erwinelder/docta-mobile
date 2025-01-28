@@ -1,83 +1,89 @@
 package cz.cvut.docta.answer.presentation.component.field
 
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusManager
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.FocusState
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cz.cvut.docta.core.domain.app.FilledWidthByScreenType
 import cz.cvut.docta.core.presentation.component.containers.GlassSurface
+import cz.cvut.docta.core.presentation.component.field.TextSelectionColorsProviderWrapper
 import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.core.presentation.theme.Manrope
+import docta.composeapp.generated.resources.Res
+import docta.composeapp.generated.resources.type_your_answer_here
+import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun OpenAnswerTextField(
     text: String,
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
+    focusManager: FocusManager = LocalFocusManager.current,
+    focusRequester: FocusRequester? = null,
+    onFocusChange: (FocusState) -> Unit = {}
 ) {
-    val interactionSource = remember { MutableInteractionSource() }
-
     GlassSurface(
         filledWidths = FilledWidthByScreenType(.86f)
     ) {
-        BasicTextField(
-            value = text,
-            onValueChange = onValueChange,
-            interactionSource = interactionSource,
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Text
-            ),
-            visualTransformation = VisualTransformation.None,
-            textStyle = TextStyle(
-                color = DoctaColors.onSurface,
-                fontSize = 17.sp,
-                fontWeight = FontWeight.W500,
-                fontFamily = Manrope
-            ),
-            modifier = Modifier.height(280.dp)
-        ) {
-            TextFieldDefaults.TextFieldDecorationBox(
+        TextSelectionColorsProviderWrapper {
+            TextField(
                 value = text,
-                singleLine = false,
-                enabled = true,
-                interactionSource = interactionSource,
-                visualTransformation = VisualTransformation.None,
-                colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = Color.Transparent,
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent,
-                    disabledIndicatorColor = Color.Transparent,
-                    errorIndicatorColor = Color.Transparent,
+                onValueChange = onValueChange,
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Done
                 ),
-                contentPadding = PaddingValues(horizontal = 24.dp, vertical = 16.dp),
-                innerTextField = {
-                    if (text.isNotBlank()) {
-                        it()
-                    } else {
-                        Text(
-                            // TODO-STRING-RESOURCE
-                            text = "Type your answer here…",
-                            fontSize = 17.sp,
-                            color = DoctaColors.outline,
-                            fontWeight = FontWeight.W500,
-                            fontFamily = Manrope
-                        )
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        focusManager.clearFocus()
                     }
-                }
+                ),
+                textStyle = TextStyle(
+                    fontSize = 17.sp,
+                    fontWeight = FontWeight.Medium,
+                    fontFamily = Manrope
+                ),
+                colors = TextFieldDefaults.textFieldColors(
+                    textColor = DoctaColors.onSurface,
+                    cursorColor = DoctaColors.primary,
+                    backgroundColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    focusedIndicatorColor = Color.Transparent,
+                ),
+                placeholder = {
+                    Text(
+                        text = stringResource(Res.string.type_your_answer_here),
+                        fontSize = 16.sp,
+                        color = DoctaColors.outline,
+                        fontWeight = FontWeight.Medium,
+                        fontFamily = Manrope
+                    )
+                },
+                modifier = Modifier
+                    .run {
+                        focusRequester?.let {
+                            focusRequester(it).onFocusChanged(onFocusChange)
+                        } ?: this
+                    }
+                    .fillMaxWidth()
+                    .height(280.dp)
+                    .padding(horizontal = 8.dp, vertical = 4.dp)
             )
         }
     }

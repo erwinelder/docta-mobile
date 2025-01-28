@@ -2,6 +2,7 @@ package cz.cvut.docta.core.presentation.component.buttons
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -35,17 +36,15 @@ import cz.cvut.docta.core.presentation.theme.WindowTypeIsCompact
 fun PrimaryButton(
     text: String,
     enabled: Boolean = true,
-    fontSize: TextUnit = 17.sp,
+    fontSize: TextUnit = 16.sp,
     enabledGradientColor: Pair<Color, Color> = DoctaColors.primaryGradientPair,
     onClick: () -> Unit = {}
 ) {
     val buttonLighterColor by animateColorAsState(
-        targetValue = (if (enabled) enabledGradientColor else DoctaColors.disabledGradientPair).first,
-        label = "PrimaryButton container color"
+        targetValue = (if (enabled) enabledGradientColor else DoctaColors.disabledGradientPair).first
     )
     val buttonDarkerColor by animateColorAsState(
-        targetValue = (if (enabled) enabledGradientColor else DoctaColors.disabledGradientPair).second,
-        label = "PrimaryButton container color"
+        targetValue = (if (enabled) enabledGradientColor else DoctaColors.disabledGradientPair).second
     )
     val modifier = if (WindowTypeIsCompact) {
         Modifier.fillMaxWidth(.86f)
@@ -55,9 +54,9 @@ fun PrimaryButton(
 
     Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier.bounceClickEffect(.97f, enabled)
+        modifier = Modifier.bounceClickEffect(.98f, enabled)
     ) {
-        Shadow(enabled, buttonDarkerColor)
+//        Shadow(enabled, buttonDarkerColor)
         Button(
             onClick = onClick,
             enabled = enabled,
@@ -70,7 +69,8 @@ fun PrimaryButton(
             elevation = null,
             contentPadding = PaddingValues(vertical = 12.dp),
             modifier = modifier
-                .clip(RoundedCornerShape(21.dp))
+                .clip(RoundedCornerShape(16.dp))
+                .border(1.5.dp, DoctaColors.semiTransparentBorder, RoundedCornerShape(16.dp))
                 .background(
                     brush = Brush.linearGradient(
                         colors = listOf(buttonDarkerColor, buttonLighterColor),
@@ -107,7 +107,7 @@ private fun Shadow(enabled: Boolean, enabledColor: Color) {
             .height(13.dp)
             .shadow(
                 elevation = 24.dp,
-                shape = RoundedCornerShape(21.dp),
+                shape = RoundedCornerShape(16.dp),
                 spotColor = color,
                 ambientColor = Color.Transparent
             )

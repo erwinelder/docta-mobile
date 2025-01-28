@@ -16,7 +16,7 @@ import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContaine
 import cz.cvut.docta.lesson.domain.model.Lesson
 import cz.cvut.docta.lesson.domain.model.LessonDifficulty
 import cz.cvut.docta.lesson.domain.model.LessonFilterType
-import cz.cvut.docta.lesson.presentation.component.OneStepQuestionsLessonComponent
+import cz.cvut.docta.lesson.presentation.component.DefaultLessonComponent
 import cz.cvut.docta.lesson.presentation.component.StepByStepLessonComponent
 import cz.cvut.docta.lesson.presentation.component.TestLessonComponent
 import cz.cvut.docta.lesson.presentation.container.LessonDifficultyFilterBar
@@ -68,7 +68,7 @@ fun SectionLessonsScreen(
             items(items = lessonList) { lesson ->
                 when (lesson) {
                     is Lesson.Default -> {
-                        OneStepQuestionsLessonComponent(
+                        DefaultLessonComponent(
                             state = lesson,
                             onClick = onLessonClick
                         )

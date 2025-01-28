@@ -10,6 +10,8 @@ import cz.cvut.docta.lesson.domain.usecase.GetSectionLessonsDraftsUseCase
 import cz.cvut.docta.lesson.domain.usecase.GetSectionLessonsDraftsUseCaseImpl
 import cz.cvut.docta.lesson.domain.usecase.GetSectionLessonsWithStatisticsUseCase
 import cz.cvut.docta.lesson.domain.usecase.GetSectionLessonsWithStatisticsUseCaseImpl
+import cz.cvut.docta.lesson.presentation.viewmodel.LessonProgressViewModel
+import cz.cvut.docta.lesson.presentation.viewmodel.LessonViewModel
 import cz.cvut.docta.lesson.presentation.viewmodel.SectionLessonsViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
@@ -56,6 +58,16 @@ val lessonModule = module {
         SectionLessonsViewModel(
             getSectionUseCase = get(),
             getSectionLessonsWithStatisticsUseCase = get()
+        )
+    }
+
+    viewModel {
+        LessonProgressViewModel()
+    }
+
+    viewModel {
+        LessonViewModel(
+            getLessonQuestionsWithAnswersUseCase = get()
         )
     }
 

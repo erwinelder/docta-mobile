@@ -9,11 +9,11 @@ fun StepByStepQuestionComponent(
     onStepAnswerInputChange: (String) -> Unit,
     onCheckButtonClick: () -> Unit
 ) {
-    QuestionComponentContainerWithCheckButton(
+    /*QuestionComponentContainerWithCheckButton(
         question = questionWithAnswerInput.question,
         checkIsAllowed = questionWithAnswerInput.checkIsAllowed,
         onCheckButtonClick = onCheckButtonClick
     ) {
         // TODO-QUESTION
-    }
+    }*/
 }

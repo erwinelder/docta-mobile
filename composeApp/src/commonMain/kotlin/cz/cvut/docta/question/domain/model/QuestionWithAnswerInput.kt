@@ -9,20 +9,17 @@ sealed class QuestionWithAnswerInput(
 
     data class OpenAnswer(
         override val question: Question.OpenAnswer,
-        override val answerInput: AnswerInput.Open,
-        val checkIsAllowed: Boolean
+        override val answerInput: AnswerInput.Open
     ) : QuestionWithAnswerInput(question, answerInput)
 
     data class FillInBlanks(
         override val question: Question.FillInBlanks,
-        override val answerInput: AnswerInput.Blanks,
-        val checkIsAllowed: Boolean
+        override val answerInput: AnswerInput.Blanks
     ) : QuestionWithAnswerInput(question, answerInput)
 
     data class AnswerOptions(
         override val question: Question.AnswerOptions,
-        override val answerInput: AnswerInput.Option,
-        val checkIsAllowed: Boolean
+        override val answerInput: AnswerInput.Option
     ) : QuestionWithAnswerInput(question, answerInput)
 
     data class QuestionAnswerPairs(
@@ -32,12 +29,12 @@ sealed class QuestionWithAnswerInput(
 
     data class Step(
         override val question: Question.StepByStep,
-        override val answerInput: AnswerInput.Step,
-        val checkIsAllowed: Boolean
+        override val answerInput: AnswerInput.Step
     ) : QuestionWithAnswerInput(question, answerInput)
 
 
-    companion object {
+    // TODO: Remove this
+    /*companion object {
 
         fun fromQuestion(question: Question): QuestionWithAnswerInput {
             return when (question) {
@@ -71,6 +68,6 @@ sealed class QuestionWithAnswerInput(
             }
         }
 
-    }
+    }*/
 
 }
