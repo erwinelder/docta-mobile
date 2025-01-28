@@ -29,7 +29,7 @@ fun TestLessonComponent(
             Text(
                 text = state.name,
                 color = DoctaColors.onSurface,
-                fontSize = 20.sp,
+                fontSize = 18.sp,
                 fontFamily = Manrope,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis

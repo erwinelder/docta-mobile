@@ -3,7 +3,9 @@ package cz.cvut.docta.section.presentation.screen
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -30,7 +32,7 @@ fun CourseSectionsScreen(
 
     ScreenContainer(
         verticalArrangement = Arrangement.spacedBy(24.dp),
-        padding = PaddingValues(top = 8.dp, bottom = 24.dp)
+        padding = PaddingValues(top = 8.dp)
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -52,11 +54,15 @@ fun CourseSectionsScreen(
                 GlassSurfaceNavigationButton(
                     text = section.name,
                     filledWidths = FilledWidthByScreenType(),
-                    padding = PaddingValues(horizontal = 24.dp, vertical = 16.dp),
+                    padding = PaddingValues(start = 24.dp, end = 16.dp, top = 16.dp, bottom = 16.dp),
+                    cornerSize = 20.dp,
                     onClick = {
                         onSectionClick(section)
                     }
                 )
+            }
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
             }
         }
     }

@@ -2,7 +2,6 @@ package cz.cvut.docta.di
 
 import cz.cvut.docta.lesson.domain.usecase.GetQuestionsQueryOptionsUseCase
 import cz.cvut.docta.lesson.domain.usecase.GetQuestionsQueryOptionsUseCaseImpl
-import cz.cvut.docta.lesson.presentation.viewmodel.LessonQuestionsViewModel
 import cz.cvut.docta.question.data.local.source.QuestionLocalDataSource
 import cz.cvut.docta.question.data.local.source.questionLocalDataSourceFactory
 import cz.cvut.docta.question.data.remote.source.QuestionRemoteDataSource
@@ -15,6 +14,10 @@ import cz.cvut.docta.question.domain.usecase.GetLessonQuestionsWithAnswersUseCas
 import cz.cvut.docta.question.domain.usecase.GetLessonQuestionsWithAnswersUseCaseImpl
 import cz.cvut.docta.question.domain.usecase.GetStepByStepLessonQuestionsWithAnswersUseCase
 import cz.cvut.docta.question.domain.usecase.GetStepByStepLessonQuestionsWithAnswersUseCaseImpl
+import cz.cvut.docta.question.presentation.viewmodel.AnswerOptionsQuestionViewModel
+import cz.cvut.docta.question.presentation.viewmodel.FillInBlanksQuestionViewModel
+import cz.cvut.docta.question.presentation.viewmodel.OpenAnswerQuestionViewModel
+import cz.cvut.docta.question.presentation.viewmodel.QuestionAnswerPairsQuestionViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
@@ -70,10 +73,20 @@ val questionModule = module {
 
     /* ---------- View Models ---------- */
 
-    viewModel {
-        LessonQuestionsViewModel(
-            getLessonQuestionsWithAnswersUseCase = get()
-        )
+    viewModel { parameters ->
+        OpenAnswerQuestionViewModel(question = parameters.get())
+    }
+
+    viewModel { parameters ->
+        FillInBlanksQuestionViewModel(question = parameters.get())
+    }
+
+    viewModel { parameters ->
+        AnswerOptionsQuestionViewModel(question = parameters.get())
+    }
+
+    viewModel { parameters ->
+        QuestionAnswerPairsQuestionViewModel(question = parameters.get())
     }
 
 }

@@ -2,6 +2,15 @@
 
     <!-- Buttons -->
     <string name="back">Zpět</string>
+    <string name="continue_">Pokračovat</string>
+    <string name="check">Zkontrolovat</string>
+    <string name="save">Uložit</string>
+
+    <!-- Course -->
+    <string name="edit_course">Upravit kurz</string>
+
+    <!-- Course section -->
+    <string name="edit_section">Upravit sekci</string>
 
     <!-- Lesson -->
     <string name="easy">Snadné</string>
@@ -12,5 +21,13 @@
     <string name="not_done">Nedokončeno</string>
     <string name="tests">Testy</string>
     <string name="test">Test</string>
+
+    <!-- Question -->
+    <string name="open_answer_question_instructions">Odpovězte na otázku</string>
+    <string name="fill_in_blanks_question_instructions">Doplňte chybějící místa</string>
+    <string name="answer_option_question_instructions">Vyberte správnou odpověď</string>
+    <string name="question_answer_pairs_question_instructions">Přiřaďte dvojice</string>
+    <string name="step_question_instructions">Vyřešte tento krok úkolu</string>
+    <string name="type_your_answer_here">Sem napište svou odpověď…</string>
 
 </resources>

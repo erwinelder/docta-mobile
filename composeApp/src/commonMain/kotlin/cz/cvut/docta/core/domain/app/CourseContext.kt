@@ -14,4 +14,17 @@ class CourseContext {
         this.courseCode = ""
     }
 
+
+    private var sectionId: Long = 0
+
+    fun getSectionId(): Long {
+        return sectionId
+    }
+    fun setSectionId(sectionId: Long) {
+        this.sectionId = sectionId
+    }
+    fun resetSectionId() {
+        this.sectionId = 0
+    }
+
 }

@@ -14,6 +14,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cz.cvut.docta.core.domain.app.FilledWidthByScreenType
@@ -35,11 +37,13 @@ fun GlassSurfaceNavigationButton(
     rightIconRes: DrawableResource = Res.drawable.short_arrow_right_icon,
     filledWidths: FilledWidthByScreenType = FilledWidthByScreenType(1f, .75f, .75f),
     padding: PaddingValues = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
+    fontSize: TextUnit = 20.sp,
+    cornerSize: Dp = 30.dp,
     onClick: () -> Unit
 ) {
     GlassSurface(
         filledWidths = filledWidths,
-        cornerSize = 30.dp,
+        cornerSize = cornerSize,
         modifier = Modifier.bounceClickEffect(.98f, onClick = onClick)
     ) {
         Row(
@@ -54,7 +58,7 @@ fun GlassSurfaceNavigationButton(
                     painter = painterResource(Res.drawable.short_arrow_left_icon),
                     contentDescription = "left arrow icon",
                     tint = DoctaColors.onSurface,
-                    modifier = Modifier.size(26.dp)
+                    modifier = Modifier.size(24.dp)
                 )
             }
             iconRes?.let {
@@ -67,7 +71,7 @@ fun GlassSurfaceNavigationButton(
             Text(
                 text = text,
                 color = DoctaColors.onSurface,
-                fontSize = 21.sp,
+                fontSize = fontSize,
                 fontFamily = Manrope,
                 textAlign = TextAlign.Start,
                 overflow = TextOverflow.Ellipsis,
@@ -79,7 +83,7 @@ fun GlassSurfaceNavigationButton(
                     painter = painterResource(rightIconRes),
                     contentDescription = "right arrow icon",
                     tint = DoctaColors.onSurface,
-                    modifier = Modifier.size(26.dp)
+                    modifier = Modifier.size(24.dp)
                 )
             }
         }

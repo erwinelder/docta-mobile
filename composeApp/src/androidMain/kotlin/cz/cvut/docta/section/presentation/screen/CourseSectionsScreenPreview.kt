@@ -26,6 +26,62 @@ fun CourseSectionsScreenPreview() {
                 correctAnswerAmount = 30, wrongAnswerAmount = 40
             )
         ),
+        SectionWithStatistics(
+            id = 3,
+            name = "Section name 3",
+            statistics = SectionStatistics(
+                correctAnswerAmount = 30, wrongAnswerAmount = 40
+            )
+        ),
+        SectionWithStatistics(
+            id = 4,
+            name = "Section name 4",
+            statistics = SectionStatistics(
+                correctAnswerAmount = 30, wrongAnswerAmount = 40
+            )
+        ),
+        SectionWithStatistics(
+            id = 5,
+            name = "Section name 5",
+            statistics = SectionStatistics(
+                correctAnswerAmount = 30, wrongAnswerAmount = 40
+            )
+        ),
+        SectionWithStatistics(
+            id = 6,
+            name = "Section name 6",
+            statistics = SectionStatistics(
+                correctAnswerAmount = 30, wrongAnswerAmount = 40
+            )
+        ),
+        SectionWithStatistics(
+            id = 7,
+            name = "Section name 7",
+            statistics = SectionStatistics(
+                correctAnswerAmount = 30, wrongAnswerAmount = 40
+            )
+        ),
+        SectionWithStatistics(
+            id = 8,
+            name = "Section name 8",
+            statistics = SectionStatistics(
+                correctAnswerAmount = 30, wrongAnswerAmount = 40
+            )
+        ),
+        SectionWithStatistics(
+            id = 9,
+            name = "Section name 9",
+            statistics = SectionStatistics(
+                correctAnswerAmount = 30, wrongAnswerAmount = 40
+            )
+        ),
+        SectionWithStatistics(
+            id = 10,
+            name = "Section name 10",
+            statistics = SectionStatistics(
+                correctAnswerAmount = 30, wrongAnswerAmount = 40
+            )
+        ),
     )
 
     ScreenPreviewContainer {

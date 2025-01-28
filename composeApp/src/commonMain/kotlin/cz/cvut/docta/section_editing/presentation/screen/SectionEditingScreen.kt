@@ -10,6 +10,10 @@ import cz.cvut.docta.core.presentation.component.buttons.GlassSurfaceTopBackNavB
 import cz.cvut.docta.core.presentation.component.buttons.PrimaryButton
 import cz.cvut.docta.core.presentation.component.field.DoctaTextField
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainer
+import docta.composeapp.generated.resources.Res
+import docta.composeapp.generated.resources.edit_section
+import docta.composeapp.generated.resources.save
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun SectionEditingScreen(
@@ -23,8 +27,7 @@ fun SectionEditingScreen(
         padding = PaddingValues(top = 8.dp, bottom = 24.dp)
     ) {
         GlassSurfaceTopBackNavButton(
-            // TODO-STRING-RESOURCES
-            text = "Edit Section",
+            text = stringResource(Res.string.edit_section),
             onClick = onNavigateBack
         )
         Column(
@@ -37,8 +40,7 @@ fun SectionEditingScreen(
             )
         }
         PrimaryButton(
-            // TODO-STRING-RESOURCES
-            text = "Save",
+            text = stringResource(Res.string.save),
             onClick = onSaveButtonClick
         )
     }

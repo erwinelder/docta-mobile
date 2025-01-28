@@ -1,6 +1,8 @@
 package cz.cvut.docta.core.presentation.theme
 
 import androidx.compose.foundation.layout.BoxWithConstraintsScope
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.LocalRippleConfiguration
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -17,13 +19,13 @@ val LocalTypography = compositionLocalOf { DoctaTypography() }
 val LocalWindowType = compositionLocalOf { WindowType.Compact }
 
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun DoctaTheme(
     boxWithConstraintsScope: BoxWithConstraintsScope,
+    isSystemInDarkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val isSystemInDarkTheme = isSystemInDarkTheme()
-
     val appTheme = if (isSystemInDarkTheme) AppTheme.Dark else AppTheme.Light
     val doctaColors = if (isSystemInDarkTheme) DoctaPalette.Dark else DoctaPalette.Light
     val typography = DoctaTypography()
@@ -38,6 +40,7 @@ fun DoctaTheme(
         LocalColors provides doctaColors,
         LocalTypography provides typography,
         LocalWindowType provides windowType,
+        LocalRippleConfiguration provides null
     ) {
         MaterialTheme(content = content)
     }

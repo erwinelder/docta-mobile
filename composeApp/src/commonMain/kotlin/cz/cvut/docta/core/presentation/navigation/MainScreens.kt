@@ -22,7 +22,4 @@ sealed interface MainScreens {
     @Serializable
     data class Lesson(val lessonId: Long): MainScreens
 
-    @Serializable
-    data object LessonResults : MainScreens
-
 }

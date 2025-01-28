@@ -1,10 +1,14 @@
 package cz.cvut.docta.lesson.presentation.utils
 
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import cz.cvut.docta.core.presentation.model.IconResByAppTheme
+import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.lesson.domain.model.Lesson
 import cz.cvut.docta.lesson.domain.model.LessonDifficulty
 import cz.cvut.docta.lesson.domain.model.LessonFilterType
+import cz.cvut.docta.lesson.presentation.navigation.LessonScreens
+import cz.cvut.docta.question.presentation.model.QuestionAndAnswersWrapper
 import docta.composeapp.generated.resources.Res
 import docta.composeapp.generated.resources.easy
 import docta.composeapp.generated.resources.hard
@@ -48,11 +52,12 @@ fun LessonDifficulty.asStringRes(): StringResource {
     }
 }
 
+@Composable
 fun LessonDifficulty.asColor(): Color {
     return when (this) {
-        LessonDifficulty.Easy -> Color(127, 180, 139)
-        LessonDifficulty.Medium -> Color(203, 177, 105)
-        LessonDifficulty.Hard -> Color(197, 130, 130)
+        LessonDifficulty.Easy -> DoctaColors.easyDifficultyColor
+        LessonDifficulty.Medium -> DoctaColors.mediumDifficultyColor
+        LessonDifficulty.Hard -> DoctaColors.hardDifficultyColor
     }
 }
 
@@ -63,5 +68,16 @@ fun LessonFilterType.asStringRes(): StringResource {
         LessonFilterType.StepByStep -> Res.string.step_by_step
         LessonFilterType.NotDone -> Res.string.not_done
         LessonFilterType.Tests -> Res.string.tests
+    }
+}
+
+
+fun QuestionAndAnswersWrapper.getLessonScreenToNavigateTo(): LessonScreens {
+    return when (this) {
+        is QuestionAndAnswersWrapper.OpenAnswer -> LessonScreens.OpenAnswerQuestion
+        is QuestionAndAnswersWrapper.FillInBlanks -> LessonScreens.FillInBlanksQuestion
+        is QuestionAndAnswersWrapper.AnswerOptions -> LessonScreens.AnswerOptionsQuestion
+        is QuestionAndAnswersWrapper.QuestionAnswerPairs -> LessonScreens.QuestionAnswerPairsQuestion
+        is QuestionAndAnswersWrapper.StepByStep -> LessonScreens.StepByStepQuestion
     }
 }

@@ -2,6 +2,15 @@
 
     <!-- Buttons -->
     <string name="back">Back</string>
+    <string name="continue_">Continue</string>
+    <string name="check">Check</string>
+    <string name="save">Save</string>
+
+    <!-- Course -->
+    <string name="edit_course">Edit course</string>
+
+    <!-- Course section -->
+    <string name="edit_section">Edit section</string>
 
     <!-- Lesson -->
     <string name="easy">Easy</string>
@@ -12,5 +21,13 @@
     <string name="not_done">Not done</string>
     <string name="tests">Tests</string>
     <string name="test">Test</string>
+
+    <!-- Question -->
+    <string name="open_answer_question_instructions">Answer the question</string>
+    <string name="fill_in_blanks_question_instructions">Fill in the blanks</string>
+    <string name="answer_option_question_instructions">Choose the correct answer</string>
+    <string name="question_answer_pairs_question_instructions">Match the pairs</string>
+    <string name="step_question_instructions">Solve this step of the task</string>
+    <string name="type_your_answer_here">Type your answer here…</string>
 
 </resources>

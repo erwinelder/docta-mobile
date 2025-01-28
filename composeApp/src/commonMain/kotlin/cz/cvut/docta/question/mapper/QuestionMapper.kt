@@ -23,7 +23,7 @@ fun QuestionDetails.OpenAnswer.toDomain(): Question.OpenAnswer? {
 fun QuestionDetails.FillInBlanks.toDomain(): Question.FillInBlanks? {
     val difficulty = QuestionDifficulty.entries.find { it.name == difficulty } ?: return null
 
-    return Question.FillInBlanks.fromText(
+    return Question.FillInBlanks(
         id = id,
         difficulty = difficulty,
         text = text

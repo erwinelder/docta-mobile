@@ -20,11 +20,15 @@ sealed class CorrectAnswer(
         val blanksAnswers: Map<Int, List<String>>
     ) : CorrectAnswer(questionId) {
 
+        fun getBlankNumbers(): List<Int> {
+            return blanksAnswers.keys.toList()
+        }
+
         fun getWrongBlanksWithCorrectAnswer(answers: Map<Int, String>): Map<Int, String> {
             return answers.mapNotNull { (blankNum, answer) ->
                 val correctAnswers = blanksAnswers[blankNum] ?: return@mapNotNull null
 
-                if (!correctAnswers.contains(answer.trim())) return@mapNotNull null
+                if (correctAnswers.contains(answer.trim())) return@mapNotNull null
 
                 correctAnswers.firstOrNull()?.let { blankNum to it }
             }.toMap()

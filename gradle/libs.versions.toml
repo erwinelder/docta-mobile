@@ -8,13 +8,13 @@ core = "1.15.0"
 androidx-appcompat = "1.7.0"
 androidx-material = "1.12.0"
 androidx-constraintlayout = "2.2.0"
-androidx-activity-compose = "1.9.3"
+androidx-activity-compose = "1.10.0"
 androidx-lifecycle = "2.8.4"
 # Room & SQLite
 room = "2.7.0-alpha12"
 sqlite = "2.5.0-SNAPSHOT"
 # DataStore
-datastore = "1.1.1"
+datastore = "1.1.2"
 # Firebase
 firebase = "32.1.0"
 # Koin

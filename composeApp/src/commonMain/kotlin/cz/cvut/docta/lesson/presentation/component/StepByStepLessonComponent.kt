@@ -17,7 +17,7 @@ fun StepByStepLessonComponent(
     state: Lesson.StepByStep,
     onClick: (Lesson) -> Unit
 ) {
-    LessonComponent(state = state, onClick = onClick, buttonVerticalPadding = 34.dp) {
+    LessonComponent(state = state, onClick = onClick, buttonVerticalPadding = 32.dp) {
         Column(
             modifier = Modifier
                 .weight(1f)
@@ -34,7 +34,7 @@ fun StepByStepLessonComponent(
             Text(
                 text = state.name,
                 color = DoctaColors.onSurface,
-                fontSize = 20.sp,
+                fontSize = 18.sp,
                 fontFamily = Manrope,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
