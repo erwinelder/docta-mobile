@@ -7,6 +7,7 @@ import cz.cvut.docta.course.data.local.source.CourseLocalDataSource
 import cz.cvut.docta.course.data.local.source.courseLocalDataSourceFactory
 import cz.cvut.docta.course.data.remote.source.CourseRemoteDataSource
 import cz.cvut.docta.course.data.remote.source.courseRemoteDataSourceFactory
+import cz.cvut.docta.course.data.repository.CourseRemoteRepository
 import cz.cvut.docta.course.data.repository.CourseRepository
 import cz.cvut.docta.course.data.repository.CourseRepositoryImpl
 import cz.cvut.docta.course.domain.usecase.GetAllCoursesUseCase
@@ -44,10 +45,8 @@ val courseModule = module {
     /* ---------- Repositories ---------- */
 
     single<CourseRepository> {
-        CourseRepositoryImpl(
-            localSource = get(),
-            remoteSource = get()
-        )
+        CourseRepositoryImpl(localSource = get(), remoteSource = get())
+//        CourseRemoteRepository()
     }
 
     single<CourseDraftRepository> {
