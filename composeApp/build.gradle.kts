@@ -42,12 +42,19 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
+            // Coroutines
+            implementation(libs.kotlinx.coroutines.core)
             // Room & SQLite
             implementation(libs.room.runtime)
             implementation(libs.sqlite.bundled)
             // DataStore
             implementation(libs.androidx.datastore)
             implementation(libs.androidx.datastore.preferences)
+            // Ktor
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.cio)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
             // Firebase
 //            implementation(libs.firebase.auth)
 //            implementation(libs.firebase.firestore)
@@ -65,12 +72,16 @@ kotlin {
             // Core, Compose, and Lifecycle
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            // Coroutines
+            implementation(libs.kotlinx.coroutines.android)
             // Koin
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
         }
 
         iosMain.dependencies {
+            // Ktor
+            implementation(libs.ktor.client.darwin)
         }
 
     }
