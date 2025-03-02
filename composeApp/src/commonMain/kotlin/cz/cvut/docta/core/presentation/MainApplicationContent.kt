@@ -64,7 +64,7 @@ fun MainApplicationContent(
                 val courseList by viewModel.courseList.collectAsStateWithLifecycle()
 
                 CoursesScreen(
-                    courseList = courseList,
+                    courses = courseList,
                     onCourseClick = { course ->
                         courseContext.setCourseCode(course.code)
                         navController.navigate(MainScreens.CourseSections(courseCode = course.code))
@@ -85,7 +85,7 @@ fun MainApplicationContent(
                 CourseSectionsScreen(
                     courseName = course?.name ?: "",
                     onNavigateBack = navController::popBackStack,
-                    sectionList = sectionList,
+                    sections = sectionList,
                     onSectionClick = { section ->
                         navController.navigate(MainScreens.SectionLessons(sectionId = section.id))
                     }
@@ -113,7 +113,7 @@ fun MainApplicationContent(
                     onTypeSelect = viewModel::setLessonFilterType,
                     activeDifficulty = activeDifficulty,
                     onDifficultyChange = viewModel::setLessonDifficulty,
-                    lessonList = lessonList,
+                    lessons = lessonList,
                     onLessonClick = { lesson ->
                         navController.navigate(LessonScreens.LessonStarter(lessonId = lesson.id))
                     }
