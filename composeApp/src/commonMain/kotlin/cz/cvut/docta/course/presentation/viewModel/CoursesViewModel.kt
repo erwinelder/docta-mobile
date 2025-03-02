@@ -13,14 +13,12 @@ class CoursesViewModel(
     private val getAllCoursesUseCase: GetAllCoursesUseCase
 ) : ViewModel() {
 
-    private val _courseList: MutableStateFlow<List<Course>> = MutableStateFlow(
-        emptyList()
-    )
-    val courseList = _courseList.asStateFlow()
+    private val _courses = MutableStateFlow<List<Course>>(emptyList())
+    val courses = _courses.asStateFlow()
 
     private fun fetchAllCourses() {
         viewModelScope.launch {
-            _courseList.update {
+            _courses.update {
                 getAllCoursesUseCase.execute()
             }
         }

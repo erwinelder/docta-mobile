@@ -13,6 +13,7 @@ import cz.cvut.docta.core.domain.app.CourseContext
 import cz.cvut.docta.core.presentation.navigation.MainScreens
 import cz.cvut.docta.core.presentation.navigation.sharedKoinNavViewModel
 import cz.cvut.docta.core.presentation.viewmodel.NavViewModel
+import cz.cvut.docta.course.presentation.navigation.CourseScreens
 import cz.cvut.docta.lesson.domain.model.LessonResults
 import cz.cvut.docta.lesson.presentation.screen.LessonResultsScreen
 import cz.cvut.docta.lesson.presentation.utils.getLessonScreenToNavigateTo
@@ -37,7 +38,7 @@ fun NavGraphBuilder.lessonNavigationGraph(
     screenPadding: PaddingValues,
     lessonProgressViewModel: LessonProgressViewModel
 ) {
-    navigation<MainScreens.Lesson>(
+    navigation<MainScreens.LessonGraph>(
         startDestination = LessonScreens.LessonStarter(lessonId = 0)
     ) {
         composable<LessonScreens.LessonStarter> { backStack ->
@@ -198,7 +199,9 @@ fun NavGraphBuilder.lessonNavigationGraph(
                 onContinueButtonClick = {
                     navViewModel.navigateAndPopUpTo(
                         navController = navController,
-                        screenToNavigateTo = MainScreens.SectionLessons(courseContext.getSectionId()),
+                        screenToNavigateTo = CourseScreens.Lessons(
+                            sectionId = courseContext.getSectionId()
+                        ),
                         inclusive = false
                     )
                 }

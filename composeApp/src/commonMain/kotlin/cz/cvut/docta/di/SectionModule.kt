@@ -11,15 +11,15 @@ import cz.cvut.docta.section.domain.usecase.GetCourseSectionsUseCaseImpl
 import cz.cvut.docta.section.domain.usecase.GetSectionUseCase
 import cz.cvut.docta.section.domain.usecase.GetSectionUseCaseImpl
 import cz.cvut.docta.section.presentation.viewmodel.CourseSectionsViewModel
-import cz.cvut.docta.section_editing.data.local.source.SectionDraftLocalDataSource
-import cz.cvut.docta.section_editing.data.local.source.sectionDraftLocalDataSourceFactory
-import cz.cvut.docta.section_editing.data.repository.SectionDraftRepository
-import cz.cvut.docta.section_editing.data.repository.SectionDraftRepositoryImpl
-import cz.cvut.docta.section_editing.domain.usecase.GetSectionDraftUseCase
-import cz.cvut.docta.section_editing.domain.usecase.GetSectionDraftUseCaseImpl
-import cz.cvut.docta.section_editing.domain.usecase.SaveSectionDraftUseCase
-import cz.cvut.docta.section_editing.domain.usecase.SaveSectionDraftUseCaseImpl
-import cz.cvut.docta.section_editing.presentation.viewmodel.SectionDraftViewModel
+import cz.cvut.docta.sectionEditing.data.local.source.SectionDraftLocalDataSource
+import cz.cvut.docta.sectionEditing.data.local.source.sectionDraftLocalDataSourceFactory
+import cz.cvut.docta.sectionEditing.data.repository.SectionDraftRepository
+import cz.cvut.docta.sectionEditing.data.repository.SectionDraftRepositoryImpl
+import cz.cvut.docta.sectionEditing.domain.usecase.GetSectionDraftUseCase
+import cz.cvut.docta.sectionEditing.domain.usecase.GetSectionDraftUseCaseImpl
+import cz.cvut.docta.sectionEditing.domain.usecase.SaveSectionDraftUseCase
+import cz.cvut.docta.sectionEditing.domain.usecase.SaveSectionDraftUseCaseImpl
+import cz.cvut.docta.sectionEditing.presentation.viewmodel.SectionDraftViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 

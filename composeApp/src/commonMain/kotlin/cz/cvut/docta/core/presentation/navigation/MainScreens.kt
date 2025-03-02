@@ -5,21 +5,12 @@ import kotlinx.serialization.Serializable
 sealed interface MainScreens {
 
     @Serializable
-    data object Courses : MainScreens
+    data object CoursesGraph : MainScreens
 
     @Serializable
-    data class CourseEdit(val courseCode: String) : MainScreens
+    data class CourseManagementGraph(val courseCode: String) : MainScreens
 
     @Serializable
-    data class CourseSections(val courseCode: String) : MainScreens
-
-    @Serializable
-    data class SectionEdit(val sectionId: Long): MainScreens
-
-    @Serializable
-    data class SectionLessons(val sectionId: Long): MainScreens
-
-    @Serializable
-    data class Lesson(val lessonId: Long): MainScreens
+    data class LessonGraph(val lessonId: Long) : MainScreens
 
 }
