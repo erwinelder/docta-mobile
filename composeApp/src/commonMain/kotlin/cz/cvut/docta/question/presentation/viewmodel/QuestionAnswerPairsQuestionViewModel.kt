@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cz.cvut.docta.answer.presentation.model.QuestionAnswerPairItemUiState
 import cz.cvut.docta.question.presentation.model.QuestionAndAnswersWrapper
-import cz.cvut.docta.question.presentation.utils.getQuestionInstructions
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -14,9 +13,6 @@ import kotlinx.coroutines.launch
 class QuestionAnswerPairsQuestionViewModel(
     private val question: QuestionAndAnswersWrapper.QuestionAnswerPairs
 ) : ViewModel() {
-
-    val questionInstructions = question.getQuestionInstructions()
-
 
     private val _questions = MutableStateFlow(question.answerInput.questions)
     val questions = _questions.asStateFlow()

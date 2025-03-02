@@ -69,7 +69,6 @@ fun NavGraphBuilder.lessonNavigationGraph(
 
             OpenAnswerQuestionScreen(
                 screenPadding = screenPadding,
-                questionInstructionsRes = questionViewModel.questionInstructions,
                 questionText = questionViewModel.questionText,
                 answerInput = answerInput,
                 onAnswerChange = questionViewModel::onAnswerInputChange,
@@ -102,7 +101,6 @@ fun NavGraphBuilder.lessonNavigationGraph(
 
             FillInBlanksQuestionScreen(
                 screenPadding = screenPadding,
-                questionInstructionsRes = questionViewModel.questionInstructions,
                 questionUnits = questionViewModel.questionUnits,
                 blanksAnswers = blanksAnswers,
                 onBlankAnswerChange = questionViewModel::onBlankAnswerChange,
@@ -135,7 +133,6 @@ fun NavGraphBuilder.lessonNavigationGraph(
 
             AnswerOptionsQuestionScreen(
                 screenPadding = screenPadding,
-                questionInstructionsRes = questionViewModel.questionInstructions,
                 questionText = questionViewModel.questionText,
                 options = options,
                 onOptionSelect = questionViewModel::onOptionSelect,
@@ -168,7 +165,6 @@ fun NavGraphBuilder.lessonNavigationGraph(
 
             QuestionAnswerPairsQuestionScreen(
                 screenPadding = screenPadding,
-                questionInstructionsRes = questionViewModel.questionInstructions,
                 questions = questions,
                 answers = answers,
                 onQuestionSelect = { id ->

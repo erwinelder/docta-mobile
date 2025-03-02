@@ -6,7 +6,6 @@ import cz.cvut.docta.answer.presentation.model.AnswerInput
 import cz.cvut.docta.question.domain.model.QuestionCheckResult
 import cz.cvut.docta.question.domain.model.QuestionWithCheckResult
 import cz.cvut.docta.question.presentation.model.QuestionAndAnswersWrapper
-import cz.cvut.docta.question.presentation.utils.getQuestionInstructions
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,8 +16,6 @@ import kotlinx.coroutines.flow.update
 class OpenAnswerQuestionViewModel(
     private val question: QuestionAndAnswersWrapper.OpenAnswer
 ) : ViewModel() {
-
-    val questionInstructions = question.getQuestionInstructions()
 
     val questionText = question.question.text
 

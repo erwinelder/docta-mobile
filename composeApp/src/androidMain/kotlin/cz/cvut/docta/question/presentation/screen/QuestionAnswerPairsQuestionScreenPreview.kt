@@ -6,8 +6,6 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import cz.cvut.docta.answer.presentation.model.QuestionAnswerPairItemUiState
 import cz.cvut.docta.core.presentation.screen.ScreenPreviewContainer
-import docta.composeapp.generated.resources.Res
-import docta.composeapp.generated.resources.question_answer_pairs_question_instructions
 
 @Preview(device = Devices.PIXEL_7_PRO)
 @Composable
@@ -15,7 +13,6 @@ fun QuestionAnswerPairsQuestionScreenPreview() {
     ScreenPreviewContainer {
         QuestionAnswerPairsQuestionScreen(
             screenPadding = PaddingValues(),
-            questionInstructionsRes = Res.string.question_answer_pairs_question_instructions,
             questions = listOf(
                 QuestionAnswerPairItemUiState(
                     id = 1,
