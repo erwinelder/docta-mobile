@@ -6,8 +6,6 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import cz.cvut.docta.core.presentation.screen.ScreenPreviewContainer
 import cz.cvut.docta.question.presentation.model.QuestionBlankUnit
-import docta.composeapp.generated.resources.Res
-import docta.composeapp.generated.resources.fill_in_blanks_question_instructions
 
 @Preview(device = Devices.PIXEL_7_PRO)
 @Composable
@@ -15,7 +13,6 @@ fun FillInBlanksQuestionScreenPreview() {
     ScreenPreviewContainer {
         FillInBlanksQuestionScreen(
             screenPadding = PaddingValues(),
-            questionInstructionsRes = Res.string.fill_in_blanks_question_instructions,
             questionUnits = listOf(
                 QuestionBlankUnit.Word("The"),
                 QuestionBlankUnit.Word("capital"),

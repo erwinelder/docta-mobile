@@ -12,13 +12,13 @@ import cz.cvut.docta.answer.presentation.model.QuestionAnswerPairItemUiState
 import cz.cvut.docta.core.domain.app.FilledWidthByScreenType
 import cz.cvut.docta.core.presentation.theme.CurrWindowType
 import cz.cvut.docta.question.presentation.component.screen_container.QuestionScreenContainer
-import org.jetbrains.compose.resources.StringResource
+import docta.composeapp.generated.resources.Res
+import docta.composeapp.generated.resources.question_answer_pairs_question_instructions
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun QuestionAnswerPairsQuestionScreen(
     screenPadding: PaddingValues,
-    questionInstructionsRes: StringResource,
     questions: List<QuestionAnswerPairItemUiState>,
     answers: List<QuestionAnswerPairItemUiState>,
     onQuestionSelect: (Long) -> Unit,
@@ -28,7 +28,7 @@ fun QuestionAnswerPairsQuestionScreen(
 ) {
     QuestionScreenContainer(
         screenPadding = screenPadding,
-        questionInstructions = stringResource(questionInstructionsRes),
+        questionInstructions = stringResource(Res.string.question_answer_pairs_question_instructions),
         buttonIsEnabled = continueButtonEnabled,
         showCheckButton = false,
         onContinueButtonClick = onContinueButtonClick

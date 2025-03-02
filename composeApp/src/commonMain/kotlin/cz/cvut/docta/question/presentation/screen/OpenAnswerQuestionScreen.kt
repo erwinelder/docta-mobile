@@ -19,13 +19,13 @@ import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.core.presentation.theme.Manrope
 import cz.cvut.docta.question.domain.model.QuestionCheckResult
 import cz.cvut.docta.question.presentation.component.screen_container.QuestionScreenContainer
-import org.jetbrains.compose.resources.StringResource
+import docta.composeapp.generated.resources.Res
+import docta.composeapp.generated.resources.open_answer_question_instructions
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun OpenAnswerQuestionScreen(
     screenPadding: PaddingValues,
-    questionInstructionsRes: StringResource,
     questionText: String,
     answerInput: String,
     onAnswerChange: (String) -> Unit,
@@ -36,7 +36,7 @@ fun OpenAnswerQuestionScreen(
 ) {
     QuestionScreenContainer(
         screenPadding = screenPadding,
-        questionInstructions = stringResource(questionInstructionsRes),
+        questionInstructions = stringResource(Res.string.open_answer_question_instructions),
         buttonIsEnabled = checkIsAllowed,
         showCheckButton = checkResult == null,
         onCheckButtonClick = onCheckButtonClick,

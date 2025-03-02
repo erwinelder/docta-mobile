@@ -21,14 +21,14 @@ import cz.cvut.docta.core.presentation.theme.Manrope
 import cz.cvut.docta.question.domain.model.QuestionCheckResult
 import cz.cvut.docta.question.presentation.component.screen_container.QuestionScreenContainer
 import cz.cvut.docta.question.presentation.model.QuestionBlankUnit
-import org.jetbrains.compose.resources.StringResource
+import docta.composeapp.generated.resources.Res
+import docta.composeapp.generated.resources.fill_in_blanks_question_instructions
 import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun FillInBlanksQuestionScreen(
     screenPadding: PaddingValues,
-    questionInstructionsRes: StringResource,
     questionUnits: List<QuestionBlankUnit>,
     blanksAnswers: Map<Int, String>,
     onBlankAnswerChange: (Int, String) -> Unit,
@@ -39,7 +39,7 @@ fun FillInBlanksQuestionScreen(
 ) {
     QuestionScreenContainer(
         screenPadding = screenPadding,
-        questionInstructions = stringResource(questionInstructionsRes),
+        questionInstructions = stringResource(Res.string.fill_in_blanks_question_instructions),
         buttonIsEnabled = checkIsAllowed,
         showCheckButton = checkResult == null,
         onCheckButtonClick = onCheckButtonClick,
