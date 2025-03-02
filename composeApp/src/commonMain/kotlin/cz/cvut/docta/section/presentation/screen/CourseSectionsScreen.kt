@@ -25,7 +25,7 @@ fun CourseSectionsScreen(
     courseName: String,
     courseIconRes: DrawableResource? = null,
     onNavigateBack: () -> Unit,
-    sectionList: List<SectionWithStatistics>,
+    sections: List<SectionWithStatistics>,
     onSectionClick: (SectionWithStatistics) -> Unit
 ) {
     val lazyListState = rememberLazyListState()
@@ -50,7 +50,7 @@ fun CourseSectionsScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier.weight(1f)
         ) {
-            items(items = sectionList) { section ->
+            items(items = sections) { section ->
                 GlassSurfaceNavigationButton(
                     text = section.name,
                     filledWidths = FilledWidthByScreenType(),

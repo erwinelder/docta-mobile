@@ -15,7 +15,7 @@ import cz.cvut.docta.course.domain.model.Course
 
 @Composable
 fun CoursesScreen(
-    courseList: List<Course>,
+    courses: List<Course>,
     onCourseClick: (Course) -> Unit
 ) {
     val lazyListState = rememberLazyListState()
@@ -28,7 +28,7 @@ fun CoursesScreen(
             modifier = Modifier,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            items(items = courseList) { course ->
+            items(items = courses) { course ->
                 Column {
                     GlassSurfaceNavigationButton(
                         text = course.name,
