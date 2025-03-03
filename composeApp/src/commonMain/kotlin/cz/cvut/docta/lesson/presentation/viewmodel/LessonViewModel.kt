@@ -8,8 +8,15 @@ import cz.cvut.docta.question.domain.usecase.GetLessonQuestionsWithAnswersUseCas
 import cz.cvut.docta.question.presentation.model.QuestionAndAnswersWrapper
 
 class LessonViewModel(
-    private val getLessonQuestionsWithAnswersUseCase: GetLessonQuestionsWithAnswersUseCase
+    private val getLessonQuestionsWithAnswersUseCase: GetLessonQuestionsWithAnswersUseCase,
+    // TODO-STATISTICS: add statistics use case
 ) : ViewModel() {
+
+    /*
+    TODO-STATISTICS: create private statistics state, then save this to data layer when lesson
+     is finished
+    */
+
 
     private val questions = mutableListOf<QuestionAndAnswersWrapper>()
 
@@ -43,9 +50,8 @@ class LessonViewModel(
     }
 
 
+    // TODO-STATISTICS: update statistics state here in view model
     fun processQuestionCheckResult(questionWithCheckResult: QuestionWithCheckResult) {
-        // TODO-LESSON-STATISTICS
-
         if (!questionWithCheckResult.result.isCorrect) {
             addWrongAnsweredQuestion(questionWithCheckResult.question)
         }
