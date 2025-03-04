@@ -1,21 +1,15 @@
 package cz.cvut.docta.course.domain.model
 
-sealed class CourseLocale(val langCode: String) {
+import kotlinx.serialization.Serializable
 
-    data object English : CourseLocale(langCode = "en")
-
-    data object Czech : CourseLocale(langCode = "cs")
-
+@Serializable
+enum class CourseLocale(val langCode: String) {
+    English(langCode = "en"),
+    Czech(langCode = "cs");
 
     companion object {
 
-        fun fromString(locale: String): CourseLocale? {
-            return when (locale) {
-                "en" -> English
-                "cs" -> Czech
-                else -> null
-            }
-        }
+        fun fromString(langCode: String): CourseLocale? = entries.find { it.langCode == langCode }
 
     }
 
