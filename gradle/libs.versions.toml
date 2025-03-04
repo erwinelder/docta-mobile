@@ -30,7 +30,7 @@ junit = "4.13.2"
 androidx-test-junit = "1.2.1"
 androidx-espresso-core = "3.6.1"
 # Plugins
-android-gradle-plugin = "8.8.2"
+android-gradle-plugin = "8.9.0"
 compose-plugin = "1.7.3"
 kotlin = "2.1.10"
 ksp = "2.1.0-1.0.29"
