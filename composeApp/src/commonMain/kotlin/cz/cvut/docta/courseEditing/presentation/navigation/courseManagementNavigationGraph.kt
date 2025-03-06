@@ -12,7 +12,6 @@ import cz.cvut.docta.core.presentation.navigation.MainScreens
 import cz.cvut.docta.core.presentation.viewmodel.NavViewModel
 import cz.cvut.docta.courseEditing.presentation.screen.CourseEditingScreen
 import cz.cvut.docta.courseEditing.presentation.viewmodel.CourseDraftViewModel
-import cz.cvut.docta.section.presentation.viewmodel.CourseSectionsViewModel
 import cz.cvut.docta.sectionEditing.presentation.screen.SectionEditingScreen
 import cz.cvut.docta.sectionEditing.presentation.viewmodel.SectionDraftViewModel
 import org.koin.compose.viewmodel.koinViewModel
@@ -28,14 +27,14 @@ fun NavGraphBuilder.courseManagementNavigationGraph(
             val courseCode = backStack.toRoute<CourseManagementScreens.CourseEditing>().courseCode
 
             val viewModel = koinViewModel<CourseDraftViewModel>()
-            val sectionViewModel = koinViewModel<CourseSectionsViewModel>()
 
             val courseName by viewModel.courseName.collectAsStateWithLifecycle()
             val courseLocale by viewModel.courseLocale.collectAsStateWithLifecycle()
-            val sections by sectionViewModel.sectionList.collectAsStateWithLifecycle() // where or what to get
+            val sections by viewModel.sectionList.collectAsStateWithLifecycle()
 
             LaunchedEffect(courseCode) {
                 viewModel.fetchCourseDraftData(courseCode)
+                viewModel.fetchCourseDraftSections(courseCode)
             }
 
             CourseEditingScreen(

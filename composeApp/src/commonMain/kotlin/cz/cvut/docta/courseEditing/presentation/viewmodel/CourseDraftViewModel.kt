@@ -6,6 +6,8 @@ import cz.cvut.docta.course.domain.model.CourseLocale
 import cz.cvut.docta.courseEditing.domain.model.CourseDraft
 import cz.cvut.docta.courseEditing.domain.usecase.GetCourseDraftUseCase
 import cz.cvut.docta.courseEditing.domain.usecase.SaveCourseDraftUseCase
+import cz.cvut.docta.section.domain.model.Section
+import cz.cvut.docta.section.domain.usecase.GetCourseDraftSectionsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -13,7 +15,8 @@ import kotlinx.coroutines.launch
 
 class CourseDraftViewModel(
     private val getCourseDraftUseCase: GetCourseDraftUseCase,
-    private val saveCourseDraftUseCase: SaveCourseDraftUseCase
+    private val saveCourseDraftUseCase: SaveCourseDraftUseCase,
+    private val getCourseDraftSectionsUseCase: GetCourseDraftSectionsUseCase
 ) : ViewModel() {
 
     private val _courseName = MutableStateFlow("")
@@ -58,4 +61,17 @@ class CourseDraftViewModel(
         }
     }
 
+    private val _sectionList = MutableStateFlow<List<Section>>(emptyList())
+    val sectionList = _sectionList.asStateFlow()
+
+    private fun changeSectionList(sections: List<Section>) {
+        _sectionList.update { sections }
+    }
+
+    fun fetchCourseDraftSections(courseCode: String) {
+        viewModelScope.launch {
+            val sections = getCourseDraftSectionsUseCase.execute(courseCode)
+            changeSectionList(sections)
+        }
+    }
 }
