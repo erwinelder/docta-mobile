@@ -85,7 +85,8 @@ val courseModule = module {
     viewModel {
         CourseDraftViewModel(
             getCourseDraftUseCase = get(),
-            saveCourseDraftUseCase = get()
+            saveCourseDraftUseCase = get(),
+            getCourseDraftSectionsUseCase = get()
         )
     }
 

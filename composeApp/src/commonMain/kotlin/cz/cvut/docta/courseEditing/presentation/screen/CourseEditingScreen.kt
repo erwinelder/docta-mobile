@@ -18,7 +18,6 @@ import cz.cvut.docta.core.presentation.component.field.DoctaTextField
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainer
 import cz.cvut.docta.core.presentation.theme.CurrWindowType
 import cz.cvut.docta.section.domain.model.Section
-import cz.cvut.docta.section.domain.model.SectionWithStatistics
 import docta.composeapp.generated.resources.Res
 import docta.composeapp.generated.resources.edit_course
 import docta.composeapp.generated.resources.save
@@ -32,7 +31,7 @@ fun CourseEditingScreen(
     courseLocale: String,
     onLocaleChange: (String) -> Unit,
     onSaveButtonClick: () -> Unit,
-    sections: List<SectionWithStatistics>, // sections vs sections with statistics
+    sections: List<Section>,
     onSectionClick: (Long) -> Unit,
 ) {
     ScreenContainer(
@@ -64,9 +63,9 @@ fun CourseEditingScreen(
                 )
             }
             LazyColumn(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                // COURSE-SECTIONS
                 items(items = sections) { section ->
                     GlassSurfaceNavigationButton(
                         text = section.name,
