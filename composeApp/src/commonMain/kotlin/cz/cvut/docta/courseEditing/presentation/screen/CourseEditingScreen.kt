@@ -3,16 +3,20 @@ package cz.cvut.docta.courseEditing.presentation.screen
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import cz.cvut.docta.core.domain.app.FilledWidthByScreenType
 import cz.cvut.docta.core.presentation.component.buttons.GlassSurfaceNavigationButton
 import cz.cvut.docta.core.presentation.component.buttons.GlassSurfaceTopBackNavButton
 import cz.cvut.docta.core.presentation.component.buttons.PrimaryButton
 import cz.cvut.docta.core.presentation.component.field.DoctaTextField
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainer
+import cz.cvut.docta.core.presentation.theme.CurrWindowType
 import cz.cvut.docta.section.domain.model.Section
 import cz.cvut.docta.section.domain.model.SectionWithStatistics
 import docta.composeapp.generated.resources.Res
@@ -31,7 +35,6 @@ fun CourseEditingScreen(
     sections: List<SectionWithStatistics>, // sections vs sections with statistics
     onSectionClick: (Long) -> Unit,
 ) {
-
     ScreenContainer(
         verticalArrangement = Arrangement.spacedBy(24.dp),
         padding = PaddingValues(top = 8.dp, bottom = 24.dp)
@@ -40,33 +43,41 @@ fun CourseEditingScreen(
             text = stringResource(Res.string.edit_course),
             onClick = onNavigateBack
         )
-        Column {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(24.dp),
+            modifier = Modifier
+                .fillMaxWidth(FilledWidthByScreenType().getByType(CurrWindowType))
+                .weight(1f)
+        ) {
             Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(16.dp),
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.fillMaxWidth()
             ) {
                 DoctaTextField(
                     text = courseName,
-                    onValueChange = onNameChange,
+                    onValueChange = onNameChange
                 )
                 DoctaTextField(
                     text = courseLocale,
-                    onValueChange = onLocaleChange,
+                    onValueChange = onLocaleChange
                 )
             }
-            LazyColumn {
+            LazyColumn(
+                modifier = Modifier.fillMaxWidth()
+            ) {
                 // COURSE-SECTIONS
                 items(items = sections) { section ->
-                    Column {
-                        GlassSurfaceNavigationButton(
-                            text = section.name,
-                            padding = PaddingValues(start = 24.dp, end = 16.dp, top = 16.dp, bottom = 16.dp),
-                            cornerSize = 18.dp,
-                            onClick = {
-                                onSectionClick(section.id)
-                            }
-                        )
-                    }
+                    GlassSurfaceNavigationButton(
+                        text = section.name,
+                        padding = PaddingValues(
+                            start = 24.dp, end = 16.dp, top = 16.dp, bottom = 16.dp
+                        ),
+                        cornerSize = 18.dp,
+                        onClick = {
+                            onSectionClick(section.id)
+                        }
+                    )
                 }
             }
         }
