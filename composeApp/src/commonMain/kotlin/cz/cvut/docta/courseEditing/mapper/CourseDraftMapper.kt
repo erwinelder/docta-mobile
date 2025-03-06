@@ -7,7 +7,7 @@ import cz.cvut.docta.courseEditing.domain.model.CourseDraft
 
 
 fun CourseDraftEntity.toDomain(): CourseDraft? {
-    val locale = CourseLocale.fromString(locale) ?: return null
+    val locale = CourseLocale.fromLangCode(locale) ?: return null
 
     return CourseDraft(
         code = code,
@@ -26,7 +26,7 @@ fun CourseDraft.toEntity(): CourseDraftEntity {
 
 
 fun CourseEntity.toCourseDraft(): CourseDraft? {
-    val locale = CourseLocale.fromString(locale) ?: return null
+    val locale = CourseLocale.fromLangCode(locale) ?: return null
 
     return CourseDraft(
         code = code,

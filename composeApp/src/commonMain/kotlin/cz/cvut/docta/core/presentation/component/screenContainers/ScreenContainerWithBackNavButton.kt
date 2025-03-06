@@ -5,18 +5,22 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import cz.cvut.docta.core.presentation.component.containers.BackButtonBlock
+import cz.cvut.docta.core.presentation.component.buttons.GlassSurfaceTopBackNavButton
+import org.jetbrains.compose.resources.DrawableResource
 
 @Composable
 fun ScreenContainerWithBackNavButton(
-    verticalArrangement: Arrangement.Vertical = Arrangement.Center,
-    onBackButtonClick: (() -> Unit)? = null,
-    padding: PaddingValues = PaddingValues(vertical = 24.dp),
+    onBackButtonClick: () -> Unit,
+    backButtonText: String,
+    backButtonIconRes: DrawableResource? = null,
+    verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(24.dp),
+    padding: PaddingValues = PaddingValues(top = 8.dp),
     content: @Composable ColumnScope.() -> Unit
 ) {
     Column(
@@ -26,7 +30,17 @@ fun ScreenContainerWithBackNavButton(
             .padding(padding)
             .fillMaxSize()
     ) {
-        onBackButtonClick?.let { BackButtonBlock(it) }
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            GlassSurfaceTopBackNavButton(
+                text = backButtonText,
+                iconRes = backButtonIconRes,
+                onClick = onBackButtonClick
+            )
+        }
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = verticalArrangement,

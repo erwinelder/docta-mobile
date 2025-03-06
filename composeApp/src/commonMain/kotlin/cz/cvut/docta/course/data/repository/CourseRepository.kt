@@ -8,4 +8,6 @@ interface CourseRepository {
 
     suspend fun getCourse(courseCode: String): CourseEntity?
 
+    suspend fun getCourseRemotely(courseCode: String): CourseEntity?
+
 }

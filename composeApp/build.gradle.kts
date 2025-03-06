@@ -57,7 +57,6 @@ kotlin {
             implementation(libs.ktor.serialization.kotlinx.json)
             // Firebase
 //            implementation(libs.firebase.auth)
-//            implementation(libs.firebase.firestore)
             // Koin
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
@@ -65,6 +64,7 @@ kotlin {
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.koin.compose.viewmodel.navigation)
             // Utilities
+            implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.serialization.json)
         }
 

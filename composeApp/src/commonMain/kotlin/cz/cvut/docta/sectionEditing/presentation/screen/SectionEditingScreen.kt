@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.core.presentation.component.buttons.GlassSurfaceTopBackNavButton
 import cz.cvut.docta.core.presentation.component.buttons.PrimaryButton
-import cz.cvut.docta.core.presentation.component.field.DoctaTextField
+import cz.cvut.docta.core.presentation.component.field.SmallTextField
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainer
 import docta.composeapp.generated.resources.Res
 import docta.composeapp.generated.resources.edit_section
@@ -34,7 +34,7 @@ fun SectionEditingScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier.weight(1f)
         ) {
-            DoctaTextField(
+            SmallTextField(
                 text = sectionName,
                 onValueChange = onNameChange,
             )

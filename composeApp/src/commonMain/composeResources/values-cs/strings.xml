@@ -5,9 +5,16 @@
     <string name="continue_">Pokračovat</string>
     <string name="check">Zkontrolovat</string>
     <string name="save">Uložit</string>
+    <string name="search">Hledat</string>
+    <string name="cancel">Zrušit</string>
+    <string name="try_again">Zkusit znovu</string>
+    <string name="add">Přidat</string>
 
     <!-- Course -->
     <string name="edit_course">Upravit kurz</string>
+    <string name="add_new_course">Přidat nový kurz</string>
+    <string name="edit_courses">Upravit kurzy</string>
+    <string name="searching_for_course">Hledání</string>
 
     <!-- Course section -->
     <string name="edit_section">Upravit sekci</string>
@@ -29,5 +36,14 @@
     <string name="question_answer_pairs_question_instructions">Přiřaďte dvojice</string>
     <string name="step_question_instructions">Vyřešte tento krok úkolu</string>
     <string name="type_your_answer_here">Sem napište svou odpověď…</string>
+
+    <!-- Other -->
+    <string name="greetings_title_morning">Dobré ráno!</string>
+    <string name="greetings_title_afternoon">Dobré poledne!</string>
+    <string name="greetings_title_evening">Dobré odpoledne!</string>
+    <string name="greetings_title_night">Dobrý večer!</string>
+
+    <!-- Placeholders -->
+    <string name="course_search_placeholder">Kód kurzu (např. „nss“) …</string>
 
 </resources>

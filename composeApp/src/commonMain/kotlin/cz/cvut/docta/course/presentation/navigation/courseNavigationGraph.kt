@@ -11,7 +11,9 @@ import androidx.navigation.toRoute
 import cz.cvut.docta.core.domain.app.CourseContext
 import cz.cvut.docta.core.presentation.navigation.MainScreens
 import cz.cvut.docta.core.presentation.viewmodel.NavViewModel
+import cz.cvut.docta.course.presentation.screen.AddNewCourseScreen
 import cz.cvut.docta.course.presentation.screen.CoursesScreen
+import cz.cvut.docta.course.presentation.viewModel.AddNewCourseViewModel
 import cz.cvut.docta.course.presentation.viewModel.CoursesViewModel
 import cz.cvut.docta.lesson.presentation.navigation.LessonScreens
 import cz.cvut.docta.lesson.presentation.screen.SectionLessonsScreen
@@ -39,12 +41,38 @@ fun NavGraphBuilder.courseNavigationGraph(
             }
 
             CoursesScreen(
+                onAddNewCourse = {
+                    navViewModel.navigate(navController, CourseScreens.AddNewCourse)
+                },
+                onEditCourses = { /* TODO-COURSE */ },
                 courses = courses,
                 onCourseClick = { course ->
                     courseContext.setCourseCode(course.code)
                     navViewModel.navigate(
                         navController, CourseScreens.Sections(courseCode = course.code)
                     )
+                }
+            )
+        }
+        composable<CourseScreens.AddNewCourse> {
+            val viewModel = koinViewModel<AddNewCourseViewModel>()
+
+            val query by viewModel.query.collectAsStateWithLifecycle()
+            val searchIsAllowed by viewModel.searchIsAllowed.collectAsStateWithLifecycle()
+            val searchedCourseState by viewModel.courseSearchState.collectAsStateWithLifecycle()
+
+            AddNewCourseScreen(
+                onNavigateBack = navController::popBackStack,
+                searchedCourseState = searchedCourseState,
+                query = query,
+                onQueryChange = viewModel::onQueryChange,
+                searchIsAllowed = searchIsAllowed,
+                onSearch = viewModel::searchForCourse,
+                onSearchCancel = viewModel::cancelSearch,
+                onTryAgain = viewModel::setCourseSearchPromptState,
+                onAddCourse = {
+                    // TODO-COURSE
+                    navController.popBackStack()
                 }
             )
         }
