@@ -10,6 +10,7 @@ sealed class DoctaPalette(
     val primaryGlassGradientPair: Pair<Color, Color> = Pair(
         primaryGlassGradient[0], primaryGlassGradient[1]
     ),
+    val primarySemiTransparent: Color = primary.copy(alpha = .6f),
     val onPrimary: Color,
 
     val background: Color,

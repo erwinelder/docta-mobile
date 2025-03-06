@@ -5,9 +5,16 @@
     <string name="continue_">Continue</string>
     <string name="check">Check</string>
     <string name="save">Save</string>
+    <string name="search">Search</string>
+    <string name="cancel">Cancel</string>
+    <string name="try_again">Try again</string>
+    <string name="add">Add</string>
 
     <!-- Course -->
     <string name="edit_course">Edit course</string>
+    <string name="add_new_course">Add new course</string>
+    <string name="edit_courses">Edit courses</string>
+    <string name="searching_for_course">Searching for</string>
 
     <!-- Course section -->
     <string name="edit_section">Edit section</string>
@@ -29,5 +36,14 @@
     <string name="question_answer_pairs_question_instructions">Match the pairs</string>
     <string name="step_question_instructions">Solve this step of the task</string>
     <string name="type_your_answer_here">Type your answer here…</string>
+
+    <!-- Other -->
+    <string name="greetings_title_morning">Good morning!</string>
+    <string name="greetings_title_afternoon">Good afternoon!</string>
+    <string name="greetings_title_evening">Good evening!</string>
+    <string name="greetings_title_night">Good evening!</string>
+
+    <!-- Placeholders -->
+    <string name="course_search_placeholder">Course code (e.g. "nss") …</string>
 
 </resources>

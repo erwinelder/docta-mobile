@@ -36,4 +36,9 @@ class CourseRepositoryImpl(
         return localSource.getCourse(courseCode = courseCode)
     }
 
+    override suspend fun getCourseRemotely(courseCode: String): CourseEntity? {
+        // TODO-COURSE: Implement getting course remotely
+        return null
+    }
+
 }

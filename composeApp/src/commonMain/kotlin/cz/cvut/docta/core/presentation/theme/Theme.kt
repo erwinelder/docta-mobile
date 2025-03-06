@@ -15,7 +15,7 @@ import cz.cvut.docta.core.domain.app.WindowType
 
 val LocalAppTheme = compositionLocalOf { AppTheme.Light }
 val LocalColors = compositionLocalOf<DoctaPalette> { DoctaPalette.Light }
-val LocalTypography = compositionLocalOf { DoctaTypography() }
+val LocalTypography = compositionLocalOf { DoctaCustomTypography() }
 val LocalWindowType = compositionLocalOf { WindowType.Compact }
 
 
@@ -28,7 +28,7 @@ fun DoctaTheme(
 ) {
     val appTheme = if (isSystemInDarkTheme) AppTheme.Dark else AppTheme.Light
     val doctaColors = if (isSystemInDarkTheme) DoctaPalette.Dark else DoctaPalette.Light
-    val typography = DoctaTypography()
+    val typography = DoctaCustomTypography()
     val windowType = when {
         boxWithConstraintsScope.maxWidth < 600.dp -> WindowType.Compact
         boxWithConstraintsScope.maxWidth < 840.dp -> WindowType.Medium
@@ -56,6 +56,11 @@ val DoctaColors: DoctaPalette
     @Composable
     @ReadOnlyComposable
     get() = LocalColors.current
+
+val DoctaTypography: DoctaCustomTypography
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalTypography.current
 
 val CurrWindowType: WindowType
     @Composable

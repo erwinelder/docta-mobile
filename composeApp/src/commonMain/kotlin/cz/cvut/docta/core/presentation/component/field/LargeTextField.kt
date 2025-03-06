@@ -1,11 +1,9 @@
 package cz.cvut.docta.core.presentation.component.field
 
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
@@ -20,7 +18,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Brush
@@ -32,7 +29,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -47,13 +43,13 @@ import org.jetbrains.compose.resources.painterResource
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun DoctaTextField(
+fun LargeTextField(
     text: String,
     onValueChange: (String) -> Unit,
     placeholderText: String = "",
     fontSize: TextUnit = 20.sp,
-    padding: PaddingValues = PaddingValues(horizontal = 12.dp, vertical = 6.dp),
-    cornerSize: Dp = 15.dp,
+    padding: PaddingValues = PaddingValues(horizontal = 24.dp, vertical = 12.dp),
+    cornerSize: Dp = 16.dp,
     keyboardType: KeyboardType = KeyboardType.Text,
     imeAction: ImeAction = ImeAction.Done,
     readOnly: Boolean = false,
@@ -76,7 +72,6 @@ fun DoctaTextField(
     }
 
     GlassSurface(
-        filledWidths = null,
         cornerSize = cornerSize,
         modifier = modifier
     ) {
@@ -100,11 +95,10 @@ fun DoctaTextField(
                     color = DoctaColors.onSurface,
                     fontSize = fontSize,
                     fontWeight = FontWeight.Normal,
-                    fontFamily = Manrope,
-                    textAlign = TextAlign.Center
+                    fontFamily = Manrope
                 ),
                 cursorBrush = Brush.linearGradient(DoctaColors.primaryGradient),
-                modifier = Modifier.animateContentSize()
+                modifier = Modifier.fillMaxWidth()
             ) {
                 TextFieldDefaults.TextFieldDecorationBox(
                     value = text,
@@ -128,11 +122,10 @@ fun DoctaTextField(
                         ShowHidePasswordIcon(isPasswordVisible = it) { isPasswordVisible = !it }
                     } },
                     innerTextField = {
-                        Box(contentAlignment = Alignment.Center) {
+                        if (text.isBlank()) {
+                            Placeholder(text = placeholderText, fontSize = fontSize)
+                        } else {
                             it()
-                            if (text.isBlank()) {
-                                Placeholder(text = placeholderText, fontSize = fontSize)
-                            }
                         }
                     }
                 )
@@ -165,12 +158,9 @@ private fun Placeholder(
 ) {
     Text(
         text = text,
-        fontSize = fontSize,
+        fontSize = fontSize.times(0.95),
         color = DoctaColors.outline,
         fontWeight = FontWeight.Normal,
-        fontFamily = Manrope,
-        textAlign = TextAlign.Center,
-        modifier = Modifier
-            .run { if (text.isEmpty()) width(123.dp) else this }
+        fontFamily = Manrope
     )
 }
