@@ -11,17 +11,16 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import cz.cvut.docta.SharedRes
 import cz.cvut.docta.core.presentation.component.buttons.SmallSecondaryButton
 import cz.cvut.docta.core.presentation.component.other.GreetingsMessage
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainer
 import cz.cvut.docta.course.domain.model.Course
 import cz.cvut.docta.course.presentation.component.CourseNavButtonComponent
+import dev.icerock.moko.resources.compose.stringResource
 import docta.composeapp.generated.resources.Res
 import docta.composeapp.generated.resources.add_icon
-import docta.composeapp.generated.resources.add_new_course
-import docta.composeapp.generated.resources.edit_courses
 import docta.composeapp.generated.resources.edit_icon
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun CoursesScreen(
@@ -46,12 +45,12 @@ fun CoursesScreen(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 SmallSecondaryButton(
-                    text = stringResource(Res.string.add_new_course),
+                    text = stringResource(SharedRes.strings.add_new_course),
                     iconRes = Res.drawable.add_icon,
                     onClick = onAddNewCourse
                 )
                 SmallSecondaryButton(
-                    text = stringResource(Res.string.edit_courses),
+                    text = stringResource(SharedRes.strings.edit_courses),
                     iconRes = Res.drawable.edit_icon,
                     onClick = onEditCourses
                 )

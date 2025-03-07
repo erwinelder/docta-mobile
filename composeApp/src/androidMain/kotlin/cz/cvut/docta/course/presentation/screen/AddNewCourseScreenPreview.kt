@@ -15,6 +15,7 @@ fun AddNewCourseScreenPreview(
     appTheme: AppTheme = AppTheme.Light,
     query: String = "",
     searchedCourseState: CourseSearchState = CourseSearchState.SearchedCourse(
+        query = "nss",
         course = Course(
             code = "nss",
             locale = CourseLocale.English,

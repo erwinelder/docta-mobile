@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cz.cvut.docta.SharedRes
 import cz.cvut.docta.core.presentation.component.buttons.SmallPrimaryButton
 import cz.cvut.docta.core.presentation.component.buttons.SmallSecondaryButton
 import cz.cvut.docta.core.presentation.component.field.LargeTextField
@@ -22,19 +23,12 @@ import cz.cvut.docta.core.presentation.theme.Manrope
 import cz.cvut.docta.course.domain.model.Course
 import cz.cvut.docta.course.domain.model.CourseSearchState
 import cz.cvut.docta.course.presentation.component.CourseComponent
+import dev.icerock.moko.resources.compose.stringResource
 import docta.composeapp.generated.resources.Res
-import docta.composeapp.generated.resources.add
 import docta.composeapp.generated.resources.add_icon
-import docta.composeapp.generated.resources.add_new_course
-import docta.composeapp.generated.resources.cancel
 import docta.composeapp.generated.resources.close_icon
-import docta.composeapp.generated.resources.course_search_placeholder
 import docta.composeapp.generated.resources.reset_icon
-import docta.composeapp.generated.resources.search
 import docta.composeapp.generated.resources.search_icon
-import docta.composeapp.generated.resources.searching_for_course
-import docta.composeapp.generated.resources.try_again
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun AddNewCourseScreen(
@@ -50,7 +44,7 @@ fun AddNewCourseScreen(
 ) {
     ScreenContainerWithBackNavButton(
         onBackButtonClick = onNavigateBack,
-        backButtonText = stringResource(Res.string.add_new_course)
+        backButtonText = stringResource(SharedRes.strings.add_new_course)
     ) {
         Box(
             contentAlignment = Alignment.Center,
@@ -94,11 +88,11 @@ private fun CourseSearchPromptComponent(
     ) {
         LargeTextField(
             text = query,
-            placeholderText = stringResource(Res.string.course_search_placeholder),
+            placeholderText = stringResource(SharedRes.strings.course_search_placeholder),
             onValueChange = onQueryChange
         )
         SmallPrimaryButton(
-            text = stringResource(Res.string.search),
+            text = stringResource(SharedRes.strings.search),
             iconRes = Res.drawable.search_icon,
             enabled = searchIsAllowed,
             onClick = onSearch
@@ -116,14 +110,14 @@ private fun CourseSearchLoadingComponent(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
-            text = stringResource(Res.string.searching_for_course) + " \"${state.query}\"",
+            text = stringResource(SharedRes.strings.searching_for_course, state.query),
             color = DoctaColors.outline,
             fontSize = 19.sp,
             fontWeight = FontWeight.W400,
             fontFamily = Manrope
         )
         SmallSecondaryButton(
-            text = stringResource(Res.string.cancel),
+            text = stringResource(SharedRes.strings.cancel),
             iconRes = Res.drawable.close_icon,
             onClick = onCancel
         )
@@ -143,19 +137,25 @@ private fun CourseSearchSearchedCourseComponent(
         if (state.course != null) {
             CourseComponent(course = state.course)
         } else {
-            // TODO-COURSE: Add error message component
+            Text(
+                text = stringResource(SharedRes.strings.course_with_code_not_found, state.query),
+                color = DoctaColors.onSurface,
+                fontSize = 19.sp,
+                fontWeight = FontWeight.W400,
+                fontFamily = Manrope
+            )
         }
         Row(
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             SmallSecondaryButton(
-                text = stringResource(Res.string.try_again),
+                text = stringResource(SharedRes.strings.try_again),
                 iconRes = Res.drawable.reset_icon,
                 onClick = onTryAgain
             )
             state.course?.let {
                 SmallPrimaryButton(
-                    text = stringResource(Res.string.add),
+                    text = stringResource(SharedRes.strings.add),
                     iconRes = Res.drawable.add_icon,
                     onClick = { onAddCourse(it) }
                 )

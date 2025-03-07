@@ -6,6 +6,6 @@ sealed class CourseSearchState {
 
     data class Loading(val query: String) : CourseSearchState()
 
-    data class SearchedCourse(val course: Course?) : CourseSearchState()
+    data class SearchedCourse(val query: String, val course: Course?) : CourseSearchState()
 
 }

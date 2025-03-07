@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.mobile.multiplatform.resources)
 }
 
 kotlin {
@@ -66,6 +67,8 @@ kotlin {
             // Utilities
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.serialization.json)
+            implementation(libs.moko.resources)
+            implementation(libs.moko.resources.compose)
         }
 
         androidMain.dependencies {
@@ -136,4 +139,10 @@ afterEvaluate {
     tasks.named("copyRoomSchemasToAndroidTestAssetsDebugAndroidTest").configure {
         enabled = false
     }
+}
+
+multiplatformResources {
+    resourcesPackage.set("cz.cvut.docta")
+    resourcesClassName.set("SharedRes")
+//    iosMinimalDeploymentTarget.set("11.0")
 }

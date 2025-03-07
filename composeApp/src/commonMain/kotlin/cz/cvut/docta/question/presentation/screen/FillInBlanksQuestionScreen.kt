@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cz.cvut.docta.SharedRes
 import cz.cvut.docta.answer.presentation.component.field.QuestionTextBlankField
 import cz.cvut.docta.core.domain.app.FilledWidthByScreenType
 import cz.cvut.docta.core.presentation.theme.CurrWindowType
@@ -21,9 +22,7 @@ import cz.cvut.docta.core.presentation.theme.Manrope
 import cz.cvut.docta.question.domain.model.QuestionCheckResult
 import cz.cvut.docta.question.presentation.component.screen_container.QuestionScreenContainer
 import cz.cvut.docta.question.presentation.model.QuestionBlankUnit
-import docta.composeapp.generated.resources.Res
-import docta.composeapp.generated.resources.fill_in_blanks_question_instructions
-import org.jetbrains.compose.resources.stringResource
+import dev.icerock.moko.resources.compose.stringResource
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -39,7 +38,7 @@ fun FillInBlanksQuestionScreen(
 ) {
     QuestionScreenContainer(
         screenPadding = screenPadding,
-        questionInstructions = stringResource(Res.string.fill_in_blanks_question_instructions),
+        questionInstructions = stringResource(SharedRes.strings.fill_in_blanks_question_instructions),
         buttonIsEnabled = checkIsAllowed,
         showCheckButton = checkResult == null,
         onCheckButtonClick = onCheckButtonClick,

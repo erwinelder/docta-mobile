@@ -34,9 +34,9 @@ class AddNewCourseViewModel(
         }
     }
 
-    private fun setCourseSearchCourseState(course: Course?) {
+    private fun setCourseSearchCourseState(query: String, course: Course?) {
         _courseSearchState.update {
-            CourseSearchState.SearchedCourse(course = course)
+            CourseSearchState.SearchedCourse(query = query, course = course)
         }
     }
 
@@ -63,7 +63,9 @@ class AddNewCourseViewModel(
     fun searchForCourse() {
         setCourseSearchLoadingState()
         searchJob = viewModelScope.launch {
-            searchForCourseUseCase.execute(query.value.trim()).let(::setCourseSearchCourseState)
+            val query = query.value.trim()
+            val course = searchForCourseUseCase.execute(query)
+            setCourseSearchCourseState(query = query, course = course)
         }
     }
 

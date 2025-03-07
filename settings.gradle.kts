@@ -13,6 +13,9 @@ pluginManagement {
         mavenCentral()
         gradlePluginPortal()
     }
+    plugins {
+        id("dev.icerock.mobile.multiplatform-resources") version "0.24.5"
+    }
 }
 
 dependencyResolutionManagement {

@@ -14,7 +14,8 @@
     <string name="edit_course">Upravit kurz</string>
     <string name="add_new_course">Přidat nový kurz</string>
     <string name="edit_courses">Upravit kurzy</string>
-    <string name="searching_for_course">Hledání</string>
+    <string name="searching_for_course">Hledání "%s"</string>
+    <string name="course_with_code_not_found">Kurz s kódem “%s” nebyl nalezen</string>
 
     <!-- Course section -->
     <string name="edit_section">Upravit sekci</string>

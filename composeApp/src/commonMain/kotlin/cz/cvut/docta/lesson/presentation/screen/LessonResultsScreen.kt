@@ -6,12 +6,11 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import cz.cvut.docta.SharedRes
 import cz.cvut.docta.core.presentation.component.buttons.PrimaryButton
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainer
 import cz.cvut.docta.lesson.domain.model.LessonResults
-import docta.composeapp.generated.resources.Res
-import docta.composeapp.generated.resources.continue_
-import org.jetbrains.compose.resources.stringResource
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun LessonResultsScreen(
@@ -32,7 +31,7 @@ fun LessonResultsScreen(
                     )
                 }
                 PrimaryButton(
-                    text = stringResource(Res.string.continue_),
+                    text = stringResource(SharedRes.strings.continue_),
                     onClick = onContinueButtonClick
                 )
             }

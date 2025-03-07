@@ -7,14 +7,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import cz.cvut.docta.SharedRes
 import cz.cvut.docta.answer.presentation.component.container.QuestionAnswerPairsColumn
 import cz.cvut.docta.answer.presentation.model.QuestionAnswerPairItemUiState
 import cz.cvut.docta.core.domain.app.FilledWidthByScreenType
 import cz.cvut.docta.core.presentation.theme.CurrWindowType
 import cz.cvut.docta.question.presentation.component.screen_container.QuestionScreenContainer
-import docta.composeapp.generated.resources.Res
-import docta.composeapp.generated.resources.question_answer_pairs_question_instructions
-import org.jetbrains.compose.resources.stringResource
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun QuestionAnswerPairsQuestionScreen(
@@ -28,7 +27,7 @@ fun QuestionAnswerPairsQuestionScreen(
 ) {
     QuestionScreenContainer(
         screenPadding = screenPadding,
-        questionInstructions = stringResource(Res.string.question_answer_pairs_question_instructions),
+        questionInstructions = stringResource(SharedRes.strings.question_answer_pairs_question_instructions),
         buttonIsEnabled = continueButtonEnabled,
         showCheckButton = false,
         onContinueButtonClick = onContinueButtonClick

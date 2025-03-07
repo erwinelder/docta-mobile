@@ -6,13 +6,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import cz.cvut.docta.SharedRes
 import cz.cvut.docta.core.presentation.component.buttons.BackButton
-import docta.composeapp.generated.resources.Res
-import docta.composeapp.generated.resources.back
-import org.jetbrains.compose.resources.stringResource
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
-fun BackButtonBlock(onClick: () -> Unit, text: String = stringResource(Res.string.back)) {
+fun BackButtonBlock(onClick: () -> Unit, text: String = stringResource(SharedRes.strings.back)) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

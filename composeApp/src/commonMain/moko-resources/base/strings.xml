@@ -14,7 +14,8 @@
     <string name="edit_course">Edit course</string>
     <string name="add_new_course">Add new course</string>
     <string name="edit_courses">Edit courses</string>
-    <string name="searching_for_course">Searching for</string>
+    <string name="searching_for_course">Searching for "%s"</string>
+    <string name="course_with_code_not_found">Course with code “%s” was not found</string>
 
     <!-- Course section -->
     <string name="edit_section">Edit section</string>

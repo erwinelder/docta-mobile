@@ -6,14 +6,12 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import cz.cvut.docta.SharedRes
 import cz.cvut.docta.core.presentation.component.buttons.GlassSurfaceTopBackNavButton
 import cz.cvut.docta.core.presentation.component.buttons.PrimaryButton
 import cz.cvut.docta.core.presentation.component.field.SmallTextField
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainer
-import docta.composeapp.generated.resources.Res
-import docta.composeapp.generated.resources.edit_section
-import docta.composeapp.generated.resources.save
-import org.jetbrains.compose.resources.stringResource
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun SectionEditingScreen(
@@ -27,7 +25,7 @@ fun SectionEditingScreen(
         padding = PaddingValues(top = 8.dp, bottom = 24.dp)
     ) {
         GlassSurfaceTopBackNavButton(
-            text = stringResource(Res.string.edit_section),
+            text = stringResource(SharedRes.strings.edit_section),
             onClick = onNavigateBack
         )
         Column(
@@ -40,7 +38,7 @@ fun SectionEditingScreen(
             )
         }
         PrimaryButton(
-            text = stringResource(Res.string.save),
+            text = stringResource(SharedRes.strings.save),
             onClick = onSaveButtonClick
         )
     }

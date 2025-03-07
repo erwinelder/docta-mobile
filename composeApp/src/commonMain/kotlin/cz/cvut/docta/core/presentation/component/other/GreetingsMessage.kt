@@ -15,7 +15,7 @@ import cz.cvut.docta.core.presentation.theme.DoctaTypography
 import cz.cvut.docta.core.presentation.theme.Manrope
 import cz.cvut.docta.core.utils.getCurrentLocalDateTime
 import cz.cvut.docta.core.utils.getGreetingsWidgetTitleRes
-import org.jetbrains.compose.resources.stringResource
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun GreetingsMessage() {
