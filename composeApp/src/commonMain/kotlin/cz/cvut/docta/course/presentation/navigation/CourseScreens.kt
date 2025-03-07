@@ -8,6 +8,9 @@ sealed interface CourseScreens {
     data object Courses : CourseScreens
 
     @Serializable
+    data object AddNewCourse : CourseScreens
+
+    @Serializable
     data class Sections(val courseCode: String) : CourseScreens
 
     @Serializable

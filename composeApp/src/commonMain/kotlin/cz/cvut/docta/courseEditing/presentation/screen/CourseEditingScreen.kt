@@ -12,16 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.core.domain.app.FilledWidthByScreenType
 import cz.cvut.docta.core.presentation.component.buttons.GlassSurfaceNavigationButton
+import cz.cvut.docta.SharedRes
 import cz.cvut.docta.core.presentation.component.buttons.GlassSurfaceTopBackNavButton
 import cz.cvut.docta.core.presentation.component.buttons.PrimaryButton
-import cz.cvut.docta.core.presentation.component.field.DoctaTextField
+import cz.cvut.docta.core.presentation.component.field.SmallTextField
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainer
 import cz.cvut.docta.core.presentation.theme.CurrWindowType
 import cz.cvut.docta.section.domain.model.Section
-import docta.composeapp.generated.resources.Res
-import docta.composeapp.generated.resources.edit_course
-import docta.composeapp.generated.resources.save
-import org.jetbrains.compose.resources.stringResource
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun CourseEditingScreen(
@@ -39,7 +37,7 @@ fun CourseEditingScreen(
         padding = PaddingValues(top = 8.dp, bottom = 24.dp)
     ) {
         GlassSurfaceTopBackNavButton(
-            text = stringResource(Res.string.edit_course),
+            text = stringResource(SharedRes.strings.edit_course),
             onClick = onNavigateBack
         )
         Column(
@@ -53,11 +51,11 @@ fun CourseEditingScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 modifier = Modifier.fillMaxWidth()
             ) {
-                DoctaTextField(
+                SmallTextField(
                     text = courseName,
                     onValueChange = onNameChange
                 )
-                DoctaTextField(
+                SmallTextField(
                     text = courseLocale,
                     onValueChange = onLocaleChange
                 )
@@ -81,7 +79,7 @@ fun CourseEditingScreen(
             }
         }
         PrimaryButton(
-            text = stringResource(Res.string.save),
+            text = stringResource(SharedRes.strings.save),
             onClick = onSaveButtonClick
         )
     }

@@ -9,18 +9,16 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import cz.cvut.docta.SharedRes
 import cz.cvut.docta.core.domain.app.FilledWidthByScreenType
 import cz.cvut.docta.core.presentation.component.buttons.GlassSurfaceNavigationButton
 import cz.cvut.docta.core.presentation.component.buttons.GlassSurfaceTopBackNavButton
 import cz.cvut.docta.core.presentation.component.buttons.PrimaryButton
-import cz.cvut.docta.core.presentation.component.field.DoctaTextField
+import cz.cvut.docta.core.presentation.component.field.SmallTextField
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainer
 import cz.cvut.docta.core.presentation.theme.CurrWindowType
 import cz.cvut.docta.lesson.domain.model.LessonDraft
-import docta.composeapp.generated.resources.Res
-import docta.composeapp.generated.resources.edit_section
-import docta.composeapp.generated.resources.save
-import org.jetbrains.compose.resources.stringResource
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun SectionEditingScreen(
@@ -36,7 +34,7 @@ fun SectionEditingScreen(
         padding = PaddingValues(top = 8.dp, bottom = 24.dp)
     ) {
         GlassSurfaceTopBackNavButton(
-            text = stringResource(Res.string.edit_section),
+            text = stringResource(SharedRes.strings.edit_section),
             onClick = onNavigateBack
         )
         Column(
@@ -45,7 +43,7 @@ fun SectionEditingScreen(
                 .fillMaxWidth(FilledWidthByScreenType().getByType(CurrWindowType))
                 .weight(1f)
         ) {
-            DoctaTextField(
+            SmallTextField(
                 text = sectionName,
                 onValueChange = onNameChange
             )
@@ -68,7 +66,7 @@ fun SectionEditingScreen(
             }
         }
         PrimaryButton(
-            text = stringResource(Res.string.save),
+            text = stringResource(SharedRes.strings.save),
             onClick = onSaveButtonClick
         )
     }

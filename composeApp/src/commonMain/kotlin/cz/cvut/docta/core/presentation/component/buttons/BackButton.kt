@@ -1,14 +1,13 @@
 package cz.cvut.docta.core.presentation.component.buttons
 
 import androidx.compose.runtime.Composable
-import docta.composeapp.generated.resources.Res
-import docta.composeapp.generated.resources.back
-import org.jetbrains.compose.resources.stringResource
+import cz.cvut.docta.SharedRes
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun BackButton(
     onClick: () -> Unit,
-    text: String = stringResource(Res.string.back)
+    text: String = stringResource(SharedRes.strings.back)
 ) {
     NavigationTextArrowButton(
         text = text,

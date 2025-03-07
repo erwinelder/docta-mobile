@@ -9,7 +9,7 @@ enum class CourseLocale(val langCode: String) {
 
     companion object {
 
-        fun fromString(langCode: String): CourseLocale? = entries.find { it.langCode == langCode }
+        fun fromLangCode(langCode: String): CourseLocale? = entries.find { it.langCode == langCode }
 
     }
 

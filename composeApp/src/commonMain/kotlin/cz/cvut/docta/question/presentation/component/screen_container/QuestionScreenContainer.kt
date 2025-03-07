@@ -10,14 +10,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
+import cz.cvut.docta.SharedRes
 import cz.cvut.docta.core.presentation.component.buttons.PrimaryButton
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainer
 import cz.cvut.docta.core.presentation.utils.getImeBottomInset
 import cz.cvut.docta.question.presentation.component.text.QuestionInstructionsTitle
-import docta.composeapp.generated.resources.Res
-import docta.composeapp.generated.resources.check
-import docta.composeapp.generated.resources.continue_
-import org.jetbrains.compose.resources.stringResource
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun QuestionScreenContainer(
@@ -45,7 +43,7 @@ fun QuestionScreenContainer(
         content()
         PrimaryButton(
             text = stringResource(
-                if (showCheckButton) Res.string.check else Res.string.continue_
+                if (showCheckButton) SharedRes.strings.check else SharedRes.strings.continue_
             ),
             enabled = buttonIsEnabled,
             onClick = if (showCheckButton) onCheckButtonClick else

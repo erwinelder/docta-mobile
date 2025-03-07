@@ -22,14 +22,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cz.cvut.docta.SharedRes
 import cz.cvut.docta.core.domain.app.FilledWidthByScreenType
 import cz.cvut.docta.core.presentation.component.containers.GlassSurface
 import cz.cvut.docta.core.presentation.component.field.TextSelectionColorsProviderWrapper
 import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.core.presentation.theme.Manrope
-import docta.composeapp.generated.resources.Res
-import docta.composeapp.generated.resources.type_your_answer_here
-import org.jetbrains.compose.resources.stringResource
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun OpenAnswerTextField(
@@ -68,7 +67,7 @@ fun OpenAnswerTextField(
                 ),
                 placeholder = {
                     Text(
-                        text = stringResource(Res.string.type_your_answer_here),
+                        text = stringResource(SharedRes.strings.type_your_answer_here),
                         fontSize = 16.sp,
                         color = DoctaColors.outline,
                         fontWeight = FontWeight.Medium,

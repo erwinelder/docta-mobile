@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import cz.cvut.docta.core.presentation.component.containers.FullLengthFilterBar
 import cz.cvut.docta.lesson.domain.model.LessonDifficulty
 import cz.cvut.docta.lesson.presentation.utils.asStringRes
-import org.jetbrains.compose.resources.stringResource
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun LessonDifficultyFilterBar(

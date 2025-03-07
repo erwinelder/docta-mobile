@@ -43,7 +43,7 @@ class CourseDraftViewModel(
     }
 
     private fun getCourseDraft(courseCode: String): CourseDraft? {
-        val locale = CourseLocale.fromString(courseLocale.value) ?: return null
+        val locale = CourseLocale.fromLangCode(courseLocale.value) ?: return null
 
         return CourseDraft(
             code = courseCode,

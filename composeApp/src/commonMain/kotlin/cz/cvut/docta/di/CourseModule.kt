@@ -7,12 +7,15 @@ import cz.cvut.docta.course.data.local.source.CourseLocalDataSource
 import cz.cvut.docta.course.data.local.source.courseLocalDataSourceFactory
 import cz.cvut.docta.course.data.remote.source.CourseRemoteDataSource
 import cz.cvut.docta.course.data.remote.source.courseRemoteDataSourceFactory
+import cz.cvut.docta.course.data.repository.CourseRemoteRepository
 import cz.cvut.docta.course.data.repository.CourseRepository
-import cz.cvut.docta.course.data.repository.CourseRepositoryImpl
 import cz.cvut.docta.course.domain.usecase.GetAllCoursesUseCase
 import cz.cvut.docta.course.domain.usecase.GetAllCoursesUseCaseImpl
 import cz.cvut.docta.course.domain.usecase.GetCourseUseCase
 import cz.cvut.docta.course.domain.usecase.GetCourseUseCaseImpl
+import cz.cvut.docta.course.domain.usecase.SearchForCourseUseCase
+import cz.cvut.docta.course.domain.usecase.SearchForCourseUseCaseImpl
+import cz.cvut.docta.course.presentation.viewModel.AddNewCourseViewModel
 import cz.cvut.docta.course.presentation.viewModel.CoursesViewModel
 import cz.cvut.docta.courseEditing.data.local.source.CourseDraftLocalDataSource
 import cz.cvut.docta.courseEditing.data.local.source.courseDraftLocalDataSourceFactory
@@ -44,8 +47,8 @@ val courseModule = module {
     /* ---------- Repositories ---------- */
 
     single<CourseRepository> {
-        CourseRepositoryImpl(localSource = get(), remoteSource = get())
-//        CourseRemoteRepository()
+//        CourseRepositoryImpl(localSource = get(), remoteSource = get())
+        CourseRemoteRepository()
     }
 
     single<CourseDraftRepository> {
@@ -70,6 +73,9 @@ val courseModule = module {
     single<SaveCourseDraftUseCase> {
         SaveCourseDraftUseCaseImpl(repository = get())
     }
+    single<SearchForCourseUseCase> {
+        SearchForCourseUseCaseImpl(courseRepository = get())
+    }
 
     // Temporary use case
     single<SaveTestCoursesToDatabaseUseCase> {
@@ -88,6 +94,11 @@ val courseModule = module {
             getCourseDraftUseCase = get(),
             saveCourseDraftUseCase = get(),
             getCourseDraftSectionsUseCase = get()
+        )
+    }
+    viewModel {
+        AddNewCourseViewModel(
+            searchForCourseUseCase = get()
         )
     }
 

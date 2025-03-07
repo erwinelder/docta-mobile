@@ -16,7 +16,7 @@ import cz.cvut.docta.core.presentation.theme.Manrope
 import cz.cvut.docta.lesson.domain.model.LessonDifficulty
 import cz.cvut.docta.lesson.presentation.utils.asColor
 import cz.cvut.docta.lesson.presentation.utils.asStringRes
-import org.jetbrains.compose.resources.stringResource
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun LessonDifficultyFlagComponent(difficulty: LessonDifficulty) {

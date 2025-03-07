@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cz.cvut.docta.SharedRes
 import cz.cvut.docta.answer.presentation.component.container.AnswerOptionsList
 import cz.cvut.docta.answer.presentation.model.AnswerOptionUiState
 import cz.cvut.docta.core.domain.app.FilledWidthByScreenType
@@ -20,9 +21,7 @@ import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.core.presentation.theme.Manrope
 import cz.cvut.docta.question.domain.model.QuestionCheckResult
 import cz.cvut.docta.question.presentation.component.screen_container.QuestionScreenContainer
-import docta.composeapp.generated.resources.Res
-import docta.composeapp.generated.resources.answer_option_question_instructions
-import org.jetbrains.compose.resources.stringResource
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun AnswerOptionsQuestionScreen(
@@ -37,7 +36,7 @@ fun AnswerOptionsQuestionScreen(
 ) {
     QuestionScreenContainer(
         screenPadding = screenPadding,
-        questionInstructions = stringResource(Res.string.answer_option_question_instructions),
+        questionInstructions = stringResource(SharedRes.strings.answer_option_question_instructions),
         buttonIsEnabled = checkIsAllowed,
         showCheckButton = checkResult == null,
         onCheckButtonClick = onCheckButtonClick,

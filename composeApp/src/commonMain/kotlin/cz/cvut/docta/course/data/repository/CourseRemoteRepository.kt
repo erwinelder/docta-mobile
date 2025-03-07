@@ -56,4 +56,8 @@ class CourseRemoteRepository : CourseRepository {
         }
     }
 
+    override suspend fun getCourseRemotely(courseCode: String): CourseEntity? {
+        return getCourse(courseCode = courseCode)
+    }
+
 }
