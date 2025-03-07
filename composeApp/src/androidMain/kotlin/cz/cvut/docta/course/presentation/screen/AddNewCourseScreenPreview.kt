@@ -25,7 +25,9 @@ fun AddNewCourseScreenPreview(
     ScreenPreviewContainer(appTheme = appTheme) {
         AddNewCourseScreen(
             onNavigateBack = {},
-            searchedCourseState = searchedCourseState,
+            searchedCourseState = CourseSearchState.SearchedCourse(
+                course = null
+            ),
             query = query,
             onQueryChange = {},
             searchIsAllowed = true,

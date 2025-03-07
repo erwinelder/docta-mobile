@@ -140,8 +140,10 @@ private fun CourseSearchSearchedCourseComponent(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        state.course?.let {
-            CourseComponent(course = it)
+        if (state.course != null) {
+            CourseComponent(course = state.course)
+        } else {
+            // TODO-COURSE: Add error message component
         }
         Row(
             horizontalArrangement = Arrangement.spacedBy(16.dp)

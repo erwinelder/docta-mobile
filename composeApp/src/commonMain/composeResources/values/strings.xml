@@ -37,13 +37,13 @@
     <string name="step_question_instructions">Solve this step of the task</string>
     <string name="type_your_answer_here">Type your answer here…</string>
 
+    <!-- Placeholders -->
+    <string name="course_search_placeholder">Course code (e.g. "nss") …</string>
+
     <!-- Other -->
     <string name="greetings_title_morning">Good morning!</string>
     <string name="greetings_title_afternoon">Good afternoon!</string>
     <string name="greetings_title_evening">Good evening!</string>
     <string name="greetings_title_night">Good evening!</string>
-
-    <!-- Placeholders -->
-    <string name="course_search_placeholder">Course code (e.g. "nss") …</string>
 
 </resources>

@@ -37,13 +37,13 @@
     <string name="step_question_instructions">Vyřešte tento krok úkolu</string>
     <string name="type_your_answer_here">Sem napište svou odpověď…</string>
 
+    <!-- Placeholders -->
+    <string name="course_search_placeholder">Kód kurzu (např. „nss“) …</string>
+
     <!-- Other -->
     <string name="greetings_title_morning">Dobré ráno!</string>
     <string name="greetings_title_afternoon">Dobré poledne!</string>
     <string name="greetings_title_evening">Dobré odpoledne!</string>
     <string name="greetings_title_night">Dobrý večer!</string>
-
-    <!-- Placeholders -->
-    <string name="course_search_placeholder">Kód kurzu (např. „nss“) …</string>
 
 </resources>
