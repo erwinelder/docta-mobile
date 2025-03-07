@@ -13,5 +13,4 @@ sealed interface CourseManagementScreens {
     @Serializable
     data class LessonEditing(val lessonId: Long) : CourseManagementScreens
 
-
 }

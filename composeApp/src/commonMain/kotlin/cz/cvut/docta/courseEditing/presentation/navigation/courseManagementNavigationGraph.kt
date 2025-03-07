@@ -59,8 +59,7 @@ fun NavGraphBuilder.courseManagementNavigationGraph(
             val viewModel = koinViewModel<SectionDraftViewModel>()
 
             val sectionName by viewModel.sectionName.collectAsStateWithLifecycle()
-
-            val lessons by viewModel.lessonList.collectAsStateWithLifecycle()
+            val lessons by viewModel.lessons.collectAsStateWithLifecycle()
 
             LaunchedEffect(sectionId) {
                 viewModel.fetchSectionDraftData(sectionId)
@@ -71,13 +70,13 @@ fun NavGraphBuilder.courseManagementNavigationGraph(
                 sectionName = sectionName,
                 onNameChange = viewModel::changeSectionName,
                 onSaveButtonClick = {
-
                     viewModel.saveSectionDraftToDatabase(sectionId = sectionId)
                 },
                 lessons = lessons,
                 onLessonClick = { lessonId ->
                     navViewModel.navigate(
-                        navController, CourseManagementScreens.LessonEditing(lessonId))
+                        navController, CourseManagementScreens.LessonEditing(lessonId = lessonId)
+                    )
                 },
 
             )

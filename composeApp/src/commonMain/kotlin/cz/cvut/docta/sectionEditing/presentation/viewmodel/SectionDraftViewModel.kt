@@ -2,10 +2,8 @@ package cz.cvut.docta.sectionEditing.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cz.cvut.docta.lesson.domain.model.Lesson
 import cz.cvut.docta.lesson.domain.model.LessonDraft
 import cz.cvut.docta.lesson.domain.usecase.GetSectionLessonsDraftsUseCase
-import cz.cvut.docta.section.domain.model.Section
 import cz.cvut.docta.sectionEditing.domain.model.SectionDraft
 import cz.cvut.docta.sectionEditing.domain.usecase.GetSectionDraftUseCase
 import cz.cvut.docta.sectionEditing.domain.usecase.SaveSectionDraftUseCase
@@ -20,15 +18,16 @@ class SectionDraftViewModel(
     private val getSectionLessonsDraftsUseCase: GetSectionLessonsDraftsUseCase
 ) : ViewModel() {
 
+    private var courseCode = ""
+
+
     private val _sectionName = MutableStateFlow("")
     val sectionName = _sectionName.asStateFlow()
-
-    private val _courseCode = MutableStateFlow("")
-    val courseCode = _courseCode.asStateFlow()
 
     fun changeSectionName(name: String) {
         _sectionName.update { name }
     }
+
 
     fun saveSectionDraftToDatabase(sectionId: Long) {
         val sectionDraft = getSectionDraft(sectionId)
@@ -38,10 +37,8 @@ class SectionDraftViewModel(
     }
 
     private fun getSectionDraft(sectionId: Long): SectionDraft {
-        val courseCodeValue = courseCode.value
-
         return SectionDraft(
-            courseCode = courseCodeValue,
+            courseCode = courseCode,
             id = sectionId,
             name = sectionName.value
         )
@@ -50,21 +47,25 @@ class SectionDraftViewModel(
     fun fetchSectionDraftData(sectionId: Long) {
         viewModelScope.launch {
             val sectionDraft = getSectionDraftUseCase.execute(sectionId) ?: return@launch
-            _courseCode.update { sectionDraft.courseCode }
+            courseCode = sectionDraft.courseCode
             changeSectionName(sectionDraft.name)
         }
     }
-    private val _lessonList = MutableStateFlow<List<LessonDraft>>(emptyList())
-    val lessonList = _lessonList.asStateFlow()
+
+
+    private val _lessons = MutableStateFlow<List<LessonDraft>>(emptyList())
+    val lessons = _lessons.asStateFlow()
 
     private fun changeLessonsList(lessons: List<LessonDraft>) {
-        _lessonList.update { lessons }
+        _lessons.update { lessons }
     }
 
+    // TODO-COURSE-MANAGEMENT: Call this method from the UI via LaunchEffect
     fun fetchSectionDraftLessons(sectionId: Long) {
         viewModelScope.launch {
-            val lessons = getSectionLessonsDraftsUseCase.execute(sectionId)
+            val lessons = getSectionLessonsDraftsUseCase.execute(sectionId = sectionId)
             changeLessonsList(lessons)
         }
     }
+
 }

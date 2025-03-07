@@ -9,12 +9,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import cz.cvut.docta.core.domain.app.FilledWidthByScreenType
 import cz.cvut.docta.core.presentation.component.buttons.GlassSurfaceNavigationButton
 import cz.cvut.docta.core.presentation.component.buttons.GlassSurfaceTopBackNavButton
 import cz.cvut.docta.core.presentation.component.buttons.PrimaryButton
 import cz.cvut.docta.core.presentation.component.field.DoctaTextField
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainer
-import cz.cvut.docta.lesson.domain.model.Lesson
+import cz.cvut.docta.core.presentation.theme.CurrWindowType
 import cz.cvut.docta.lesson.domain.model.LessonDraft
 import docta.composeapp.generated.resources.Res
 import docta.composeapp.generated.resources.edit_section
@@ -31,7 +32,7 @@ fun SectionEditingScreen(
     onLessonClick: (Long) -> Unit
 ) {
     ScreenContainer(
-        verticalArrangement = Arrangement.spacedBy(24.dp),
+        verticalArrangement = Arrangement.spacedBy(32.dp),
         padding = PaddingValues(top = 8.dp, bottom = 24.dp)
     ) {
         GlassSurfaceTopBackNavButton(
@@ -39,15 +40,18 @@ fun SectionEditingScreen(
             onClick = onNavigateBack
         )
         Column(
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = Modifier.weight(1f)
+            verticalArrangement = Arrangement.spacedBy(32.dp),
+            modifier = Modifier
+                .fillMaxWidth(FilledWidthByScreenType().getByType(CurrWindowType))
+                .weight(1f)
         ) {
             DoctaTextField(
                 text = sectionName,
-                onValueChange = onNameChange,
+                onValueChange = onNameChange
             )
             LazyColumn(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 items(items = lessons) { lesson ->
                     GlassSurfaceNavigationButton(
@@ -63,7 +67,6 @@ fun SectionEditingScreen(
                 }
             }
         }
-
         PrimaryButton(
             text = stringResource(Res.string.save),
             onClick = onSaveButtonClick

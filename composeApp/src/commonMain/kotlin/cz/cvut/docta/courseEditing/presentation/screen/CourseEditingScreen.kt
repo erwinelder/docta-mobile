@@ -35,7 +35,7 @@ fun CourseEditingScreen(
     onSectionClick: (Long) -> Unit,
 ) {
     ScreenContainer(
-        verticalArrangement = Arrangement.spacedBy(24.dp),
+        verticalArrangement = Arrangement.spacedBy(32.dp),
         padding = PaddingValues(top = 8.dp, bottom = 24.dp)
     ) {
         GlassSurfaceTopBackNavButton(
@@ -43,7 +43,7 @@ fun CourseEditingScreen(
             onClick = onNavigateBack
         )
         Column(
-            verticalArrangement = Arrangement.spacedBy(24.dp),
+            verticalArrangement = Arrangement.spacedBy(32.dp),
             modifier = Modifier
                 .fillMaxWidth(FilledWidthByScreenType().getByType(CurrWindowType))
                 .weight(1f)

@@ -9,8 +9,10 @@ import cz.cvut.docta.lesson.domain.model.LessonDraft
 
 @Preview(device = PIXEL_7_PRO)
 @Composable
-fun SectionEditingScreenPreview() {
-    ScreenPreviewContainer(appTheme = AppTheme.Light) {
+fun SectionEditingScreenPreview(
+    appTheme: AppTheme = AppTheme.Light
+) {
+    ScreenPreviewContainer(appTheme = appTheme) {
         SectionEditingScreen(
             onNavigateBack = {},
             sectionName = "Section name",
@@ -19,15 +21,15 @@ fun SectionEditingScreenPreview() {
             lessons = listOf(
                 LessonDraft.Test(
                     id = 1,
-                    name = "Lesson name"
+                    name = "Lesson 1 name"
                 ),
                 LessonDraft.Test(
                     id = 2,
-                    name = "Lesson prename"
+                    name = "Lesson 3 name"
                 ),
                 LessonDraft.Test(
                     id = 3,
-                    name = "Lesson lastname"
+                    name = "Lesson 3 name"
                 )
             ),
             onLessonClick = {}

@@ -11,6 +11,8 @@ import cz.cvut.docta.question.presentation.screen.FillInBlanksQuestionScreenPrev
 import cz.cvut.docta.question.presentation.screen.OpenAnswerQuestionScreenPreview
 import cz.cvut.docta.question.presentation.screen.QuestionAnswerPairsQuestionScreenPreview
 import cz.cvut.docta.section.presentation.screen.CourseSectionsScreenPreview
+import cz.cvut.docta.sectionEditing.presentation.screen.CourseEditingScreenPreview
+import cz.cvut.docta.sectionEditing.presentation.screen.SectionEditingScreenPreview
 
 
 val appTheme = AppTheme.Light
@@ -71,6 +73,23 @@ private fun AnswerOptionsQuestionScreenPreviewLocal() {
 @Composable
 private fun QuestionAnswerPairsQuestionScreenPreviewLocal() {
     QuestionAnswerPairsQuestionScreenPreview(
+        appTheme = appTheme
+    )
+}
+
+
+@Preview(device = Devices.PIXEL_7_PRO, group = "CourseManagement")
+@Composable
+private fun CourseEditingScreenPreviewLocal() {
+    CourseEditingScreenPreview(
+        appTheme = appTheme
+    )
+}
+
+@Preview(device = Devices.PIXEL_7_PRO, group = "CourseManagement")
+@Composable
+private fun SectionEditingScreenPreviewLocal() {
+    SectionEditingScreenPreview(
         appTheme = appTheme
     )
 }

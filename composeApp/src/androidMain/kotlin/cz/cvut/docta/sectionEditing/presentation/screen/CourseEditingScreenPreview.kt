@@ -10,8 +10,10 @@ import cz.cvut.docta.section.domain.model.Section
 
 @Preview(device = PIXEL_7_PRO)
 @Composable
-fun CourseEditingScreenPreview() {
-    ScreenPreviewContainer(appTheme = AppTheme.Light) {
+fun CourseEditingScreenPreview(
+    appTheme: AppTheme = AppTheme.Light
+) {
+    ScreenPreviewContainer(appTheme = appTheme) {
         CourseEditingScreen(
             onNavigateBack = {},
             courseName = "Course name",

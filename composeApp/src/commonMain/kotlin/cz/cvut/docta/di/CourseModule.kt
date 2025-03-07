@@ -60,6 +60,7 @@ val courseModule = module {
     single<GetCourseUseCase> {
         GetCourseUseCaseImpl(courseRepository = get())
     }
+
     single<GetCourseDraftUseCase> {
         GetCourseDraftUseCaseImpl(
             courseRepository = get(),

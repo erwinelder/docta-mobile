@@ -9,6 +9,6 @@ class SaveSectionDraftUseCaseImpl(
 ) : SaveSectionDraftUseCase {
 
     override suspend fun execute(sectionDraft: SectionDraft) {
-        repository.saveSectionEditing(sectionDraft.toEntity())
+        repository.saveSectionDraft(sectionDraft.toEntity())
     }
 }
