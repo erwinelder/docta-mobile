@@ -86,7 +86,8 @@ val sectionModule = module {
     viewModel {
         SectionDraftViewModel(
             getSectionDraftUseCase = get(),
-            saveSectionDraftUseCase = get()
+            saveSectionDraftUseCase = get(),
+            getSectionLessonsDraftsUseCase = get()
         )
     }
 }
