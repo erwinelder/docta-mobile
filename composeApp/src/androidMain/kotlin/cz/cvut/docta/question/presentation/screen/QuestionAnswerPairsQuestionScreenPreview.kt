@@ -6,7 +6,7 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import cz.cvut.docta.answer.presentation.model.QuestionAnswerPairItemUiState
 import cz.cvut.docta.core.domain.app.AppTheme
-import cz.cvut.docta.core.presentation.screen.ScreenPreviewContainer
+import cz.cvut.docta.core.presentation.preview.ScreenPreviewContainer
 
 @Preview(device = Devices.PIXEL_7_PRO)
 @Composable
