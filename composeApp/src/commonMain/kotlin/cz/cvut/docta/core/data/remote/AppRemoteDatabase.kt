@@ -65,7 +65,7 @@ import kotlinx.coroutines.IO
         PairTagQuestionRemoteAssociation::class,
         PairTagPairRemoteAssociation::class,
     ],
-    version = 1
+    version = 2
 )
 @ConstructedBy(AppRemoteDatabaseConstructor::class)
 abstract class AppRemoteDatabase : RoomDatabase() {

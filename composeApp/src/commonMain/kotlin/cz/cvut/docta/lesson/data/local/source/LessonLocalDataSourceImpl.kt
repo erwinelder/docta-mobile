@@ -5,9 +5,9 @@ import cz.cvut.docta.core.data.local.dao.LocalUpdateTimeDao
 import cz.cvut.docta.core.data.local.model.EntitiesToSynchronise
 import cz.cvut.docta.core.data.model.TableName
 import cz.cvut.docta.lesson.data.local.dao.LessonDao
-import cz.cvut.docta.lesson.data.local.model.LessonDetailsStatistics
+import cz.cvut.docta.lesson.data.local.model.UserLessonDetailsStats
 import cz.cvut.docta.lesson.data.local.model.entity_with_details.LessonDetails
-import cz.cvut.docta.lesson.data.local.model.entity_with_details.LessonDetailsWithStatistics
+import cz.cvut.docta.lesson.data.local.model.entity_with_details.LessonDetailsWithUserStats
 import cz.cvut.docta.lesson.data.mapper.toDefaultLessonEntities
 import cz.cvut.docta.lesson.data.mapper.toLessonEntities
 import cz.cvut.docta.lesson.data.mapper.toSealedDefaultLessonDetails
@@ -71,20 +71,20 @@ class LessonLocalDataSourceImpl(
 
     override suspend fun getSectionLessonsWithStatistics(
         sectionId: Long
-    ): List<LessonDetailsWithStatistics> {
+    ): List<LessonDetailsWithUserStats> {
         // TODO-LESSON: query statistics from database
 
         val defaultLessons = lessonDao.getSectionDefaultLessons(sectionId = sectionId)
             .toSealedDefaultLessonDetails()
             .map { lesson ->
                 // temporary primitive mapper, since statistics are not yet implemented
-                LessonDetailsWithStatistics.DefaultLesson(
+                LessonDetailsWithUserStats.DefaultLesson(
                     sectionId = lesson.sectionId,
                     id = lesson.id,
                     orderNum = lesson.orderNum,
                     name = lesson.name,
                     difficulty = lesson.difficulty,
-                    statistics = LessonDetailsStatistics(isDone = false),
+                    statistics = UserLessonDetailsStats(isDone = false),
                     type = lesson.type,
                     matchAllTags = lesson.matchAllTags
                 )
@@ -93,13 +93,13 @@ class LessonLocalDataSourceImpl(
             .toSealedStepByStepLessonDetails()
             .map { lesson ->
                 // temporary primitive mapper, since statistics are not yet implemented
-                LessonDetailsWithStatistics.StepByStepLesson(
+                LessonDetailsWithUserStats.StepByStepLesson(
                     sectionId = lesson.sectionId,
                     id = lesson.id,
                     orderNum = lesson.orderNum,
                     name = lesson.name,
                     difficulty = lesson.difficulty,
-                    statistics = LessonDetailsStatistics(isDone = false),
+                    statistics = UserLessonDetailsStats(isDone = false),
                     description = lesson.description
                 )
             }

@@ -2,6 +2,7 @@ package cz.cvut.docta.lesson.data.remote.mapper
 
 import cz.cvut.docta.core.utils.enumValueOrNull
 import cz.cvut.docta.lesson.data.local.model.DefaultLessonType
+import cz.cvut.docta.lesson.data.local.model.LessonDifficulty
 import cz.cvut.docta.lesson.data.remote.model.LessonRemoteDetails
 import cz.cvut.docta.lesson.data.remote.model.entity_with_details.DefaultLessonRemoteWithDetails
 import cz.cvut.docta.lesson.data.remote.model.entity_with_details.StepByStepLessonRemoteWithDetails
@@ -11,6 +12,7 @@ fun List<DefaultLessonRemoteWithDetails>.toDefaultLessonDetailsList() = mapNotNu
 
 fun DefaultLessonRemoteWithDetails.toLessonDetails(): LessonRemoteDetails.Default? {
     val type = enumValueOrNull<DefaultLessonType>(defaultLessonType) ?: return null
+    val difficulty = enumValueOrNull<LessonDifficulty>(difficulty) ?: return null
 
     return LessonRemoteDetails.Default(
         updateTime = updateTime,
@@ -27,9 +29,12 @@ fun DefaultLessonRemoteWithDetails.toLessonDetails(): LessonRemoteDetails.Defaul
 }
 
 
-fun List<StepByStepLessonRemoteWithDetails>.toStepByStepLessonDetailsList() = map { it.toLessonDetails() }
+fun List<StepByStepLessonRemoteWithDetails>.toStepByStepLessonDetailsList() =
+    mapNotNull { it.toLessonDetails() }
 
-fun StepByStepLessonRemoteWithDetails.toLessonDetails(): LessonRemoteDetails.StepByStep {
+fun StepByStepLessonRemoteWithDetails.toLessonDetails(): LessonRemoteDetails.StepByStep? {
+    val difficulty = enumValueOrNull<LessonDifficulty>(difficulty) ?: return null
+
     return LessonRemoteDetails.StepByStep(
         updateTime = updateTime,
         deleted = deleted,

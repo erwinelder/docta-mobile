@@ -4,8 +4,8 @@ import cz.cvut.docta.lesson.data.local.source.LessonLocalDataSource
 import cz.cvut.docta.lesson.data.local.source.lessonLocalDataSourceFactory
 import cz.cvut.docta.lesson.data.remote.source.LessonRemoteDataSource
 import cz.cvut.docta.lesson.data.remote.source.lessonRemoteDataSourceFactory
+import cz.cvut.docta.lesson.data.repository.LessonRemoteRepository
 import cz.cvut.docta.lesson.data.repository.LessonRepository
-import cz.cvut.docta.lesson.data.repository.LessonRepositoryImpl
 import cz.cvut.docta.lesson.domain.usecase.GetSectionLessonsDraftsUseCase
 import cz.cvut.docta.lesson.domain.usecase.GetSectionLessonsDraftsUseCaseImpl
 import cz.cvut.docta.lesson.domain.usecase.GetSectionLessonsWithStatisticsUseCase
@@ -30,10 +30,11 @@ val lessonModule = module {
     /* ---------- Repositories ---------- */
 
     single<LessonRepository> {
-        LessonRepositoryImpl(
-            localSource = get(),
-            remoteSource = get()
-        )
+//        LessonRepositoryImpl(
+//            localSource = get(),
+//            remoteSource = get()
+//        )
+        LessonRemoteRepository()
     }
 
     /* ---------- Use Cases ---------- */

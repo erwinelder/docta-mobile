@@ -13,6 +13,8 @@ import cz.cvut.docta.course.domain.usecase.GetAllCoursesUseCase
 import cz.cvut.docta.course.domain.usecase.GetAllCoursesUseCaseImpl
 import cz.cvut.docta.course.domain.usecase.GetCourseUseCase
 import cz.cvut.docta.course.domain.usecase.GetCourseUseCaseImpl
+import cz.cvut.docta.course.domain.usecase.GetCoursesUseCase
+import cz.cvut.docta.course.domain.usecase.GetCoursesUseCaseImpl
 import cz.cvut.docta.course.domain.usecase.SearchForCourseUseCase
 import cz.cvut.docta.course.domain.usecase.SearchForCourseUseCaseImpl
 import cz.cvut.docta.course.presentation.viewModel.AddNewCourseViewModel
@@ -60,6 +62,9 @@ val courseModule = module {
     single<GetAllCoursesUseCase> {
         GetAllCoursesUseCaseImpl(courseRepository = get())
     }
+    single<GetCoursesUseCase> {
+        GetCoursesUseCaseImpl(courseRepository = get())
+    }
     single<GetCourseUseCase> {
         GetCourseUseCaseImpl(courseRepository = get())
     }
@@ -85,7 +90,7 @@ val courseModule = module {
 
     viewModel {
         CoursesViewModel(
-            getAllCoursesUseCase = get()
+            getCoursesUseCase = get()
         )
     }
     viewModel {

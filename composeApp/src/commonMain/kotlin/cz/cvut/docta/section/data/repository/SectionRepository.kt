@@ -6,6 +6,6 @@ interface SectionRepository {
 
     suspend fun getSection(courseCode: String, sectionId: Long): SectionEntity?
 
-    suspend fun getCourseSections(courseCode: String): List<SectionEntity>
+    suspend fun getSections(courseCode: String): List<SectionEntity>
 
 }

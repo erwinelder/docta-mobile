@@ -1,5 +1,5 @@
 package cz.cvut.docta.lesson.domain.model
 
-data class LessonStatistics(
+data class UserLessonStats(
     val isDone: Boolean
 )

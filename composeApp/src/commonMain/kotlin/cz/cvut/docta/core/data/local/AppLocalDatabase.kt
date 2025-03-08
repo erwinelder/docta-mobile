@@ -71,7 +71,7 @@ import kotlinx.coroutines.IO
         PairTagQuestionAssociation::class,
         PairTagPairAssociation::class,
     ],
-    version = 1
+    version = 2
 )
 @ConstructedBy(AppLocalDatabaseConstructor::class)
 abstract class AppLocalDatabase : RoomDatabase() {

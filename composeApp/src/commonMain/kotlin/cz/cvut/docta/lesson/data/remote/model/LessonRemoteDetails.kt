@@ -1,6 +1,7 @@
 package cz.cvut.docta.lesson.data.remote.model
 
 import cz.cvut.docta.lesson.data.local.model.DefaultLessonType
+import cz.cvut.docta.lesson.data.local.model.LessonDifficulty
 
 sealed class LessonRemoteDetails(
     open val updateTime: Long,
@@ -10,7 +11,7 @@ sealed class LessonRemoteDetails(
     open val id: Long,
     open val orderNum: Int,
     open val name: String,
-    open val difficulty: String
+    open val difficulty: LessonDifficulty
 ) {
 
     data class Default(
@@ -21,7 +22,7 @@ sealed class LessonRemoteDetails(
         override val id: Long,
         override val orderNum: Int,
         override val name: String,
-        override val difficulty: String,
+        override val difficulty: LessonDifficulty,
         val type: DefaultLessonType,
         val matchAllTags: Boolean
     ) : LessonRemoteDetails(updateTime, deleted, courseCode, sectionId, id, orderNum, name, difficulty)
@@ -34,7 +35,7 @@ sealed class LessonRemoteDetails(
         override val id: Long,
         override val orderNum: Int,
         override val name: String,
-        override val difficulty: String,
+        override val difficulty: LessonDifficulty,
         val description: String
     ) : LessonRemoteDetails(updateTime, deleted, courseCode, sectionId, id, orderNum, name, difficulty)
 

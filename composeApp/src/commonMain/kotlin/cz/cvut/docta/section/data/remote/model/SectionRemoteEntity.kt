@@ -22,5 +22,6 @@ data class SectionRemoteEntity(
     val courseCode: String,
     @PrimaryKey(autoGenerate = true)
     val id: Long,
+    val orderNum: Int,
     val name: String
 )

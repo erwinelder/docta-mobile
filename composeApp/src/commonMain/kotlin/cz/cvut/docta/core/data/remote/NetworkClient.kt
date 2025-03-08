@@ -11,3 +11,5 @@ val httpClient = HttpClient(CIO) {
         json(Json { ignoreUnknownKeys = true })
     }
 }
+
+const val doctaBackendUrl = "https://docta-backend-adh0f0hsebb5epg7.northeurope-01.azurewebsites.net"

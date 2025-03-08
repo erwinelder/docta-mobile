@@ -1,10 +1,12 @@
 package cz.cvut.docta.lesson.data.repository
 
 import cz.cvut.docta.core.data.utils.synchroniseData
+import cz.cvut.docta.core.utils.enumValueOrNull
+import cz.cvut.docta.lesson.data.local.model.LessonType
 import cz.cvut.docta.lesson.data.local.source.LessonLocalDataSource
 import cz.cvut.docta.lesson.data.mapper.toLessonDetailsToSync
 import cz.cvut.docta.lesson.data.local.model.entity_with_details.LessonDetails
-import cz.cvut.docta.lesson.data.local.model.entity_with_details.LessonDetailsWithStatistics
+import cz.cvut.docta.lesson.data.local.model.entity_with_details.LessonDetailsWithUserStats
 import cz.cvut.docta.lesson.data.remote.source.LessonRemoteDataSource
 import cz.cvut.docta.lesson.data.remote.model.LessonRemoteDetails
 
@@ -24,12 +26,13 @@ class LessonRepositoryImpl(
         )
     }
 
-    override suspend fun getLessonType(courseCode: String, lessonId: Long): String {
+    override suspend fun getLessonType(courseCode: String, sectionId: Long, lessonId: Long): LessonType? {
         synchroniseLessons(courseCode = courseCode)
-        return localSource.getLessonType(lessonId = lessonId)
+        val typeString = localSource.getLessonType(lessonId = lessonId)
+        return enumValueOrNull<LessonType>(typeString)
     }
 
-    override suspend fun getDefaultLesson(courseCode: String, lessonId: Long): LessonDetails.Default? {
+    override suspend fun getDefaultLesson(courseCode: String, sectionId: Long, lessonId: Long): LessonDetails.Default? {
         synchroniseLessons(courseCode = courseCode)
         return localSource.getDefaultLesson(lessonId = lessonId)
     }
@@ -42,7 +45,7 @@ class LessonRepositoryImpl(
     override suspend fun getSectionLessonsWithStatistics(
         courseCode: String,
         sectionId: Long
-    ): List<LessonDetailsWithStatistics> {
+    ): List<LessonDetailsWithUserStats> {
         synchroniseLessons(courseCode = courseCode)
         return localSource.getSectionLessonsWithStatistics(sectionId = sectionId)
     }

@@ -1,38 +1,32 @@
-package cz.cvut.docta.course.data.repository
+package cz.cvut.docta.section.data.repository
 
 import cz.cvut.docta.core.data.remote.doctaBackendUrl
 import cz.cvut.docta.core.data.remote.httpClient
-import cz.cvut.docta.course.data.local.model.CourseEntity
-import cz.cvut.docta.course.data.mapper.remoteDtoToLocalEntity
-import cz.cvut.docta.course.data.remote.model.CourseRemoteDTO
+import cz.cvut.docta.section.data.local.model.SectionEntity
+import cz.cvut.docta.section.data.mapper.remoteDtoToLocalEntity
+import cz.cvut.docta.section.data.remote.model.SectionRemoteDTO
 import io.ktor.client.request.get
-import io.ktor.client.request.setBody
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.contentType
 import kotlinx.serialization.json.Json
 
-class CourseRemoteRepository : CourseRepository {
+class SectionRemoteRepository : SectionRepository {
 
-    override suspend fun getAllCourses(): List<CourseEntity> {
-        return emptyList()
-    }
-
-    override suspend fun getCourses(codes: List<String>): List<CourseEntity> {
+    override suspend fun getSections(courseCode: String): List<SectionEntity> {
         return try {
             val response = httpClient.get(
-                urlString = "$doctaBackendUrl/courses"
+                urlString = "$doctaBackendUrl/courses/$courseCode/sections"
             ) {
                 contentType(ContentType.Application.Json)
-                setBody(codes)
             }
 
             if (response.status == HttpStatusCode.OK) {
-                Json.decodeFromString<List<CourseRemoteDTO>>(string = response.bodyAsText())
+                Json.decodeFromString<List<SectionRemoteDTO>>(string = response.bodyAsText())
                     .map { it.remoteDtoToLocalEntity() }
             } else {
-                println("Error during fetching courses: ${response.status}")
+                println("Error during fetching sections: ${response.status}")
                 emptyList()
             }
         } catch (e: Exception) {
@@ -41,29 +35,28 @@ class CourseRemoteRepository : CourseRepository {
         }
     }
 
-    override suspend fun getCourse(courseCode: String): CourseEntity? {
+    override suspend fun getSection(
+        courseCode: String,
+        sectionId: Long
+    ): SectionEntity? {
         return try {
             val response = httpClient.get(
-                urlString = "$doctaBackendUrl/courses/$courseCode"
+                urlString = "$doctaBackendUrl/sections/$sectionId"
             ) {
                 contentType(ContentType.Application.Json)
             }
 
             if (response.status == HttpStatusCode.OK) {
-                Json.decodeFromString<CourseRemoteDTO>(string = response.bodyAsText())
+                Json.decodeFromString<SectionRemoteDTO>(string = response.bodyAsText())
                     .remoteDtoToLocalEntity()
             } else {
-                println("Error during fetching courses: ${response.status}")
+                println("Error during fetching section: ${response.status}")
                 null
             }
         } catch (e: Exception) {
             println("Network error: ${e.message}")
             null
         }
-    }
-
-    override suspend fun getCourseRemotely(courseCode: String): CourseEntity? {
-        return getCourse(courseCode = courseCode)
     }
 
 }

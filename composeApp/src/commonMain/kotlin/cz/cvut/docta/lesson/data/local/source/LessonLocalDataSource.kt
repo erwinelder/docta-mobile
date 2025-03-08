@@ -2,7 +2,7 @@ package cz.cvut.docta.lesson.data.local.source
 
 import cz.cvut.docta.core.data.local.model.EntitiesToSynchronise
 import cz.cvut.docta.lesson.data.local.model.entity_with_details.LessonDetails
-import cz.cvut.docta.lesson.data.local.model.entity_with_details.LessonDetailsWithStatistics
+import cz.cvut.docta.lesson.data.local.model.entity_with_details.LessonDetailsWithUserStats
 
 interface LessonLocalDataSource {
 
@@ -22,6 +22,6 @@ interface LessonLocalDataSource {
 
     suspend fun getSectionLessons(sectionId: Long): List<LessonDetails>
 
-    suspend fun getSectionLessonsWithStatistics(sectionId: Long): List<LessonDetailsWithStatistics>
+    suspend fun getSectionLessonsWithStatistics(sectionId: Long): List<LessonDetailsWithUserStats>
 
 }
