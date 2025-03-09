@@ -7,7 +7,7 @@ import cz.cvut.docta.course.mapper.toDomainModels
 class GetCoursesUseCaseImpl(
     private val courseRepository: CourseRepository
 ): GetCoursesUseCase {
-    override suspend fun execute(codes: List<String>): List<Course> {
+    override suspend fun get(codes: List<String>): List<Course> {
         return courseRepository.getCourses(codes = codes).toDomainModels()
     }
 }

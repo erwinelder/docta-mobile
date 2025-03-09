@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cz.cvut.docta.course.domain.model.Course
 import cz.cvut.docta.course.domain.model.CourseSearchState
+import cz.cvut.docta.course.domain.usecase.AddCourseToChosenUseCase
 import cz.cvut.docta.course.domain.usecase.SearchForCourseUseCase
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +17,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class AddNewCourseViewModel(
-    private val searchForCourseUseCase: SearchForCourseUseCase
+    private val searchForCourseUseCase: SearchForCourseUseCase,
+    private val addCourseToChosenUseCase: AddCourseToChosenUseCase
 ) : ViewModel() {
 
     private val _courseSearchState = MutableStateFlow<CourseSearchState>(CourseSearchState.Prompt)
@@ -71,6 +73,13 @@ class AddNewCourseViewModel(
 
     fun cancelSearch() {
         searchJob?.cancel()
+    }
+
+
+    fun addCourseToChosenCourses(course: Course) {
+        viewModelScope.launch {
+            addCourseToChosenUseCase.add(code = course.code)
+        }
     }
 
 }

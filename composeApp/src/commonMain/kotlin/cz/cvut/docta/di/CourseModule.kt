@@ -7,14 +7,22 @@ import cz.cvut.docta.course.data.local.source.CourseLocalDataSource
 import cz.cvut.docta.course.data.local.source.courseLocalDataSourceFactory
 import cz.cvut.docta.course.data.remote.source.CourseRemoteDataSource
 import cz.cvut.docta.course.data.remote.source.courseRemoteDataSourceFactory
+import cz.cvut.docta.course.data.repository.ChosenCourseRepository
 import cz.cvut.docta.course.data.repository.CourseRemoteRepository
 import cz.cvut.docta.course.data.repository.CourseRepository
+import cz.cvut.docta.course.data.repository.chosenCourseRepositoryFactory
+import cz.cvut.docta.course.domain.usecase.AddCourseToChosenUseCase
+import cz.cvut.docta.course.domain.usecase.AddCourseToChosenUseCaseImpl
 import cz.cvut.docta.course.domain.usecase.GetAllCoursesUseCase
 import cz.cvut.docta.course.domain.usecase.GetAllCoursesUseCaseImpl
+import cz.cvut.docta.course.domain.usecase.GetChosenCoursesUseCase
+import cz.cvut.docta.course.domain.usecase.GetChosenCoursesUseCaseImpl
 import cz.cvut.docta.course.domain.usecase.GetCourseUseCase
 import cz.cvut.docta.course.domain.usecase.GetCourseUseCaseImpl
 import cz.cvut.docta.course.domain.usecase.GetCoursesUseCase
 import cz.cvut.docta.course.domain.usecase.GetCoursesUseCaseImpl
+import cz.cvut.docta.course.domain.usecase.SaveChosenCoursesUseCase
+import cz.cvut.docta.course.domain.usecase.SaveChosenCoursesUseCaseImpl
 import cz.cvut.docta.course.domain.usecase.SearchForCourseUseCase
 import cz.cvut.docta.course.domain.usecase.SearchForCourseUseCaseImpl
 import cz.cvut.docta.course.presentation.viewModel.AddNewCourseViewModel
@@ -53,6 +61,10 @@ val courseModule = module {
         CourseRemoteRepository()
     }
 
+    single<ChosenCourseRepository> {
+        chosenCourseRepositoryFactory(appLocalDatabase = get())
+    }
+
     single<CourseDraftRepository> {
         CourseDraftRepositoryImpl(localSource = get())
     }
@@ -68,6 +80,21 @@ val courseModule = module {
     single<GetCourseUseCase> {
         GetCourseUseCaseImpl(courseRepository = get())
     }
+
+    single<SearchForCourseUseCase> {
+        SearchForCourseUseCaseImpl(courseRepository = get())
+    }
+
+    single<AddCourseToChosenUseCase> {
+        AddCourseToChosenUseCaseImpl(chosenCourseRepository = get())
+    }
+    single<GetChosenCoursesUseCase> {
+        GetChosenCoursesUseCaseImpl(chosenCourseRepository = get())
+    }
+    single<SaveChosenCoursesUseCase> {
+        SaveChosenCoursesUseCaseImpl(chosenCourseRepository = get())
+    }
+
     single<GetCourseDraftUseCase> {
         GetCourseDraftUseCaseImpl(
             courseRepository = get(),
@@ -76,9 +103,6 @@ val courseModule = module {
     }
     single<SaveCourseDraftUseCase> {
         SaveCourseDraftUseCaseImpl(repository = get())
-    }
-    single<SearchForCourseUseCase> {
-        SearchForCourseUseCaseImpl(courseRepository = get())
     }
 
     // Temporary use case
@@ -90,18 +114,20 @@ val courseModule = module {
 
     viewModel {
         CoursesViewModel(
-            getCoursesUseCase = get()
+            getCoursesUseCase = get(),
+            getChosenCoursesUseCase = get()
+        )
+    }
+    viewModel {
+        AddNewCourseViewModel(
+            searchForCourseUseCase = get(),
+            addCourseToChosenUseCase = get()
         )
     }
     viewModel {
         CourseDraftViewModel(
             getCourseDraftUseCase = get(),
             saveCourseDraftUseCase = get()
-        )
-    }
-    viewModel {
-        AddNewCourseViewModel(
-            searchForCourseUseCase = get()
         )
     }
 

@@ -10,6 +10,7 @@ import androidx.navigation.navigation
 import androidx.navigation.toRoute
 import cz.cvut.docta.core.domain.app.CourseContext
 import cz.cvut.docta.core.presentation.navigation.MainScreens
+import cz.cvut.docta.core.presentation.navigation.sharedKoinNavViewModel
 import cz.cvut.docta.core.presentation.viewmodel.NavViewModel
 import cz.cvut.docta.course.presentation.screen.AddNewCourseScreen
 import cz.cvut.docta.course.presentation.screen.CoursesScreen
@@ -30,9 +31,9 @@ fun NavGraphBuilder.courseNavigationGraph(
     navigation<MainScreens.CoursesGraph>(
         startDestination = CourseScreens.Courses
     ) {
-        composable<CourseScreens.Courses> {
+        composable<CourseScreens.Courses> { backStack ->
             val courseContext = koinInject<CourseContext>()
-            val viewModel = koinViewModel<CoursesViewModel>()
+            val viewModel = backStack.sharedKoinNavViewModel<CoursesViewModel>(navController)
 
             val courses by viewModel.courses.collectAsStateWithLifecycle()
 
@@ -54,24 +55,26 @@ fun NavGraphBuilder.courseNavigationGraph(
                 }
             )
         }
-        composable<CourseScreens.AddNewCourse> {
-            val viewModel = koinViewModel<AddNewCourseViewModel>()
+        composable<CourseScreens.AddNewCourse> { backStack ->
+            val addCourseViewModel = koinViewModel<AddNewCourseViewModel>()
+            val coursesViewModel = backStack.sharedKoinNavViewModel<CoursesViewModel>(navController)
 
-            val query by viewModel.query.collectAsStateWithLifecycle()
-            val searchIsAllowed by viewModel.searchIsAllowed.collectAsStateWithLifecycle()
-            val searchedCourseState by viewModel.courseSearchState.collectAsStateWithLifecycle()
+            val query by addCourseViewModel.query.collectAsStateWithLifecycle()
+            val searchIsAllowed by addCourseViewModel.searchIsAllowed.collectAsStateWithLifecycle()
+            val searchedCourseState by addCourseViewModel.courseSearchState.collectAsStateWithLifecycle()
 
             AddNewCourseScreen(
                 onNavigateBack = navController::popBackStack,
                 searchedCourseState = searchedCourseState,
                 query = query,
-                onQueryChange = viewModel::onQueryChange,
+                onQueryChange = addCourseViewModel::onQueryChange,
                 searchIsAllowed = searchIsAllowed,
-                onSearch = viewModel::searchForCourse,
-                onSearchCancel = viewModel::cancelSearch,
-                onTryAgain = viewModel::setCourseSearchPromptState,
-                onAddCourse = {
-                    // TODO-COURSE
+                onSearch = addCourseViewModel::searchForCourse,
+                onSearchCancel = addCourseViewModel::cancelSearch,
+                onTryAgain = addCourseViewModel::setCourseSearchPromptState,
+                onAddCourse = { course ->
+                    coursesViewModel.addCourse(course = course)
+                    addCourseViewModel.addCourseToChosenCourses(course = course)
                     navController.popBackStack()
                 }
             )

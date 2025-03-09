@@ -14,7 +14,9 @@ import cz.cvut.docta.answer.data.local.model.QuestionAnswerPairEntity
 import cz.cvut.docta.answer.data.local.model.QuestionAnswerPairTagEntity
 import cz.cvut.docta.core.data.local.dao.LocalUpdateTimeDao
 import cz.cvut.docta.core.data.local.model.LocalUpdateTime
+import cz.cvut.docta.course.data.local.dao.ChosenCourseDao
 import cz.cvut.docta.course.data.local.dao.CourseDao
+import cz.cvut.docta.course.data.local.model.ChosenCourseEntity
 import cz.cvut.docta.course.data.local.model.CourseEntity
 import cz.cvut.docta.courseEditing.data.local.dao.CourseDraftDao
 import cz.cvut.docta.courseEditing.data.model.CourseDraftEntity
@@ -44,6 +46,7 @@ import kotlinx.coroutines.IO
         LocalUpdateTime::class,
 
         CourseEntity::class,
+        ChosenCourseEntity::class,
         CourseDraftEntity::class,
 
         SectionEntity::class,
@@ -71,12 +74,13 @@ import kotlinx.coroutines.IO
         PairTagQuestionAssociation::class,
         PairTagPairAssociation::class,
     ],
-    version = 2
+    version = 3
 )
 @ConstructedBy(AppLocalDatabaseConstructor::class)
 abstract class AppLocalDatabase : RoomDatabase() {
     abstract fun localUpdateTimeDao(): LocalUpdateTimeDao
     abstract fun courseDao(): CourseDao
+    abstract fun chosenCourseDao(): ChosenCourseDao
     abstract fun courseEditingDao(): CourseDraftDao
     abstract fun sectionDao(): SectionDao
     abstract fun sectionEditingDao(): SectionDraftDao
