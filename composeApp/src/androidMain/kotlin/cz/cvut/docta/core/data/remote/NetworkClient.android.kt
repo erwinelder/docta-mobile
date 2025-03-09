@@ -6,6 +6,8 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-expect val httpClient: HttpClient
-
-const val doctaBackendUrl = "https://docta-backend-adh0f0hsebb5epg7.northeurope-01.azurewebsites.net"
+actual val httpClient = HttpClient(CIO) {
+    install(ContentNegotiation) {
+        json(Json { ignoreUnknownKeys = true })
+    }
+}
