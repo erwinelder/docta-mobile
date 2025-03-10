@@ -47,6 +47,8 @@ sealed class DoctaPalette(
     val errorGlassGradientPair: Pair<Color, Color> = Pair(
         errorGlassGradient[0], errorGlassGradient[1]
     ),
+
+    val yellow: Color,
 ) {
     data object Light : DoctaPalette(
         primary = Color(124, 154, 207),
@@ -99,6 +101,8 @@ sealed class DoctaPalette(
             Color(229, 115, 115, 128),
             Color(219, 107, 107, 128)
         ),
+
+        yellow = Color(245, 195, 68),
     )
     data object Dark : DoctaPalette(
         primary = Color(77, 101, 143),
@@ -151,5 +155,7 @@ sealed class DoctaPalette(
             Color(250, 123, 123, 128),
             Color(255, 129, 129, 128)
         ),
+
+        yellow = Color(245, 195, 68),
     )
 }
