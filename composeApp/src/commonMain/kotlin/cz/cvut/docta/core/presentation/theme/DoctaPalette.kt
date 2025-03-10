@@ -15,6 +15,7 @@ sealed class DoctaPalette(
 
     val background: Color,
     val surface: Color,
+    val surfaceGradient: List<Color>,
     val onSurface: Color,
 
     val glassSurfaceGradient: List<Color>,
@@ -61,6 +62,10 @@ sealed class DoctaPalette(
 
         background = Color.White,
         surface = Color(247, 247, 247),
+        surfaceGradient = listOf(
+            Color(232, 232, 232),
+            Color(239, 239, 239)
+        ),
         onSurface = Color(8, 8, 8),
 
         glassSurfaceGradient = listOf(
@@ -109,6 +114,10 @@ sealed class DoctaPalette(
 
         background = Color.Black,
         surface = Color(33, 33, 33),
+        surfaceGradient = listOf(
+            Color(22, 22, 22),
+            Color(29, 29, 29)
+        ),
         onSurface = Color(237, 237, 237),
 
         glassSurfaceGradient = listOf(
