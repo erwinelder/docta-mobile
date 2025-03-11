@@ -21,6 +21,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.core.presentation.modifier.bounceClickEffect
 import cz.cvut.docta.core.presentation.navigation.BottomBarNavButton
@@ -63,7 +65,11 @@ fun BottomNavBar(
             horizontalArrangement = Arrangement.SpaceEvenly,
             modifier = Modifier
                 .fillMaxWidth()
-                .background(DoctaColors.surface)
+                .background(brush = Brush.linearGradient(
+                    colors = DoctaColors.glassSurfaceGradient,
+                    start = Offset(0f, 1400f),
+                    end = Offset(600f, 0f)
+                ))
                 .padding(vertical = 16.dp, horizontal = 4.dp)
         ) {
             barButtons.forEachIndexed { index, button ->
