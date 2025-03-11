@@ -12,8 +12,8 @@ class SectionDraftLocalDataSourceImpl(
         return dao.getSectionDraft(id = id)
     }
 
-    override suspend fun getCourseSectionsDrafts(courseCode: String): List<SectionDraftEntity> {
-        return dao.getCourseSectionsDrafts(courseCode = courseCode)
+    override suspend fun getSectionDrafts(courseCode: String): List<SectionDraftEntity> {
+        return dao.getSectionDrafts(courseCode = courseCode)
     }
 
     override suspend fun saveSectionDraft(sectionDraftEntity: SectionDraftEntity) {

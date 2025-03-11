@@ -35,10 +35,26 @@ class CourseDraftViewModel(
     }
 
 
-    fun saveCourseDraftToDatabase(courseCode: String) {
-        val courseDraft = getCourseDraft(courseCode) ?: return
+    private val _sections = MutableStateFlow<List<SectionDraft>>(emptyList())
+    val sections = _sections.asStateFlow()
+
+    private fun applySections(sections: List<SectionDraft>) {
+        _sections.update { sections }
+    }
+
+    fun fetchCourseDraftSections(courseCode: String) {
         viewModelScope.launch {
-            saveCourseDraftUseCase.execute(courseDraft)
+            val sections = getCourseDraftSectionsUseCase.execute(courseCode)
+            applySections(sections = sections)
+        }
+    }
+
+
+    fun fetchCourseDraftData(courseCode: String) {
+        viewModelScope.launch {
+            val courseDraft = getCourseDraftUseCase.execute(courseCode) ?: return@launch
+            changeCourseName(courseDraft.name)
+            changeCourseLocale(courseDraft.locale.langCode)
         }
     }
 
@@ -53,25 +69,11 @@ class CourseDraftViewModel(
     }
 
 
-    fun fetchCourseDraftData(courseCode: String) {
+    fun saveCourseDraftToDatabase(courseCode: String) {
+        val courseDraft = getCourseDraft(courseCode = courseCode) ?: return
         viewModelScope.launch {
-            val courseDraft = getCourseDraftUseCase.execute(courseCode) ?: return@launch
-            changeCourseName(courseDraft.name)
-            changeCourseLocale(courseDraft.locale.langCode)
+            saveCourseDraftUseCase.execute(courseDraft = courseDraft)
         }
     }
 
-    private val _sectionList = MutableStateFlow<List<SectionDraft>>(emptyList())
-    val sectionList = _sectionList.asStateFlow()
-
-    private fun changeSectionList(sections: List<SectionDraft>) {
-        _sectionList.update { sections }
-    }
-
-    fun fetchCourseDraftSections(courseCode: String) {
-        viewModelScope.launch {
-            val sections = getCourseDraftSectionsUseCase.execute(courseCode)
-            changeSectionList(sections)
-        }
-    }
 }

@@ -6,7 +6,7 @@ interface SectionDraftRepository {
 
     suspend fun getSectionDraft(id: Long): SectionDraftEntity?
 
-    suspend fun getCourseSectionsDrafts(courseCode: String): List<SectionDraftEntity>
+    suspend fun getSectionDrafts(courseCode: String): List<SectionDraftEntity>
 
     suspend fun saveSectionDraft(sectionDraftEntity: SectionDraftEntity)
 

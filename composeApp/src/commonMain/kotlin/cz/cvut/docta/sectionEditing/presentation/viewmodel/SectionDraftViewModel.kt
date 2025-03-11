@@ -29,30 +29,6 @@ class SectionDraftViewModel(
     }
 
 
-    fun saveSectionDraftToDatabase(sectionId: Long) {
-        val sectionDraft = getSectionDraft(sectionId)
-        viewModelScope.launch {
-            saveSectionDraftUseCase.execute(sectionDraft = sectionDraft)
-        }
-    }
-
-    private fun getSectionDraft(sectionId: Long): SectionDraft {
-        return SectionDraft(
-            courseCode = courseCode,
-            id = sectionId,
-            name = sectionName.value
-        )
-    }
-
-    fun fetchSectionDraftData(sectionId: Long) {
-        viewModelScope.launch {
-            val sectionDraft = getSectionDraftUseCase.execute(id = sectionId) ?: return@launch
-            courseCode = sectionDraft.courseCode
-            changeSectionName(sectionDraft.name)
-        }
-    }
-
-
     private val _lessons = MutableStateFlow<List<LessonDraft>>(emptyList())
     val lessons = _lessons.asStateFlow()
 
@@ -64,6 +40,30 @@ class SectionDraftViewModel(
         viewModelScope.launch {
             val lessons = getSectionLessonsDraftsUseCase.execute(sectionId = sectionId)
             changeLessonsList(lessons)
+        }
+    }
+
+
+    fun fetchSectionDraftData(sectionId: Long) {
+        viewModelScope.launch {
+            val sectionDraft = getSectionDraftUseCase.execute(id = sectionId) ?: return@launch
+            courseCode = sectionDraft.courseCode
+            changeSectionName(name = sectionDraft.name)
+        }
+    }
+
+    private fun getSectionDraft(sectionId: Long): SectionDraft {
+        return SectionDraft(
+            courseCode = courseCode,
+            id = sectionId,
+            name = sectionName.value
+        )
+    }
+
+    fun saveSectionDraftToDatabase(sectionId: Long) {
+        val sectionDraft = getSectionDraft(sectionId)
+        viewModelScope.launch {
+            saveSectionDraftUseCase.execute(sectionDraft = sectionDraft)
         }
     }
 

@@ -3,7 +3,6 @@ package cz.cvut.docta.sectionEditing.data.local.dao
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
-import cz.cvut.docta.section.data.local.model.SectionEntity
 import cz.cvut.docta.sectionEditing.data.model.SectionDraftEntity
 
 @Dao
@@ -13,7 +12,7 @@ interface SectionDraftDao {
     suspend fun getSectionDraft(id: Long): SectionDraftEntity?
 
     @Query("SELECT * FROM section_draft WHERE courseCode = :courseCode")
-    suspend fun getCourseSectionsDrafts(courseCode: String): List<SectionDraftEntity>
+    suspend fun getSectionDrafts(courseCode: String): List<SectionDraftEntity>
 
     @Upsert
     suspend fun saveSectionDraft(sectionDraftEntity: SectionDraftEntity)
