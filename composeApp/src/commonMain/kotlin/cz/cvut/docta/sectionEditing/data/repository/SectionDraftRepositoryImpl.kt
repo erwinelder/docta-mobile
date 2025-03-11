@@ -12,8 +12,7 @@ class SectionDraftRepositoryImpl(
     }
 
     override suspend fun getCourseSectionsDrafts(courseCode: String): List<SectionDraftEntity> {
-        // TODO-COURSE-MANAGEMENT: Implement this method
-        return emptyList()
+        return localSource.getCourseSectionsDrafts(courseCode = courseCode)
     }
 
     override suspend fun saveSectionDraft(sectionDraftEntity: SectionDraftEntity) {
