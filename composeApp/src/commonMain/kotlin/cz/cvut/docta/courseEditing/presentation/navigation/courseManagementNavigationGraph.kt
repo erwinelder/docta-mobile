@@ -62,7 +62,8 @@ fun NavGraphBuilder.courseManagementNavigationGraph(
             val lessons by viewModel.lessons.collectAsStateWithLifecycle()
 
             LaunchedEffect(sectionId) {
-                viewModel.fetchSectionDraftData(sectionId)
+                viewModel.fetchSectionDraftData(sectionId = sectionId)
+                viewModel.fetchSectionDraftLessons(sectionId = sectionId)
             }
 
             SectionEditingScreen(
