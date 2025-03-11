@@ -13,6 +13,7 @@ import cz.cvut.docta.core.presentation.theme.DoctaTheme
 @Composable
 fun PreviewContainer(
     appTheme: AppTheme = AppTheme.Light,
+    contentAlignment: Alignment = Alignment.Center,
     content: @Composable () -> Unit
 ) {
     BoxWithConstraints {
@@ -25,7 +26,7 @@ fun PreviewContainer(
             ) {
                 AppBackgroundPreview(appTheme = appTheme)
                 Box(
-                    contentAlignment = Alignment.Center,
+                    contentAlignment = contentAlignment,
                     modifier = Modifier.fillMaxSize()
                 ) {
                     content()
