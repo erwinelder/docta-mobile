@@ -54,7 +54,7 @@ class SaveTestCoursesToDatabaseUseCase(
         CourseRemoteEntity(
             updateTime = updateTime1,
             deleted = false,
-            code = "omo",
+            code = "nss",
             locale = "cs",
             name = "Objektový návrh a modelování",
         ),
@@ -68,15 +68,17 @@ class SaveTestCoursesToDatabaseUseCase(
         SectionRemoteEntity(
             updateTime = updateTime1,
             deleted = false,
-            courseCode = "omo",
-            id = 5,
+            courseCode = "nss",
+            id = 1,
+            orderNum = 1,
             name = "Vytváření objektů"
         ),
         SectionRemoteEntity(
             updateTime = updateTime1,
             deleted = false,
-            courseCode = "omo",
-            id = 6,
+            courseCode = "nss",
+            id = 2,
+            orderNum = 2,
             name = "Modelování chování aplikace"
         ),
     )
@@ -89,8 +91,8 @@ class SaveTestCoursesToDatabaseUseCase(
         LessonRemoteEntity(
             updateTime = updateTime1,
             deleted = false,
-            courseCode = "omo",
-            sectionId = 5,
+            courseCode = "nss",
+            sectionId = 1,
             id = 1,
             type = LessonType.Default.name,
             orderNum = 1,
@@ -100,8 +102,8 @@ class SaveTestCoursesToDatabaseUseCase(
         LessonRemoteEntity(
             updateTime = updateTime1,
             deleted = false,
-            courseCode = "omo",
-            sectionId = 5,
+            courseCode = "nss",
+            sectionId = 1,
             id = 2,
             type = LessonType.Default.name,
             orderNum = 2,
@@ -111,8 +113,8 @@ class SaveTestCoursesToDatabaseUseCase(
         LessonRemoteEntity(
             updateTime = updateTime1,
             deleted = false,
-            courseCode = "omo",
-            sectionId = 5,
+            courseCode = "nss",
+            sectionId = 1,
             id = 3,
             type = LessonType.StepByStep.name,
             orderNum = 3,
@@ -138,7 +140,7 @@ class SaveTestCoursesToDatabaseUseCase(
         StepByStepLessonQuestionRemoteEntity(
             updateTime = updateTime1,
             deleted = false,
-            courseCode = "omo",
+            courseCode = "nss",
             lessonId = 3,
             id = 1,
             orderNum = 1,
@@ -172,8 +174,8 @@ class SaveTestCoursesToDatabaseUseCase(
         QuestionTagRemoteEntity(
             updateTime = updateTime1,
             deleted = false,
-            courseCode = "omo",
-            tag = "omo-section5-lesson1",
+            courseCode = "nss",
+            tag = "nss-section5-lesson1",
         ),
     )
 
@@ -183,8 +185,8 @@ class SaveTestCoursesToDatabaseUseCase(
         QuestionTagDefaultLessonRemoteAssociation(
             updateTime = updateTime1,
             deleted = false,
-            courseCode = "omo",
-            tag = "omo-section5-lesson1",
+            courseCode = "nss",
+            tag = "nss-section5-lesson1",
             lessonId = 1
         ),
     )
@@ -195,29 +197,29 @@ class SaveTestCoursesToDatabaseUseCase(
         QuestionTagQuestionRemoteAssociation(
             updateTime = updateTime1,
             deleted = false,
-            courseCode = "omo",
-            tag = "omo-section5-lesson1",
+            courseCode = "nss",
+            tag = "nss-section5-lesson1",
             questionId = 1
         ),
         QuestionTagQuestionRemoteAssociation(
             updateTime = updateTime1,
             deleted = false,
-            courseCode = "omo",
-            tag = "omo-section5-lesson1",
+            courseCode = "nss",
+            tag = "nss-section5-lesson1",
             questionId = 2
         ),
         QuestionTagQuestionRemoteAssociation(
             updateTime = updateTime1,
             deleted = false,
-            courseCode = "omo",
-            tag = "omo-section5-lesson1",
+            courseCode = "nss",
+            tag = "nss-section5-lesson1",
             questionId = 3
         ),
         QuestionTagQuestionRemoteAssociation(
             updateTime = updateTime1,
             deleted = false,
-            courseCode = "omo",
-            tag = "omo-section5-lesson1",
+            courseCode = "nss",
+            tag = "nss-section5-lesson1",
             questionId = 4
         ),
     )
@@ -230,28 +232,28 @@ class SaveTestCoursesToDatabaseUseCase(
         QuestionRemoteEntity(
             updateTime = updateTime1,
             deleted = false,
-            courseCode = "omo",
+            courseCode = "nss",
             id = 1,
             difficulty = QuestionDifficulty.Easy.name,
         ),
         QuestionRemoteEntity(
             updateTime = updateTime1,
             deleted = false,
-            courseCode = "omo",
+            courseCode = "nss",
             id = 2,
             difficulty = QuestionDifficulty.Easy.name,
         ),
         QuestionRemoteEntity(
             updateTime = updateTime1,
             deleted = false,
-            courseCode = "omo",
+            courseCode = "nss",
             id = 3,
             difficulty = QuestionDifficulty.Easy.name,
         ),
         QuestionRemoteEntity(
             updateTime = updateTime1,
             deleted = false,
-            courseCode = "omo",
+            courseCode = "nss",
             id = 4,
             difficulty = QuestionDifficulty.Easy.name,
         ),
@@ -274,7 +276,7 @@ class SaveTestCoursesToDatabaseUseCase(
         CorrectOpenAnswerRemoteEntity(
             updateTime = updateTime1,
             deleted = false,
-            courseCode = "omo",
+            courseCode = "nss",
             questionId = 1,
             id = 1,
             text = "a",
@@ -298,7 +300,7 @@ class SaveTestCoursesToDatabaseUseCase(
         BlankAnswerRemoteEntity(
             updateTime = updateTime1,
             deleted = false,
-            courseCode = "omo",
+            courseCode = "nss",
             questionId = 2,
             blankNum = 1,
             id = 1,
@@ -324,7 +326,7 @@ class SaveTestCoursesToDatabaseUseCase(
         AnswerOptionRemoteEntity(
             updateTime = updateTime1,
             deleted = false,
-            courseCode = "omo",
+            courseCode = "nss",
             questionId = 3,
             id = 1,
             text = "[1. answer text placeholder]",
@@ -332,7 +334,7 @@ class SaveTestCoursesToDatabaseUseCase(
         AnswerOptionRemoteEntity(
             updateTime = updateTime1,
             deleted = false,
-            courseCode = "omo",
+            courseCode = "nss",
             questionId = 3,
             id = 2,
             text = "[2. answer text placeholder]",
@@ -340,7 +342,7 @@ class SaveTestCoursesToDatabaseUseCase(
         AnswerOptionRemoteEntity(
             updateTime = updateTime1,
             deleted = false,
-            courseCode = "omo",
+            courseCode = "nss",
             questionId = 3,
             id = 3,
             text = "[3. answer text placeholder]",
@@ -348,7 +350,7 @@ class SaveTestCoursesToDatabaseUseCase(
         AnswerOptionRemoteEntity(
             updateTime = updateTime1,
             deleted = false,
-            courseCode = "omo",
+            courseCode = "nss",
             questionId = 3,
             id = 4,
             text = "[4. answer text placeholder]",
@@ -369,7 +371,7 @@ class SaveTestCoursesToDatabaseUseCase(
         QuestionAnswerPairRemoteEntity(
             updateTime = updateTime1,
             deleted = false,
-            courseCode = "omo",
+            courseCode = "nss",
             id = 1,
             difficulty = QuestionDifficulty.Easy.name,
             questionText = "[question text placeholder]",
@@ -383,8 +385,8 @@ class SaveTestCoursesToDatabaseUseCase(
         QuestionAnswerPairTagRemoteEntity(
             updateTime = updateTime1,
             deleted = false,
-            courseCode = "omo",
-            tag = "omo-section5-question1"
+            courseCode = "nss",
+            tag = "nss-section5-question1"
         )
     )
 
@@ -394,8 +396,8 @@ class SaveTestCoursesToDatabaseUseCase(
         PairTagQuestionRemoteAssociation(
             updateTime = updateTime1,
             deleted = false,
-            courseCode = "omo",
-            tag = "omo-section5-question1",
+            courseCode = "nss",
+            tag = "nss-section5-question1",
             questionId = 4
         )
     )
@@ -406,8 +408,8 @@ class SaveTestCoursesToDatabaseUseCase(
         PairTagPairRemoteAssociation(
             updateTime = updateTime1,
             deleted = false,
-            courseCode = "omo",
-            tag = "omo-section5-question1",
+            courseCode = "nss",
+            tag = "nss-section5-question1",
             pairId = 1
         )
     )
@@ -417,48 +419,48 @@ class SaveTestCoursesToDatabaseUseCase(
     /* Saving course to database */
 
     suspend fun execute() {
-        if (courseDao.getCoursesAfterTimestamp(0).find { it.code == "omo" } != null) return
+//        if (courseDao.getCoursesAfterTimestamp(0).find { it.code == "nss" } != null) return
 
 
         updateTimeDao.saveUpdateTime(tableName = TableName.Course.name, updateTime = updateTime1)
         courseDao.upsertCourses(courses)
 
-        updateTimeDao.saveUpdateTime(tableName = TableName.Section.name, updateTime = updateTime1, courseCode = "omo")
+        updateTimeDao.saveUpdateTime(tableName = TableName.Section.name, updateTime = updateTime1, courseCode = "nss")
         sectionDao.upsertSections(sections)
 
-        updateTimeDao.saveUpdateTime(tableName = TableName.Lesson.name, updateTime = updateTime1, courseCode = "omo")
+        updateTimeDao.saveUpdateTime(tableName = TableName.Lesson.name, updateTime = updateTime1, courseCode = "nss")
         lessonDao.upsertLessons(lessons)
         lessonDao.upsertStepByStepLessons(stepByStepLessons)
         lessonDao.upsertDefaultLessons(defaultLessons)
 
-        updateTimeDao.saveUpdateTime(tableName = TableName.Question.name, updateTime = updateTime1, courseCode = "omo")
+        updateTimeDao.saveUpdateTime(tableName = TableName.Question.name, updateTime = updateTime1, courseCode = "nss")
         questionDao.upsertQuestions(questions)
         questionDao.upsertOpenAnswerQuestions(openAnswerQuestions)
         questionDao.upsertFillInBlanksQuestions(fillInBlanksQuestions)
         questionDao.upsertAnswerOptionsQuestions(answerOptionsQuestions)
         questionDao.upsertQuestionAnswerPairsQuestions(questionAnswerPairsQuestions)
-        updateTimeDao.saveUpdateTime(tableName = TableName.StepByStepQuestion.name, updateTime = updateTime1, courseCode = "omo")
+        updateTimeDao.saveUpdateTime(tableName = TableName.StepByStepQuestion.name, updateTime = updateTime1, courseCode = "nss")
         questionDao.upsertStepByStepLessonQuestions(stepByStepLessonsQuestions)
-        updateTimeDao.saveUpdateTime(tableName = TableName.QuestionTag.name, updateTime = updateTime1, courseCode = "omo")
+        updateTimeDao.saveUpdateTime(tableName = TableName.QuestionTag.name, updateTime = updateTime1, courseCode = "nss")
         questionDao.upsertQuestionTags(questionTags)
-        updateTimeDao.saveUpdateTime(tableName = TableName.QuestionTagDefaultLessonAssociation.name, updateTime = updateTime1, courseCode = "omo")
+        updateTimeDao.saveUpdateTime(tableName = TableName.QuestionTagDefaultLessonAssociation.name, updateTime = updateTime1, courseCode = "nss")
         questionDao.upsertQuestionTagDefaultLessonAssociations(questionTagDefaultLessonAssociations)
-        updateTimeDao.saveUpdateTime(tableName = TableName.QuestionTagQuestionAssociation.name, updateTime = updateTime1, courseCode = "omo")
+        updateTimeDao.saveUpdateTime(tableName = TableName.QuestionTagQuestionAssociation.name, updateTime = updateTime1, courseCode = "nss")
         questionDao.upsertQuestionTagQuestionAssociations(questionTagQuestionAssociations)
 
-        updateTimeDao.saveUpdateTime(tableName = TableName.CorrectOpenAnswer.name, updateTime = updateTime1, courseCode = "omo")
+        updateTimeDao.saveUpdateTime(tableName = TableName.CorrectOpenAnswer.name, updateTime = updateTime1, courseCode = "nss")
         answerRemoteDao.upsertCorrectOpenAnswers(openAnswerQuestionsAnswers)
-        updateTimeDao.saveUpdateTime(tableName = TableName.BlankAnswer.name, updateTime = updateTime1, courseCode = "omo")
+        updateTimeDao.saveUpdateTime(tableName = TableName.BlankAnswer.name, updateTime = updateTime1, courseCode = "nss")
         answerRemoteDao.upsertBlanksAnswers(fillInBlanksQuestionsAnswers)
-        updateTimeDao.saveUpdateTime(tableName = TableName.AnswerOption.name, updateTime = updateTime1, courseCode = "omo")
+        updateTimeDao.saveUpdateTime(tableName = TableName.AnswerOption.name, updateTime = updateTime1, courseCode = "nss")
         answerRemoteDao.upsertAnswerOptions(answerOptionsQuestionsAnswers)
-        updateTimeDao.saveUpdateTime(tableName = TableName.QuestionAnswerPair.name, updateTime = updateTime1, courseCode = "omo")
+        updateTimeDao.saveUpdateTime(tableName = TableName.QuestionAnswerPair.name, updateTime = updateTime1, courseCode = "nss")
         answerRemoteDao.upsertQuestionAnswerPairs(questionAnswerPairsQuestionsAnswers)
-        updateTimeDao.saveUpdateTime(tableName = TableName.QuestionAnswerPairTag.name, updateTime = updateTime1, courseCode = "omo")
+        updateTimeDao.saveUpdateTime(tableName = TableName.QuestionAnswerPairTag.name, updateTime = updateTime1, courseCode = "nss")
         answerRemoteDao.upsertPairTags(pairsTags)
-        updateTimeDao.saveUpdateTime(tableName = TableName.PairTagQuestionAssociation.name, updateTime = updateTime1, courseCode = "omo")
+        updateTimeDao.saveUpdateTime(tableName = TableName.PairTagQuestionAssociation.name, updateTime = updateTime1, courseCode = "nss")
         answerRemoteDao.upsertPairTagQuestionAssociations(pairTagQuestionAssociations)
-        updateTimeDao.saveUpdateTime(tableName = TableName.PairTagPairAssociation.name, updateTime = updateTime1, courseCode = "omo")
+        updateTimeDao.saveUpdateTime(tableName = TableName.PairTagPairAssociation.name, updateTime = updateTime1, courseCode = "nss")
         answerRemoteDao.upsertPairTagPairAssociations(pairTagPairAssociations)
     }
 

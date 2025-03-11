@@ -3,6 +3,8 @@ package cz.cvut.docta.lesson.data.mapper
 import cz.cvut.docta.core.data.local.model.EntitiesToSynchronise
 import cz.cvut.docta.core.utils.enumValueOrNull
 import cz.cvut.docta.lesson.data.local.model.DefaultLessonType
+import cz.cvut.docta.lesson.data.local.model.LessonDifficulty
+import cz.cvut.docta.lesson.data.local.model.LessonType
 import cz.cvut.docta.lesson.data.local.model.entity.DefaultLessonEntity
 import cz.cvut.docta.lesson.data.local.model.entity.LessonEntity
 import cz.cvut.docta.lesson.data.local.model.entity.StepByStepLessonEntity
@@ -17,6 +19,7 @@ fun List<DefaultLessonWithDetails>.toSealedDefaultLessonDetails() =
 
 fun DefaultLessonWithDetails.wrapInSealedClass(): LessonDetails.Default? {
     val type = enumValueOrNull<DefaultLessonType>(defaultLessonType) ?: return null
+    val difficulty = enumValueOrNull<LessonDifficulty>(difficulty) ?: return null
 
     return LessonDetails.Default(
         sectionId = sectionId,
@@ -31,9 +34,11 @@ fun DefaultLessonWithDetails.wrapInSealedClass(): LessonDetails.Default? {
 
 
 fun List<StepByStepLessonWithDetails>.toSealedStepByStepLessonDetails() =
-    map { it.wrapInSealedClass() }
+    mapNotNull { it.wrapInSealedClass() }
 
-fun StepByStepLessonWithDetails.wrapInSealedClass(): LessonDetails.StepByStep {
+fun StepByStepLessonWithDetails.wrapInSealedClass(): LessonDetails.StepByStep? {
+    val difficulty = enumValueOrNull<LessonDifficulty>(difficulty) ?: return null
+
     return LessonDetails.StepByStep(
         sectionId = sectionId,
         id = id,
@@ -49,8 +54,8 @@ fun List<LessonDetails>.toLessonEntities() = map { it.toLessonEntity() }
 
 fun LessonDetails.toLessonEntity(): LessonEntity {
     val type = when (this) {
-        is LessonDetails.Default -> cz.cvut.docta.lesson.data.local.model.LessonType.Default
-        is LessonDetails.StepByStep -> cz.cvut.docta.lesson.data.local.model.LessonType.StepByStep
+        is LessonDetails.Default -> LessonType.Default
+        is LessonDetails.StepByStep -> LessonType.StepByStep
     }
 
     return LessonEntity(
@@ -59,7 +64,7 @@ fun LessonDetails.toLessonEntity(): LessonEntity {
         type = type.name,
         orderNum = orderNum,
         name = name,
-        difficulty = difficulty
+        difficulty = difficulty.name
     )
 }
 

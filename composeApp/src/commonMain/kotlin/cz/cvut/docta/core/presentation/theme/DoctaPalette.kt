@@ -15,6 +15,7 @@ sealed class DoctaPalette(
 
     val background: Color,
     val surface: Color,
+    val surfaceGradient: List<Color>,
     val onSurface: Color,
 
     val glassSurfaceGradient: List<Color>,
@@ -46,6 +47,8 @@ sealed class DoctaPalette(
     val errorGlassGradientPair: Pair<Color, Color> = Pair(
         errorGlassGradient[0], errorGlassGradient[1]
     ),
+
+    val yellow: Color,
 ) {
     data object Light : DoctaPalette(
         primary = Color(124, 154, 207),
@@ -61,6 +64,10 @@ sealed class DoctaPalette(
 
         background = Color.White,
         surface = Color(247, 247, 247),
+        surfaceGradient = listOf(
+            Color(232, 232, 232),
+            Color(239, 239, 239)
+        ),
         onSurface = Color(8, 8, 8),
 
         glassSurfaceGradient = listOf(
@@ -94,6 +101,8 @@ sealed class DoctaPalette(
             Color(229, 115, 115, 128),
             Color(219, 107, 107, 128)
         ),
+
+        yellow = Color(245, 195, 68),
     )
     data object Dark : DoctaPalette(
         primary = Color(77, 101, 143),
@@ -109,6 +118,10 @@ sealed class DoctaPalette(
 
         background = Color.Black,
         surface = Color(33, 33, 33),
+        surfaceGradient = listOf(
+            Color(22, 22, 22),
+            Color(29, 29, 29)
+        ),
         onSurface = Color(237, 237, 237),
 
         glassSurfaceGradient = listOf(
@@ -142,5 +155,7 @@ sealed class DoctaPalette(
             Color(250, 123, 123, 128),
             Color(255, 129, 129, 128)
         ),
+
+        yellow = Color(245, 195, 68),
     )
 }

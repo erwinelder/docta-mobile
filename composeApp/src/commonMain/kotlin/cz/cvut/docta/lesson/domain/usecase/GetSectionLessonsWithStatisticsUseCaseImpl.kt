@@ -14,6 +14,7 @@ class GetSectionLessonsWithStatisticsUseCaseImpl(
             .getSectionLessonsWithStatistics(
                 courseCode = courseContext.getCourseCode(), sectionId = sectionId
             )
+            .sortedBy { it.orderNum }
             .toDomainLessons()
     }
 }

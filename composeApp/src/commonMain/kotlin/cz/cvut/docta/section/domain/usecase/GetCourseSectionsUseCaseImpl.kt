@@ -10,6 +10,7 @@ class GetCourseSectionsUseCaseImpl(
 ) : GetCourseSectionsUseCase {
     override suspend fun execute(courseCode: String): List<SectionWithStatistics> {
         return sectionRepository.getCourseSections(courseCode)
+            .sortedBy { it.orderNum }
             .toDomainModels()
             .map {
                 // TODO-STATISTICS

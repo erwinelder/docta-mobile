@@ -1,9 +1,12 @@
 package cz.cvut.docta.course.data.repository
 
+import cz.cvut.docta.core.data.remote.doctaBackendUrl
 import cz.cvut.docta.core.data.remote.httpClient
 import cz.cvut.docta.course.data.local.model.CourseEntity
+import cz.cvut.docta.course.data.mapper.remoteDtoToLocalEntity
 import cz.cvut.docta.course.data.remote.model.CourseRemoteDTO
 import io.ktor.client.request.get
+import io.ktor.client.request.setBody
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
@@ -13,23 +16,27 @@ import kotlinx.serialization.json.Json
 class CourseRemoteRepository : CourseRepository {
 
     override suspend fun getAllCourses(): List<CourseEntity> {
+        return emptyList()
+    }
+
+    override suspend fun getCourses(codes: List<String>): List<CourseEntity> {
         return try {
             val response = httpClient.get(
-                urlString = "https://docta-backend-adh0f0hsebb5epg7.northeurope-01.azurewebsites.net/courses"
+                urlString = "$doctaBackendUrl/courses"
             ) {
                 contentType(ContentType.Application.Json)
+                setBody(codes)
             }
 
             if (response.status == HttpStatusCode.OK) {
-                Json.decodeFromString<List<CourseRemoteDTO>>(string = response.bodyAsText()).map {
-                    CourseEntity(code = it.code, locale = it.locale, name = it.name)
-                }
+                Json.decodeFromString<List<CourseRemoteDTO>>(string = response.bodyAsText())
+                    .map { it.remoteDtoToLocalEntity() }
             } else {
                 println("Error during fetching courses: ${response.status}")
                 emptyList()
             }
         } catch (e: Exception) {
-            println("Connection error: ${e.message}")
+            println("Network error: ${e.message}")
             emptyList()
         }
     }
@@ -37,15 +44,14 @@ class CourseRemoteRepository : CourseRepository {
     override suspend fun getCourse(courseCode: String): CourseEntity? {
         return try {
             val response = httpClient.get(
-                urlString = "https://docta-backend-adh0f0hsebb5epg7.northeurope-01.azurewebsites.net/courses/$courseCode"
+                urlString = "$doctaBackendUrl/courses/$courseCode"
             ) {
                 contentType(ContentType.Application.Json)
             }
 
             if (response.status == HttpStatusCode.OK) {
-                Json.decodeFromString<CourseRemoteDTO>(string = response.bodyAsText()).let {
-                    CourseEntity(code = it.code, locale = it.locale, name = it.name)
-                }
+                Json.decodeFromString<CourseRemoteDTO>(string = response.bodyAsText())
+                    .remoteDtoToLocalEntity()
             } else {
                 println("Error during fetching courses: ${response.status}")
                 null

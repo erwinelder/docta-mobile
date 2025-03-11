@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import cz.cvut.docta.core.domain.app.AppTheme
-import cz.cvut.docta.core.presentation.screen.ScreenPreviewContainer
+import cz.cvut.docta.core.presentation.preview.ScreenPreviewContainer
 import cz.cvut.docta.question.domain.model.QuestionCheckResult
 import cz.cvut.docta.question.presentation.model.QuestionBlankUnit
 

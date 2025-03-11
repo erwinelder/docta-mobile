@@ -12,6 +12,7 @@ class GetSectionLessonsDraftsUseCaseImpl(
     override suspend fun execute(sectionId: Long): List<LessonDraft> {
         return lessonRepository
             .getSectionLessons(courseCode = courseContext.getCourseCode(), sectionId = sectionId)
+            .sortedBy { it.orderNum }
             .toLessonDraftList()
     }
 }

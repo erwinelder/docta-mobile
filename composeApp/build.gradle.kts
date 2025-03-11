@@ -36,6 +36,7 @@ kotlin {
         commonMain.dependencies {
             // Core, Compose, and Lifecycle
             implementation(compose.runtime)
+            implementation(libs.androidx.core.ktx)
             implementation(compose.foundation)
             implementation(compose.material)
             implementation(compose.ui)

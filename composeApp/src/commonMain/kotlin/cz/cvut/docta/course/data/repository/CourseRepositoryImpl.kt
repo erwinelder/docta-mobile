@@ -1,11 +1,11 @@
 package cz.cvut.docta.course.data.repository
 
 import cz.cvut.docta.core.data.utils.synchroniseData
+import cz.cvut.docta.course.data.local.model.CourseEntity
 import cz.cvut.docta.course.data.local.source.CourseLocalDataSource
 import cz.cvut.docta.course.data.mapper.toCourseEntitiesToSync
-import cz.cvut.docta.course.data.local.model.CourseEntity
-import cz.cvut.docta.course.data.remote.source.CourseRemoteDataSource
 import cz.cvut.docta.course.data.remote.model.CourseRemoteEntity
+import cz.cvut.docta.course.data.remote.source.CourseRemoteDataSource
 
 class CourseRepositoryImpl(
     private val localSource: CourseLocalDataSource,
@@ -29,6 +29,12 @@ class CourseRepositoryImpl(
     override suspend fun getAllCourses(): List<CourseEntity> {
         synchroniseCourses()
         return localSource.getAllCourses()
+    }
+
+    override suspend fun getCourses(codes: List<String>): List<CourseEntity> {
+        synchroniseCourses()
+        // TODO: Temporary solution
+        return localSource.getAllCourses().filter { it.code in codes }
     }
 
     override suspend fun getCourse(courseCode: String): CourseEntity? {

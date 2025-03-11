@@ -28,7 +28,7 @@ class SectionRepositoryImpl(
         return localSource.getSection(sectionId = sectionId)
     }
 
-    override suspend fun getCourseSections(courseCode: String): List<SectionEntity> {
+    override suspend fun getSections(courseCode: String): List<SectionEntity> {
         synchroniseSections(courseCode = courseCode)
         return localSource.getCourseSections(courseCode = courseCode)
     }
