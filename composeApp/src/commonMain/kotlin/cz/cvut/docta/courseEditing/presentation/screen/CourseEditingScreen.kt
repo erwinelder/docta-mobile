@@ -18,7 +18,7 @@ import cz.cvut.docta.core.presentation.component.buttons.PrimaryButton
 import cz.cvut.docta.core.presentation.component.field.SmallTextField
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainer
 import cz.cvut.docta.core.presentation.theme.CurrWindowType
-import cz.cvut.docta.section.domain.model.Section
+import cz.cvut.docta.sectionEditing.domain.model.SectionDraft
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
@@ -29,7 +29,7 @@ fun CourseEditingScreen(
     courseLocale: String,
     onLocaleChange: (String) -> Unit,
     onSaveButtonClick: () -> Unit,
-    sections: List<Section>,
+    sections: List<SectionDraft>,
     onSectionClick: (Long) -> Unit,
 ) {
     ScreenContainer(

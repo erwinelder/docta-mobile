@@ -6,8 +6,8 @@ import cz.cvut.docta.section.data.remote.source.SectionRemoteDataSource
 import cz.cvut.docta.section.data.remote.source.sectionRemoteDataSourceFactory
 import cz.cvut.docta.section.data.repository.SectionRepository
 import cz.cvut.docta.section.data.repository.SectionRepositoryImpl
-import cz.cvut.docta.section.domain.usecase.GetCourseDraftSectionsUseCase
-import cz.cvut.docta.section.domain.usecase.GetCourseDraftSectionsUseCaseImpl
+import cz.cvut.docta.sectionEditing.domain.usecase.GetCourseDraftSectionsUseCase
+import cz.cvut.docta.sectionEditing.domain.usecase.GetCourseDraftSectionsUseCaseImpl
 import cz.cvut.docta.section.domain.usecase.GetCourseSectionsUseCase
 import cz.cvut.docta.section.domain.usecase.GetCourseSectionsUseCaseImpl
 import cz.cvut.docta.section.domain.usecase.GetSectionUseCase
@@ -66,7 +66,7 @@ val sectionModule = module {
     }
 
     single<GetCourseDraftSectionsUseCase> {
-        GetCourseDraftSectionsUseCaseImpl(sectionRepository = get())
+        GetCourseDraftSectionsUseCaseImpl(sectionDraftRepository = get())
     }
 
     single<GetSectionDraftUseCase> {

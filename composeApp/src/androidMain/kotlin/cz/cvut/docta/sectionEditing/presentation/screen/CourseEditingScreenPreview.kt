@@ -6,7 +6,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import cz.cvut.docta.core.domain.app.AppTheme
 import cz.cvut.docta.core.presentation.screen.ScreenPreviewContainer
 import cz.cvut.docta.courseEditing.presentation.screen.CourseEditingScreen
-import cz.cvut.docta.section.domain.model.Section
+import cz.cvut.docta.sectionEditing.domain.model.SectionDraft
 
 @Preview(device = PIXEL_7_PRO)
 @Composable
@@ -22,15 +22,18 @@ fun CourseEditingScreenPreview(
             onLocaleChange = {},
             onSaveButtonClick = {},
             sections = listOf(
-                Section(
+                SectionDraft(
+                    courseCode = "1",
                     id = 4484,
                     name = "Section 1"
                 ),
-                Section(
+                SectionDraft(
+                    courseCode = "1",
                     id = 4491,
                     name = "Section 12"
                 ),
-                Section(
+                SectionDraft(
+                    courseCode = "1",
                     id = 4503,
                     name = "Section 23"
                 )
