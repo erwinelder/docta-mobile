@@ -30,9 +30,11 @@ fun NavGraphBuilder.courseManagementNavigationGraph(
 
             val courseName by viewModel.courseName.collectAsStateWithLifecycle()
             val courseLocale by viewModel.courseLocale.collectAsStateWithLifecycle()
+            val sections by viewModel.sectionList.collectAsStateWithLifecycle()
 
             LaunchedEffect(courseCode) {
                 viewModel.fetchCourseDraftData(courseCode)
+                viewModel.fetchCourseDraftSections(courseCode)
             }
 
             CourseEditingScreen(
@@ -43,7 +45,12 @@ fun NavGraphBuilder.courseManagementNavigationGraph(
                 onLocaleChange = viewModel::changeCourseLocale,
                 onSaveButtonClick = {
                     viewModel.saveCourseDraftToDatabase(courseCode = courseCode)
-                }
+                },
+                sections = sections,
+                onSectionClick = { sectionId ->
+                    navViewModel.navigate(
+                        navController, CourseManagementScreens.SectionEditing(sectionId))
+                },
             )
         }
         composable<CourseManagementScreens.SectionEditing> { backStack ->
@@ -52,9 +59,11 @@ fun NavGraphBuilder.courseManagementNavigationGraph(
             val viewModel = koinViewModel<SectionDraftViewModel>()
 
             val sectionName by viewModel.sectionName.collectAsStateWithLifecycle()
+            val lessons by viewModel.lessons.collectAsStateWithLifecycle()
 
             LaunchedEffect(sectionId) {
-                viewModel.fetchSectionDraftData(sectionId)
+                viewModel.fetchSectionDraftData(sectionId = sectionId)
+                viewModel.fetchSectionDraftLessons(sectionId = sectionId)
             }
 
             SectionEditingScreen(
@@ -63,7 +72,14 @@ fun NavGraphBuilder.courseManagementNavigationGraph(
                 onNameChange = viewModel::changeSectionName,
                 onSaveButtonClick = {
                     viewModel.saveSectionDraftToDatabase(sectionId = sectionId)
-                }
+                },
+                lessons = lessons,
+                onLessonClick = { lessonId ->
+                    navViewModel.navigate(
+                        navController, CourseManagementScreens.LessonEditing(lessonId = lessonId)
+                    )
+                },
+
             )
         }
     }

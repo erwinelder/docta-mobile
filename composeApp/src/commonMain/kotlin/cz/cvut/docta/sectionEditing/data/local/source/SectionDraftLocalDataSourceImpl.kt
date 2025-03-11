@@ -9,11 +9,15 @@ class SectionDraftLocalDataSourceImpl(
 ) : SectionDraftLocalDataSource {
 
     override suspend fun getSectionDraft(id: Long): SectionDraftEntity? {
-        return dao.getSectionDraft(id)
+        return dao.getSectionDraft(id = id)
+    }
+
+    override suspend fun getCourseSectionsDrafts(courseCode: String): List<SectionDraftEntity> {
+        return dao.getCourseSectionsDrafts(courseCode = courseCode)
     }
 
     override suspend fun saveSectionDraft(sectionDraftEntity: SectionDraftEntity) {
-        dao.saveSectionDraft(sectionDraftEntity)
+        dao.saveSectionDraft(sectionDraftEntity = sectionDraftEntity)
     }
 
 }
