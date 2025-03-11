@@ -9,7 +9,7 @@ class GetCourseSectionsUseCaseImpl(
     private val sectionRepository: SectionRepository
 ) : GetCourseSectionsUseCase {
     override suspend fun execute(courseCode: String): List<SectionWithStatistics> {
-        return sectionRepository.getCourseSections(courseCode)
+        return sectionRepository.getSections(courseCode)
             .sortedBy { it.orderNum }
             .toDomainModels()
             .map {
