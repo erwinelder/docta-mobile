@@ -13,6 +13,8 @@ import cz.cvut.docta.section.domain.usecase.GetCourseSectionsUseCase
 import cz.cvut.docta.section.domain.usecase.GetCourseSectionsUseCaseImpl
 import cz.cvut.docta.section.domain.usecase.GetSectionUseCase
 import cz.cvut.docta.section.domain.usecase.GetSectionUseCaseImpl
+import cz.cvut.docta.section.domain.usecase.GetSectionsWithUserStatsUseCase
+import cz.cvut.docta.section.domain.usecase.GetSectionsWithUserStatsUseCaseImpl
 import cz.cvut.docta.section.presentation.viewmodel.CourseSectionsViewModel
 import cz.cvut.docta.sectionEditing.data.local.source.SectionDraftLocalDataSource
 import cz.cvut.docta.sectionEditing.data.local.source.sectionDraftLocalDataSourceFactory
@@ -66,6 +68,9 @@ val sectionModule = module {
             courseContext = get()
         )
     }
+    single<GetSectionsWithUserStatsUseCase> {
+        GetSectionsWithUserStatsUseCaseImpl(sectionRepository = get())
+    }
 
     single<GetCourseDraftSectionsUseCase> {
         GetCourseDraftSectionsUseCaseImpl(sectionDraftRepository = get())
@@ -87,7 +92,8 @@ val sectionModule = module {
     viewModel {
         CourseSectionsViewModel(
             getCourseUseCase = get(),
-            getCourseSectionsUseCase = get()
+            getCourseSectionsUseCase = get(),
+            getSectionsWithUserStatsUseCase = get()
         )
     }
 

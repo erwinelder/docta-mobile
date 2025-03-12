@@ -5,6 +5,8 @@ import cz.cvut.docta.section.domain.model.SectionWithStatistics
 import cz.cvut.docta.section.domain.model.SectionStatistics
 import cz.cvut.docta.section.mapper.toDomainModels
 
+
+//+GetSectionsWithUserStatsUseCaseImpl
 class GetCourseSectionsUseCaseImpl(
     private val sectionRepository: SectionRepository
 ) : GetCourseSectionsUseCase {

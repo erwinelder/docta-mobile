@@ -17,6 +17,7 @@ import cz.cvut.docta.core.domain.app.FilledWidthByScreenType
 import cz.cvut.docta.core.presentation.component.buttons.GlassSurfaceNavigationButton
 import cz.cvut.docta.core.presentation.component.buttons.GlassSurfaceTopBackNavButton
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainer
+import cz.cvut.docta.section.domain.model.SectionProgressState
 import cz.cvut.docta.section.domain.model.SectionWithStatistics
 import org.jetbrains.compose.resources.DrawableResource
 
@@ -25,8 +26,8 @@ fun CourseSectionsScreen(
     courseName: String,
     courseIconRes: DrawableResource? = null,
     onNavigateBack: () -> Unit,
-    sections: List<SectionWithStatistics>,
-    onSectionClick: (SectionWithStatistics) -> Unit
+    sections: List<SectionProgressState>,
+    onSectionClick: (SectionProgressState) -> Unit
 ) {
     val lazyListState = rememberLazyListState()
 
@@ -51,6 +52,7 @@ fun CourseSectionsScreen(
             modifier = Modifier.weight(1f)
         ) {
             items(items = sections) { section ->
+
                 GlassSurfaceNavigationButton(
                     text = section.name,
                     filledWidths = FilledWidthByScreenType(),

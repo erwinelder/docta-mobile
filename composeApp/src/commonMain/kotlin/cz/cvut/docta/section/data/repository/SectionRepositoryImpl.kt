@@ -6,6 +6,7 @@ import cz.cvut.docta.section.data.local.source.SectionLocalDataSource
 import cz.cvut.docta.section.data.mapper.toSectionEntitiesToSync
 import cz.cvut.docta.section.data.local.model.SectionEntity
 import cz.cvut.docta.section.data.remote.source.SectionRemoteDataSource
+import cz.cvut.docta.section.domain.model.SectionProgressState
 
 class SectionRepositoryImpl(
     private val localSource: SectionLocalDataSource,
@@ -31,6 +32,10 @@ class SectionRepositoryImpl(
     override suspend fun getSections(courseCode: String): List<SectionEntity> {
         synchroniseSections(courseCode = courseCode)
         return localSource.getCourseSections(courseCode = courseCode)
+    }
+
+    override suspend fun getSectionsWithUserStats(courseCode: String): List<SectionProgressState> {
+        return emptyList()
     }
 
 }

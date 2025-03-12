@@ -5,6 +5,7 @@ import cz.cvut.docta.core.data.remote.httpClient
 import cz.cvut.docta.section.data.local.model.SectionEntity
 import cz.cvut.docta.section.data.mapper.remoteDtoToLocalEntity
 import cz.cvut.docta.section.data.remote.model.SectionRemoteDTO
+import cz.cvut.docta.section.domain.model.SectionProgressState
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
@@ -57,6 +58,11 @@ class SectionRemoteRepository : SectionRepository {
             println("Network error: ${e.message}")
             null
         }
+    }
+
+    override suspend fun getSectionsWithUserStats(courseCode: String): List<SectionProgressState> {
+        return emptyList();
+        //TODO-STATISTICS backend end point
     }
 
 }
