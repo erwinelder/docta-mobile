@@ -1,0 +1,1290 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "27db939323c6a0558d8c46f155cebd3c",
+    "entities": [
+      {
+        "tableName": "remote_update_time",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableName` TEXT NOT NULL, `courseCode` TEXT NOT NULL, `updateTime` INTEGER NOT NULL, PRIMARY KEY(`tableName`, `courseCode`))",
+        "fields": [
+          {
+            "fieldPath": "tableName",
+            "columnName": "tableName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "courseCode",
+            "columnName": "courseCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "tableName",
+            "courseCode"
+          ]
+        }
+      },
+      {
+        "tableName": "course_remote",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`updateTime` INTEGER NOT NULL, `deleted` INTEGER NOT NULL, `code` TEXT NOT NULL, `locale` TEXT NOT NULL, `name` TEXT NOT NULL, PRIMARY KEY(`code`))",
+        "fields": [
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deleted",
+            "columnName": "deleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "code",
+            "columnName": "code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "locale",
+            "columnName": "locale",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "code"
+          ]
+        }
+      },
+      {
+        "tableName": "section_remote",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`updateTime` INTEGER NOT NULL, `deleted` INTEGER NOT NULL, `courseCode` TEXT NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `orderNum` INTEGER NOT NULL, `name` TEXT NOT NULL, FOREIGN KEY(`courseCode`) REFERENCES `course_remote`(`code`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deleted",
+            "columnName": "deleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "courseCode",
+            "columnName": "courseCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "orderNum",
+            "columnName": "orderNum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "course_remote",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "courseCode"
+            ],
+            "referencedColumns": [
+              "code"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "lesson_remote",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`updateTime` INTEGER NOT NULL, `deleted` INTEGER NOT NULL, `courseCode` TEXT NOT NULL, `sectionId` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `type` TEXT NOT NULL, `orderNum` INTEGER NOT NULL, `name` TEXT NOT NULL, `difficulty` TEXT NOT NULL, FOREIGN KEY(`courseCode`) REFERENCES `course_remote`(`code`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`sectionId`) REFERENCES `section_remote`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deleted",
+            "columnName": "deleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "courseCode",
+            "columnName": "courseCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sectionId",
+            "columnName": "sectionId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "orderNum",
+            "columnName": "orderNum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "difficulty",
+            "columnName": "difficulty",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "course_remote",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "courseCode"
+            ],
+            "referencedColumns": [
+              "code"
+            ]
+          },
+          {
+            "table": "section_remote",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "sectionId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "default_lesson_remote",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`lessonId` INTEGER NOT NULL, `defaultLessonType` TEXT NOT NULL, `matchAllTags` INTEGER NOT NULL, PRIMARY KEY(`lessonId`), FOREIGN KEY(`lessonId`) REFERENCES `lesson_remote`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "lessonId",
+            "columnName": "lessonId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "defaultLessonType",
+            "columnName": "defaultLessonType",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "matchAllTags",
+            "columnName": "matchAllTags",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "lessonId"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "lesson_remote",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "lessonId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "step_by_step_lesson_remote",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`lessonId` INTEGER NOT NULL, `description` TEXT NOT NULL, PRIMARY KEY(`lessonId`), FOREIGN KEY(`lessonId`) REFERENCES `lesson_remote`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "lessonId",
+            "columnName": "lessonId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "lessonId"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "lesson_remote",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "lessonId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "question_remote",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`updateTime` INTEGER NOT NULL, `deleted` INTEGER NOT NULL, `courseCode` TEXT NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `difficulty` TEXT NOT NULL, FOREIGN KEY(`courseCode`) REFERENCES `course_remote`(`code`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deleted",
+            "columnName": "deleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "courseCode",
+            "columnName": "courseCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "difficulty",
+            "columnName": "difficulty",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "course_remote",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "courseCode"
+            ],
+            "referencedColumns": [
+              "code"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "open_answer_question_remote",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`questionId` INTEGER NOT NULL, `text` TEXT NOT NULL, PRIMARY KEY(`questionId`), FOREIGN KEY(`questionId`) REFERENCES `question_remote`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "questionId",
+            "columnName": "questionId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "text",
+            "columnName": "text",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "questionId"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "question_remote",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "questionId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "fill_in_blanks_question_remote",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`questionId` INTEGER NOT NULL, `text` TEXT NOT NULL, PRIMARY KEY(`questionId`), FOREIGN KEY(`questionId`) REFERENCES `question_remote`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "questionId",
+            "columnName": "questionId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "text",
+            "columnName": "text",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "questionId"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "question_remote",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "questionId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "answer_options_question_remote",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`questionId` INTEGER NOT NULL, `text` TEXT NOT NULL, `correctOptionId` INTEGER, PRIMARY KEY(`questionId`), FOREIGN KEY(`questionId`) REFERENCES `question_remote`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "questionId",
+            "columnName": "questionId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "text",
+            "columnName": "text",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "correctOptionId",
+            "columnName": "correctOptionId",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "questionId"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "question_remote",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "questionId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "question_answer_pairs_question_remote",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`questionId` INTEGER NOT NULL, PRIMARY KEY(`questionId`), FOREIGN KEY(`questionId`) REFERENCES `question_remote`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "questionId",
+            "columnName": "questionId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "questionId"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "question_remote",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "questionId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "step_by_step_lesson_question_remote",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`updateTime` INTEGER NOT NULL, `deleted` INTEGER NOT NULL, `courseCode` TEXT NOT NULL, `lessonId` INTEGER, `id` INTEGER NOT NULL, `orderNum` INTEGER NOT NULL, `questionText` TEXT NOT NULL, `correctAnswerText` TEXT NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`courseCode`) REFERENCES `course_remote`(`code`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`lessonId`) REFERENCES `step_by_step_lesson_remote`(`lessonId`) ON UPDATE NO ACTION ON DELETE SET NULL )",
+        "fields": [
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deleted",
+            "columnName": "deleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "courseCode",
+            "columnName": "courseCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lessonId",
+            "columnName": "lessonId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "orderNum",
+            "columnName": "orderNum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "questionText",
+            "columnName": "questionText",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "correctAnswerText",
+            "columnName": "correctAnswerText",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "course_remote",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "courseCode"
+            ],
+            "referencedColumns": [
+              "code"
+            ]
+          },
+          {
+            "table": "step_by_step_lesson_remote",
+            "onDelete": "SET NULL",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "lessonId"
+            ],
+            "referencedColumns": [
+              "lessonId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "question_tag_remote",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`updateTime` INTEGER NOT NULL, `deleted` INTEGER NOT NULL, `courseCode` TEXT NOT NULL, `tag` TEXT NOT NULL, PRIMARY KEY(`courseCode`, `tag`), FOREIGN KEY(`courseCode`) REFERENCES `course_remote`(`code`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deleted",
+            "columnName": "deleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "courseCode",
+            "columnName": "courseCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tag",
+            "columnName": "tag",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "courseCode",
+            "tag"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "course_remote",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "courseCode"
+            ],
+            "referencedColumns": [
+              "code"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "question_tag_question_remote_association",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`updateTime` INTEGER NOT NULL, `deleted` INTEGER NOT NULL, `courseCode` TEXT NOT NULL, `tag` TEXT NOT NULL, `questionId` INTEGER NOT NULL, PRIMARY KEY(`courseCode`, `tag`, `questionId`), FOREIGN KEY(`courseCode`, `tag`) REFERENCES `question_tag_remote`(`courseCode`, `tag`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`questionId`) REFERENCES `question_remote`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deleted",
+            "columnName": "deleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "courseCode",
+            "columnName": "courseCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tag",
+            "columnName": "tag",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "questionId",
+            "columnName": "questionId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "courseCode",
+            "tag",
+            "questionId"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "question_tag_remote",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "courseCode",
+              "tag"
+            ],
+            "referencedColumns": [
+              "courseCode",
+              "tag"
+            ]
+          },
+          {
+            "table": "question_remote",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "questionId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "question_tag_default_lesson_remote_association",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`updateTime` INTEGER NOT NULL, `deleted` INTEGER NOT NULL, `courseCode` TEXT NOT NULL, `tag` TEXT NOT NULL, `lessonId` INTEGER NOT NULL, PRIMARY KEY(`tag`, `lessonId`), FOREIGN KEY(`courseCode`, `tag`) REFERENCES `question_tag_remote`(`courseCode`, `tag`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`lessonId`) REFERENCES `default_lesson_remote`(`lessonId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deleted",
+            "columnName": "deleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "courseCode",
+            "columnName": "courseCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tag",
+            "columnName": "tag",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lessonId",
+            "columnName": "lessonId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "tag",
+            "lessonId"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "question_tag_remote",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "courseCode",
+              "tag"
+            ],
+            "referencedColumns": [
+              "courseCode",
+              "tag"
+            ]
+          },
+          {
+            "table": "default_lesson_remote",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "lessonId"
+            ],
+            "referencedColumns": [
+              "lessonId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "correct_open_answer_remote",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`updateTime` INTEGER NOT NULL, `deleted` INTEGER NOT NULL, `courseCode` TEXT NOT NULL, `questionId` INTEGER NOT NULL, `id` INTEGER NOT NULL, `text` TEXT NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`courseCode`) REFERENCES `course_remote`(`code`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`questionId`) REFERENCES `open_answer_question_remote`(`questionId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deleted",
+            "columnName": "deleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "courseCode",
+            "columnName": "courseCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "questionId",
+            "columnName": "questionId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "text",
+            "columnName": "text",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "course_remote",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "courseCode"
+            ],
+            "referencedColumns": [
+              "code"
+            ]
+          },
+          {
+            "table": "open_answer_question_remote",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "questionId"
+            ],
+            "referencedColumns": [
+              "questionId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "blank_answer_remote",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`updateTime` INTEGER NOT NULL, `deleted` INTEGER NOT NULL, `courseCode` TEXT NOT NULL, `questionId` INTEGER NOT NULL, `blankNum` INTEGER NOT NULL, `id` INTEGER NOT NULL, `text` TEXT NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`courseCode`) REFERENCES `course_remote`(`code`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`questionId`) REFERENCES `fill_in_blanks_question_remote`(`questionId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deleted",
+            "columnName": "deleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "courseCode",
+            "columnName": "courseCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "questionId",
+            "columnName": "questionId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "blankNum",
+            "columnName": "blankNum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "text",
+            "columnName": "text",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "course_remote",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "courseCode"
+            ],
+            "referencedColumns": [
+              "code"
+            ]
+          },
+          {
+            "table": "fill_in_blanks_question_remote",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "questionId"
+            ],
+            "referencedColumns": [
+              "questionId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "answer_option_remote",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`updateTime` INTEGER NOT NULL, `deleted` INTEGER NOT NULL, `courseCode` TEXT NOT NULL, `questionId` INTEGER NOT NULL, `id` INTEGER NOT NULL, `text` TEXT NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`courseCode`) REFERENCES `course_remote`(`code`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`questionId`) REFERENCES `answer_options_question_remote`(`questionId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deleted",
+            "columnName": "deleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "courseCode",
+            "columnName": "courseCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "questionId",
+            "columnName": "questionId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "text",
+            "columnName": "text",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "course_remote",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "courseCode"
+            ],
+            "referencedColumns": [
+              "code"
+            ]
+          },
+          {
+            "table": "answer_options_question_remote",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "questionId"
+            ],
+            "referencedColumns": [
+              "questionId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "question_answer_pair_remote",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`updateTime` INTEGER NOT NULL, `deleted` INTEGER NOT NULL, `courseCode` TEXT NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `difficulty` TEXT NOT NULL, `questionText` TEXT NOT NULL, `answerText` TEXT NOT NULL, FOREIGN KEY(`courseCode`) REFERENCES `course_remote`(`code`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deleted",
+            "columnName": "deleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "courseCode",
+            "columnName": "courseCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "difficulty",
+            "columnName": "difficulty",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "questionText",
+            "columnName": "questionText",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "answerText",
+            "columnName": "answerText",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "course_remote",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "courseCode"
+            ],
+            "referencedColumns": [
+              "code"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "question_answer_pair_tag_remote",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`updateTime` INTEGER NOT NULL, `deleted` INTEGER NOT NULL, `courseCode` TEXT NOT NULL, `tag` TEXT NOT NULL, PRIMARY KEY(`courseCode`, `tag`), FOREIGN KEY(`courseCode`) REFERENCES `course_remote`(`code`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deleted",
+            "columnName": "deleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "courseCode",
+            "columnName": "courseCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tag",
+            "columnName": "tag",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "courseCode",
+            "tag"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "course_remote",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "courseCode"
+            ],
+            "referencedColumns": [
+              "code"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "pair_tag_question_remote_association",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`updateTime` INTEGER NOT NULL, `deleted` INTEGER NOT NULL, `courseCode` TEXT NOT NULL, `tag` TEXT NOT NULL, `questionId` INTEGER NOT NULL, PRIMARY KEY(`tag`, `questionId`), FOREIGN KEY(`courseCode`) REFERENCES `course_remote`(`code`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`courseCode`, `tag`) REFERENCES `question_answer_pair_tag_remote`(`courseCode`, `tag`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`questionId`) REFERENCES `question_answer_pairs_question_remote`(`questionId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deleted",
+            "columnName": "deleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "courseCode",
+            "columnName": "courseCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tag",
+            "columnName": "tag",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "questionId",
+            "columnName": "questionId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "tag",
+            "questionId"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "course_remote",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "courseCode"
+            ],
+            "referencedColumns": [
+              "code"
+            ]
+          },
+          {
+            "table": "question_answer_pair_tag_remote",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "courseCode",
+              "tag"
+            ],
+            "referencedColumns": [
+              "courseCode",
+              "tag"
+            ]
+          },
+          {
+            "table": "question_answer_pairs_question_remote",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "questionId"
+            ],
+            "referencedColumns": [
+              "questionId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "pair_tag_pair_remote_association",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`updateTime` INTEGER NOT NULL, `deleted` INTEGER NOT NULL, `courseCode` TEXT NOT NULL, `tag` TEXT NOT NULL, `pairId` INTEGER NOT NULL, PRIMARY KEY(`tag`, `pairId`), FOREIGN KEY(`courseCode`) REFERENCES `course_remote`(`code`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`courseCode`, `tag`) REFERENCES `question_answer_pair_tag_remote`(`courseCode`, `tag`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`pairId`) REFERENCES `question_answer_pair_remote`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deleted",
+            "columnName": "deleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "courseCode",
+            "columnName": "courseCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tag",
+            "columnName": "tag",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pairId",
+            "columnName": "pairId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "tag",
+            "pairId"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "course_remote",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "courseCode"
+            ],
+            "referencedColumns": [
+              "code"
+            ]
+          },
+          {
+            "table": "question_answer_pair_tag_remote",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "courseCode",
+              "tag"
+            ],
+            "referencedColumns": [
+              "courseCode",
+              "tag"
+            ]
+          },
+          {
+            "table": "question_answer_pair_remote",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "pairId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '27db939323c6a0558d8c46f155cebd3c')"
+    ]
+  }
+}

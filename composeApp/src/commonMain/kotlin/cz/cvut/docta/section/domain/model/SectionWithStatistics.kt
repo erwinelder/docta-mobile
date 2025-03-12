@@ -5,3 +5,4 @@ data class SectionWithStatistics(
     val name: String,
     val statistics: SectionStatistics
 )
+
