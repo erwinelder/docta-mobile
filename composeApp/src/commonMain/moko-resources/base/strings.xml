@@ -40,14 +40,8 @@
     <string name="step_question_instructions">Solve this step of the task</string>
     <string name="type_your_answer_here">Type your answer here…</string>
 
-    <!-- Fields -->
-    <string name="name">Name</string>
-    <string name="email">E-mail</string>
-    <string name="password">Password</string>
-    <string name="confirm_password">Confirm password</string>
-
-    <!-- Field placeholders -->
-    <string name="course_search_placeholder">Course code (e.g. "nss") …</string>
+    <!-- Achievements -->
+    <string name="achievements_screen_title">Achievements</string>
 
     <!-- Authentication -->
     <string name="sign_in">Sign in</string>
@@ -63,6 +57,15 @@
     <string name="welcome_to_docta">Welcome to Docta!</string>
     <string name="account_deleted">Account deleted!</string>
     <string name="your_account_has_been_deleted_successfully">Your account has been deleted successfully</string>
+
+    <!-- Fields -->
+    <string name="name">Name</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
+
+    <!-- Field placeholders -->
+    <string name="course_search_placeholder">Course code (e.g. "nss") …</string>
 
     <!-- Field validation -->
     <string name="is_valid">is valid</string>

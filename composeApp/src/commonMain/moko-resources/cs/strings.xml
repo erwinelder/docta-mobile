@@ -40,14 +40,8 @@
     <string name="step_question_instructions">Vyřešte tento krok úkolu</string>
     <string name="type_your_answer_here">Sem napište svou odpověď…</string>
 
-    <!-- Fields -->
-    <string name="name">Jméno</string>
-    <string name="email">E-mail</string>
-    <string name="password">Heslo</string>
-    <string name="confirm_password">Potvrzení hesla</string>
-
-    <!-- Field placeholders -->
-    <string name="course_search_placeholder">Kód kurzu (např. „nss“) …</string>
+    <!-- Achievements -->
+    <string name="achievements_screen_title">Dosažení</string>
 
     <!-- Authentication -->
     <string name="sign_in">Přihlásit se</string>
@@ -63,6 +57,15 @@
     <string name="welcome_to_docta">Vítejte v Docta!</string>
     <string name="account_deleted">Účet smazán!</string>
     <string name="your_account_has_been_deleted_successfully">Váš účet byl úspěšně smazán</string>
+
+    <!-- Fields -->
+    <string name="name">Jméno</string>
+    <string name="email">E-mail</string>
+    <string name="password">Heslo</string>
+    <string name="confirm_password">Potvrzení hesla</string>
+
+    <!-- Field placeholders -->
+    <string name="course_search_placeholder">Kód kurzu (např. „nss“) …</string>
 
     <!-- Field validation -->
     <string name="is_valid">je platné</string>
