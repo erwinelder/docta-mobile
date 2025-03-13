@@ -1,8 +1,8 @@
 package cz.cvut.docta.achievements.domain.model
 
 data class Achievement(
-    val percentage: Double,
-    val name: AchievementName? = AchievementName.Default,
+    val name: AchievementName,
     val title: String,
+    val percentage: Double,
     val completed: Boolean
 )
