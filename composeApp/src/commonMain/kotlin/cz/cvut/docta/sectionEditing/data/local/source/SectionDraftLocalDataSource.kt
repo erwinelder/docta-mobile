@@ -6,6 +6,8 @@ interface SectionDraftLocalDataSource {
 
     suspend fun getSectionDraft(id: Long): SectionDraftEntity?
 
+    suspend fun getSectionDrafts(courseCode: String): List<SectionDraftEntity>
+
     suspend fun saveSectionDraft(sectionDraftEntity: SectionDraftEntity)
 
 }

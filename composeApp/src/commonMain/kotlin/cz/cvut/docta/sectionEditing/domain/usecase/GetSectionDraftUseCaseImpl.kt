@@ -14,7 +14,7 @@ class GetSectionDraftUseCaseImpl(
 ) : GetSectionDraftUseCase {
 
     override suspend fun execute(id: Long): SectionDraft? {
-        return sectionDraftRepository.getSectionEditing(id)?.toDomain()
+        return sectionDraftRepository.getSectionDraft(id)?.toDomain()
             ?: sectionRepository
                 .getSection(courseCode = courseContext.getCourseCode(), sectionId = id)
                 ?.toSectionDraft()

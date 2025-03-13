@@ -118,16 +118,19 @@ val courseModule = module {
             getChosenCoursesUseCase = get()
         )
     }
+    
     viewModel {
         AddNewCourseViewModel(
             searchForCourseUseCase = get(),
             addCourseToChosenUseCase = get()
         )
     }
+    
     viewModel {
         CourseDraftViewModel(
             getCourseDraftUseCase = get(),
-            saveCourseDraftUseCase = get()
+            saveCourseDraftUseCase = get(),
+            getCourseDraftSectionsUseCase = get()
         )
     }
 

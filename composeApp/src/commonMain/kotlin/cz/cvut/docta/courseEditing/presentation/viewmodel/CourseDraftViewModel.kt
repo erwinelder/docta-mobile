@@ -6,6 +6,8 @@ import cz.cvut.docta.course.domain.model.CourseLocale
 import cz.cvut.docta.courseEditing.domain.model.CourseDraft
 import cz.cvut.docta.courseEditing.domain.usecase.GetCourseDraftUseCase
 import cz.cvut.docta.courseEditing.domain.usecase.SaveCourseDraftUseCase
+import cz.cvut.docta.sectionEditing.domain.model.SectionDraft
+import cz.cvut.docta.sectionEditing.domain.usecase.GetCourseDraftSectionsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -13,7 +15,8 @@ import kotlinx.coroutines.launch
 
 class CourseDraftViewModel(
     private val getCourseDraftUseCase: GetCourseDraftUseCase,
-    private val saveCourseDraftUseCase: SaveCourseDraftUseCase
+    private val saveCourseDraftUseCase: SaveCourseDraftUseCase,
+    private val getCourseDraftSectionsUseCase: GetCourseDraftSectionsUseCase
 ) : ViewModel() {
 
     private val _courseName = MutableStateFlow("")
@@ -32,10 +35,26 @@ class CourseDraftViewModel(
     }
 
 
-    fun saveCourseDraftToDatabase(courseCode: String) {
-        val courseDraft = getCourseDraft(courseCode) ?: return
+    private val _sections = MutableStateFlow<List<SectionDraft>>(emptyList())
+    val sections = _sections.asStateFlow()
+
+    private fun applySections(sections: List<SectionDraft>) {
+        _sections.update { sections }
+    }
+
+    fun fetchCourseDraftSections(courseCode: String) {
         viewModelScope.launch {
-            saveCourseDraftUseCase.execute(courseDraft)
+            val sections = getCourseDraftSectionsUseCase.execute(courseCode)
+            applySections(sections = sections)
+        }
+    }
+
+
+    fun fetchCourseDraftData(courseCode: String) {
+        viewModelScope.launch {
+            val courseDraft = getCourseDraftUseCase.execute(courseCode) ?: return@launch
+            changeCourseName(courseDraft.name)
+            changeCourseLocale(courseDraft.locale.langCode)
         }
     }
 
@@ -50,11 +69,10 @@ class CourseDraftViewModel(
     }
 
 
-    fun fetchCourseDraftData(courseCode: String) {
+    fun saveCourseDraftToDatabase(courseCode: String) {
+        val courseDraft = getCourseDraft(courseCode = courseCode) ?: return
         viewModelScope.launch {
-            val courseDraft = getCourseDraftUseCase.execute(courseCode) ?: return@launch
-            changeCourseName(courseDraft.name)
-            changeCourseLocale(courseDraft.locale.langCode)
+            saveCourseDraftUseCase.execute(courseDraft = courseDraft)
         }
     }
 

@@ -30,9 +30,11 @@ fun NavGraphBuilder.courseManagementNavigationGraph(
 
             val courseName by viewModel.courseName.collectAsStateWithLifecycle()
             val courseLocale by viewModel.courseLocale.collectAsStateWithLifecycle()
+            val sections by viewModel.sections.collectAsStateWithLifecycle()
 
             LaunchedEffect(courseCode) {
-                viewModel.fetchCourseDraftData(courseCode)
+                viewModel.fetchCourseDraftData(courseCode = courseCode)
+                viewModel.fetchCourseDraftSections(courseCode = courseCode)
             }
 
             CourseEditingScreen(
@@ -41,6 +43,12 @@ fun NavGraphBuilder.courseManagementNavigationGraph(
                 onNameChange = viewModel::changeCourseName,
                 courseLocale = courseLocale,
                 onLocaleChange = viewModel::changeCourseLocale,
+                sections = sections,
+                onSectionClick = { sectionId ->
+                    navViewModel.navigate(
+                        navController, CourseManagementScreens.SectionEditing(sectionId)
+                    )
+                },
                 onSaveButtonClick = {
                     viewModel.saveCourseDraftToDatabase(courseCode = courseCode)
                 }
@@ -52,9 +60,11 @@ fun NavGraphBuilder.courseManagementNavigationGraph(
             val viewModel = koinViewModel<SectionDraftViewModel>()
 
             val sectionName by viewModel.sectionName.collectAsStateWithLifecycle()
+            val lessons by viewModel.lessons.collectAsStateWithLifecycle()
 
             LaunchedEffect(sectionId) {
-                viewModel.fetchSectionDraftData(sectionId)
+                viewModel.fetchSectionDraftData(sectionId = sectionId)
+                viewModel.fetchSectionDraftLessons(sectionId = sectionId)
             }
 
             SectionEditingScreen(
@@ -63,7 +73,14 @@ fun NavGraphBuilder.courseManagementNavigationGraph(
                 onNameChange = viewModel::changeSectionName,
                 onSaveButtonClick = {
                     viewModel.saveSectionDraftToDatabase(sectionId = sectionId)
-                }
+                },
+                lessons = lessons,
+                onLessonClick = { lessonId ->
+                    navViewModel.navigate(
+                        navController, CourseManagementScreens.LessonEditing(lessonId = lessonId)
+                    )
+                },
+
             )
         }
     }
