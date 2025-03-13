@@ -19,5 +19,12 @@ data class DoctaCustomTypography(
         letterSpacing = 0.sp,
         textAlign = TextAlign.Center,
         lineHeight = 40.sp
+    ),
+    /**
+     * Normal centered 16.sp text
+     */
+    val normal: TextStyle = TextStyle(
+        textAlign = TextAlign.Center,
+        fontSize = 16.sp
     )
 )
