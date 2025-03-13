@@ -1,4 +1,4 @@
-package cz.cvut.docta.achievements.presentation
+package cz.cvut.docta.achievement.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,15 +19,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.SharedRes
-import cz.cvut.docta.achievements.presentation.component.CircleProgressBar
-import cz.cvut.docta.achievements.presentation.model.AchievementUiState
+import cz.cvut.docta.achievement.presentation.component.CircleProgressBar
+import cz.cvut.docta.achievement.presentation.model.AchievementUiState
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainer
 import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.core.presentation.theme.DoctaTypography
 import dev.icerock.moko.resources.compose.stringResource
-import docta.composeapp.generated.resources.Res
-import docta.composeapp.generated.resources.achievement_placheholder_icon
-import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
