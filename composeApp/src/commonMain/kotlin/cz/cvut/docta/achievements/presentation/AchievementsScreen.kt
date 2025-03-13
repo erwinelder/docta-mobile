@@ -16,12 +16,11 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import cz.cvut.docta.SharedRes
 import cz.cvut.docta.achievements.domain.model.Achievement
+import cz.cvut.docta.achievements.domain.model.AchievementName
 import cz.cvut.docta.achievements.presentation.component.CircleProgressBar
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainer
 import cz.cvut.docta.core.presentation.theme.DoctaColors
@@ -29,6 +28,7 @@ import cz.cvut.docta.core.presentation.theme.DoctaTypography
 import dev.icerock.moko.resources.compose.stringResource
 import docta.composeapp.generated.resources.Res
 import docta.composeapp.generated.resources.achievement_placheholder_icon
+import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
@@ -38,48 +38,44 @@ fun AchievementsScreen(
     ScreenContainer(
         verticalArrangement = Arrangement.spacedBy(24.dp),
     ) {
+        // Screen title
         Text(
             text = stringResource(SharedRes.strings.achievements_screen_title),
             style = DoctaTypography.titleMedium,
             modifier = Modifier.fillMaxWidth(),
         )
-        AchievementsList(achievements)
-    }
-}
 
-@Composable
-fun AchievementsList(
-    achievements: List<Achievement>
-) {
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(3),
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(6.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-        contentPadding = PaddingValues(horizontal = 20.dp)
-    ) {
-        items(items = achievements) { achievement ->
-            AchievementListItem(
-                achievement = achievement
-            )
+        // Achievements list
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(3),
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(6.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            contentPadding = PaddingValues(horizontal = 20.dp)
+        ) {
+            items(items = achievements) { achievement ->
+                AchievementItem(
+                    achievement = achievement
+                )
+            }
         }
     }
 }
 
 @Composable
-fun AchievementListItem(
+fun AchievementItem(
     achievement: Achievement,
-    modifier: Modifier = Modifier.fillMaxWidth()
+    iconSize: Dp = 64.dp
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(5.dp),
     ) {
         // Wrapper for the achievement icon
-        Box(modifier = Modifier.size(64.dp)) {
+        Box(modifier = Modifier.size(iconSize)) {
             Icon(
-                // TODO: Get icon from the code
-                painter = painterResource(Res.drawable.achievement_placheholder_icon),
+                // Get icon by name
+                painter = painterResource(getAchievementIcon(achievement.name, false)),
                 contentDescription = achievement.title,
                 modifier = Modifier.fillMaxSize()
             )
@@ -93,10 +89,22 @@ fun AchievementListItem(
         // Achievement title
         Text(
             text = achievement.title,
-            textAlign = TextAlign.Center,
-            style = TextStyle(
-                fontSize = 16.sp
-            )
+            style = DoctaTypography.normal
         )
+    }
+}
+
+/**
+ * Get achievement icon or placeholder
+ */
+fun getAchievementIcon(
+    iconName: AchievementName,
+    completed: Boolean = false
+): DrawableResource {
+    return if (completed) {
+        // TODO-ACHIEVEMENTS: return achievement icon
+        Res.drawable.achievement_placheholder_icon
+    } else {
+        Res.drawable.achievement_placheholder_icon
     }
 }
