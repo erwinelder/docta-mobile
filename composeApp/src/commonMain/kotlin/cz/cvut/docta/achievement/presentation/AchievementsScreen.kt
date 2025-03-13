@@ -19,9 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.SharedRes
-import cz.cvut.docta.achievements.domain.model.Achievement
-import cz.cvut.docta.achievements.domain.model.AchievementName
 import cz.cvut.docta.achievements.presentation.component.CircleProgressBar
+import cz.cvut.docta.achievements.presentation.model.AchievementUiState
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainer
 import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.core.presentation.theme.DoctaTypography
@@ -33,7 +32,7 @@ import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun AchievementsScreen(
-    achievements: List<Achievement>
+    achievements: List<AchievementUiState>
 ) {
     ScreenContainer(
         verticalArrangement = Arrangement.spacedBy(24.dp),
@@ -54,7 +53,7 @@ fun AchievementsScreen(
             contentPadding = PaddingValues(horizontal = 20.dp)
         ) {
             items(items = achievements) { achievement ->
-                AchievementItem(
+                AchievementComponent(
                     achievement = achievement
                 )
             }
@@ -63,8 +62,8 @@ fun AchievementsScreen(
 }
 
 @Composable
-fun AchievementItem(
-    achievement: Achievement,
+fun AchievementComponent(
+    achievement: AchievementUiState,
     iconSize: Dp = 64.dp
 ) {
     Column(
@@ -74,8 +73,7 @@ fun AchievementItem(
         // Wrapper for the achievement icon
         Box(modifier = Modifier.size(iconSize)) {
             Icon(
-                // Get icon by name
-                painter = painterResource(getAchievementIcon(achievement.name, false)),
+                painter = painterResource(achievement.icon),
                 contentDescription = achievement.title,
                 modifier = Modifier.fillMaxSize()
             )
@@ -91,20 +89,5 @@ fun AchievementItem(
             text = achievement.title,
             style = DoctaTypography.normal
         )
-    }
-}
-
-/**
- * Get achievement icon or placeholder
- */
-fun getAchievementIcon(
-    iconName: AchievementName,
-    completed: Boolean = false
-): DrawableResource {
-    return if (completed) {
-        // TODO-ACHIEVEMENTS: return achievement icon
-        Res.drawable.achievement_placheholder_icon
-    } else {
-        Res.drawable.achievement_placheholder_icon
     }
 }
