@@ -1,4 +1,4 @@
-package cz.cvut.docta.achievements.domain.model
+package cz.cvut.docta.achievement.domain.model
 
 data class Achievement(
     val name: AchievementName,
