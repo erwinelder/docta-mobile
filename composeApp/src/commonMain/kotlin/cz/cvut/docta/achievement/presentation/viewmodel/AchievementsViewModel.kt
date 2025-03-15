@@ -20,7 +20,7 @@ class AchievementsViewModel(
     private fun applyAchievements(achievements: List<Achievement>) {
         _achievements.update {
             achievements.map {
-                AchievementUiState.from(achievement = it)
+                AchievementUiState.fromAchievement(achievement = it)
             }
         }
     }

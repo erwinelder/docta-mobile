@@ -1,4 +1,4 @@
-package cz.cvut.docta.achievement.presentation.component
+package cz.cvut.docta.core.presentation.component.statistics
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.size

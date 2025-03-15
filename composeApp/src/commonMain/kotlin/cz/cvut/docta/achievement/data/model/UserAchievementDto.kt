@@ -4,9 +4,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class UserAchievementDto(
-    val id: Long,
-    val userId: Long,
-    val achievementId: Long,
+    val id: Int,
+    val userId: Int,
+    val achievementId: Int,
     val percentage: Double,
     val completed: Boolean
 )

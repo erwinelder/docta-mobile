@@ -16,7 +16,7 @@ data class AchievementUiState(
 
     companion object {
 
-        fun from(
+        fun fromAchievement(
             achievement: Achievement
         ): AchievementUiState {
             return AchievementUiState(
