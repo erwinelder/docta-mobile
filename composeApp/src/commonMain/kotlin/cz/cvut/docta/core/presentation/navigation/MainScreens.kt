@@ -14,6 +14,9 @@ sealed interface MainScreens {
     data class LessonGraph(val lessonId: Long) : MainScreens
 
     @Serializable
+    data object Achievements : MainScreens
+
+    @Serializable
     data object Leaderboard : MainScreens
 
     @Serializable
