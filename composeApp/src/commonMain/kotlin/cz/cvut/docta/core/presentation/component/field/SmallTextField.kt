@@ -153,7 +153,7 @@ private fun ShowHidePasswordIcon(
             ),
             tint = DoctaColors.onSurface,
             contentDescription = if (isPasswordVisible) "Hide password" else "Show password",
-            modifier = Modifier.size(26.dp)
+            modifier = Modifier.size(24.dp)
         )
     }
 }

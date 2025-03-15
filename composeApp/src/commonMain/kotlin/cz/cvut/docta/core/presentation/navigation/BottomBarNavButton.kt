@@ -30,7 +30,7 @@ sealed class BottomBarNavButton(
     )
 
     data object Profile : BottomBarNavButton(
-        screen = MainScreens.ProfileGraph,
+        screen = MainScreens.AuthGraph,
         inactiveIconRes = IconResByAppTheme(
             light = Res.drawable.profile_light_inactive,
             dark = Res.drawable.profile_dark_inactive

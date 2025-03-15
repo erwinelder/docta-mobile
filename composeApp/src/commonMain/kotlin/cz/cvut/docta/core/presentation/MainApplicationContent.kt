@@ -13,6 +13,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import cz.cvut.docta.auth.presentation.navigation.authGraph
 import cz.cvut.docta.core.presentation.component.containers.BottomNavBar
 import cz.cvut.docta.core.presentation.navigation.MainScreens
 import cz.cvut.docta.core.presentation.utils.anyScreenInHierarchyIs
@@ -23,7 +24,6 @@ import cz.cvut.docta.courseEditing.presentation.navigation.courseManagementNavig
 import cz.cvut.docta.lesson.presentation.component.LessonProgressBar
 import cz.cvut.docta.lesson.presentation.navigation.lessonNavigationGraph
 import cz.cvut.docta.lesson.presentation.viewmodel.LessonProgressViewModel
-import cz.cvut.docta.profile.presentation.navigation.profileNavigationGraph
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -83,7 +83,7 @@ fun MainApplicationContent(
                 navController = navController,
                 navViewModel = navViewModel
             )
-            profileNavigationGraph(
+            authGraph(
                 navController = navController,
                 navViewModel = navViewModel
             )

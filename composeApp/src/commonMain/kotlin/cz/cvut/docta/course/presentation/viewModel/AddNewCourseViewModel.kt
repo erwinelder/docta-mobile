@@ -3,7 +3,7 @@ package cz.cvut.docta.course.presentation.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cz.cvut.docta.course.domain.model.Course
-import cz.cvut.docta.course.domain.model.CourseSearchState
+import cz.cvut.docta.course.presentation.model.CourseSearchState
 import cz.cvut.docta.course.domain.usecase.AddCourseToChosenUseCase
 import cz.cvut.docta.course.domain.usecase.SearchForCourseUseCase
 import kotlinx.coroutines.Job

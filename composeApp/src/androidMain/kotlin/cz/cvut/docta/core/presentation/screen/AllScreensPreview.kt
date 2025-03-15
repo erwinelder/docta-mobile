@@ -3,6 +3,12 @@ package cz.cvut.docta.core.presentation.screen
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import cz.cvut.docta.auth.presentation.model.AuthSuccessScreenType
+import cz.cvut.docta.auth.presentation.model.EmailVerificationState
+import cz.cvut.docta.auth.presentation.screen.AuthSuccessScreenPreview
+import cz.cvut.docta.auth.presentation.screen.EmailVerificationScreenPreview
+import cz.cvut.docta.auth.presentation.screen.SignInScreenPreview
+import cz.cvut.docta.auth.presentation.screen.SignUpScreenPreview
 import cz.cvut.docta.core.domain.app.AppTheme
 import cz.cvut.docta.course.presentation.screen.AddNewCourseScreenPreview
 import cz.cvut.docta.course.presentation.screen.CoursesScreenPreview
@@ -18,6 +24,41 @@ import cz.cvut.docta.sectionEditing.presentation.screen.SectionEditingScreenPrev
 
 private val appTheme = AppTheme.Light
 private const val locale: String = "en"
+
+
+@Preview(device = Devices.PIXEL_7_PRO, group = "Auth", locale = locale)
+@Composable
+private fun SignInScreenPreviewLocal() {
+    SignInScreenPreview(
+        appTheme = appTheme
+    )
+}
+
+@Preview(device = Devices.PIXEL_7_PRO, group = "Auth", locale = locale)
+@Composable
+private fun SignUpScreenPreviewLocal() {
+    SignUpScreenPreview(
+        appTheme = appTheme
+    )
+}
+
+@Preview(device = Devices.PIXEL_7_PRO, group = "Auth", locale = locale)
+@Composable
+private fun EmailVerificationScreenPreviewLocal() {
+    EmailVerificationScreenPreview(
+        appTheme = appTheme,
+        emailVerificationState = EmailVerificationState.Prompted
+    )
+}
+
+@Preview(device = Devices.PIXEL_7_PRO, group = "Auth", locale = locale)
+@Composable
+private fun AuthSuccessScreenPreviewLocal() {
+    AuthSuccessScreenPreview(
+        appTheme = appTheme,
+        screenType = AuthSuccessScreenType.SignUp
+    )
+}
 
 
 @Preview(device = Devices.PIXEL_7_PRO, group = "Course", locale = locale)

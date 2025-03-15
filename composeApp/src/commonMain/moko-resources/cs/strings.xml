@@ -7,8 +7,10 @@
     <string name="save">Uložit</string>
     <string name="search">Hledat</string>
     <string name="cancel">Zrušit</string>
+    <string name="close">Zavřít</string>
     <string name="try_again">Zkusit znovu</string>
     <string name="add">Přidat</string>
+    <string name="continue_to_app">Pokračovat do aplikace</string>
 
     <!-- Course -->
     <string name="edit_course">Upravit kurz</string>
@@ -38,8 +40,59 @@
     <string name="step_question_instructions">Vyřešte tento krok úkolu</string>
     <string name="type_your_answer_here">Sem napište svou odpověď…</string>
 
-    <!-- Placeholders -->
+    <!-- Fields -->
+    <string name="name">Jméno</string>
+    <string name="email">E-mail</string>
+    <string name="password">Heslo</string>
+    <string name="confirm_password">Potvrzení hesla</string>
+
+    <!-- Field placeholders -->
     <string name="course_search_placeholder">Kód kurzu (např. „nss“) …</string>
+
+    <!-- Authentication -->
+    <string name="sign_in">Přihlásit se</string>
+    <string name="create_account">Vytvořit účet</string>
+    <string name="sign_in_to_your_docta_account">Přihlaste se ke svému Docta účtu</string>
+    <string name="create_your_docta_account">Vytvořte nový Docta účet</string>
+    <string name="email_verification">Ověřování e-mailu</string>
+    <string name="sign_up_email_verification_sent_description">Ověřovací e-mail pro registraci byl odeslán. Postupujte podle odkazu v e-mailu k ověření účtu a vraťte se do aplikace, abyste dokončili registraci.</string>
+    <string name="checking_email_verification">Kontrola e-mailového ověření …</string>
+    <string name="not_verified">Není ověřen</string>
+    <string name="your_email_not_verified_description">Váš e-mail ještě nebyl ověřen. Postupujte podle odkazu v e-mailu k ověření účtu.</string>
+    <string name="welcome_back_to_docta">Vítejte zpět v Docta!</string>
+    <string name="welcome_to_docta">Vítejte v Docta!</string>
+    <string name="account_deleted">Účet smazán!</string>
+    <string name="your_account_has_been_deleted_successfully">Váš účet byl úspěšně smazán</string>
+
+    <!-- Field validation -->
+    <string name="is_valid">je platné</string>
+    <string name="not_valid">není neplatné</string>
+    <string name="required_field">povinné pole</string>
+    <string name="too_short">příliš kratké</string>
+    <string name="too_long">too long</string>
+    <string name="email_domain_not_fel_cvut_cz">doména emailu není fel.cvut.cz</string>
+    <string name="at_least_1_spec_char">alespoň 1 speciální znak</string>
+    <string name="at_least_1_digit">alespoň 1 číslice</string>
+    <string name="at_least_1_uppercase_letter">alespoň 1 velké písmeno</string>
+    <string name="at_least_1_lowercase_letter">alespoň 1 malé písmeno</string>
+    <string name="passwords_do_match">Hesla se shodují</string>
+    <string name="passwords_do_not_match">Hesla se neshodují</string>
+
+    <!-- Error handling title -->
+    <string name="all_set">Vše připraveno!</string>
+    <string name="oops">Jejda!</string>
+    <string name="email_sent">E-mail odeslán!</string>
+
+    <!-- Error handling message -->
+    <string name="wrong_credentials_error">Špatné přihlašovací údaje</string>
+    <string name="user_not_found_error">Uživatel nebyl nalezen</string>
+    <string name="user_already_exists_error">Uživatel již existuje</string>
+    <string name="email_not_verified_error">Email není ověřen</string>
+    <string name="email_verification_error">Ověření e-mailu se nezdařilo</string>
+    <string name="sign_in_error">Chyba během přihlášení</string>
+    <string name="sign_up_error">Chyba během registrace</string>
+    <string name="deleting_user_data_error">Při mazání uživatelských dat došlo k chybě</string>
+    <string name="deleting_user_account_error">Při mazání uživatelského účtu došlo k chybě</string>
 
     <!-- Other -->
     <string name="greetings_title_morning">Dobré ráno!</string>

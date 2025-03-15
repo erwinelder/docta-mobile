@@ -1,4 +1,6 @@
-package cz.cvut.docta.course.domain.model
+package cz.cvut.docta.course.presentation.model
+
+import cz.cvut.docta.course.domain.model.Course
 
 sealed class CourseSearchState {
 

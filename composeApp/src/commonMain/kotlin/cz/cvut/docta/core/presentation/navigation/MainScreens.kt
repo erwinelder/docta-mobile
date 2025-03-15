@@ -17,6 +17,6 @@ sealed interface MainScreens {
     data object Leaderboard : MainScreens
 
     @Serializable
-    data object ProfileGraph : MainScreens
+    data object AuthGraph : MainScreens
 
 }

@@ -10,8 +10,10 @@ import docta.composeapp.generated.resources.search_icon
 
 @Preview(device = PIXEL_7_PRO)
 @Composable
-private fun SmallPrimaryButtonPreview() {
-    PreviewContainer(appTheme = AppTheme.Light) {
+fun SmallSecondaryButtonPreview(
+    appTheme: AppTheme = AppTheme.Light
+) {
+    PreviewContainer(appTheme = appTheme) {
         SmallSecondaryButton(
             text = "Button",
             iconRes = Res.drawable.search_icon,

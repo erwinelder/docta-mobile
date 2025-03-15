@@ -7,7 +7,7 @@ import cz.cvut.docta.core.domain.app.AppTheme
 import cz.cvut.docta.core.presentation.preview.ScreenPreviewContainer
 import cz.cvut.docta.course.domain.model.Course
 import cz.cvut.docta.course.domain.model.CourseLocale
-import cz.cvut.docta.course.domain.model.CourseSearchState
+import cz.cvut.docta.course.presentation.model.CourseSearchState
 
 @Preview(device = PIXEL_7_PRO)
 @Composable
