@@ -1,6 +1,5 @@
 package cz.cvut.docta.courseEditing.presentation.navigation
 
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
@@ -15,6 +14,7 @@ import cz.cvut.docta.courseEditing.presentation.viewmodel.CourseDraftViewModel
 import cz.cvut.docta.sectionEditing.presentation.screen.SectionEditingScreen
 import cz.cvut.docta.sectionEditing.presentation.viewmodel.SectionDraftViewModel
 import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 fun NavGraphBuilder.courseManagementNavigationGraph(
     navController: NavHostController,
@@ -26,16 +26,13 @@ fun NavGraphBuilder.courseManagementNavigationGraph(
         composable<CourseManagementScreens.CourseEditing> { backStack ->
             val courseCode = backStack.toRoute<CourseManagementScreens.CourseEditing>().courseCode
 
-            val viewModel = koinViewModel<CourseDraftViewModel>()
+            val viewModel = koinViewModel<CourseDraftViewModel> {
+                parametersOf(courseCode)
+            }
 
             val courseName by viewModel.courseName.collectAsStateWithLifecycle()
             val courseLocale by viewModel.courseLocale.collectAsStateWithLifecycle()
             val sections by viewModel.sectionList.collectAsStateWithLifecycle()
-
-            LaunchedEffect(courseCode) {
-                viewModel.fetchCourseDraftData(courseCode)
-                viewModel.fetchCourseDraftSections(courseCode)
-            }
 
             CourseEditingScreen(
                 onNavigateBack = navController::popBackStack,
@@ -49,10 +46,12 @@ fun NavGraphBuilder.courseManagementNavigationGraph(
                 sections = sections,
                 onSectionClick = { sectionId ->
                     navViewModel.navigate(
-                        navController, CourseManagementScreens.SectionEditing(sectionId))
+                        navController, CourseManagementScreens.SectionEditing(sectionId)
+                    )
                 },
             )
         }
+
         composable<CourseManagementScreens.SectionEditing> { backStack ->
             val sectionId = backStack.toRoute<CourseManagementScreens.SectionEditing>().sectionId
 
@@ -60,11 +59,6 @@ fun NavGraphBuilder.courseManagementNavigationGraph(
 
             val sectionName by viewModel.sectionName.collectAsStateWithLifecycle()
             val lessons by viewModel.lessons.collectAsStateWithLifecycle()
-
-            LaunchedEffect(sectionId) {
-                viewModel.fetchSectionDraftData(sectionId = sectionId)
-                viewModel.fetchSectionDraftLessons(sectionId = sectionId)
-            }
 
             SectionEditingScreen(
                 onNavigateBack = navController::popBackStack,
@@ -79,7 +73,6 @@ fun NavGraphBuilder.courseManagementNavigationGraph(
                         navController, CourseManagementScreens.LessonEditing(lessonId = lessonId)
                     )
                 },
-
             )
         }
     }

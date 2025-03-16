@@ -142,15 +142,17 @@ val courseModule = module {
             addCourseToChosenUseCase = get()
         )
     }
-    
-    viewModel {
+
+    viewModel { (courseCode: String) ->
         CourseDraftViewModel(
+            courseCode = courseCode,
             getCourseDraftUseCase = get(),
             saveCourseDraftUseCase = get(),
             saveRemoteCourseDraftUseCase = get(),
             getCourseDraftSectionsUseCase = get()
         )
     }
+
 
     /* ---------- Other ---------- */
 

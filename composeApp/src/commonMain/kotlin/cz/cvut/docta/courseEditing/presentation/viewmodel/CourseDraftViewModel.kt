@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class CourseDraftViewModel(
+    private val courseCode: String,
     private val getCourseDraftUseCase: GetCourseDraftUseCase,
     private val saveCourseDraftUseCase: SaveCourseDraftUseCase,
     private val saveRemoteCourseDraftUseCase: SaveRemoteCourseDraftUseCase,
@@ -24,64 +25,50 @@ class CourseDraftViewModel(
     private val _courseName = MutableStateFlow("")
     val courseName = _courseName.asStateFlow()
 
+    private val _courseLocale = MutableStateFlow("")
+    val courseLocale = _courseLocale.asStateFlow()
+
+    private val _sectionList = MutableStateFlow<List<SectionDraft>>(emptyList())
+    val sectionList = _sectionList.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            val courseDraft = getCourseDraftUseCase.execute(courseCode)
+            if (courseDraft != null) {
+                changeCourseName(courseDraft.name)
+                changeCourseLocale(courseDraft.locale.langCode)
+            }
+
+            val sections = getCourseDraftSectionsUseCase.execute(courseCode)
+            changeSectionList(sections)
+        }
+    }
+
     fun changeCourseName(name: String) {
         _courseName.update { name }
     }
 
-
-    private val _courseLocale = MutableStateFlow("")
-    val courseLocale = _courseLocale.asStateFlow()
-
     fun changeCourseLocale(locale: String) {
         _courseLocale.update { locale }
     }
-
+    fun changeSectionList(sections: List<SectionDraft>) {
+        _sectionList.update { sections }
+    }
 
     fun saveCourseDraftToDatabase(courseCode: String) {
         val courseDraft = getCourseDraft(courseCode) ?: return
         viewModelScope.launch {
-            saveCourseDraftLocally(courseDraft)
-            saveCourseDraftRemotely(courseDraft)
+            saveCourseDraftUseCase.execute(courseDraft)
+            saveRemoteCourseDraftUseCase.execute(courseDraft)
         }
-    }
-    private suspend fun saveCourseDraftLocally(courseDraft: CourseDraft) {
-        saveCourseDraftUseCase.execute(courseDraft)
-    }
-
-    private suspend fun saveCourseDraftRemotely(courseDraft: CourseDraft) {
-        saveRemoteCourseDraftUseCase.execute(courseDraft)
     }
 
     private fun getCourseDraft(courseCode: String): CourseDraft? {
         val locale = CourseLocale.fromLangCode(courseLocale.value) ?: return null
-
         return CourseDraft(
             code = courseCode,
             name = courseName.value,
             locale = locale
         )
-    }
-
-
-    fun fetchCourseDraftData(courseCode: String) {
-        viewModelScope.launch {
-            val courseDraft = getCourseDraftUseCase.execute(courseCode) ?: return@launch
-            changeCourseName(courseDraft.name)
-            changeCourseLocale(courseDraft.locale.langCode)
-        }
-    }
-
-    private val _sectionList = MutableStateFlow<List<SectionDraft>>(emptyList())
-    val sectionList = _sectionList.asStateFlow()
-
-    private fun changeSectionList(sections: List<SectionDraft>) {
-        _sectionList.update { sections }
-    }
-
-    fun fetchCourseDraftSections(courseCode: String) {
-        viewModelScope.launch {
-            val sections = getCourseDraftSectionsUseCase.execute(courseCode)
-            changeSectionList(sections)
-        }
     }
 }
