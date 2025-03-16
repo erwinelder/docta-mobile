@@ -22,16 +22,22 @@ import cz.cvut.docta.core.presentation.navigation.sharedKoinNavViewModel
 import cz.cvut.docta.core.presentation.viewmodel.NavViewModel
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 fun NavGraphBuilder.authGraph(
+    startDestination: AuthScreens,
     navController: NavHostController,
     navViewModel: NavViewModel
 ) {
     navigation<MainScreens.AuthGraph>(
-        startDestination = AuthScreens.Profile
+        startDestination = startDestination
     ) {
-        composable<AuthScreens.SignIn> {
-            val viewModel = koinViewModel<SignInViewModel>()
+        composable<AuthScreens.SignIn> { backStack ->
+            val email = backStack.toRoute<AuthScreens.SignUp>().email
+
+            val viewModel = koinViewModel<SignInViewModel> {
+                parametersOf(email)
+            }
 
             val emailState by viewModel.emailState.collectAsStateWithLifecycle()
             val passwordState by viewModel.passwordState.collectAsStateWithLifecycle()
@@ -60,13 +66,18 @@ fun NavGraphBuilder.authGraph(
                 onResultReset = viewModel::resetResultState,
                 onNavigateToSignUpScreen = {
                     navViewModel.popBackStackAndNavigate(
-                        navController = navController, screen = AuthScreens.SignUp
+                        navController = navController,
+                        screen = AuthScreens.SignUp(email = emailState.fieldText)
                     )
                 }
             )
         }
         composable<AuthScreens.SignUp> { backStack ->
-            val viewModel = backStack.sharedKoinNavViewModel<SignUpViewModel>(navController)
+            val email = backStack.toRoute<AuthScreens.SignUp>().email
+
+            val viewModel = backStack.sharedKoinNavViewModel<SignUpViewModel>(navController) {
+                parametersOf(email)
+            }
 
             val nameState by viewModel.nameState.collectAsStateWithLifecycle()
             val emailState by viewModel.emailState.collectAsStateWithLifecycle()
@@ -98,7 +109,8 @@ fun NavGraphBuilder.authGraph(
                 },
                 onNavigateToSignInScreen = {
                     navViewModel.popBackStackAndNavigate(
-                        navController = navController, screen = AuthScreens.SignIn
+                        navController = navController,
+                        screen = AuthScreens.SignIn(email = emailState.fieldText)
                     )
                 },
                 resultState = resultState,

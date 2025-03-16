@@ -9,7 +9,7 @@ import cz.cvut.docta.errorHandling.domain.model.result.AuthError
 import cz.cvut.docta.errorHandling.domain.model.result.AuthSuccess
 import cz.cvut.docta.errorHandling.domain.model.result.Result
 import cz.cvut.docta.errorHandling.domain.model.result.ResultData
-import io.ktor.client.request.get
+import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
@@ -24,7 +24,7 @@ class AuthRepositoryImpl : AuthRepository {
         password: String
     ): ResultData<UserDataDto, AuthError> {
         return try {
-            val response = httpClient.get(
+            val response = httpClient.post(
                 urlString = "$doctaBackendUrl/auth/sign-in"
             ) {
                 contentType(ContentType.Application.Json)
@@ -51,7 +51,7 @@ class AuthRepositoryImpl : AuthRepository {
         password: String
     ): Result<AuthSuccess, AuthError> {
         return try {
-            val response = httpClient.get(
+            val response = httpClient.post(
                 urlString = "$doctaBackendUrl/auth/sign-up"
             ) {
                 contentType(ContentType.Application.Json)
@@ -75,7 +75,7 @@ class AuthRepositoryImpl : AuthRepository {
         password: String
     ): ResultData<UserDataDto, AuthError> {
         return try {
-            val response = httpClient.get(
+            val response = httpClient.post(
                 urlString = "$doctaBackendUrl/auth/check-email-verification"
             ) {
                 contentType(ContentType.Application.Json)

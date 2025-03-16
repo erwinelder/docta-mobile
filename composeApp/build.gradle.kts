@@ -49,16 +49,15 @@ kotlin {
             // Room & SQLite
             implementation(libs.room.runtime)
             implementation(libs.sqlite.bundled)
-            // DataStore
+            // Preferences
             implementation(libs.androidx.datastore)
             implementation(libs.androidx.datastore.preferences)
+            implementation(libs.multiplatform.settings)
             // Ktor
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.cio)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
-            // Firebase
-//            implementation(libs.firebase.auth)
             // Koin
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
@@ -78,6 +77,8 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             // Coroutines
             implementation(libs.kotlinx.coroutines.android)
+            // Preferences
+            implementation(libs.androidx.security.crypto)
             // Koin
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)

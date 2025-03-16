@@ -1,10 +1,12 @@
 package cz.cvut.docta.auth.domain.model
 
 import cz.cvut.docta.auth.domain.usecase.GetAuthTokenFromEncStoreUseCase
-import cz.cvut.docta.auth.domain.usecase.SaveAuthTokenToEncStoreUseCase
+import cz.cvut.docta.auth.domain.usecase.GetUserDataFromSecureStorageUseCase
+import cz.cvut.docta.auth.domain.usecase.SaveUserDataToSecureStorageUseCase
 
 class UserContext(
-    private val saveAuthTokenToEncStoreUseCase: SaveAuthTokenToEncStoreUseCase,
+    private val saveUserDataToSecureStorageUseCase: SaveUserDataToSecureStorageUseCase,
+    getUserDataFromSecureStorageUseCase: GetUserDataFromSecureStorageUseCase,
     private val getAuthTokenFromEncStoreUseCase: GetAuthTokenFromEncStoreUseCase
 ) {
 
@@ -18,21 +20,31 @@ class UserContext(
         private set
 
 
-    suspend fun setUserData(userData: UserData) {
-        this.userId = userData.id
-        this.email = userData.email
-        this.role = userData.role
-        this.name = userData.name
+    fun saveUserData(userDataWithToken: UserDataWithToken) {
+        this.userId = userDataWithToken.id
+        this.email = userDataWithToken.email
+        this.role = userDataWithToken.role
+        this.name = userDataWithToken.name
 
-        saveAuthTokenToEncStoreUseCase.execute(token = userData.token)
+        saveUserDataToSecureStorageUseCase.execute(userDataWithToken = userDataWithToken)
     }
-
 
     fun isAtLeastTeacher(): Boolean = role == UserRole.Teacher || role == UserRole.Admin
     fun isAdmin(): Boolean = role == UserRole.Admin
 
     suspend fun getAuthToken(): String {
         return getAuthTokenFromEncStoreUseCase.execute()
+    }
+
+
+    init {
+
+        val userData = getUserDataFromSecureStorageUseCase.execute()
+        this.userId = userData.id
+        this.email = userData.email
+        this.role = userData.role
+        this.name = userData.name
+
     }
 
 }

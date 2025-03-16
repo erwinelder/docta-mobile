@@ -21,7 +21,7 @@ class SignInUseCaseImpl(
             .mapData(UserDataDto::toDomainModel)
 
         result.getDataIfSuccess()?.let {
-            userContext.setUserData(userData = it)
+            userContext.saveUserData(userDataWithToken = it)
         }
 
         return result.toDefaultResult(success = AuthSuccess.SignedIn)

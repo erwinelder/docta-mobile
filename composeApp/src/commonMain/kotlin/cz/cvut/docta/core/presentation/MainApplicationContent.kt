@@ -14,10 +14,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import cz.cvut.docta.auth.presentation.navigation.authGraph
-import cz.cvut.docta.core.presentation.component.containers.BottomNavBar
 import cz.cvut.docta.achievement.presentation.AchievementsScreen
 import cz.cvut.docta.achievement.presentation.viewmodel.AchievementsViewModel
+import cz.cvut.docta.auth.domain.model.UserContext
+import cz.cvut.docta.auth.presentation.navigation.AuthScreens
+import cz.cvut.docta.auth.presentation.navigation.authGraph
+import cz.cvut.docta.core.presentation.component.containers.BottomNavBar
 import cz.cvut.docta.core.presentation.navigation.MainScreens
 import cz.cvut.docta.core.presentation.utils.anyScreenInHierarchyIs
 import cz.cvut.docta.core.presentation.utils.currentScreenIs
@@ -27,6 +29,7 @@ import cz.cvut.docta.courseEditing.presentation.navigation.courseManagementNavig
 import cz.cvut.docta.lesson.presentation.component.LessonProgressBar
 import cz.cvut.docta.lesson.presentation.navigation.lessonNavigationGraph
 import cz.cvut.docta.lesson.presentation.viewmodel.LessonProgressViewModel
+import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -37,10 +40,19 @@ fun MainApplicationContent(
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val isBottomBarVisible by remember(navBackStackEntry) {
         derivedStateOf {
-            navViewModel.needToDisplayBottomNavBar(
-                appIsSetUp = true, // TODO-AUTHENTICATION: Replace with actual value
-                navBackStackEntry = navBackStackEntry
-            )
+            navViewModel.needToDisplayBottomNavBar(navBackStackEntry = navBackStackEntry)
+        }
+    }
+
+    val userContext = koinInject<UserContext>()
+    val mainStartDestination: MainScreens by remember {
+        derivedStateOf {
+            if (userContext.userId == 0) MainScreens.AuthGraph else MainScreens.CoursesGraph
+        }
+    }
+    val authStartDestination: AuthScreens by remember {
+        derivedStateOf {
+            if (userContext.userId == 0) AuthScreens.SignIn(email = "") else AuthScreens.Profile
         }
     }
 
@@ -70,7 +82,9 @@ fun MainApplicationContent(
     ) { screenPadding ->
         NavHost(
             navController = navController,
-            startDestination = MainScreens.CoursesGraph
+            startDestination = mainStartDestination
+//            startDestination = MainScreens.CoursesGraph
+//            startDestination = MainScreens.AuthGraph
         ) {
             courseNavigationGraph(
                 navController = navController,
@@ -94,6 +108,7 @@ fun MainApplicationContent(
                 AchievementsScreen(achievements = achievements)
             }
             authGraph(
+                startDestination = authStartDestination,
                 navController = navController,
                 navViewModel = navViewModel
             )

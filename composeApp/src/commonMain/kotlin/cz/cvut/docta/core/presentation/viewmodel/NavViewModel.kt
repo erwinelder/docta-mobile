@@ -13,10 +13,9 @@ import cz.cvut.docta.lesson.presentation.navigation.LessonScreens
 class NavViewModel : ViewModel() {
 
     fun needToDisplayBottomNavBar(
-        appIsSetUp: Boolean,
         navBackStackEntry: NavBackStackEntry?
     ): Boolean {
-        return appIsSetUp && navBackStackEntry.currentScreenIsAnyOf(
+        return navBackStackEntry.currentScreenIsAnyOf(
             CourseScreens.Courses, CourseScreens.AddNewCourse, CourseScreens.Sections(),
             CourseScreens.Lessons(),
             AuthScreens.Profile

@@ -7,8 +7,10 @@ import cz.cvut.docta.auth.domain.usecase.CheckEmailVerificationUseCase
 import cz.cvut.docta.auth.domain.usecase.CheckEmailVerificationUseCaseImpl
 import cz.cvut.docta.auth.domain.usecase.GetAuthTokenFromEncStoreUseCase
 import cz.cvut.docta.auth.domain.usecase.GetAuthTokenFromEncStoreUseCaseImpl
-import cz.cvut.docta.auth.domain.usecase.SaveAuthTokenToEncStoreUseCase
-import cz.cvut.docta.auth.domain.usecase.SaveAuthTokenToEncStoreUseCaseImpl
+import cz.cvut.docta.auth.domain.usecase.GetUserDataFromSecureStorageUseCase
+import cz.cvut.docta.auth.domain.usecase.GetUserDataFromSecureStorageUseCaseImpl
+import cz.cvut.docta.auth.domain.usecase.SaveUserDataToSecureStorageUseCase
+import cz.cvut.docta.auth.domain.usecase.SaveUserDataToSecureStorageUseCaseImpl
 import cz.cvut.docta.auth.domain.usecase.SignInUseCase
 import cz.cvut.docta.auth.domain.usecase.SignInUseCaseImpl
 import cz.cvut.docta.auth.domain.usecase.SignUpUseCase
@@ -46,12 +48,16 @@ val authModule = module {
         )
     }
 
-    single<SaveAuthTokenToEncStoreUseCase> {
-        SaveAuthTokenToEncStoreUseCaseImpl()
+    single<SaveUserDataToSecureStorageUseCase> {
+        SaveUserDataToSecureStorageUseCaseImpl(secureStorage = get())
+    }
+
+    single<GetUserDataFromSecureStorageUseCase> {
+        GetUserDataFromSecureStorageUseCaseImpl(secureStorage = get())
     }
 
     single<GetAuthTokenFromEncStoreUseCase> {
-        GetAuthTokenFromEncStoreUseCaseImpl()
+        GetAuthTokenFromEncStoreUseCaseImpl(secureStorage = get())
     }
 
     /* ---------- View Models ---------- */
@@ -75,8 +81,9 @@ val authModule = module {
 
     single {
         UserContext(
-            saveAuthTokenToEncStoreUseCase = get(),
-            getAuthTokenFromEncStoreUseCase = get(),
+            saveUserDataToSecureStorageUseCase = get(),
+            getUserDataFromSecureStorageUseCase = get(),
+            getAuthTokenFromEncStoreUseCase = get()
         )
     }
 

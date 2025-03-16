@@ -8,10 +8,10 @@ sealed interface AuthScreens {
     data object Profile : AuthScreens
 
     @Serializable
-    data object SignIn : AuthScreens
+    data class SignIn(val email: String) : AuthScreens
 
     @Serializable
-    data object SignUp : AuthScreens
+    data class SignUp(val email: String) : AuthScreens
 
     @Serializable
     data object EmailVerification : AuthScreens
