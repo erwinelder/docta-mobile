@@ -1,4 +1,4 @@
-package cz.cvut.docta.core.data.local
+package cz.cvut.docta.core.data.database
 
 import androidx.room.ConstructedBy
 import androidx.room.Database

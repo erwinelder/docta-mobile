@@ -1,6 +1,6 @@
 package cz.cvut.docta.lesson.data.local.source
 
-import cz.cvut.docta.core.data.local.AppLocalDatabase
+import cz.cvut.docta.core.data.database.AppLocalDatabase
 import cz.cvut.docta.core.data.local.dao.LocalUpdateTimeDao
 import cz.cvut.docta.core.data.local.model.EntitiesToSynchronise
 import cz.cvut.docta.core.data.model.TableName

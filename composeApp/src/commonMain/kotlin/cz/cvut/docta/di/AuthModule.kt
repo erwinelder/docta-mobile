@@ -2,8 +2,13 @@ package cz.cvut.docta.di
 
 import cz.cvut.docta.auth.data.repository.AuthRepository
 import cz.cvut.docta.auth.data.repository.AuthRepositoryImpl
+import cz.cvut.docta.auth.domain.model.UserContext
 import cz.cvut.docta.auth.domain.usecase.CheckEmailVerificationUseCase
 import cz.cvut.docta.auth.domain.usecase.CheckEmailVerificationUseCaseImpl
+import cz.cvut.docta.auth.domain.usecase.GetAuthTokenFromEncStoreUseCase
+import cz.cvut.docta.auth.domain.usecase.GetAuthTokenFromEncStoreUseCaseImpl
+import cz.cvut.docta.auth.domain.usecase.SaveAuthTokenToEncStoreUseCase
+import cz.cvut.docta.auth.domain.usecase.SaveAuthTokenToEncStoreUseCaseImpl
 import cz.cvut.docta.auth.domain.usecase.SignInUseCase
 import cz.cvut.docta.auth.domain.usecase.SignInUseCaseImpl
 import cz.cvut.docta.auth.domain.usecase.SignUpUseCase
@@ -24,7 +29,10 @@ val authModule = module {
     /* ---------- Use Cases ---------- */
 
     single<SignInUseCase> {
-        SignInUseCaseImpl(authRepository = get())
+        SignInUseCaseImpl(
+            authRepository = get(),
+            userContext = get()
+        )
     }
 
     single<SignUpUseCase> {
@@ -32,7 +40,18 @@ val authModule = module {
     }
 
     single<CheckEmailVerificationUseCase> {
-        CheckEmailVerificationUseCaseImpl(authRepository = get())
+        CheckEmailVerificationUseCaseImpl(
+            authRepository = get(),
+            userContext = get()
+        )
+    }
+
+    single<SaveAuthTokenToEncStoreUseCase> {
+        SaveAuthTokenToEncStoreUseCaseImpl()
+    }
+
+    single<GetAuthTokenFromEncStoreUseCase> {
+        GetAuthTokenFromEncStoreUseCaseImpl()
     }
 
     /* ---------- View Models ---------- */
@@ -49,6 +68,15 @@ val authModule = module {
             email = parameters.get<String>(),
             signUpUseCase = get(),
             checkEmailVerificationUseCase = get()
+        )
+    }
+
+    /* ---------- Other ---------- */
+
+    single {
+        UserContext(
+            saveAuthTokenToEncStoreUseCase = get(),
+            getAuthTokenFromEncStoreUseCase = get(),
         )
     }
 

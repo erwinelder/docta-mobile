@@ -7,5 +7,6 @@ interface AchievementRepository {
 
     suspend fun getAchievements(): List<AchievementDto>
 
-    suspend fun getUserAchievements(userId: Long): List<UserAchievementDto>
+    suspend fun getUserAchievements(userId: Int): List<UserAchievementDto>
+
 }

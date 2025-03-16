@@ -1,6 +1,6 @@
 package cz.cvut.docta.sectionEditing.data.local.source
 
-import cz.cvut.docta.core.data.local.AppLocalDatabase
+import cz.cvut.docta.core.data.database.AppLocalDatabase
 import cz.cvut.docta.sectionEditing.data.local.dao.SectionDraftDao
 import cz.cvut.docta.sectionEditing.data.model.SectionDraftEntity
 

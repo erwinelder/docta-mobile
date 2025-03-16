@@ -19,15 +19,16 @@ val achievementModule = module {
     /* ---------- Use Cases ---------- */
 
     single<GetAchievementsUseCase> {
-        GetAchievementsUseCaseImpl(achievementRepository = get())
+        GetAchievementsUseCaseImpl(
+            achievementRepository = get(),
+            userContext = get()
+        )
     }
 
     /* ---------- View Models ---------- */
 
     viewModel {
-        AchievementsViewModel(
-            getAchievementsUseCase = get()
-        )
+        AchievementsViewModel(getAchievementsUseCase = get())
     }
 
 }

@@ -26,14 +26,18 @@ fun AuthError.toUiState(): ResultUiState {
 
 private fun AuthSuccess.asTitleRes(): StringResource {
     return when (this) {
+        AuthSuccess.SignedIn -> SharedRes.strings.welcome_back_to_docta
         AuthSuccess.EmailVerificationSent -> SharedRes.strings.email_sent
+        AuthSuccess.SignedUp -> SharedRes.strings.welcome_to_docta
         AuthSuccess.AccountDeleted -> SharedRes.strings.account_deleted
     }
 }
 
 private fun AuthSuccess.asMessageRes(): StringResource {
     return when (this) {
+        AuthSuccess.SignedIn -> SharedRes.strings.welcome_back_to_docta
         AuthSuccess.EmailVerificationSent -> SharedRes.strings.sign_up_email_verification_sent_description
+        AuthSuccess.SignedUp -> SharedRes.strings.welcome_to_docta
         AuthSuccess.AccountDeleted -> SharedRes.strings.your_account_has_been_deleted_successfully
     }
 }

@@ -10,8 +10,9 @@ class AchievementRemoteRepository: AchievementRepository {
         return emptyList()
     }
 
-    override suspend fun getUserAchievements(userId: Long): List<UserAchievementDto> {
+    override suspend fun getUserAchievements(userId: Int): List<UserAchievementDto> {
         // TODO-ACHIEVEMENTS: Implement fetching user achievements from the server
         return emptyList()
     }
+
 }

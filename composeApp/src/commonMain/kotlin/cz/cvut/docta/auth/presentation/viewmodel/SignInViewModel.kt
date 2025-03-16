@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import cz.cvut.docta.auth.domain.usecase.SignInUseCase
 import cz.cvut.docta.auth.domain.validation.UserDataValidator
 import cz.cvut.docta.auth.mapper.toUiState
-import cz.cvut.docta.errorHandling.domain.model.result.ResultData
+import cz.cvut.docta.errorHandling.domain.model.result.Result
 import cz.cvut.docta.errorHandling.mapper.toUiStates
 import cz.cvut.docta.errorHandling.presentation.model.ResultUiState
 import cz.cvut.docta.errorHandling.presentation.model.ValidatedFieldUiState
@@ -75,16 +75,11 @@ class SignInViewModel(
             password = passwordState.value.fieldText
         )
 
-        return when (result) {
-            is ResultData.Success -> {
-                val userData = result.data // TODO-AUTH
-                true
-            }
-            is ResultData.Error -> {
-                setResultState(result.error.toUiState())
-                false
-            }
+        if (result is Result.Error) {
+            setResultState(result.error.toUiState())
         }
+
+        return result is Result.Success
     }
 
 

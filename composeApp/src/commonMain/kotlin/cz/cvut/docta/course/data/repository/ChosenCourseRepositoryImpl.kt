@@ -1,6 +1,6 @@
 package cz.cvut.docta.course.data.repository
 
-import cz.cvut.docta.core.data.local.AppLocalDatabase
+import cz.cvut.docta.core.data.database.AppLocalDatabase
 import cz.cvut.docta.course.data.local.dao.ChosenCourseDao
 import cz.cvut.docta.course.data.local.model.ChosenCourseEntity
 import kotlinx.coroutines.flow.Flow

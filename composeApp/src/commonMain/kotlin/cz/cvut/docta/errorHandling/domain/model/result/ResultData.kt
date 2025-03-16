@@ -14,4 +14,11 @@ sealed interface ResultData<out D, out E: RootError> {
         }
     }
 
+    fun <S : RootSuccess> toDefaultResult(success: S): Result<S, E> {
+        return when (this) {
+            is Success -> Result.Success(success)
+            is Error -> Result.Error(this.error)
+        }
+    }
+
 }

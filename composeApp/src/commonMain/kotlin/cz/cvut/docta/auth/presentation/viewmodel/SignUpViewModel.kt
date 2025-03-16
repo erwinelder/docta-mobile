@@ -9,7 +9,6 @@ import cz.cvut.docta.auth.mapper.toUiState
 import cz.cvut.docta.auth.presentation.model.EmailVerificationState
 import cz.cvut.docta.errorHandling.domain.model.result.AuthError
 import cz.cvut.docta.errorHandling.domain.model.result.Result
-import cz.cvut.docta.errorHandling.domain.model.result.ResultData
 import cz.cvut.docta.errorHandling.mapper.toUiStates
 import cz.cvut.docta.errorHandling.presentation.model.ResultUiState
 import cz.cvut.docta.errorHandling.presentation.model.ValidatedFieldUiState
@@ -153,10 +152,10 @@ class SignUpViewModel(
                 password = passwordState.value.fieldText
             )
             when (result) {
-                is ResultData.Success -> setEmailVerificationState(
+                is Result.Success -> setEmailVerificationState(
                     state = EmailVerificationState.Verified
                 )
-                is ResultData.Error -> when (result.error) {
+                is Result.Error -> when (result.error) {
                     AuthError.EmailNotVerified -> setEmailVerificationState(
                         state = EmailVerificationState.NotVerified
                     )
