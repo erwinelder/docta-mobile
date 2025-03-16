@@ -6,6 +6,7 @@ import cz.cvut.docta.course.domain.model.CourseLocale
 import cz.cvut.docta.courseEditing.domain.model.CourseDraft
 import cz.cvut.docta.courseEditing.domain.usecase.GetCourseDraftUseCase
 import cz.cvut.docta.courseEditing.domain.usecase.SaveCourseDraftUseCase
+import cz.cvut.docta.courseEditing.domain.usecase.SaveRemoteCourseDraftUseCase
 import cz.cvut.docta.sectionEditing.domain.model.SectionDraft
 import cz.cvut.docta.sectionEditing.domain.usecase.GetCourseDraftSectionsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,6 +17,7 @@ import kotlinx.coroutines.launch
 class CourseDraftViewModel(
     private val getCourseDraftUseCase: GetCourseDraftUseCase,
     private val saveCourseDraftUseCase: SaveCourseDraftUseCase,
+    private val saveRemoteCourseDraftUseCase: SaveRemoteCourseDraftUseCase,
     private val getCourseDraftSectionsUseCase: GetCourseDraftSectionsUseCase
 ) : ViewModel() {
 
@@ -38,8 +40,16 @@ class CourseDraftViewModel(
     fun saveCourseDraftToDatabase(courseCode: String) {
         val courseDraft = getCourseDraft(courseCode) ?: return
         viewModelScope.launch {
-            saveCourseDraftUseCase.execute(courseDraft)
+            saveCourseDraftLocally(courseDraft)
+            saveCourseDraftRemotely(courseDraft)
         }
+    }
+    private suspend fun saveCourseDraftLocally(courseDraft: CourseDraft) {
+        saveCourseDraftUseCase.execute(courseDraft)
+    }
+
+    private suspend fun saveCourseDraftRemotely(courseDraft: CourseDraft) {
+        saveRemoteCourseDraftUseCase.execute(courseDraft)
     }
 
     private fun getCourseDraft(courseCode: String): CourseDraft? {

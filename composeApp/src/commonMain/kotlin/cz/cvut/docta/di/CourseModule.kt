@@ -28,13 +28,19 @@ import cz.cvut.docta.course.domain.usecase.SearchForCourseUseCaseImpl
 import cz.cvut.docta.course.presentation.viewModel.AddNewCourseViewModel
 import cz.cvut.docta.course.presentation.viewModel.CoursesViewModel
 import cz.cvut.docta.courseEditing.data.local.source.CourseDraftLocalDataSource
+import cz.cvut.docta.courseEditing.data.local.source.CourseDraftRemoteDataSource
 import cz.cvut.docta.courseEditing.data.local.source.courseDraftLocalDataSourceFactory
+import cz.cvut.docta.courseEditing.data.local.source.courseDraftRemoteDataSourceFactory
+import cz.cvut.docta.courseEditing.data.repository.CourseDraftRemoteRepository
+import cz.cvut.docta.courseEditing.data.repository.CourseDraftRemoteRepositoryImpl
 import cz.cvut.docta.courseEditing.data.repository.CourseDraftRepository
 import cz.cvut.docta.courseEditing.data.repository.CourseDraftRepositoryImpl
 import cz.cvut.docta.courseEditing.domain.usecase.GetCourseDraftUseCase
 import cz.cvut.docta.courseEditing.domain.usecase.GetCourseDraftUseCaseImpl
 import cz.cvut.docta.courseEditing.domain.usecase.SaveCourseDraftUseCase
 import cz.cvut.docta.courseEditing.domain.usecase.SaveCourseDraftUseCaseImpl
+import cz.cvut.docta.courseEditing.domain.usecase.SaveRemoteCourseDraftUseCase
+import cz.cvut.docta.courseEditing.domain.usecase.SaveRemoteCourseDraftUseCaseImpl
 import cz.cvut.docta.courseEditing.presentation.viewmodel.CourseDraftViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
@@ -54,6 +60,9 @@ val courseModule = module {
         courseDraftLocalDataSourceFactory(appLocalDatabase = get())
     }
 
+    single<CourseDraftRemoteDataSource> {
+        courseDraftRemoteDataSourceFactory(appRemoteDatabase = get())
+    }
     /* ---------- Repositories ---------- */
 
     single<CourseRepository> {
@@ -67,6 +76,10 @@ val courseModule = module {
 
     single<CourseDraftRepository> {
         CourseDraftRepositoryImpl(localSource = get())
+    }
+
+    single<CourseDraftRemoteRepository> {
+        CourseDraftRemoteRepositoryImpl(remoteSource = get())
     }
 
     /* ---------- Use Cases ---------- */
@@ -105,6 +118,10 @@ val courseModule = module {
         SaveCourseDraftUseCaseImpl(repository = get())
     }
 
+    single<SaveRemoteCourseDraftUseCase> {
+        SaveRemoteCourseDraftUseCaseImpl(repository = get())
+    }
+
     // Temporary use case
     single<SaveTestCoursesToDatabaseUseCase> {
         saveTestCoursesToDatabaseUseCaseFactory(appRemoteDatabase = get())
@@ -130,6 +147,7 @@ val courseModule = module {
         CourseDraftViewModel(
             getCourseDraftUseCase = get(),
             saveCourseDraftUseCase = get(),
+            saveRemoteCourseDraftUseCase = get(),
             getCourseDraftSectionsUseCase = get()
         )
     }
