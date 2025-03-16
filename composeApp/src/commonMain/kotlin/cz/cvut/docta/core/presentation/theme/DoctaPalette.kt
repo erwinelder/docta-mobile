@@ -48,6 +48,11 @@ sealed class DoctaPalette(
         errorGlassGradient[0], errorGlassGradient[1]
     ),
 
+    val success: Color,
+    val successGradient: List<Color>,
+    val error: Color,
+    val errorGradient: List<Color>,
+
     val yellow: Color,
 ) {
     data object Light : DoctaPalette(
@@ -102,6 +107,17 @@ sealed class DoctaPalette(
             Color(219, 107, 107, 128)
         ),
 
+        success = Color(92, 180, 85),
+        successGradient = listOf(
+            Color(92, 180, 85),
+            Color(75, 148, 70)
+        ),
+        error = Color(211, 92, 92),
+        errorGradient = listOf(
+            Color(211, 92, 92),
+            Color(171, 67, 67)
+        ),
+
         yellow = Color(245, 195, 68),
     )
     data object Dark : DoctaPalette(
@@ -154,6 +170,17 @@ sealed class DoctaPalette(
         errorGlassGradient = listOf(
             Color(250, 123, 123, 128),
             Color(255, 129, 129, 128)
+        ),
+
+        success = Color(82, 161, 76),
+        successGradient = listOf(
+            Color(82, 161, 76),
+            Color(72, 141, 66)
+        ),
+        error = Color(169, 66, 66),
+        errorGradient = listOf(
+            Color(169, 66, 66),
+            Color(150, 52, 52)
         ),
 
         yellow = Color(245, 195, 68),

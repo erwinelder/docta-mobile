@@ -11,8 +11,8 @@ class SectionDraftRepositoryImpl(
         return localSource.getSectionDraft(id = id)
     }
 
-    override suspend fun getCourseSectionsDrafts(courseCode: String): List<SectionDraftEntity> {
-        return localSource.getCourseSectionsDrafts(courseCode = courseCode)
+    override suspend fun getSectionDrafts(courseCode: String): List<SectionDraftEntity> {
+        return localSource.getSectionDrafts(courseCode = courseCode)
     }
 
     override suspend fun saveSectionDraft(sectionDraftEntity: SectionDraftEntity) {

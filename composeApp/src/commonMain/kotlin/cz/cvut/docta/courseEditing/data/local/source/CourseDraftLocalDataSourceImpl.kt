@@ -1,6 +1,6 @@
 package cz.cvut.docta.courseEditing.data.local.source
 
-import cz.cvut.docta.core.data.local.AppLocalDatabase
+import cz.cvut.docta.core.data.database.AppLocalDatabase
 import cz.cvut.docta.courseEditing.data.local.dao.CourseDraftDao
 import cz.cvut.docta.courseEditing.data.model.CourseDraftEntity
 

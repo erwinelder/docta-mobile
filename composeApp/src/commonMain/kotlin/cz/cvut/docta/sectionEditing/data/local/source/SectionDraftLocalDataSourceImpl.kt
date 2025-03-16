@@ -1,6 +1,6 @@
 package cz.cvut.docta.sectionEditing.data.local.source
 
-import cz.cvut.docta.core.data.local.AppLocalDatabase
+import cz.cvut.docta.core.data.database.AppLocalDatabase
 import cz.cvut.docta.sectionEditing.data.local.dao.SectionDraftDao
 import cz.cvut.docta.sectionEditing.data.model.SectionDraftEntity
 
@@ -12,8 +12,8 @@ class SectionDraftLocalDataSourceImpl(
         return dao.getSectionDraft(id = id)
     }
 
-    override suspend fun getCourseSectionsDrafts(courseCode: String): List<SectionDraftEntity> {
-        return dao.getCourseSectionsDrafts(courseCode = courseCode)
+    override suspend fun getSectionDrafts(courseCode: String): List<SectionDraftEntity> {
+        return dao.getSectionDrafts(courseCode = courseCode)
     }
 
     override suspend fun saveSectionDraft(sectionDraftEntity: SectionDraftEntity) {

@@ -28,8 +28,8 @@ class CourseDraftViewModel(
     private val _courseLocale = MutableStateFlow("")
     val courseLocale = _courseLocale.asStateFlow()
 
-    private val _sectionList = MutableStateFlow<List<SectionDraft>>(emptyList())
-    val sectionList = _sectionList.asStateFlow()
+    private val _sections = MutableStateFlow<List<SectionDraft>>(emptyList())
+    val sections = _sections.asStateFlow()
 
     init {
         viewModelScope.launch {
@@ -40,7 +40,7 @@ class CourseDraftViewModel(
             }
 
             val sections = getCourseDraftSectionsUseCase.execute(courseCode)
-            changeSectionList(sections)
+            applySections(sections)
         }
     }
 
@@ -51,8 +51,8 @@ class CourseDraftViewModel(
     fun changeCourseLocale(locale: String) {
         _courseLocale.update { locale }
     }
-    fun changeSectionList(sections: List<SectionDraft>) {
-        _sectionList.update { sections }
+    private fun applySections(sections: List<SectionDraft>) {
+        _sections.update { sections }
     }
 
     fun saveCourseDraftToDatabase(courseCode: String) {

@@ -32,7 +32,7 @@ fun NavGraphBuilder.courseManagementNavigationGraph(
 
             val courseName by viewModel.courseName.collectAsStateWithLifecycle()
             val courseLocale by viewModel.courseLocale.collectAsStateWithLifecycle()
-            val sections by viewModel.sectionList.collectAsStateWithLifecycle()
+            val sections by viewModel.sections.collectAsStateWithLifecycle()
 
             CourseEditingScreen(
                 onNavigateBack = navController::popBackStack,
@@ -40,15 +40,15 @@ fun NavGraphBuilder.courseManagementNavigationGraph(
                 onNameChange = viewModel::changeCourseName,
                 courseLocale = courseLocale,
                 onLocaleChange = viewModel::changeCourseLocale,
-                onSaveButtonClick = {
-                    viewModel.saveCourseDraftToDatabase(courseCode = courseCode)
-                },
                 sections = sections,
                 onSectionClick = { sectionId ->
                     navViewModel.navigate(
                         navController, CourseManagementScreens.SectionEditing(sectionId)
                     )
                 },
+                onSaveButtonClick = {
+                    viewModel.saveCourseDraftToDatabase(courseCode = courseCode)
+                }
             )
         }
 

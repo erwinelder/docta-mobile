@@ -28,9 +28,9 @@ fun CourseEditingScreen(
     onNameChange: (String) -> Unit,
     courseLocale: String,
     onLocaleChange: (String) -> Unit,
-    onSaveButtonClick: () -> Unit,
     sections: List<SectionDraft>,
     onSectionClick: (Long) -> Unit,
+    onSaveButtonClick: () -> Unit
 ) {
     ScreenContainer(
         verticalArrangement = Arrangement.spacedBy(32.dp),

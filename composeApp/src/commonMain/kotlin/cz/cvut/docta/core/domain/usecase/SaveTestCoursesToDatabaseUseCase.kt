@@ -9,7 +9,6 @@ import cz.cvut.docta.answer.data.remote.model.PairTagQuestionRemoteAssociation
 import cz.cvut.docta.answer.data.remote.model.QuestionAnswerPairRemoteEntity
 import cz.cvut.docta.answer.data.remote.model.QuestionAnswerPairTagRemoteEntity
 import cz.cvut.docta.core.data.model.TableName
-import cz.cvut.docta.core.data.remote.AppRemoteDatabase
 import cz.cvut.docta.core.data.remote.dao.RemoteUpdateTimeDao
 import cz.cvut.docta.course.data.remote.dao.CourseRemoteDao
 import cz.cvut.docta.course.data.remote.model.CourseRemoteEntity
@@ -464,17 +463,4 @@ class SaveTestCoursesToDatabaseUseCase(
         answerRemoteDao.upsertPairTagPairAssociations(pairTagPairAssociations)
     }
 
-}
-
-fun saveTestCoursesToDatabaseUseCaseFactory(
-    appRemoteDatabase: AppRemoteDatabase
-): SaveTestCoursesToDatabaseUseCase {
-    return SaveTestCoursesToDatabaseUseCase(
-        updateTimeDao = appRemoteDatabase.remoteUpdateTimeDao(),
-        courseDao = appRemoteDatabase.courseRemoteDao(),
-        sectionDao = appRemoteDatabase.sectionRemoteDao(),
-        lessonDao = appRemoteDatabase.lessonRemoteDao(),
-        questionDao = appRemoteDatabase.questionRemoteDao(),
-        answerRemoteDao = appRemoteDatabase.answerRemoteDao()
-    )
 }

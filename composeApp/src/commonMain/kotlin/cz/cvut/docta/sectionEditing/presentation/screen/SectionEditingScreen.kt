@@ -25,9 +25,9 @@ fun SectionEditingScreen(
     onNavigateBack: () -> Unit,
     sectionName: String,
     onNameChange: (String) -> Unit,
-    onSaveButtonClick: () -> Unit,
     lessons: List<LessonDraft>,
-    onLessonClick: (Long) -> Unit
+    onLessonClick: (Long) -> Unit,
+    onSaveButtonClick: () -> Unit
 ) {
     ScreenContainer(
         verticalArrangement = Arrangement.spacedBy(32.dp),

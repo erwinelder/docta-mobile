@@ -9,7 +9,7 @@ import cz.cvut.docta.answer.data.local.model.PairTagQuestionAssociation
 import cz.cvut.docta.answer.data.local.model.QuestionAnswerPairEntity
 import cz.cvut.docta.answer.data.local.model.QuestionAnswerPairTagEntity
 import cz.cvut.docta.answer.data.local.model.QuestionAnswerPairsQueryOptions
-import cz.cvut.docta.core.data.local.AppLocalDatabase
+import cz.cvut.docta.core.data.database.AppLocalDatabase
 import cz.cvut.docta.core.data.local.dao.LocalUpdateTimeDao
 import cz.cvut.docta.core.data.local.model.EntitiesToSynchronise
 import cz.cvut.docta.core.data.model.TableName
