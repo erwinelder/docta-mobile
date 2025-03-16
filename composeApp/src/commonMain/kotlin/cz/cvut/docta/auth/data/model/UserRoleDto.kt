@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 enum class UserRoleDto {
-    User, Admin
+    User, Teacher, Admin
 }

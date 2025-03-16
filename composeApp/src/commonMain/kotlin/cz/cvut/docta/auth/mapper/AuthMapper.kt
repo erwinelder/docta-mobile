@@ -9,6 +9,7 @@ import cz.cvut.docta.auth.domain.model.UserRole
 fun UserRoleDto.toDomainModel(): UserRole {
     return when (this) {
         UserRoleDto.User -> UserRole.User
+        UserRoleDto.Teacher -> UserRole.Teacher
         UserRoleDto.Admin -> UserRole.Admin
     }
 }
