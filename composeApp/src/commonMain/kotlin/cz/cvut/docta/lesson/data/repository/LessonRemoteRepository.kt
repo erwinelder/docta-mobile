@@ -1,18 +1,22 @@
 package cz.cvut.docta.lesson.data.repository
 
+import cz.cvut.docta.auth.domain.model.UserContext
 import cz.cvut.docta.core.data.remote.doctaBackendUrl
 import cz.cvut.docta.core.data.remote.httpClient
 import cz.cvut.docta.lesson.data.local.model.LessonType
 import cz.cvut.docta.lesson.data.local.model.entity_with_details.LessonDetails
 import cz.cvut.docta.lesson.data.local.model.entity_with_details.LessonDetailsWithUserStats
 import io.ktor.client.request.get
+import io.ktor.client.request.header
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.contentType
 import kotlinx.serialization.json.Json
 
-class LessonRemoteRepository : LessonRepository {
+class LessonRemoteRepository(
+    private val userContext: UserContext
+) : LessonRepository {
 
     override suspend fun getLessonType(
         courseCode: String,
@@ -23,6 +27,7 @@ class LessonRemoteRepository : LessonRepository {
             val response = httpClient.get(
                 urlString = "$doctaBackendUrl/lessons/$lessonId/type"
             ) {
+                header("Authorization", "Bearer ${userContext.getAuthToken()}")
                 contentType(ContentType.Application.Json)
             }
 
@@ -47,6 +52,7 @@ class LessonRemoteRepository : LessonRepository {
             val response = httpClient.get(
                 urlString = "$doctaBackendUrl/lessons/default/$lessonId"
             ) {
+                header("Authorization", "Bearer ${userContext.getAuthToken()}")
                 contentType(ContentType.Application.Json)
             }
 
@@ -70,6 +76,7 @@ class LessonRemoteRepository : LessonRepository {
             val response = httpClient.get(
                 urlString = "$doctaBackendUrl/sections/$sectionId/lessons"
             ) {
+                header("Authorization", "Bearer ${userContext.getAuthToken()}")
                 contentType(ContentType.Application.Json)
             }
 
@@ -93,6 +100,7 @@ class LessonRemoteRepository : LessonRepository {
             val response = httpClient.get(
                 urlString = "$doctaBackendUrl/sections/$sectionId/lessons-with-user-stats"
             ) {
+                header("Authorization", "Bearer ${userContext.getAuthToken()}")
                 contentType(ContentType.Application.Json)
             }
 

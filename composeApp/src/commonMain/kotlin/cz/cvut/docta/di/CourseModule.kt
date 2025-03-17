@@ -56,7 +56,7 @@ val courseModule = module {
 
     single<CourseRepository> {
 //        CourseRepositoryImpl(localSource = get(), remoteSource = get())
-        CourseRemoteRepository()
+        CourseRemoteRepository(userContext = get())
     }
 
     single<ChosenCourseRepository> {

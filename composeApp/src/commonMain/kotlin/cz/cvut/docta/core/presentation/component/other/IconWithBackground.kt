@@ -39,8 +39,8 @@ fun LargePrimaryIcon(
             .background(
                 brush = Brush.linearGradient(
                     colors = gradientColor,
-                    start = Offset(240f, 0f),
-                    end = Offset(0f, 240f)
+                    start = Offset(0f, 240f),
+                    end = Offset(240f, 0f)
                 )
             )
     ) {

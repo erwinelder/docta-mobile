@@ -7,14 +7,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import cz.cvut.docta.SharedRes
 import cz.cvut.docta.core.domain.app.FilledWidthByScreenType
 import cz.cvut.docta.core.presentation.component.buttons.GlassSurfaceNavigationButton
 import cz.cvut.docta.core.presentation.component.buttons.GlassSurfaceTopBackNavButton
 import cz.cvut.docta.core.presentation.component.buttons.PrimaryButton
-import cz.cvut.docta.core.presentation.component.field.SmallTextField
+import cz.cvut.docta.core.presentation.component.field.LargeTextField
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainer
 import cz.cvut.docta.core.presentation.theme.CurrWindowType
 import cz.cvut.docta.lesson.domain.model.LessonDraft
@@ -38,14 +40,16 @@ fun SectionEditingScreen(
             onClick = onNavigateBack
         )
         Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(32.dp),
             modifier = Modifier
                 .fillMaxWidth(FilledWidthByScreenType().getByType(CurrWindowType))
                 .weight(1f)
         ) {
-            SmallTextField(
+            LargeTextField(
                 text = sectionName,
-                onValueChange = onNameChange
+                onValueChange = onNameChange,
+                fontSize = 18.sp
             )
             LazyColumn(
                 modifier = Modifier.fillMaxWidth(),

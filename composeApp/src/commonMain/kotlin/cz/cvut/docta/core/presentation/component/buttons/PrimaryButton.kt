@@ -75,7 +75,7 @@ fun PrimaryButton(
                 .border(1.5.dp, DoctaColors.semiTransparentBorder, RoundedCornerShape(16.dp))
                 .background(
                     brush = Brush.linearGradient(
-                        colors = listOf(buttonDarkerColor, buttonLighterColor),
+                        colors = listOf(buttonLighterColor, buttonDarkerColor),
                         start = Offset(75f, 210f),
                         end = Offset(95f, -10f)
                     )

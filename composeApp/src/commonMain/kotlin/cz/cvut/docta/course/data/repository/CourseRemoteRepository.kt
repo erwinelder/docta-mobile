@@ -1,11 +1,14 @@
 package cz.cvut.docta.course.data.repository
 
+import cz.cvut.docta.auth.domain.model.UserContext
 import cz.cvut.docta.core.data.remote.doctaBackendUrl
 import cz.cvut.docta.core.data.remote.httpClient
 import cz.cvut.docta.course.data.local.model.CourseEntity
 import cz.cvut.docta.course.data.mapper.remoteDtoToLocalEntity
 import cz.cvut.docta.course.data.remote.model.CourseRemoteDTO
 import io.ktor.client.request.get
+import io.ktor.client.request.header
+import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
@@ -13,7 +16,9 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.http.contentType
 import kotlinx.serialization.json.Json
 
-class CourseRemoteRepository : CourseRepository {
+class CourseRemoteRepository(
+    private val userContext: UserContext
+) : CourseRepository {
 
     override suspend fun getAllCourses(): List<CourseEntity> {
         return emptyList()
@@ -21,9 +26,10 @@ class CourseRemoteRepository : CourseRepository {
 
     override suspend fun getCourses(codes: List<String>): List<CourseEntity> {
         return try {
-            val response = httpClient.get(
+            val response = httpClient.post(
                 urlString = "$doctaBackendUrl/courses"
             ) {
+                header("Authorization", "Bearer ${userContext.getAuthToken()}")
                 contentType(ContentType.Application.Json)
                 setBody(codes)
             }
@@ -46,6 +52,7 @@ class CourseRemoteRepository : CourseRepository {
             val response = httpClient.get(
                 urlString = "$doctaBackendUrl/courses/$courseCode"
             ) {
+                header("Authorization", "Bearer ${userContext.getAuthToken()}")
                 contentType(ContentType.Application.Json)
             }
 

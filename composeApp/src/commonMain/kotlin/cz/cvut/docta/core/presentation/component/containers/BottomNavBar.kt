@@ -10,6 +10,7 @@ import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -29,6 +30,7 @@ import cz.cvut.docta.core.presentation.navigation.BottomBarNavButton
 import cz.cvut.docta.core.presentation.navigation.MainScreens
 import cz.cvut.docta.core.presentation.theme.CurrAppTheme
 import cz.cvut.docta.core.presentation.theme.DoctaColors
+import cz.cvut.docta.core.presentation.utils.add
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
@@ -36,6 +38,7 @@ import org.jetbrains.compose.resources.painterResource
 @Composable
 fun BottomNavBar(
     isVisible: Boolean,
+    padding: PaddingValues = PaddingValues(0.dp),
     anyScreenInHierarchyIsScreenProvider: (Any) -> Boolean,
     currentScreenIsScreenProvider: (Any) -> Boolean,
     onNavigateToScreen: (MainScreens) -> Unit,
@@ -70,7 +73,9 @@ fun BottomNavBar(
                     start = Offset(0f, 1400f),
                     end = Offset(600f, 0f)
                 ))
-                .padding(vertical = 16.dp, horizontal = 4.dp)
+                .padding(
+                    PaddingValues(vertical = 16.dp, horizontal = 4.dp).add(padding)
+                )
         ) {
             barButtons.forEachIndexed { index, button ->
                 BottomBarButton(

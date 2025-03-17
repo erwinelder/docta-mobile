@@ -10,12 +10,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import cz.cvut.docta.SharedRes
 import cz.cvut.docta.core.domain.app.FilledWidthByScreenType
 import cz.cvut.docta.core.presentation.component.buttons.GlassSurfaceNavigationButton
-import cz.cvut.docta.SharedRes
 import cz.cvut.docta.core.presentation.component.buttons.GlassSurfaceTopBackNavButton
 import cz.cvut.docta.core.presentation.component.buttons.PrimaryButton
-import cz.cvut.docta.core.presentation.component.field.SmallTextField
+import cz.cvut.docta.core.presentation.component.field.LargeTextField
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainer
 import cz.cvut.docta.core.presentation.theme.CurrWindowType
 import cz.cvut.docta.sectionEditing.domain.model.SectionDraft
@@ -51,13 +52,15 @@ fun CourseEditingScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 modifier = Modifier.fillMaxWidth()
             ) {
-                SmallTextField(
+                LargeTextField(
                     text = courseName,
-                    onValueChange = onNameChange
+                    onValueChange = onNameChange,
+                    fontSize = 18.sp
                 )
-                SmallTextField(
+                LargeTextField(
                     text = courseLocale,
-                    onValueChange = onLocaleChange
+                    onValueChange = onLocaleChange,
+                    fontSize = 18.sp
                 )
             }
             LazyColumn(

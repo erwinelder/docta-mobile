@@ -11,8 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import cz.cvut.docta.core.presentation.component.buttons.GlassSurfaceTopBackNavButton
-import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainer
+import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainerWithBackNavButton
 import cz.cvut.docta.lesson.domain.model.Lesson
 import cz.cvut.docta.lesson.domain.model.LessonDifficulty
 import cz.cvut.docta.lesson.domain.model.LessonFilterType
@@ -25,6 +24,7 @@ import org.jetbrains.compose.resources.DrawableResource
 
 @Composable
 fun SectionLessonsScreen(
+    screenPadding: PaddingValues = PaddingValues(0.dp),
     sectionName: String,
     sectionIconRes: DrawableResource? = null,
     onNavigateBack: () -> Unit,
@@ -37,20 +37,19 @@ fun SectionLessonsScreen(
 ) {
     val lazyListState = rememberLazyListState()
 
-    ScreenContainer(
+    ScreenContainerWithBackNavButton(
+        onBackButtonClick = onNavigateBack,
+        backButtonText = sectionName,
+        backButtonIconRes = sectionIconRes,
         verticalArrangement = Arrangement.spacedBy(24.dp),
-        padding = PaddingValues(top = 8.dp, bottom = 24.dp)
+        screenPadding = screenPadding,
+        padding = PaddingValues(top = 8.dp)
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.fillMaxWidth()
         ) {
-            GlassSurfaceTopBackNavButton(
-                text = sectionName,
-                iconRes = sectionIconRes,
-                onClick = onNavigateBack
-            )
             LessonTypeFilterBar(
                 activeType = activeType,
                 onTypeSelect = onTypeSelect

@@ -9,6 +9,8 @@ import cz.cvut.docta.errorHandling.domain.model.result.AuthError
 import cz.cvut.docta.errorHandling.domain.model.result.AuthSuccess
 import cz.cvut.docta.errorHandling.domain.model.result.Result
 import cz.cvut.docta.errorHandling.domain.model.result.ResultData
+import io.ktor.client.request.get
+import io.ktor.client.request.header
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.bodyAsText
@@ -18,6 +20,24 @@ import io.ktor.http.contentType
 import kotlinx.serialization.json.Json
 
 class AuthRepositoryImpl : AuthRepository {
+
+    override suspend fun checkTokenValidity(token: String): Result<AuthSuccess, AuthError> {
+        return try {
+            val response = httpClient.get(
+                urlString = "$doctaBackendUrl/auth/check-token-validity"
+            ) {
+                header("Authorization", "Bearer $token")
+            }
+
+            when (response.status) {
+                HttpStatusCode.OK -> Result.Success(AuthSuccess.SignedIn)
+                HttpStatusCode.Unauthorized -> Result.Error(AuthError.WrongCredentials)
+                else -> Result.Error(AuthError.SignInError)
+            }
+        } catch (_: Exception) {
+            Result.Error(error = AuthError.SignInError)
+        }
+    }
 
     override suspend fun signIn(
         email: String,
@@ -34,14 +54,13 @@ class AuthRepositoryImpl : AuthRepository {
             when (response.status) {
                 HttpStatusCode.OK -> {
                     val userData = Json.decodeFromString<UserDataDto>(string = response.bodyAsText())
-                    ResultData.Success(data = userData)
+                    ResultData.Success(userData)
                 }
-                HttpStatusCode.Unauthorized -> ResultData.Error(error = AuthError.WrongCredentials)
-                else -> ResultData.Error(error = AuthError.SignInError)
+                HttpStatusCode.Unauthorized -> ResultData.Error(AuthError.WrongCredentials)
+                else -> ResultData.Error(AuthError.SignInError)
             }
-        } catch (e: Exception) {
-            println("Error during signing in: ${e.message}")
-            ResultData.Error(error = AuthError.SignInError)
+        } catch (_: Exception) {
+            ResultData.Error(AuthError.SignInError)
         }
     }
 
@@ -63,8 +82,7 @@ class AuthRepositoryImpl : AuthRepository {
                 HttpStatusCode.ServiceUnavailable -> Result.Error(AuthError.EmailVerificationError)
                 else -> Result.Error(AuthError.SignUpError)
             }
-        } catch (e: Exception) {
-            println("Error during signing up: ${e.message}")
+        } catch (_: Exception) {
             Result.Error(AuthError.SignUpError)
         }
     }
@@ -90,8 +108,7 @@ class AuthRepositoryImpl : AuthRepository {
                 HttpStatusCode.Unauthorized -> ResultData.Error(AuthError.EmailNotVerified)
                 else -> ResultData.Error(AuthError.EmailVerificationError)
             }
-        } catch (e: Exception) {
-            println("Error during checking email verification: ${e.message}")
+        } catch (_: Exception) {
             ResultData.Error(AuthError.EmailVerificationError)
         }
     }

@@ -10,10 +10,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import cz.cvut.docta.core.presentation.utils.add
 
 @Composable
 fun ScreenContainer(
     verticalArrangement: Arrangement.Vertical = Arrangement.Center,
+    screenPadding: PaddingValues = PaddingValues(0.dp),
     padding: PaddingValues = PaddingValues(vertical = 24.dp),
     modifier: Modifier = Modifier,
     content: @Composable ColumnScope.() -> Unit
@@ -22,7 +24,7 @@ fun ScreenContainer(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = verticalArrangement,
         modifier = modifier
-            .padding(padding)
+            .padding(padding.add(screenPadding))
             .fillMaxSize()
     ) {
         content()

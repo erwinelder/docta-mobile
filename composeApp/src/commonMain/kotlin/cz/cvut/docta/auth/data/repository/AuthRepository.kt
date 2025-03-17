@@ -8,6 +8,8 @@ import cz.cvut.docta.errorHandling.domain.model.result.ResultData
 
 interface AuthRepository {
 
+    suspend fun checkTokenValidity(token: String): Result<AuthSuccess, AuthError>
+
     suspend fun signIn(email: String, password: String): ResultData<UserDataDto, AuthError>
 
     suspend fun signUp(name: String, email: String, password: String): Result<AuthSuccess, AuthError>

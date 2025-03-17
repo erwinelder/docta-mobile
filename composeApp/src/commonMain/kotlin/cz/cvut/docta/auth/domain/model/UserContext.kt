@@ -1,10 +1,12 @@
 package cz.cvut.docta.auth.domain.model
 
+import cz.cvut.docta.auth.domain.usecase.CheckAuthTokenValidityUseCase
 import cz.cvut.docta.auth.domain.usecase.GetAuthTokenFromEncStoreUseCase
 import cz.cvut.docta.auth.domain.usecase.GetUserDataFromSecureStorageUseCase
 import cz.cvut.docta.auth.domain.usecase.SaveUserDataToSecureStorageUseCase
 
 class UserContext(
+    private val checkAuthTokenValidityUseCase: CheckAuthTokenValidityUseCase,
     private val saveUserDataToSecureStorageUseCase: SaveUserDataToSecureStorageUseCase,
     getUserDataFromSecureStorageUseCase: GetUserDataFromSecureStorageUseCase,
     private val getAuthTokenFromEncStoreUseCase: GetAuthTokenFromEncStoreUseCase
@@ -29,11 +31,25 @@ class UserContext(
         saveUserDataToSecureStorageUseCase.execute(userDataWithToken = userDataWithToken)
     }
 
+    fun resetUserData() {
+        saveUserData(
+            userDataWithToken = UserDataWithToken(
+                id = 0, email = "", role = UserRole.User, name = "", token = ""
+            )
+        )
+    }
+
     fun isAtLeastTeacher(): Boolean = role == UserRole.Teacher || role == UserRole.Admin
     fun isAdmin(): Boolean = role == UserRole.Admin
 
-    suspend fun getAuthToken(): String {
+    fun getAuthToken(): String {
         return getAuthTokenFromEncStoreUseCase.execute()
+    }
+
+    suspend fun checkAuthTokenValidity(): Boolean {
+        val isValid = checkAuthTokenValidityUseCase.execute(token = getAuthToken())
+        if (!isValid) resetUserData()
+        return isValid
     }
 
 

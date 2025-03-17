@@ -3,6 +3,8 @@ package cz.cvut.docta.di
 import cz.cvut.docta.auth.data.repository.AuthRepository
 import cz.cvut.docta.auth.data.repository.AuthRepositoryImpl
 import cz.cvut.docta.auth.domain.model.UserContext
+import cz.cvut.docta.auth.domain.usecase.CheckAuthTokenValidityUseCase
+import cz.cvut.docta.auth.domain.usecase.CheckAuthTokenValidityUseCaseImpl
 import cz.cvut.docta.auth.domain.usecase.CheckEmailVerificationUseCase
 import cz.cvut.docta.auth.domain.usecase.CheckEmailVerificationUseCaseImpl
 import cz.cvut.docta.auth.domain.usecase.GetAuthTokenFromEncStoreUseCase
@@ -48,6 +50,10 @@ val authModule = module {
         )
     }
 
+    single<CheckAuthTokenValidityUseCase> {
+        CheckAuthTokenValidityUseCaseImpl(authRepository = get())
+    }
+
     single<SaveUserDataToSecureStorageUseCase> {
         SaveUserDataToSecureStorageUseCaseImpl(secureStorage = get())
     }
@@ -81,6 +87,7 @@ val authModule = module {
 
     single {
         UserContext(
+            checkAuthTokenValidityUseCase = get(),
             saveUserDataToSecureStorageUseCase = get(),
             getUserDataFromSecureStorageUseCase = get(),
             getAuthTokenFromEncStoreUseCase = get()

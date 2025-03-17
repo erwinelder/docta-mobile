@@ -5,7 +5,7 @@ import cz.cvut.docta.core.data.preferences.SecureStorage
 class GetAuthTokenFromEncStoreUseCaseImpl(
     private val secureStorage: SecureStorage
 ) : GetAuthTokenFromEncStoreUseCase {
-    override suspend fun execute(): String {
+    override fun execute(): String {
         return secureStorage.getAuthToken()
     }
 }

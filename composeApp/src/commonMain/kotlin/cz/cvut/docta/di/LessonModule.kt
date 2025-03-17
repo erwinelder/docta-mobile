@@ -34,7 +34,7 @@ val lessonModule = module {
 //            localSource = get(),
 //            remoteSource = get()
 //        )
-        LessonRemoteRepository()
+        LessonRemoteRepository(userContext = get())
     }
 
     /* ---------- Use Cases ---------- */

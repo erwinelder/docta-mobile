@@ -1,6 +1,10 @@
 package cz.cvut.docta.core.presentation
 
-import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -34,6 +38,7 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun MainApplicationContent(
+    userContext: UserContext = koinInject(),
     navController: NavHostController = rememberNavController()
 ) {
     val navViewModel = koinViewModel<NavViewModel>()
@@ -44,7 +49,6 @@ fun MainApplicationContent(
         }
     }
 
-    val userContext = koinInject<UserContext>()
     val mainStartDestination: MainScreens by remember {
         derivedStateOf {
             if (userContext.userId == 0) MainScreens.AuthGraph else MainScreens.CoursesGraph
@@ -60,13 +64,17 @@ fun MainApplicationContent(
     val lessonProgression by lessonProgressViewModel.progression.collectAsStateWithLifecycle()
 
     Scaffold(
-        modifier = Modifier.systemBarsPadding(),
+        modifier = Modifier
+            .padding(top = WindowInsets.systemBars.asPaddingValues().calculateTopPadding()),
         topBar = {
             LessonProgressBar(progression = lessonProgression)
         },
         bottomBar = {
             BottomNavBar(
                 isVisible = isBottomBarVisible,
+                padding = PaddingValues(
+                    bottom = WindowInsets.systemBars.asPaddingValues().calculateBottomPadding()
+                ),
                 anyScreenInHierarchyIsScreenProvider = navBackStackEntry::anyScreenInHierarchyIs,
                 currentScreenIsScreenProvider = navBackStackEntry::currentScreenIs,
                 onNavigateToScreen = { screen: MainScreens ->
@@ -83,12 +91,11 @@ fun MainApplicationContent(
         NavHost(
             navController = navController,
             startDestination = mainStartDestination
-//            startDestination = MainScreens.CoursesGraph
-//            startDestination = MainScreens.AuthGraph
         ) {
             courseNavigationGraph(
                 navController = navController,
-                navViewModel = navViewModel
+                navViewModel = navViewModel,
+                screenPadding = screenPadding
             )
             lessonNavigationGraph(
                 navController = navController,

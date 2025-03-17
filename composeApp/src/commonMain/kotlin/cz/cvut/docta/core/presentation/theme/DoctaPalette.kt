@@ -58,8 +58,8 @@ sealed class DoctaPalette(
     data object Light : DoctaPalette(
         primary = Color(124, 154, 207),
         primaryGradient = listOf(
-            Color(124, 154, 207),
-            Color(124, 154, 207)
+            Color(119, 148, 199),
+            Color(125, 158, 213)
         ),
         primaryGlassGradient = listOf(
             Color(89, 131, 201, 51),
@@ -123,8 +123,8 @@ sealed class DoctaPalette(
     data object Dark : DoctaPalette(
         primary = Color(77, 101, 143),
         primaryGradient = listOf(
-            Color(73, 96, 136),
-            Color(82, 106, 150)
+            Color(76, 98, 138),
+            Color(81, 106, 150)
         ),
         primaryGlassGradient = listOf(
             Color(124, 167, 241, 77),

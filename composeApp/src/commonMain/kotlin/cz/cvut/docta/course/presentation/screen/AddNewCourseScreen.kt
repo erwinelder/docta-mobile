@@ -3,6 +3,7 @@ package cz.cvut.docta.course.presentation.screen
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Text
@@ -31,6 +32,7 @@ import docta.composeapp.generated.resources.search_icon
 
 @Composable
 fun AddNewCourseScreen(
+    screenPadding: PaddingValues = PaddingValues(0.dp),
     onNavigateBack: () -> Unit,
     searchedCourseState: CourseSearchState,
     query: String,
@@ -44,7 +46,8 @@ fun AddNewCourseScreen(
     ScreenContainerWithBackNavButton(
         onBackButtonClick = onNavigateBack,
         backButtonText = stringResource(SharedRes.strings.add_new_course),
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
+        screenPadding = screenPadding
     ) {
         AnimatedContent(
             targetState = searchedCourseState,

@@ -1,5 +1,6 @@
 package cz.cvut.docta.course.presentation.navigation
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -26,7 +27,8 @@ import org.koin.compose.viewmodel.koinViewModel
 
 fun NavGraphBuilder.courseNavigationGraph(
     navController: NavHostController,
-    navViewModel: NavViewModel
+    navViewModel: NavViewModel,
+    screenPadding: PaddingValues
 ) {
     navigation<MainScreens.CoursesGraph>(
         startDestination = CourseScreens.Courses
@@ -42,6 +44,7 @@ fun NavGraphBuilder.courseNavigationGraph(
             }
 
             CoursesScreen(
+                screenPadding = screenPadding,
                 onAddNewCourse = {
                     navViewModel.navigate(navController, CourseScreens.AddNewCourse)
                 },
@@ -64,6 +67,7 @@ fun NavGraphBuilder.courseNavigationGraph(
             val searchedCourseState by addCourseViewModel.courseSearchState.collectAsStateWithLifecycle()
 
             AddNewCourseScreen(
+                screenPadding = screenPadding,
                 onNavigateBack = navController::popBackStack,
                 searchedCourseState = searchedCourseState,
                 query = query,
@@ -92,6 +96,7 @@ fun NavGraphBuilder.courseNavigationGraph(
             }
 
             CourseSectionsScreen(
+                screenPadding = screenPadding,
                 courseName = course?.name ?: "",
                 onNavigateBack = navController::popBackStack,
                 sections = sectionList,
@@ -119,6 +124,7 @@ fun NavGraphBuilder.courseNavigationGraph(
             }
 
             SectionLessonsScreen(
+                screenPadding = screenPadding,
                 sectionName = section?.name ?: "",
                 onNavigateBack = navController::popBackStack,
                 activeType = activeType,

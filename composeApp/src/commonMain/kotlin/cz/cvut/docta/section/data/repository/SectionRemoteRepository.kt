@@ -1,24 +1,29 @@
 package cz.cvut.docta.section.data.repository
 
+import cz.cvut.docta.auth.domain.model.UserContext
 import cz.cvut.docta.core.data.remote.doctaBackendUrl
 import cz.cvut.docta.core.data.remote.httpClient
 import cz.cvut.docta.section.data.local.model.SectionEntity
 import cz.cvut.docta.section.data.mapper.remoteDtoToLocalEntity
 import cz.cvut.docta.section.data.remote.model.SectionRemoteDTO
 import io.ktor.client.request.get
+import io.ktor.client.request.header
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.contentType
 import kotlinx.serialization.json.Json
 
-class SectionRemoteRepository : SectionRepository {
+class SectionRemoteRepository(
+    private val userContext: UserContext
+) : SectionRepository {
 
     override suspend fun getSections(courseCode: String): List<SectionEntity> {
         return try {
             val response = httpClient.get(
                 urlString = "$doctaBackendUrl/courses/$courseCode/sections"
             ) {
+                header("Authorization", "Bearer ${userContext.getAuthToken()}")
                 contentType(ContentType.Application.Json)
             }
 
@@ -43,6 +48,7 @@ class SectionRemoteRepository : SectionRepository {
             val response = httpClient.get(
                 urlString = "$doctaBackendUrl/sections/$sectionId"
             ) {
+                header("Authorization", "Bearer ${userContext.getAuthToken()}")
                 contentType(ContentType.Application.Json)
             }
 

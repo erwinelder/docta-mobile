@@ -99,7 +99,7 @@ fun SecondaryButton(
                     color = DoctaColors.onSurface,
                     fontFamily = Manrope,
                     letterSpacing = .5.sp,
-                    fontWeight = FontWeight.W500
+                    fontWeight = FontWeight.W400
                 )
             }
         }
