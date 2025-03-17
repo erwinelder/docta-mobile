@@ -15,4 +15,8 @@ class AchievementRemoteRepository: AchievementRepository {
         return emptyList()
     }
 
+    override suspend fun getAchievementWithProgress(achievementId: Int): AchievementDto {
+        // TODO-ACHIEVEMENTS: Implement fetching achievement with user progress from the server
+    }
+
 }
