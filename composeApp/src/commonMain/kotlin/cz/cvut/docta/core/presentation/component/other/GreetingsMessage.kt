@@ -9,6 +9,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.core.presentation.theme.DoctaTypography
@@ -40,7 +41,9 @@ fun GreetingsMessageContent(message: String) {
             text = message,
             color = DoctaColors.onSurface,
             fontFamily = Manrope,
-            style = DoctaTypography.titleMedium
+            style = DoctaTypography.titleMedium,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis
         )
     }
 }
