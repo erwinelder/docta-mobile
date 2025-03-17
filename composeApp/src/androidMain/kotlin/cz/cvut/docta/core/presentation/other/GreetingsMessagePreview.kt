@@ -10,6 +10,6 @@ import cz.cvut.docta.core.presentation.preview.PreviewContainer
 @Composable
 fun GreetingsMessagePreview() {
     PreviewContainer {
-        GreetingsMessage()
+        GreetingsMessage(username = "username")
     }
 }

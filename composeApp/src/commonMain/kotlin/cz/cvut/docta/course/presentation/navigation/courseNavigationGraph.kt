@@ -9,6 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import androidx.navigation.toRoute
+import cz.cvut.docta.auth.domain.model.UserContext
 import cz.cvut.docta.core.domain.app.CourseContext
 import cz.cvut.docta.core.presentation.navigation.MainScreens
 import cz.cvut.docta.core.presentation.navigation.sharedKoinNavViewModel
@@ -34,6 +35,7 @@ fun NavGraphBuilder.courseNavigationGraph(
         startDestination = CourseScreens.Courses
     ) {
         composable<CourseScreens.Courses> { backStack ->
+            val userContext = koinInject<UserContext>()
             val courseContext = koinInject<CourseContext>()
             val viewModel = backStack.sharedKoinNavViewModel<CoursesViewModel>(navController)
 
@@ -45,6 +47,7 @@ fun NavGraphBuilder.courseNavigationGraph(
 
             CoursesScreen(
                 screenPadding = screenPadding,
+                username = userContext.name,
                 onAddNewCourse = {
                     navViewModel.navigate(navController, CourseScreens.AddNewCourse)
                 },

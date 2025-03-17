@@ -1,5 +1,6 @@
 package cz.cvut.docta.course.presentation.screen
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -27,6 +28,7 @@ import docta.composeapp.generated.resources.edit_icon
 @Composable
 fun CoursesScreen(
     screenPadding: PaddingValues = PaddingValues(0.dp),
+    username: String,
     onAddNewCourse: () -> Unit,
     onEditCourses: () -> Unit,
     courses: List<Course>,
@@ -44,7 +46,7 @@ fun CoursesScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
         ) {
-            GreetingsMessage()
+            GreetingsMessage(username = username)
             Column(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
@@ -60,18 +62,22 @@ fun CoursesScreen(
                 )
             }
         }
-        LazyColumn(
-            state = lazyListState,
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = Modifier.fillMaxWidth(
-                FilledWidthByScreenType().getByType(CurrWindowType)
-            )
-        ) {
-            items(items = courses) { course ->
-                CourseNavButtonComponent(
-                    course = course,
-                    onClick = onCourseClick
+        AnimatedContent(
+            targetState = courses
+        ) { targetCourses ->
+            LazyColumn(
+                state = lazyListState,
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                modifier = Modifier.fillMaxWidth(
+                    FilledWidthByScreenType().getByType(CurrWindowType)
                 )
+            ) {
+                items(items = targetCourses) { course ->
+                    CourseNavButtonComponent(
+                        course = course,
+                        onClick = onCourseClick
+                    )
+                }
             }
         }
     }

@@ -18,7 +18,7 @@ import cz.cvut.docta.core.utils.getGreetingsWidgetTitleRes
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
-fun GreetingsMessage() {
+fun GreetingsMessage(username: String) {
     val currentLocalDateTime = getCurrentLocalDateTime()
     val greetingsTitleRes by remember(currentLocalDateTime.hour) {
         derivedStateOf {
@@ -26,7 +26,7 @@ fun GreetingsMessage() {
         }
     }
 
-    GreetingsMessageContent(message = stringResource(greetingsTitleRes))
+    GreetingsMessageContent(message = stringResource(greetingsTitleRes, username))
 }
 
 @Composable

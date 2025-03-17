@@ -27,6 +27,7 @@ fun CoursesScreenPreview(
 ) {
     ScreenPreviewContainer(appTheme = appTheme) {
         CoursesScreen(
+            username = "username",
             onAddNewCourse = {},
             onEditCourses = {},
             courses = courses,

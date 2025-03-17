@@ -20,7 +20,7 @@ private val appTheme = AppTheme.Light
 private fun AllComponentsPreview() {
     PreviewWrapper(appTheme = appTheme) {
 
-        GreetingsMessage()
+        GreetingsMessage(username = "username")
 
         PrimaryButton(text = "Primary Button")
 

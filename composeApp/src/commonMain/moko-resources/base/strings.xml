@@ -98,9 +98,9 @@
     <string name="deleting_user_account_error">An error occurred while deleting user account</string>
 
     <!-- Other -->
-    <string name="greetings_title_morning">Good morning!</string>
-    <string name="greetings_title_afternoon">Good afternoon!</string>
-    <string name="greetings_title_evening">Good evening!</string>
-    <string name="greetings_title_night">Good evening!</string>
+    <string name="greetings_title_morning">Good morning, %s!</string>
+    <string name="greetings_title_afternoon">Good afternoon, %s!</string>
+    <string name="greetings_title_evening">Good evening, %s!</string>
+    <string name="greetings_title_night">Good evening, %s!</string>
 
 </resources>
