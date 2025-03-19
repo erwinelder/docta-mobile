@@ -59,7 +59,7 @@ class SectionLessonsViewModel(
                 when (filterType) {
                     LessonFilterType.OneStepQuestions -> lesson is Lesson.Default
                     LessonFilterType.StepByStep -> lesson is Lesson.StepByStep
-                    LessonFilterType.NotDone -> !lesson.statistics.isDone
+                    LessonFilterType.NotDone -> !lesson.completed
                     LessonFilterType.Tests -> lesson is Lesson.Test
                     null -> true
                 }

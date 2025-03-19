@@ -13,10 +13,10 @@ import cz.cvut.docta.core.domain.app.AppTheme
 import cz.cvut.docta.course.presentation.screen.AddNewCourseScreenPreview
 import cz.cvut.docta.course.presentation.screen.CoursesScreenPreview
 import cz.cvut.docta.lesson.presentation.screen.SectionLessonsScreenPreview
-import cz.cvut.docta.question.presentation.screen.AnswerOptionsQuestionScreenPreview
-import cz.cvut.docta.question.presentation.screen.FillInBlanksQuestionScreenPreview
-import cz.cvut.docta.question.presentation.screen.OpenAnswerQuestionScreenPreview
-import cz.cvut.docta.question.presentation.screen.QuestionAnswerPairsQuestionScreenPreview
+import cz.cvut.docta.lessonSession.presentation.screen.AnswerOptionsQuestionScreenPreview
+import cz.cvut.docta.lessonSession.presentation.screen.FillInBlanksQuestionScreenPreview
+import cz.cvut.docta.lessonSession.presentation.screen.OpenAnswerQuestionScreenPreview
+import cz.cvut.docta.lessonSession.presentation.screen.QuestionAnswerPairsQuestionScreenPreview
 import cz.cvut.docta.section.presentation.screen.CourseSectionsScreenPreview
 import cz.cvut.docta.sectionEditing.presentation.screen.CourseEditingScreenPreview
 import cz.cvut.docta.sectionEditing.presentation.screen.SectionEditingScreenPreview

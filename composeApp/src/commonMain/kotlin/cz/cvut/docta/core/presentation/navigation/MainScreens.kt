@@ -11,7 +11,7 @@ sealed interface MainScreens {
     data class CourseManagementGraph(val courseCode: String) : MainScreens
 
     @Serializable
-    data class LessonGraph(val lessonId: Long) : MainScreens
+    data object LessonSessionGraph : MainScreens
 
     @Serializable
     data object Leaderboard : MainScreens

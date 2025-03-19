@@ -20,6 +20,7 @@ fun AddNewCourseScreenPreview(
             code = "nss",
             locale = CourseLocale.English,
             name = "Návrh softwarových systémů",
+            sectionCount = 0
         )
     )
 ) {

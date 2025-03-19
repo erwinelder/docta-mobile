@@ -8,7 +8,7 @@ import cz.cvut.docta.auth.presentation.navigation.AuthScreens
 import cz.cvut.docta.core.presentation.navigation.MainScreens
 import cz.cvut.docta.core.presentation.utils.currentScreenIsAnyOf
 import cz.cvut.docta.course.presentation.navigation.CourseScreens
-import cz.cvut.docta.lesson.presentation.navigation.LessonScreens
+import cz.cvut.docta.lesson.presentation.navigation.LessonSessionScreens
 
 class NavViewModel : ViewModel() {
 
@@ -89,11 +89,11 @@ class NavViewModel : ViewModel() {
 
     fun navigateToNextQuestionOrResultsScreen(
         navController: NavController,
-        nextQuestionScreen: LessonScreens?,
+        nextQuestionScreen: LessonSessionScreens?,
         onResetLessonProgression: () -> Unit
     ) {
-        navController.navigate(nextQuestionScreen ?: LessonScreens.LessonResults) {
-            popUpTo<MainScreens.LessonGraph>()
+        navController.navigate(nextQuestionScreen ?: LessonSessionScreens.LessonResults) {
+            popUpTo<MainScreens.LessonSessionGraph>()
             launchSingleTop = true
         }
         if (nextQuestionScreen == null) {

@@ -8,8 +8,8 @@ import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.lesson.domain.model.Lesson
 import cz.cvut.docta.lesson.domain.model.LessonDifficulty
 import cz.cvut.docta.lesson.domain.model.LessonFilterType
-import cz.cvut.docta.lesson.presentation.navigation.LessonScreens
-import cz.cvut.docta.question.presentation.model.QuestionAndAnswersWrapper
+import cz.cvut.docta.lesson.presentation.navigation.LessonSessionScreens
+import cz.cvut.docta.lessonSession.presentation.model.QuestionAndAnswersWrapper
 import dev.icerock.moko.resources.StringResource
 import docta.composeapp.generated.resources.Res
 import docta.composeapp.generated.resources.one_step_questions_lesson_dark_icon
@@ -66,12 +66,12 @@ fun LessonFilterType.asStringRes(): StringResource {
 }
 
 
-fun QuestionAndAnswersWrapper.getLessonScreenToNavigateTo(): LessonScreens {
+fun QuestionAndAnswersWrapper.getLessonScreenToNavigateTo(): LessonSessionScreens {
     return when (this) {
-        is QuestionAndAnswersWrapper.OpenAnswer -> LessonScreens.OpenAnswerQuestion
-        is QuestionAndAnswersWrapper.FillInBlanks -> LessonScreens.FillInBlanksQuestion
-        is QuestionAndAnswersWrapper.AnswerOptions -> LessonScreens.AnswerOptionsQuestion
-        is QuestionAndAnswersWrapper.QuestionAnswerPairs -> LessonScreens.QuestionAnswerPairsQuestion
-        is QuestionAndAnswersWrapper.StepByStep -> LessonScreens.StepByStepQuestion
+        is QuestionAndAnswersWrapper.OpenAnswer -> LessonSessionScreens.OpenAnswerQuestion
+        is QuestionAndAnswersWrapper.FillInBlanks -> LessonSessionScreens.FillInBlanksQuestion
+        is QuestionAndAnswersWrapper.AnswerOptions -> LessonSessionScreens.AnswerOptionsQuestion
+        is QuestionAndAnswersWrapper.QuestionAnswerPairs -> LessonSessionScreens.QuestionAnswerPairsQuestion
+        is QuestionAndAnswersWrapper.StepByStep -> LessonSessionScreens.StepByStepQuestion
     }
 }

@@ -1,5 +1,7 @@
 package cz.cvut.docta.core.domain.app
 
+import cz.cvut.docta.lesson.domain.model.Lesson
+
 class CourseContext {
 
     private var courseCode: String = ""
@@ -25,6 +27,16 @@ class CourseContext {
     }
     fun resetSectionId() {
         this.sectionId = 0
+    }
+
+
+    private var lesson: Lesson? = null
+
+    fun getLesson(): Lesson? {
+        return lesson
+    }
+    fun setLesson(lesson: Lesson) {
+        this.lesson = lesson
     }
 
 }

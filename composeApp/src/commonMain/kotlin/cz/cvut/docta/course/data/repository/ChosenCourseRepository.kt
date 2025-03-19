@@ -1,6 +1,6 @@
 package cz.cvut.docta.course.data.repository
 
-import cz.cvut.docta.course.data.local.model.ChosenCourseEntity
+import cz.cvut.docta.course.data.model.ChosenCourseEntity
 import kotlinx.coroutines.flow.Flow
 
 interface ChosenCourseRepository {

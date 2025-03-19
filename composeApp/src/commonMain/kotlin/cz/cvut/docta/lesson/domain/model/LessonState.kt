@@ -1,6 +1,6 @@
 package cz.cvut.docta.lesson.domain.model
 
-import cz.cvut.docta.question.domain.model.QuestionWithAnswerInput
+import cz.cvut.docta.lessonSession.domain.model.QuestionWithAnswerInput
 
 sealed class LessonState {
 

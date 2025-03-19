@@ -11,7 +11,7 @@ class GetSectionLessonsWithStatisticsUseCaseImpl(
 ) : GetSectionLessonsWithStatisticsUseCase {
     override suspend fun execute(sectionId: Long): List<Lesson> {
         return lessonRepository
-            .getSectionLessonsWithStatistics(
+            .getLessonsWithProgress(
                 courseCode = courseContext.getCourseCode(), sectionId = sectionId
             )
             .sortedBy { it.orderNum }

@@ -18,7 +18,7 @@ import cz.cvut.docta.course.presentation.screen.AddNewCourseScreen
 import cz.cvut.docta.course.presentation.screen.CoursesScreen
 import cz.cvut.docta.course.presentation.viewModel.AddNewCourseViewModel
 import cz.cvut.docta.course.presentation.viewModel.CoursesViewModel
-import cz.cvut.docta.lesson.presentation.navigation.LessonScreens
+import cz.cvut.docta.lesson.presentation.navigation.LessonSessionScreens
 import cz.cvut.docta.lesson.presentation.screen.SectionLessonsScreen
 import cz.cvut.docta.lesson.presentation.viewmodel.SectionLessonsViewModel
 import cz.cvut.docta.section.presentation.screen.CourseSectionsScreen
@@ -136,8 +136,10 @@ fun NavGraphBuilder.courseNavigationGraph(
                 onDifficultyChange = viewModel::setLessonDifficulty,
                 lessons = lessons,
                 onLessonClick = { lesson ->
+                    courseContext.setLesson(lesson = lesson)
                     navViewModel.navigate(
-                        navController, LessonScreens.LessonStarter(lessonId = lesson.id)
+                        navController = navController,
+                        screen = LessonSessionScreens.LessonStarter
                     )
                 }
             )

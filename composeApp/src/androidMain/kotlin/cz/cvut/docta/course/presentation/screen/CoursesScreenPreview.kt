@@ -16,12 +16,14 @@ fun CoursesScreenPreview(
         Course(
             code = "course_code_1",
             locale = CourseLocale.Czech,
-            name = "Course name 1"
+            name = "Course name 1",
+            sectionCount = 0
         ),
         Course(
             code = "course_code_2",
             locale = CourseLocale.English,
-            name = "Course name 2"
+            name = "Course name 2",
+            sectionCount = 0
         ),
     )
 ) {

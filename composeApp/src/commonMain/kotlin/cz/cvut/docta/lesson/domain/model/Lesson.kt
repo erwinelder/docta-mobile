@@ -1,30 +1,32 @@
 package cz.cvut.docta.lesson.domain.model
 
 sealed class Lesson(
-    open val id: Long,
+    open val id: Int,
     open val name: String,
-    open val statistics: UserLessonStats
+    open val completed: Boolean
 ) {
 
     data class Default(
-        override val id: Long,
+        override val id: Int,
         override val name: String,
-        override val statistics: UserLessonStats,
+        override val completed: Boolean,
         val difficulty: LessonDifficulty,
-    ) : Lesson(id, name, statistics)
+        val matchAllTags: Boolean
+    ) : Lesson(id, name, completed)
 
     data class StepByStep(
-        override val id: Long,
+        override val id: Int,
         override val name: String,
-        override val statistics: UserLessonStats,
+        override val completed: Boolean,
         val description: String,
-        val difficulty: LessonDifficulty,
-    ) : Lesson(id, name, statistics)
+        val difficulty: LessonDifficulty
+    ) : Lesson(id, name, completed)
 
     data class Test(
-        override val id: Long,
+        override val id: Int,
         override val name: String,
-        override val statistics: UserLessonStats,
-    ) : Lesson(id, name, statistics)
+        override val completed: Boolean,
+        val matchAllTags: Boolean
+    ) : Lesson(id, name, completed)
 
 }

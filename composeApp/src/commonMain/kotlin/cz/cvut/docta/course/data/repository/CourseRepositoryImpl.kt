@@ -1,50 +1,64 @@
 package cz.cvut.docta.course.data.repository
 
-import cz.cvut.docta.core.data.utils.synchroniseData
-import cz.cvut.docta.course.data.local.model.CourseEntity
-import cz.cvut.docta.course.data.local.source.CourseLocalDataSource
-import cz.cvut.docta.course.data.mapper.toCourseEntitiesToSync
-import cz.cvut.docta.course.data.remote.model.CourseRemoteEntity
-import cz.cvut.docta.course.data.remote.source.CourseRemoteDataSource
+import cz.cvut.docta.auth.domain.model.UserContext
+import cz.cvut.docta.core.data.remote.doctaBackendUrl
+import cz.cvut.docta.core.data.remote.httpClient
+import cz.cvut.docta.course.data.model.CourseDto
+import io.ktor.client.request.get
+import io.ktor.client.request.header
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
+import io.ktor.client.statement.bodyAsText
+import io.ktor.http.ContentType
+import io.ktor.http.HttpStatusCode
+import io.ktor.http.contentType
+import kotlinx.serialization.json.Json
 
 class CourseRepositoryImpl(
-    private val localSource: CourseLocalDataSource,
-    private val remoteSource: CourseRemoteDataSource
+    private val userContext: UserContext
 ) : CourseRepository {
 
-    private suspend fun synchroniseCourses() {
-        synchroniseData(
-            localUpdateTimeGetter = { localSource.getUpdateTime() },
-            remoteUpdateTimeGetter = { remoteSource.getUpdateTime() },
-            remoteDataGetter = { _, timestamp ->
-                remoteSource.getCoursesAfterTimestamp(timestamp = timestamp)
-            },
-            remoteDataToDataToSyncMapper = List<CourseRemoteEntity>::toCourseEntitiesToSync,
-            localSynchroniser = { coursesToSync, _, timestamp ->
-                localSource.synchroniseCourses(coursesToSync = coursesToSync, timestamp = timestamp)
+    override suspend fun getCourses(codes: List<String>): List<CourseDto> {
+        return try {
+            val response = httpClient.post(
+                urlString = "$doctaBackendUrl/courses"
+            ) {
+                header("Authorization", "Bearer ${userContext.getAuthToken()}")
+                contentType(ContentType.Application.Json)
+                setBody(codes)
             }
-        )
+
+            if (response.status == HttpStatusCode.OK) {
+                Json.decodeFromString<List<CourseDto>>(string = response.bodyAsText())
+            } else {
+                emptyList()
+            }
+        } catch (_: Exception) {
+            emptyList()
+        }
     }
 
-    override suspend fun getAllCourses(): List<CourseEntity> {
-        synchroniseCourses()
-        return localSource.getAllCourses()
+    override suspend fun getCourse(courseCode: String): CourseDto? {
+        return try {
+            val response = httpClient.get(
+                urlString = "$doctaBackendUrl/courses/$courseCode"
+            ) {
+                header("Authorization", "Bearer ${userContext.getAuthToken()}")
+                contentType(ContentType.Application.Json)
+            }
+
+            if (response.status == HttpStatusCode.OK) {
+                Json.decodeFromString<CourseDto>(string = response.bodyAsText())
+            } else {
+                null
+            }
+        } catch (_: Exception) {
+            null
+        }
     }
 
-    override suspend fun getCourses(codes: List<String>): List<CourseEntity> {
-        synchroniseCourses()
-        // TODO: Temporary solution
-        return localSource.getAllCourses().filter { it.code in codes }
-    }
-
-    override suspend fun getCourse(courseCode: String): CourseEntity? {
-        synchroniseCourses()
-        return localSource.getCourse(courseCode = courseCode)
-    }
-
-    override suspend fun getCourseRemotely(courseCode: String): CourseEntity? {
-        // TODO-COURSE: Implement getting course remotely
-        return null
+    override suspend fun getCourseRemotely(courseCode: String): CourseDto? {
+        return getCourse(courseCode = courseCode)
     }
 
 }

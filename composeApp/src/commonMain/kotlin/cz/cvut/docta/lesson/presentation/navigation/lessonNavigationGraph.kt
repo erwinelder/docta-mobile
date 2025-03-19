@@ -8,7 +8,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import androidx.navigation.toRoute
 import cz.cvut.docta.core.domain.app.CourseContext
 import cz.cvut.docta.core.presentation.navigation.MainScreens
 import cz.cvut.docta.core.presentation.navigation.sharedKoinNavViewModel
@@ -19,15 +18,16 @@ import cz.cvut.docta.lesson.presentation.screen.LessonResultsScreen
 import cz.cvut.docta.lesson.presentation.utils.getLessonScreenToNavigateTo
 import cz.cvut.docta.lesson.presentation.viewmodel.LessonProgressViewModel
 import cz.cvut.docta.lesson.presentation.viewmodel.LessonViewModel
-import cz.cvut.docta.question.presentation.model.QuestionAndAnswersWrapper
-import cz.cvut.docta.question.presentation.screen.AnswerOptionsQuestionScreen
-import cz.cvut.docta.question.presentation.screen.FillInBlanksQuestionScreen
-import cz.cvut.docta.question.presentation.screen.OpenAnswerQuestionScreen
-import cz.cvut.docta.question.presentation.screen.QuestionAnswerPairsQuestionScreen
-import cz.cvut.docta.question.presentation.viewmodel.AnswerOptionsQuestionViewModel
-import cz.cvut.docta.question.presentation.viewmodel.FillInBlanksQuestionViewModel
-import cz.cvut.docta.question.presentation.viewmodel.OpenAnswerQuestionViewModel
-import cz.cvut.docta.question.presentation.viewmodel.QuestionAnswerPairsQuestionViewModel
+import cz.cvut.docta.lessonSession.mapper.getSessionOptions
+import cz.cvut.docta.lessonSession.presentation.model.QuestionAndAnswersWrapper
+import cz.cvut.docta.lessonSession.presentation.screen.AnswerOptionsQuestionScreen
+import cz.cvut.docta.lessonSession.presentation.screen.FillInBlanksQuestionScreen
+import cz.cvut.docta.lessonSession.presentation.screen.OpenAnswerQuestionScreen
+import cz.cvut.docta.lessonSession.presentation.screen.QuestionAnswerPairsQuestionScreen
+import cz.cvut.docta.lessonSession.presentation.viewmodel.AnswerOptionsQuestionViewModel
+import cz.cvut.docta.lessonSession.presentation.viewmodel.FillInBlanksQuestionViewModel
+import cz.cvut.docta.lessonSession.presentation.viewmodel.OpenAnswerQuestionViewModel
+import cz.cvut.docta.lessonSession.presentation.viewmodel.QuestionAnswerPairsQuestionViewModel
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
@@ -38,15 +38,18 @@ fun NavGraphBuilder.lessonNavigationGraph(
     screenPadding: PaddingValues,
     lessonProgressViewModel: LessonProgressViewModel
 ) {
-    navigation<MainScreens.LessonGraph>(
-        startDestination = LessonScreens.LessonStarter(lessonId = 0)
+    navigation<MainScreens.LessonSessionGraph>(
+        startDestination = LessonSessionScreens.LessonStarter
     ) {
-        composable<LessonScreens.LessonStarter> { backStack ->
-            val lessonId = backStack.toRoute<LessonScreens.LessonStarter>().lessonId
+        composable<LessonSessionScreens.LessonStarter> { backStack ->
+            val courseContext = koinInject<CourseContext>()
+            val sessionOptions = courseContext.getLesson()?.getSessionOptions() ?: run {
+                return@composable // TODO
+            }
 
             val viewModel = backStack.sharedKoinNavViewModel<LessonViewModel>(navController)
-            LaunchedEffect(lessonId) {
-                val questionsCount = viewModel.fetchQuestions(lessonId = lessonId)
+            LaunchedEffect(sessionOptions) {
+                val questionsCount = viewModel.fetchQuestions(sessionOptions = sessionOptions)
                 lessonProgressViewModel.setProgression(questionCount = questionsCount)
 
                 viewModel.getNextQuestionOrNull()?.getLessonScreenToNavigateTo()?.let { nextScreen ->
@@ -56,7 +59,7 @@ fun NavGraphBuilder.lessonNavigationGraph(
 
 
         }
-        composable<LessonScreens.OpenAnswerQuestion> { backStack ->
+        composable<LessonSessionScreens.OpenAnswerQuestion> { backStack ->
             val lessonViewModel = backStack.sharedKoinNavViewModel<LessonViewModel>(navController)
             val questionViewModel = koinViewModel<OpenAnswerQuestionViewModel> {
                 parametersOf(
@@ -88,7 +91,7 @@ fun NavGraphBuilder.lessonNavigationGraph(
                 }
             )
         }
-        composable<LessonScreens.FillInBlanksQuestion> { backStack ->
+        composable<LessonSessionScreens.FillInBlanksQuestion> { backStack ->
             val lessonViewModel = backStack.sharedKoinNavViewModel<LessonViewModel>(navController)
             val questionViewModel = koinViewModel<FillInBlanksQuestionViewModel> {
                 parametersOf(
@@ -120,7 +123,7 @@ fun NavGraphBuilder.lessonNavigationGraph(
                 }
             )
         }
-        composable<LessonScreens.AnswerOptionsQuestion> { backStack ->
+        composable<LessonSessionScreens.AnswerOptionsQuestion> { backStack ->
             val lessonViewModel = backStack.sharedKoinNavViewModel<LessonViewModel>(navController)
             val questionViewModel = koinViewModel<AnswerOptionsQuestionViewModel> {
                 parametersOf(
@@ -152,7 +155,7 @@ fun NavGraphBuilder.lessonNavigationGraph(
                 }
             )
         }
-        composable<LessonScreens.QuestionAnswerPairsQuestion> { backStack ->
+        composable<LessonSessionScreens.QuestionAnswerPairsQuestion> { backStack ->
             val lessonViewModel = backStack.sharedKoinNavViewModel<LessonViewModel>(navController)
             val questionViewModel = koinViewModel<QuestionAnswerPairsQuestionViewModel> {
                 parametersOf(
@@ -185,7 +188,7 @@ fun NavGraphBuilder.lessonNavigationGraph(
                 }
             )
         }
-        composable<LessonScreens.LessonResults> { backStack ->
+        composable<LessonSessionScreens.LessonResults> { backStack ->
             val courseContext = koinInject<CourseContext>()
 
             val viewModel = backStack.sharedKoinNavViewModel<LessonViewModel>(navController)
