@@ -126,15 +126,15 @@ room {
 
 dependencies {
     debugImplementation(compose.uiTooling)
-    ksp(libs.room.compiler)
+//    ksp(libs.room.compiler)
 
-//    kspCommonMainMetadata(libs.room.compiler)
+    kspCommonMainMetadata(libs.room.compiler)
 
-//    add("kspAndroid", libs.room.compiler)
+    add("kspAndroid", libs.room.compiler)
 
-//    add("kspIosX64", libs.room.compiler)
-//    add("kspIosArm64", libs.room.compiler)
-//    add("kspIosSimulatorArm64", libs.room.compiler)
+    add("kspIosX64", libs.room.compiler)
+    add("kspIosArm64", libs.room.compiler)
+    add("kspIosSimulatorArm64", libs.room.compiler)
 }
 
 afterEvaluate {
