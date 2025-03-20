@@ -109,13 +109,13 @@ sealed class DoctaPalette(
 
         success = Color(92, 180, 85),
         successGradient = listOf(
-            Color(92, 180, 85),
-            Color(75, 148, 70)
+            Color(75, 148, 70),
+            Color(92, 180, 85)
         ),
         error = Color(211, 92, 92),
         errorGradient = listOf(
-            Color(211, 92, 92),
-            Color(171, 67, 67)
+            Color(171, 67, 67),
+            Color(211, 92, 92)
         ),
 
         yellow = Color(245, 195, 68),
@@ -174,13 +174,13 @@ sealed class DoctaPalette(
 
         success = Color(82, 161, 76),
         successGradient = listOf(
-            Color(82, 161, 76),
-            Color(72, 141, 66)
+            Color(72, 141, 66),
+            Color(82, 161, 76)
         ),
         error = Color(169, 66, 66),
         errorGradient = listOf(
-            Color(169, 66, 66),
-            Color(150, 52, 52)
+            Color(150, 52, 52),
+            Color(169, 66, 66)
         ),
 
         yellow = Color(245, 195, 68),
