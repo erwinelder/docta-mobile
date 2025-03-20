@@ -10,4 +10,6 @@ interface CourseRepository {
 
     suspend fun getCourseRemotely(courseCode: String): CourseDto?
 
+    suspend fun getCourseRemotely(courseCode: String): CourseEntity?
+
 }
