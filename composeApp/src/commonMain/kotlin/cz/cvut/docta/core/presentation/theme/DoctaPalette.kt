@@ -13,6 +13,8 @@ sealed class DoctaPalette(
     val primarySemiTransparent: Color = primary.copy(alpha = .6f),
     val onPrimary: Color,
 
+    val primaryText: Color,
+
     val background: Color,
     val surface: Color,
     val surfaceGradient: List<Color>,
@@ -66,6 +68,8 @@ sealed class DoctaPalette(
             Color(97, 140, 213, 51)
         ),
         onPrimary = Color(245, 245, 245),
+
+        primaryText = Color(91, 126, 187),
 
         background = Color.White,
         surface = Color(247, 247, 247),
@@ -131,6 +135,8 @@ sealed class DoctaPalette(
             Color(131, 177, 255, 77)
         ),
         onPrimary = Color(245, 245, 245),
+
+        primaryText = Color(91, 123, 179),
 
         background = Color.Black,
         surface = Color(33, 33, 33),
