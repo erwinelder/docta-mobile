@@ -36,7 +36,7 @@ fun SectionLessonsScreen(
     val lazyListState = rememberLazyListState()
 
     ScreenContainerWithBackNavButton(
-        onBackButtonClick = onNavigateBack,
+        onNavigateBack = onNavigateBack,
         backButtonText = sectionName,
         backButtonIconRes = sectionIconRes,
         verticalArrangement = Arrangement.spacedBy(24.dp),

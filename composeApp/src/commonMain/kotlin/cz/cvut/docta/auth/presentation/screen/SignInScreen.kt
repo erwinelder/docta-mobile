@@ -1,12 +1,11 @@
 package cz.cvut.docta.auth.presentation.screen
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.SharedRes
@@ -48,28 +47,21 @@ fun SignInScreen(
                     onEmailChange = onEmailChange,
                     passwordState = passwordState,
                     onPasswordChange = onPasswordChange,
+                    onSignIn = onSignIn
                 )
             },
             buttonUnderGlassSurface = {
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    PrimaryButton(
-                        text = stringResource(SharedRes.strings.sign_in),
-                        enabled = signInIsAllowed,
-                        onClick = onSignIn
-                    )
-                }
+                PrimaryButton(
+                    text = stringResource(SharedRes.strings.sign_in),
+                    enabled = signInIsAllowed,
+                    onClick = onSignIn
+                )
             },
             bottomButton = {
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    SecondaryButton(
-                        text = stringResource(SharedRes.strings.create_account),
-                        onClick = onNavigateToSignUpScreen
-                    )
-                }
+                SecondaryButton(
+                    text = stringResource(SharedRes.strings.create_account),
+                    onClick = onNavigateToSignUpScreen
+                )
             }
         )
     }
@@ -80,7 +72,8 @@ private fun GlassSurfaceContent(
     emailState: ValidatedFieldUiState,
     onEmailChange: (String) -> Unit,
     passwordState: ValidatedFieldUiState,
-    onPasswordChange: (String) -> Unit
+    onPasswordChange: (String) -> Unit,
+    onSignIn: () -> Unit
 ) {
     val scrollState = rememberScrollState()
 
@@ -92,14 +85,17 @@ private fun GlassSurfaceContent(
             onValueChange = onEmailChange,
             keyboardType = KeyboardType.Email,
             placeholderText = stringResource(SharedRes.strings.email),
-            labelText = stringResource(SharedRes.strings.email)
+            labelText = stringResource(SharedRes.strings.email),
+            imeAction = ImeAction.Next
         )
         LargeTextFieldWithLabelAndMessages(
             state = passwordState,
             onValueChange = onPasswordChange,
             keyboardType = KeyboardType.Password,
             placeholderText = stringResource(SharedRes.strings.password),
-            labelText = stringResource(SharedRes.strings.password)
+            labelText = stringResource(SharedRes.strings.password),
+            imeAction = ImeAction.Done,
+            onDoneKeyboardAction = onSignIn
         )
     }
 }

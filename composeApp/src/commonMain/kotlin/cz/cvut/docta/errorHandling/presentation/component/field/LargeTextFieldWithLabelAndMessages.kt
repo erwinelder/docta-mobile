@@ -1,6 +1,7 @@
 package cz.cvut.docta.errorHandling.presentation.component.field
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
@@ -18,7 +19,9 @@ fun LargeTextFieldWithLabelAndMessages(
     keyboardType: KeyboardType = KeyboardType.Text,
     fontSize: TextUnit = 19.sp,
     cornerSize: Dp = 15.dp,
-    labelText: String? = null
+    labelText: String? = null,
+    imeAction: ImeAction = ImeAction.Done,
+    onDoneKeyboardAction: () -> Unit = {}
 ) {
     LabelWithMessagesFieldWrapper(state = state, labelText = labelText) {
         SmallTextField(
@@ -28,7 +31,9 @@ fun LargeTextFieldWithLabelAndMessages(
             isError = isError,
             keyboardType = keyboardType,
             fontSize = fontSize,
-            cornerSize = cornerSize
+            cornerSize = cornerSize,
+            imeAction = imeAction,
+            onDoneKeyboardAction = onDoneKeyboardAction
         )
     }
 }

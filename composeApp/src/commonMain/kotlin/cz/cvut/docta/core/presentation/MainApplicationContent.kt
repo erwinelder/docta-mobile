@@ -57,7 +57,7 @@ fun MainApplicationContent(
     }
     val authStartDestination: AuthScreens by remember {
         derivedStateOf {
-            if (userContext.userId == 0) AuthScreens.SignIn(email = "") else AuthScreens.Profile
+            if (userContext.userId == 0) AuthScreens.SignIn() else AuthScreens.Profile()
         }
     }
 
@@ -78,7 +78,7 @@ fun MainApplicationContent(
                 ),
                 anyScreenInHierarchyIsScreenProvider = navBackStackEntry::anyScreenInHierarchyIs,
                 currentScreenIsScreenProvider = navBackStackEntry::currentScreenIs,
-                onNavigateToScreen = { screen: MainScreens ->
+                onNavigateToScreen = { screen: Any ->
                     navViewModel.navigateToScreenPoppingToStartDestination(
                         navController = navController,
                         navBackStackEntry = navBackStackEntry,

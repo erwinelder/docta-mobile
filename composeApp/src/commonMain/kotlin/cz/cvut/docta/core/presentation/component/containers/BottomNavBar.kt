@@ -28,7 +28,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.core.presentation.modifier.bounceClickEffect
 import cz.cvut.docta.core.presentation.navigation.BottomBarNavButton
-import cz.cvut.docta.core.presentation.navigation.MainScreens
 import cz.cvut.docta.core.presentation.theme.CurrAppTheme
 import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.core.presentation.utils.add
@@ -42,13 +41,13 @@ fun BottomNavBar(
     padding: PaddingValues = PaddingValues(0.dp),
     anyScreenInHierarchyIsScreenProvider: (Any) -> Boolean,
     currentScreenIsScreenProvider: (Any) -> Boolean,
-    onNavigateToScreen: (MainScreens) -> Unit,
+    onNavigateToScreen: (Any) -> Unit,
     barButtons: List<BottomBarNavButton> = BottomBarNavButton.asDefaultList()
 ) {
     var timerIsUp by remember { mutableStateOf(true) }
     val coroutineScope = rememberCoroutineScope()
 
-    val onButtonClick = { screen: MainScreens ->
+    val onButtonClick = { screen: Any ->
         if (!currentScreenIsScreenProvider(screen) && timerIsUp) {
             coroutineScope.launch {
                 timerIsUp = false
@@ -103,7 +102,7 @@ fun BottomNavBar(
 private fun BottomBarButton(
     button: BottomBarNavButton,
     anyScreenInHierarchyIsScreenProvider: (Any) -> Boolean,
-    onClick: (MainScreens) -> Unit
+    onClick: (Any) -> Unit
 ) {
     val isActive = anyScreenInHierarchyIsScreenProvider(button.screen)
 

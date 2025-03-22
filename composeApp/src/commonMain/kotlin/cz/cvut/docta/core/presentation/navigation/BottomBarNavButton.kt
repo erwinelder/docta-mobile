@@ -1,5 +1,6 @@
 package cz.cvut.docta.core.presentation.navigation
 
+import cz.cvut.docta.auth.presentation.navigation.AuthScreens
 import cz.cvut.docta.core.presentation.model.IconResByAppTheme
 import docta.composeapp.generated.resources.Res
 import docta.composeapp.generated.resources.home_dark_active
@@ -12,7 +13,7 @@ import docta.composeapp.generated.resources.profile_light_active
 import docta.composeapp.generated.resources.profile_light_inactive
 
 sealed class BottomBarNavButton(
-    val screen: MainScreens,
+    val screen: Any,
     val inactiveIconRes: IconResByAppTheme,
     val activeIconRes: IconResByAppTheme,
 ) {
@@ -30,7 +31,7 @@ sealed class BottomBarNavButton(
     )
 
     data object Profile : BottomBarNavButton(
-        screen = MainScreens.AuthGraph,
+        screen = AuthScreens.Profile(),
         inactiveIconRes = IconResByAppTheme(
             light = Res.drawable.profile_light_inactive,
             dark = Res.drawable.profile_dark_inactive

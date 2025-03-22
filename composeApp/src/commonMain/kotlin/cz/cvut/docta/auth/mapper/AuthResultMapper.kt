@@ -29,6 +29,7 @@ private fun AuthSuccess.asTitleRes(): StringResource {
         AuthSuccess.SignedIn -> SharedRes.strings.welcome_back_to_docta
         AuthSuccess.EmailVerificationSent -> SharedRes.strings.email_sent
         AuthSuccess.SignedUp -> SharedRes.strings.welcome_to_docta
+        AuthSuccess.NameUpdated -> SharedRes.strings.name_updated
         AuthSuccess.AccountDeleted -> SharedRes.strings.account_deleted
     }
 }
@@ -38,7 +39,8 @@ private fun AuthSuccess.asMessageRes(): StringResource {
         AuthSuccess.SignedIn -> SharedRes.strings.welcome_back_to_docta
         AuthSuccess.EmailVerificationSent -> SharedRes.strings.sign_up_email_verification_sent_description
         AuthSuccess.SignedUp -> SharedRes.strings.welcome_to_docta
-        AuthSuccess.AccountDeleted -> SharedRes.strings.your_account_has_been_deleted_successfully
+        AuthSuccess.NameUpdated -> SharedRes.strings.name_updated
+        AuthSuccess.AccountDeleted -> SharedRes.strings.account_deletion_success_message
     }
 }
 
@@ -55,6 +57,8 @@ private fun AuthError.asTitleRes(): StringResource {
         AuthError.DataDeletionError,
         AuthError.AccountDeletionError -> SharedRes.strings.oops
         AuthError.EmailNotVerifiedYet -> SharedRes.strings.not_verified
+        AuthError.NameUpdateError -> SharedRes.strings.name_updated_error
+        AuthError.UserDataFetchError -> SharedRes.strings.user_data_not_fetched_error
     }
 }
 
@@ -70,5 +74,7 @@ private fun AuthError.asMessageRes(): StringResource {
         AuthError.EmailNotVerifiedYet -> SharedRes.strings.your_email_not_verified_description
         AuthError.DataDeletionError -> SharedRes.strings.deleting_user_data_error
         AuthError.AccountDeletionError -> SharedRes.strings.deleting_user_account_error
+        AuthError.NameUpdateError -> SharedRes.strings.name_updated_error
+        AuthError.UserDataFetchError -> SharedRes.strings.user_data_not_fetched_error
     }
 }

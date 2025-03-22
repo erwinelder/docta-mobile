@@ -56,6 +56,7 @@ fun SmallTextField(
     cornerSize: Dp = 15.dp,
     keyboardType: KeyboardType = KeyboardType.Text,
     imeAction: ImeAction = ImeAction.Done,
+    onDoneKeyboardAction: () -> Unit = {},
     readOnly: Boolean = false,
     isError: Boolean = false,
     modifier: Modifier = Modifier
@@ -92,7 +93,10 @@ fun SmallTextField(
                 ),
                 keyboardActions = KeyboardActions(
                     onNext = { focusManager.moveFocus(FocusDirection.Down) },
-                    onDone = { focusManager.clearFocus() }
+                    onDone = {
+                        focusManager.clearFocus()
+                        onDoneKeyboardAction()
+                    }
                 ),
                 visualTransformation = visualTransformation,
                 singleLine = true,

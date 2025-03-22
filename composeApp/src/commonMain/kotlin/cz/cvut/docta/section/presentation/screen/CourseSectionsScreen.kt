@@ -28,7 +28,7 @@ fun CourseSectionsScreen(
     val lazyListState = rememberLazyListState()
 
     ScreenContainerWithBackNavButton(
-        onBackButtonClick = onNavigateBack,
+        onNavigateBack = onNavigateBack,
         backButtonText = courseName,
         backButtonIconRes = courseIconRes,
         verticalArrangement = Arrangement.spacedBy(24.dp),

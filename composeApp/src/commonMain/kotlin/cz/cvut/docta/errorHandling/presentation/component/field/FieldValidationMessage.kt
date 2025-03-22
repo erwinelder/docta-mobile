@@ -13,7 +13,7 @@ import cz.cvut.docta.errorHandling.presentation.model.ValidationUiState
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
-fun FieldMessage(
+fun FieldValidationMessage(
     state: ValidationUiState,
     fontSize: TextUnit = 15.sp
 ) {

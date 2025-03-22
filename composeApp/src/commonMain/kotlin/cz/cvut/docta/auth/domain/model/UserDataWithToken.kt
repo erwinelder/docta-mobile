@@ -5,9 +5,9 @@ package cz.cvut.docta.auth.domain.model
  * @property token JWT token that is used for requests authorization on the server.
  */
 data class UserDataWithToken(
-    val id: Int,
-    val email: String,
-    val role: UserRole,
-    val name: String,
-    val token: String
+    val id: Int = 0,
+    val email: String = "",
+    val role: UserRole = UserRole.User,
+    val name: String = "",
+    val token: String = ""
 )

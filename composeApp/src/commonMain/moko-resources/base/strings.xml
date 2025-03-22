@@ -57,8 +57,21 @@
     <string name="your_email_not_verified_description">Your email is not verified yet. Please follow the link in the email to verify your account.</string>
     <string name="welcome_back_to_docta">Welcome back to Docta!</string>
     <string name="welcome_to_docta">Welcome to Docta!</string>
+    <string name="sign_out">Sign out</string>
+    <string name="sign_out_question">Sign out?</string>
+    <string name="sign_out_confirmation">Sign out of your account? You will need to sign in again to access Docta.</string>
+    <string name="delete_account">Delete account</string>
+    <string name="delete_account_confirmation">Delete your account with all your progress and data?</string>
     <string name="account_deleted">Account deleted!</string>
-    <string name="your_account_has_been_deleted_successfully">Your account has been deleted successfully.</string>
+    <string name="account_deletion_success_message">Your account has been deleted successfully.</string>
+    <string name="loading_user_data">Loading user data…</string>
+    <string name="user_data_not_fetched">User data not fetched</string>
+    <string name="user_data_not_fetched_error">An error occurred while fetching user data.</string>
+    <string name="name_updated">Name has been updated</string>
+    <string name="name_updated_error">An error occurred while updating user name.</string>
+    <string name="user_role">User</string>
+    <string name="teacher_role">Teacher</string>
+    <string name="admin_role">Admin</string>
 
     <!-- Fields -->
     <string name="name">Name</string>
@@ -104,5 +117,6 @@
     <string name="greetings_title_afternoon">Good afternoon, %s!</string>
     <string name="greetings_title_evening">Good evening, %s!</string>
     <string name="greetings_title_night">Good evening, %s!</string>
+    <string name="saving">Saving…</string>
 
 </resources>

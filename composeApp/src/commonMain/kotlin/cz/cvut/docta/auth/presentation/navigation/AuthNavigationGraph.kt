@@ -16,13 +16,18 @@ import androidx.navigation.toRoute
 import cz.cvut.docta.auth.presentation.model.AuthSuccessScreenType
 import cz.cvut.docta.auth.presentation.screen.AuthSuccessScreen
 import cz.cvut.docta.auth.presentation.screen.EmailVerificationScreen
+import cz.cvut.docta.auth.presentation.screen.ProfileScreen
 import cz.cvut.docta.auth.presentation.screen.SignInScreen
+import cz.cvut.docta.auth.presentation.screen.SignOutScreen
 import cz.cvut.docta.auth.presentation.screen.SignUpScreen
+import cz.cvut.docta.auth.presentation.viewmodel.ProfileViewModel
 import cz.cvut.docta.auth.presentation.viewmodel.SignInViewModel
+import cz.cvut.docta.auth.presentation.viewmodel.SignOutViewModel
 import cz.cvut.docta.auth.presentation.viewmodel.SignUpViewModel
 import cz.cvut.docta.core.presentation.navigation.MainScreens
 import cz.cvut.docta.core.presentation.navigation.sharedKoinNavViewModel
 import cz.cvut.docta.core.presentation.viewmodel.NavViewModel
+import cz.cvut.docta.core.utils.takeActionIf
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
@@ -179,8 +184,57 @@ fun NavGraphBuilder.authGraph(
                 }
             )
         }
-        composable<AuthScreens.Profile> {
+        composable<AuthScreens.Profile> { backStack ->
+            val userId = backStack.toRoute<AuthScreens.Profile>().userId
+            val viewModel = koinViewModel<ProfileViewModel> {
+                parametersOf(userId)
+            }
 
+            val userData by viewModel.userData.collectAsStateWithLifecycle()
+            val nameState by viewModel.nameState.collectAsStateWithLifecycle()
+            val userNameEditingState by viewModel.userNameEditingState.collectAsStateWithLifecycle()
+            val requestState by viewModel.requestState.collectAsStateWithLifecycle()
+
+            ProfileScreen(
+                screenPadding = screenPadding,
+                onNavigateToDeleteAccountScreen = {
+                    navViewModel.navigate(
+                        navController = navController, screen = AuthScreens.DeleteAccount
+                    )
+                },
+                onNavigateToSignOutScreen = takeActionIf(userId == 0) {
+                    navViewModel.navigate(
+                        navController = navController, screen = AuthScreens.SignOut
+                    )
+                },
+                userData = userData,
+                nameState = nameState,
+                userNameEditingState = userNameEditingState,
+                onToggleUserNameEditingState = viewModel::toggleUserNameEditingState,
+                onNameChange = viewModel::changeName,
+                onSaveName = viewModel::saveName,
+                requestState = requestState,
+                onCancelRequest = navController::popBackStack,
+                onCloseResult = navController::popBackStack
+            )
+        }
+        composable<AuthScreens.SignOut> { backStack ->
+            val viewModel = koinViewModel<SignOutViewModel>()
+
+            val coroutineScope = rememberCoroutineScope()
+
+            SignOutScreen(
+                screenPadding = screenPadding,
+                onNavigateBack = navController::popBackStack,
+                onSignOut = {
+                    coroutineScope.launch {
+                        viewModel.signOut()
+                        navViewModel.navigateAndPopUpTo(
+                            navController = navController, screenToNavigateTo = AuthScreens.SignIn()
+                        )
+                    }
+                }
+            )
         }
         composable<AuthScreens.DeleteAccount> { backStack ->
 

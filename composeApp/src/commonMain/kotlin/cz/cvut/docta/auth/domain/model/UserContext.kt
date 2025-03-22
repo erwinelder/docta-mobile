@@ -22,21 +22,30 @@ class UserContext(
         private set
 
 
-    fun saveUserData(userDataWithToken: UserDataWithToken) {
-        this.userId = userDataWithToken.id
-        this.email = userDataWithToken.email
-        this.role = userDataWithToken.role
-        this.name = userDataWithToken.name
+    fun getUserData(): UserData {
+        return UserData(
+            id = userId,
+            email = email,
+            role = role,
+            name = name
+        )
+    }
 
-        saveUserDataToSecureStorageUseCase.execute(userDataWithToken = userDataWithToken)
+    fun setUserName(name: String) {
+        this.name = name
+    }
+
+    fun saveUserDataWithToken(data: UserDataWithToken) {
+        this.userId = data.id
+        this.email = data.email
+        this.role = data.role
+        this.name = data.name
+
+        saveUserDataToSecureStorageUseCase.execute(userDataWithToken = data)
     }
 
     fun resetUserData() {
-        saveUserData(
-            userDataWithToken = UserDataWithToken(
-                id = 0, email = "", role = UserRole.User, name = "", token = ""
-            )
-        )
+        saveUserDataWithToken(data = UserDataWithToken())
     }
 
     fun isAtLeastTeacher(): Boolean = role == UserRole.Teacher || role == UserRole.Admin

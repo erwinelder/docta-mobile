@@ -57,8 +57,21 @@
     <string name="your_email_not_verified_description">Váš e-mail ještě nebyl ověřen. Postupujte podle odkazu v e-mailu k ověření účtu.</string>
     <string name="welcome_back_to_docta">Vítejte zpět v Docta!</string>
     <string name="welcome_to_docta">Vítejte v Docta!</string>
+    <string name="sign_out">Odhlásit se</string>
+    <string name="sign_out_question">Odhlásit se?</string>
+    <string name="sign_out_confirmation">Odhlásit se z vašeho účtu? Budete se muset znovu přihlásit, abyste získali přístup k Doctě.</string>
+    <string name="delete_account">Smazat účet</string>
+    <string name="delete_account_confirmation">Smazat váš účet spolu se vším pokrokem a daty?</string>
     <string name="account_deleted">Účet smazán!</string>
-    <string name="your_account_has_been_deleted_successfully">Váš účet byl úspěšně smazán</string>
+    <string name="account_deletion_success_message">Váš účet byl úspěšně smazán.</string>
+    <string name="loading_user_data">Načítání uživatelských dat…</string>
+    <string name="user_data_not_fetched">Data uživatele nebyly načteny</string>
+    <string name="user_data_not_fetched_error">Při načítání uživatelských dat došlo k chybě.</string>
+    <string name="name_updated">Jméno bylo aktualizováno</string>
+    <string name="name_updated_error">Při aktualizaci uživatelského jména došlo k chybě.</string>
+    <string name="user_role">Uživatel</string>
+    <string name="teacher_role">Vyučující</string>
+    <string name="admin_role">Admin</string>
 
     <!-- Fields -->
     <string name="name">Jméno</string>
@@ -104,5 +117,6 @@
     <string name="greetings_title_afternoon">Dobré poledne!</string>
     <string name="greetings_title_evening">Dobré odpoledne!</string>
     <string name="greetings_title_night">Dobrý večer!</string>
+    <string name="saving">Ukládáni…</string>
 
 </resources>

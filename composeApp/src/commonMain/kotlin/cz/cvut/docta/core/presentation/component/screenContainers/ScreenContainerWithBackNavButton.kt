@@ -20,7 +20,7 @@ import org.jetbrains.compose.resources.DrawableResource
 
 @Composable
 fun ScreenContainerWithBackNavButton(
-    onBackButtonClick: () -> Unit,
+    onNavigateBack: () -> Unit,
     backButtonText: String,
     backButtonIconRes: DrawableResource? = null,
     verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(24.dp),
@@ -40,7 +40,7 @@ fun ScreenContainerWithBackNavButton(
         GlassSurfaceTopBackNavButton(
             text = backButtonText,
             iconRes = backButtonIconRes,
-            onClick = onBackButtonClick
+            onClick = onNavigateBack
         )
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,

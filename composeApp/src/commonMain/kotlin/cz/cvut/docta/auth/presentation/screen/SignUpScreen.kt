@@ -1,12 +1,11 @@
 package cz.cvut.docta.auth.presentation.screen
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.SharedRes
@@ -56,19 +55,16 @@ fun SignUpScreen(
                     passwordState = passwordState,
                     onPasswordChange = onPasswordChange,
                     confirmPasswordState = confirmPasswordState,
-                    onConfirmPasswordChange = onConfirmPasswordChange
+                    onConfirmPasswordChange = onConfirmPasswordChange,
+                    onSignUp = onSignUp
                 )
             },
             buttonUnderGlassSurface = {
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    PrimaryButton(
-                        text = stringResource(SharedRes.strings.create_account),
-                        enabled = signUpIsAllowed,
-                        onClick = onSignUp
-                    )
-                }
+                PrimaryButton(
+                    text = stringResource(SharedRes.strings.create_account),
+                    enabled = signUpIsAllowed,
+                    onClick = onSignUp
+                )
             },
             bottomButton = {
                 SecondaryButton(
@@ -89,7 +85,8 @@ private fun GlassSurfaceContent(
     passwordState: ValidatedFieldUiState,
     onPasswordChange: (String) -> Unit,
     confirmPasswordState: ValidatedFieldUiState,
-    onConfirmPasswordChange: (String) -> Unit
+    onConfirmPasswordChange: (String) -> Unit,
+    onSignUp: () -> Unit
 ) {
     val scrollState = rememberScrollState()
 
@@ -101,28 +98,33 @@ private fun GlassSurfaceContent(
             onValueChange = onNameChange,
             keyboardType = KeyboardType.Text,
             placeholderText = stringResource(SharedRes.strings.name),
-            labelText = stringResource(SharedRes.strings.name)
+            labelText = stringResource(SharedRes.strings.name),
+            imeAction = ImeAction.Next
         )
         LargeTextFieldWithLabelAndMessages(
             state = emailState,
             onValueChange = onEmailChange,
             keyboardType = KeyboardType.Email,
             placeholderText = stringResource(SharedRes.strings.email),
-            labelText = stringResource(SharedRes.strings.email)
+            labelText = stringResource(SharedRes.strings.email),
+            imeAction = ImeAction.Next
         )
         LargeTextFieldWithLabelAndMessages(
             state = passwordState,
             onValueChange = onPasswordChange,
             keyboardType = KeyboardType.Password,
             placeholderText = stringResource(SharedRes.strings.password),
-            labelText = stringResource(SharedRes.strings.password)
+            labelText = stringResource(SharedRes.strings.password),
+            imeAction = ImeAction.Next
         )
         LargeTextFieldWithLabelAndMessages(
             state = confirmPasswordState,
             onValueChange = onConfirmPasswordChange,
             keyboardType = KeyboardType.Password,
             placeholderText = stringResource(SharedRes.strings.password),
-            labelText = stringResource(SharedRes.strings.password)
+            labelText = stringResource(SharedRes.strings.password),
+            imeAction = ImeAction.Done,
+            onDoneKeyboardAction = onSignUp
         )
     }
 }

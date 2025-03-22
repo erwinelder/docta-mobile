@@ -32,7 +32,7 @@ fun EmailVerificationScreen(
 ) {
     ScreenContainerWithBackNavButton(
         screenPadding = screenPadding,
-        onBackButtonClick = onNavigateBack,
+        onNavigateBack = onNavigateBack,
         backButtonText = stringResource(SharedRes.strings.email_verification),
         verticalArrangement = Arrangement.Center
     ) {

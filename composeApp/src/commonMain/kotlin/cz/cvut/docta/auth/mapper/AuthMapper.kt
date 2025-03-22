@@ -1,7 +1,9 @@
 package cz.cvut.docta.auth.mapper
 
 import cz.cvut.docta.auth.data.model.UserDataDto
+import cz.cvut.docta.auth.data.model.UserDataWithTokenDto
 import cz.cvut.docta.auth.data.model.UserRoleDto
+import cz.cvut.docta.auth.domain.model.UserData
 import cz.cvut.docta.auth.domain.model.UserDataWithToken
 import cz.cvut.docta.auth.domain.model.UserRole
 
@@ -15,7 +17,17 @@ fun UserRoleDto.toDomainModel(): UserRole {
 }
 
 
-fun UserDataDto.toDomainModel(): UserDataWithToken {
+fun UserDataDto.toDomainModel(): UserData {
+    return UserData(
+        id = id,
+        email = email,
+        role = role.toDomainModel(),
+        name = name
+    )
+}
+
+
+fun UserDataWithTokenDto.toDomainModel(): UserDataWithToken {
     return UserDataWithToken(
         id = id,
         email = email,

@@ -38,6 +38,8 @@ fun SmallSecondaryButton(
     enabled: Boolean = true,
     fontSize: TextUnit = 16.sp,
     enabledGradientColor: Pair<Color, Color> = DoctaColors.glassSurfaceGradientPair,
+    contentColor: Color = DoctaColors.onSurface,
+    borderColor: Color = DoctaColors.primarySemiTransparent,
     onClick: () -> Unit = {}
 ) {
     val buttonLighterColor by animateColorAsState(
@@ -64,7 +66,7 @@ fun SmallSecondaryButton(
             contentPadding = PaddingValues(horizontal = 24.dp, vertical = 12.dp),
             modifier = Modifier
                 .clip(RoundedCornerShape(16.dp))
-                .border(1.dp, DoctaColors.primarySemiTransparent, RoundedCornerShape(16.dp))
+                .border(1.dp, borderColor, RoundedCornerShape(16.dp))
                 .background(
                     brush = Brush.linearGradient(
                         colors = listOf(buttonDarkerColor, buttonLighterColor),
@@ -81,14 +83,14 @@ fun SmallSecondaryButton(
                     Icon(
                         painter = painterResource(it),
                         contentDescription = "$text button icon",
-                        tint = DoctaColors.onSurface,
+                        tint = contentColor,
                         modifier = Modifier.size(18.dp)
                     )
                 }
                 Text(
                     text = text,
                     fontSize = fontSize,
-                    color = DoctaColors.onSurface,
+                    color = contentColor,
                     fontFamily = Manrope,
                     letterSpacing = .5.sp,
                     fontWeight = FontWeight.W400

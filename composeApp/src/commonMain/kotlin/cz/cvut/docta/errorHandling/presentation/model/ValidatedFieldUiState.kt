@@ -8,8 +8,7 @@ data class ValidatedFieldUiState(
     val validationStates: List<ValidationUiState> = emptyList()
 ) {
 
-    fun isValid(): Boolean {
-        return validationStates.all { it.isValid }
-    }
+    fun isValid(): Boolean = validationStates.all { it.isValid }
+    fun isNotValid(): Boolean = validationStates.any { !it.isValid }
 
 }

@@ -3,6 +3,7 @@ package cz.cvut.docta.auth.data.repository
 import cz.cvut.docta.auth.data.model.SignUpFormDto
 import cz.cvut.docta.auth.data.model.UserCredentialsDto
 import cz.cvut.docta.auth.data.model.UserDataDto
+import cz.cvut.docta.auth.data.model.UserDataWithTokenDto
 import cz.cvut.docta.core.data.remote.doctaBackendUrl
 import cz.cvut.docta.core.data.remote.httpClient
 import cz.cvut.docta.errorHandling.domain.model.result.AuthError
@@ -19,7 +20,7 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.http.contentType
 import kotlinx.serialization.json.Json
 
-class AuthRepositoryImpl : AuthRepository {
+class AuthRepositoryImpl() : AuthRepository {
 
     override suspend fun checkTokenValidity(token: String): Result<AuthSuccess, AuthError> {
         return try {
@@ -42,7 +43,7 @@ class AuthRepositoryImpl : AuthRepository {
     override suspend fun signIn(
         email: String,
         password: String
-    ): ResultData<UserDataDto, AuthError> {
+    ): ResultData<UserDataWithTokenDto, AuthError> {
         return try {
             val response = httpClient.post(
                 urlString = "$doctaBackendUrl/auth/sign-in"
@@ -53,7 +54,7 @@ class AuthRepositoryImpl : AuthRepository {
 
             when (response.status) {
                 HttpStatusCode.OK -> {
-                    val userData = Json.decodeFromString<UserDataDto>(string = response.bodyAsText())
+                    val userData = Json.decodeFromString<UserDataWithTokenDto>(string = response.bodyAsText())
                     ResultData.Success(userData)
                 }
                 HttpStatusCode.Unauthorized -> ResultData.Error(AuthError.WrongCredentials)
@@ -92,7 +93,7 @@ class AuthRepositoryImpl : AuthRepository {
         name: String,
         email: String,
         password: String
-    ): ResultData<UserDataDto, AuthError> {
+    ): ResultData<UserDataWithTokenDto, AuthError> {
         return try {
             val response = httpClient.post(
                 urlString = "$doctaBackendUrl/auth/check-email-verification"
@@ -103,7 +104,7 @@ class AuthRepositoryImpl : AuthRepository {
 
             when (response.status) {
                 HttpStatusCode.OK -> {
-                    val userData = Json.decodeFromString<UserDataDto>(string = response.bodyAsText())
+                    val userData = Json.decodeFromString<UserDataWithTokenDto>(string = response.bodyAsText())
                     ResultData.Success(data = userData)
                 }
                 HttpStatusCode.Unauthorized -> ResultData.Error(AuthError.EmailNotVerifiedError)
@@ -111,6 +112,46 @@ class AuthRepositoryImpl : AuthRepository {
             }
         } catch (_: Exception) {
             ResultData.Error(AuthError.EmailVerificationError)
+        }
+    }
+
+    override suspend fun getUserData(userId: Int, token: String): ResultData<UserDataDto, AuthError> {
+        return try {
+            val response = httpClient.get(
+                urlString = "$doctaBackendUrl/account/$userId"
+            ) {
+                header("Authorization", "Bearer $token")
+                contentType(ContentType.Application.Json)
+            }
+
+            when (response.status) {
+                HttpStatusCode.OK -> {
+                    val userData = Json.decodeFromString<UserDataDto>(string = response.bodyAsText())
+                    ResultData.Success(data = userData)
+                }
+                HttpStatusCode.NotFound -> ResultData.Error(AuthError.UserNotFound)
+                else -> ResultData.Error(AuthError.UserDataFetchError)
+            }
+        } catch (_: Exception) {
+            ResultData.Error(AuthError.UserDataFetchError)
+        }
+    }
+
+    override suspend fun saveUserName(userId: Int, name: String, token: String): Result<AuthSuccess, AuthError> {
+        return try {
+            val response = httpClient.post(
+                urlString = "$doctaBackendUrl/account/$userId/save/name/$name"
+            ) {
+                header("Authorization", "Bearer $token")
+                contentType(ContentType.Application.Json)
+            }
+
+            when (response.status) {
+                HttpStatusCode.Created -> Result.Success(AuthSuccess.NameUpdated)
+                else -> Result.Error(AuthError.NameUpdateError)
+            }
+        } catch (_: Exception) {
+            Result.Error(AuthError.NameUpdateError)
         }
     }
 
