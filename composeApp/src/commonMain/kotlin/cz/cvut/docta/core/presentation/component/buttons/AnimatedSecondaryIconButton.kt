@@ -21,7 +21,7 @@ import org.jetbrains.compose.resources.painterResource
 @Composable
 fun <T> AnimatedSecondaryIconButton(
     iconState: T,
-    size: Dp = 40.dp,
+    size: Dp = 44.dp,
     onClick: () -> Unit,
     iconResProvider: (T) -> DrawableResource,
     iconDescriptionProvider: (T) -> String
@@ -47,7 +47,8 @@ fun <T> AnimatedSecondaryIconButton(
                     iconResProvider(targetState)
                 ),
                 contentDescription = iconDescriptionProvider(targetState),
-                modifier = Modifier.Companion.padding(8.dp)
+                tint = DoctaColors.onSurface,
+                modifier = Modifier.Companion.padding(10.dp)
             )
         }
     }

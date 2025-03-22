@@ -36,7 +36,7 @@ fun SmallPrimaryButton(
     text: String,
     iconRes: DrawableResource? = null,
     enabled: Boolean = true,
-    fontSize: TextUnit = 16.sp,
+    fontSize: TextUnit = 17.sp,
     enabledGradientColor: Pair<Color, Color> = DoctaColors.primaryGradientPair,
     onClick: () -> Unit = {}
 ) {
@@ -82,7 +82,7 @@ fun SmallPrimaryButton(
                         painter = painterResource(it),
                         contentDescription = "$text button icon",
                         tint = DoctaColors.onPrimary,
-                        modifier = Modifier.size(18.dp)
+                        modifier = Modifier.size(20.dp)
                     )
                 }
                 Text(

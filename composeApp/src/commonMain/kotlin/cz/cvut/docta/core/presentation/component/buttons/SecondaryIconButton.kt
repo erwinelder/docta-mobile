@@ -21,7 +21,7 @@ import org.jetbrains.compose.resources.painterResource
 fun SecondaryIconButton(
     iconRes: DrawableResource,
     iconDescription: String,
-    size: Dp = 40.dp,
+    size: Dp = 44.dp,
     onClick: () -> Unit
 ) {
     IconButton(
@@ -40,7 +40,8 @@ fun SecondaryIconButton(
         Icon(
             painter = painterResource(iconRes),
             contentDescription = iconDescription,
-            modifier = Modifier.padding(8.dp)
+            tint = DoctaColors.onSurface,
+            modifier = Modifier.padding(10.dp)
         )
     }
 }

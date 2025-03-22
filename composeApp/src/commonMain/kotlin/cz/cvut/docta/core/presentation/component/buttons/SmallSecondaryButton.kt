@@ -36,7 +36,7 @@ fun SmallSecondaryButton(
     text: String,
     iconRes: DrawableResource? = null,
     enabled: Boolean = true,
-    fontSize: TextUnit = 16.sp,
+    fontSize: TextUnit = 17.sp,
     enabledGradientColor: Pair<Color, Color> = DoctaColors.glassSurfaceGradientPair,
     contentColor: Color = DoctaColors.onSurface,
     borderColor: Color = DoctaColors.primarySemiTransparent,
@@ -84,7 +84,7 @@ fun SmallSecondaryButton(
                         painter = painterResource(it),
                         contentDescription = "$text button icon",
                         tint = contentColor,
-                        modifier = Modifier.size(18.dp)
+                        modifier = Modifier.size(20.dp)
                     )
                 }
                 Text(

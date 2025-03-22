@@ -7,6 +7,7 @@ import cz.cvut.docta.auth.mapper.toResultState
 import cz.cvut.docta.auth.presentation.model.AuthSuccessScreenType
 import cz.cvut.docta.auth.presentation.screen.AuthSuccessScreenPreview
 import cz.cvut.docta.auth.presentation.screen.EmailVerificationScreenPreview
+import cz.cvut.docta.auth.presentation.screen.ProfileScreenPreview
 import cz.cvut.docta.auth.presentation.screen.SignInScreenPreview
 import cz.cvut.docta.auth.presentation.screen.SignUpScreenPreview
 import cz.cvut.docta.core.domain.app.AppTheme
@@ -69,6 +70,14 @@ private fun AuthSuccessScreenPreview_() {
     AuthSuccessScreenPreview(
         appTheme = appTheme,
         screenType = AuthSuccessScreenType.SignUp
+    )
+}
+
+@Preview(device = Devices.PIXEL_7_PRO, group = "Auth", locale = locale)
+@Composable
+private fun ProfileScreenPreview_() {
+    ProfileScreenPreview(
+        appTheme = appTheme
     )
 }
 

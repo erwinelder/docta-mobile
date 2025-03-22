@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cz.cvut.docta.SharedRes
@@ -147,14 +148,14 @@ private fun UserDataBlockComponent(
         Text(
             text = userData.email,
             color = DoctaColors.onSurface,
-            fontSize = 17.sp,
+            fontSize = 18.sp,
             fontWeight = FontWeight.W500,
             fontFamily = Manrope
         )
         Text(
             text = stringResource(userData.role.asStringRes()),
             color = DoctaColors.onSurface,
-            fontSize = 17.sp,
+            fontSize = 18.sp,
             fontWeight = FontWeight.W500,
             fontFamily = Manrope
         )
@@ -177,7 +178,7 @@ private fun EditableNameComponent(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Row {
-                Spacer(modifier = Modifier.height(40.dp))
+                Spacer(modifier = Modifier.height(44.dp))
                 AnimatedVisibility(
                     visible = userNameEditingState !is UserNameEditingState.Saving
                 ) {
@@ -203,7 +204,7 @@ private fun EditableNameComponent(
                         Text(
                             text = editingState.name,
                             color = DoctaColors.onSurface,
-                            fontSize = 19.sp,
+                            fontSize = 20.sp,
                             fontWeight = FontWeight.W600,
                             fontFamily = Manrope
                         )
@@ -212,14 +213,18 @@ private fun EditableNameComponent(
                         SmallTextField(
                             text = nameState.fieldText,
                             onValueChange = onNameChange,
-                            fontSize = 19.sp
+                            fontSize = 20.sp,
+                            imeAction = ImeAction.Go,
+                            onGoKeyboardAction = {
+                                if (nameState.isValid()) onSaveName()
+                            }
                         )
                     }
                     is UserNameEditingState.Saving -> {
                         Text(
                             text = stringResource(SharedRes.strings.saving),
                             color = DoctaColors.outline,
-                            fontSize = 17.sp,
+                            fontSize = 18.sp,
                             fontWeight = FontWeight.W500,
                             fontFamily = Manrope
                         )

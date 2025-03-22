@@ -90,7 +90,7 @@ fun PrimaryButton(
                         painter = painterResource(it),
                         contentDescription = "$text button icon",
                         tint = DoctaColors.onPrimary,
-                        modifier = Modifier.size(18.dp)
+                        modifier = Modifier.size(20.dp)
                     )
                 }
                 Text(
