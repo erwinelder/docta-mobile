@@ -39,7 +39,7 @@ fun SecondaryButton(
     text: String,
     iconRes: DrawableResource? = null,
     enabled: Boolean = true,
-    fontSize: TextUnit = 16.sp,
+    fontSize: TextUnit = 17.sp,
     enabledGradientColor: Pair<Color, Color> = DoctaColors.glassSurfaceGradientPair,
     onClick: () -> Unit = {}
 ) {
@@ -99,7 +99,7 @@ fun SecondaryButton(
                     color = DoctaColors.onSurface,
                     fontFamily = Manrope,
                     letterSpacing = .5.sp,
-                    fontWeight = FontWeight.W400
+                    fontWeight = FontWeight.W500
                 )
             }
         }

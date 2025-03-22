@@ -80,6 +80,7 @@ class AuthRepositoryImpl : AuthRepository {
             when (response.status) {
                 HttpStatusCode.Accepted -> Result.Success(AuthSuccess.EmailVerificationSent)
                 HttpStatusCode.ServiceUnavailable -> Result.Error(AuthError.EmailVerificationError)
+                HttpStatusCode.Conflict -> Result.Error(AuthError.UserAlreadyExists)
                 else -> Result.Error(AuthError.SignUpError)
             }
         } catch (_: Exception) {
@@ -105,7 +106,7 @@ class AuthRepositoryImpl : AuthRepository {
                     val userData = Json.decodeFromString<UserDataDto>(string = response.bodyAsText())
                     ResultData.Success(data = userData)
                 }
-                HttpStatusCode.Unauthorized -> ResultData.Error(AuthError.EmailNotVerified)
+                HttpStatusCode.Unauthorized -> ResultData.Error(AuthError.EmailNotVerifiedError)
                 else -> ResultData.Error(AuthError.EmailVerificationError)
             }
         } catch (_: Exception) {

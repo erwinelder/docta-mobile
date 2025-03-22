@@ -12,6 +12,6 @@ class GetCourseDraftUseCaseImpl(
 ) : GetCourseDraftUseCase {
     override suspend fun execute(courseCode: String): CourseDraft? {
         return courseDraftRepository.getCourseDraft(courseCode)?.toDomainModel()
-            ?: courseRepository.getCourse(courseCode = courseCode)?.toCourseDraft()
+            ?: courseRepository.getCourse(code = courseCode)?.toCourseDraft()
     }
 }

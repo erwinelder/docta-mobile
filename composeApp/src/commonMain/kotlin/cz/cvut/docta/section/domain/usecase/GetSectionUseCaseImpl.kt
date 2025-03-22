@@ -9,7 +9,7 @@ class GetSectionUseCaseImpl(
     private val sectionRepository: SectionRepository,
     private val courseContext: CourseContext
 ) : GetSectionUseCase {
-    override suspend fun execute(sectionId: Long): Section? {
+    override suspend fun execute(sectionId: Int): Section? {
         return sectionRepository
             .getSection(courseCode = courseContext.getCourseCode(), sectionId = sectionId)
             ?.toDomainModel()

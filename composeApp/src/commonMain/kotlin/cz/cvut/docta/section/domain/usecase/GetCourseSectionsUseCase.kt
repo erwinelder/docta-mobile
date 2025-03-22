@@ -1,7 +1,7 @@
 package cz.cvut.docta.section.domain.usecase
 
-import cz.cvut.docta.section.domain.model.SectionWithStatistics
+import cz.cvut.docta.section.domain.model.Section
 
 interface GetCourseSectionsUseCase {
-    suspend fun execute(courseCode: String): List<SectionWithStatistics>
+    suspend fun execute(courseCode: String): List<Section>
 }

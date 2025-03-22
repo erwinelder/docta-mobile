@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class SectionDto(
     val courseCode: String,
-    val id: Long,
+    val id: Int,
     val orderNum: Int,
     val name: String,
     val lessonCount: Int

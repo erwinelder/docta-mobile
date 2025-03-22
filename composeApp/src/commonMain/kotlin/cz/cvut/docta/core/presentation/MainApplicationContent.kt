@@ -48,6 +48,7 @@ fun MainApplicationContent(
             navViewModel.needToDisplayBottomNavBar(navBackStackEntry = navBackStackEntry)
         }
     }
+    val systemBarPadding = WindowInsets.systemBars.asPaddingValues().calculateBottomPadding()
 
     val mainStartDestination: MainScreens by remember {
         derivedStateOf {
@@ -117,7 +118,8 @@ fun MainApplicationContent(
             authGraph(
                 startDestination = authStartDestination,
                 navController = navController,
-                navViewModel = navViewModel
+                navViewModel = navViewModel,
+                screenPadding = PaddingValues(bottom = systemBarPadding)
             )
         }
     }

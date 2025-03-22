@@ -12,12 +12,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainerWithBackNavButton
-import cz.cvut.docta.lesson.domain.model.Lesson
 import cz.cvut.docta.lesson.domain.model.LessonDifficulty
 import cz.cvut.docta.lesson.domain.model.LessonFilterType
-import cz.cvut.docta.lesson.presentation.component.DefaultLessonComponent
-import cz.cvut.docta.lesson.presentation.component.StepByStepLessonComponent
-import cz.cvut.docta.lesson.presentation.component.TestLessonComponent
+import cz.cvut.docta.lesson.domain.model.LessonWithProgress
+import cz.cvut.docta.lesson.presentation.component.LessonWithProgressComponent
 import cz.cvut.docta.lesson.presentation.container.LessonDifficultyFilterBar
 import cz.cvut.docta.lesson.presentation.container.LessonTypeFilterBar
 import org.jetbrains.compose.resources.DrawableResource
@@ -32,8 +30,8 @@ fun SectionLessonsScreen(
     onTypeSelect: (LessonFilterType?) -> Unit,
     activeDifficulty: LessonDifficulty?,
     onDifficultyChange: (LessonDifficulty?) -> Unit,
-    lessons: List<Lesson>,
-    onLessonClick: (Lesson) -> Unit
+    lessons: List<LessonWithProgress>,
+    onLessonClick: (LessonWithProgress) -> Unit
 ) {
     val lazyListState = rememberLazyListState()
 
@@ -65,26 +63,7 @@ fun SectionLessonsScreen(
             modifier = Modifier.weight(1f)
         ) {
             items(items = lessons) { lesson ->
-                when (lesson) {
-                    is Lesson.Default -> {
-                        DefaultLessonComponent(
-                            state = lesson,
-                            onClick = onLessonClick
-                        )
-                    }
-                    is Lesson.StepByStep -> {
-                        StepByStepLessonComponent(
-                            state = lesson,
-                            onClick = onLessonClick
-                        )
-                    }
-                    is Lesson.Test -> {
-                        TestLessonComponent(
-                            state = lesson,
-                            onClick = onLessonClick
-                        )
-                    }
-                }
+                LessonWithProgressComponent(lesson = lesson, onClick = onLessonClick)
             }
         }
     }

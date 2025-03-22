@@ -11,9 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.core.domain.app.FilledWidthByScreenType
-import cz.cvut.docta.core.presentation.component.buttons.GlassSurfaceNavigationButton
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainerWithBackNavButton
-import cz.cvut.docta.section.domain.model.SectionWithStatistics
+import cz.cvut.docta.section.domain.model.SectionWithProgress
+import cz.cvut.docta.section.presentation.component.SectionWithProgressComponent
 import org.jetbrains.compose.resources.DrawableResource
 
 @Composable
@@ -22,8 +22,8 @@ fun CourseSectionsScreen(
     courseName: String,
     courseIconRes: DrawableResource? = null,
     onNavigateBack: () -> Unit,
-    sections: List<SectionWithStatistics>,
-    onSectionClick: (SectionWithStatistics) -> Unit
+    sections: List<SectionWithProgress>,
+    onSectionClick: (SectionWithProgress) -> Unit
 ) {
     val lazyListState = rememberLazyListState()
 
@@ -33,7 +33,8 @@ fun CourseSectionsScreen(
         backButtonIconRes = courseIconRes,
         verticalArrangement = Arrangement.spacedBy(24.dp),
         screenPadding = screenPadding,
-        padding = PaddingValues(top = 8.dp)
+        padding = PaddingValues(top = 8.dp),
+        contentFilledWith = FilledWidthByScreenType()
     ) {
         LazyColumn(
             state = lazyListState,
@@ -41,14 +42,10 @@ fun CourseSectionsScreen(
             modifier = Modifier.weight(1f)
         ) {
             items(items = sections) { section ->
-                GlassSurfaceNavigationButton(
-                    text = section.name,
-                    filledWidths = FilledWidthByScreenType(),
-                    padding = PaddingValues(start = 24.dp, end = 16.dp, top = 16.dp, bottom = 16.dp),
-                    cornerSize = 20.dp,
-                    onClick = {
-                        onSectionClick(section)
-                    }
+                SectionWithProgressComponent(
+                    section = section,
+                    filledWidths = null,
+                    onClick = onSectionClick
                 )
             }
             item {

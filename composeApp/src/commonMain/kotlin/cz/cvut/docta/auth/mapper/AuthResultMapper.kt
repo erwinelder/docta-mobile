@@ -3,20 +3,20 @@ package cz.cvut.docta.auth.mapper
 import cz.cvut.docta.SharedRes
 import cz.cvut.docta.errorHandling.domain.model.result.AuthError
 import cz.cvut.docta.errorHandling.domain.model.result.AuthSuccess
-import cz.cvut.docta.errorHandling.presentation.model.ResultUiState
+import cz.cvut.docta.errorHandling.presentation.model.ResultState
 import dev.icerock.moko.resources.StringResource
 
 
-fun AuthSuccess.toUiState(): ResultUiState {
-    return ResultUiState(
+fun AuthSuccess.toResultState(): ResultState {
+    return ResultState(
         isSuccessful = true,
         titleRes = this.asTitleRes(),
         messageRes = this.asMessageRes()
     )
 }
 
-fun AuthError.toUiState(): ResultUiState {
-    return ResultUiState(
+fun AuthError.toResultState(): ResultState {
+    return ResultState(
         isSuccessful = false,
         titleRes = this.asTitleRes(),
         messageRes = this.asMessageRes()
@@ -51,9 +51,10 @@ private fun AuthError.asTitleRes(): StringResource {
         AuthError.UserAlreadyExists,
         AuthError.EmailVerificationError,
         AuthError.SignUpError,
-        AuthError.EmailNotVerified,
+        AuthError.EmailNotVerifiedError,
         AuthError.DataDeletionError,
         AuthError.AccountDeletionError -> SharedRes.strings.oops
+        AuthError.EmailNotVerifiedYet -> SharedRes.strings.not_verified
     }
 }
 
@@ -65,7 +66,8 @@ private fun AuthError.asMessageRes(): StringResource {
         AuthError.UserAlreadyExists -> SharedRes.strings.user_already_exists_error
         AuthError.EmailVerificationError -> SharedRes.strings.email_verification_error
         AuthError.SignUpError -> SharedRes.strings.sign_up_error
-        AuthError.EmailNotVerified -> SharedRes.strings.email_not_verified_error
+        AuthError.EmailNotVerifiedError -> SharedRes.strings.email_not_verified_error
+        AuthError.EmailNotVerifiedYet -> SharedRes.strings.your_email_not_verified_description
         AuthError.DataDeletionError -> SharedRes.strings.deleting_user_data_error
         AuthError.AccountDeletionError -> SharedRes.strings.deleting_user_account_error
     }

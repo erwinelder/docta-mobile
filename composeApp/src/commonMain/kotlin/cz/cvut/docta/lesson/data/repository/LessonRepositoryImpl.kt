@@ -19,7 +19,7 @@ class LessonRepositoryImpl(
 
     override suspend fun getLessons(
         courseCode: String,
-        sectionId: Long
+        sectionId: Int
     ): List<LessonDto> {
         return try {
             val response = httpClient.get(
@@ -41,11 +41,11 @@ class LessonRepositoryImpl(
 
     override suspend fun getLessonsWithProgress(
         courseCode: String,
-        sectionId: Long
+        sectionId: Int
     ): List<LessonWithProgressDto> {
         return try {
             val response = httpClient.get(
-                urlString = "$doctaBackendUrl/sections/$sectionId/lessons-with-user-progress"
+                urlString = "$doctaBackendUrl/sections/$sectionId/lessons-with-progress"
             ) {
                 header("Authorization", "Bearer ${userContext.getAuthToken()}")
                 contentType(ContentType.Application.Json)

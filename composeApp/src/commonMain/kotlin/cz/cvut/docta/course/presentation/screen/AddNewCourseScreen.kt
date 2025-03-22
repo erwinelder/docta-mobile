@@ -20,7 +20,8 @@ import cz.cvut.docta.core.presentation.component.field.LargeTextField
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainerWithBackNavButton
 import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.core.presentation.theme.Manrope
-import cz.cvut.docta.course.domain.model.Course
+import cz.cvut.docta.course.domain.mapper.toCourse
+import cz.cvut.docta.course.domain.model.CourseWithProgress
 import cz.cvut.docta.course.presentation.component.CourseComponent
 import cz.cvut.docta.course.presentation.model.CourseSearchState
 import dev.icerock.moko.resources.compose.stringResource
@@ -41,7 +42,7 @@ fun AddNewCourseScreen(
     onSearch: () -> Unit,
     onSearchCancel: () -> Unit,
     onTryAgain: () -> Unit,
-    onAddCourse: (Course) -> Unit
+    onAddCourse: (CourseWithProgress) -> Unit
 ) {
     ScreenContainerWithBackNavButton(
         onBackButtonClick = onNavigateBack,
@@ -128,14 +129,16 @@ private fun CourseSearchLoadingComponent(
 private fun CourseSearchSearchedCourseComponent(
     state: CourseSearchState.SearchedCourse,
     onTryAgain: () -> Unit,
-    onAddCourse: (Course) -> Unit
+    onAddCourse: (CourseWithProgress) -> Unit
 ) {
+    val course = state.course?.toCourse()
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        if (state.course != null) {
-            CourseComponent(course = state.course)
+        if (course != null) {
+            CourseComponent(course = course)
         } else {
             Text(
                 text = stringResource(SharedRes.strings.course_with_code_not_found, state.query),
@@ -153,11 +156,11 @@ private fun CourseSearchSearchedCourseComponent(
                 iconRes = Res.drawable.reset_icon,
                 onClick = onTryAgain
             )
-            state.course?.let {
+            state.course?.let { course ->
                 SmallPrimaryButton(
                     text = stringResource(SharedRes.strings.add),
                     iconRes = Res.drawable.add_icon,
-                    onClick = { onAddCourse(it) }
+                    onClick = { onAddCourse(course) }
                 )
             }
         }

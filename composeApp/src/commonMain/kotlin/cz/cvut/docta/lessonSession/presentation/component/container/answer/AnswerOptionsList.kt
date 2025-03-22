@@ -33,7 +33,7 @@ fun AnswerOptionsList(
             ) {
                 Text(
                     text = option.text,
-                    fontSize = 17.sp,
+                    fontSize = 18.sp,
                     color = DoctaColors.onSurface,
                     textAlign = TextAlign.Center,
                     modifier = Modifier

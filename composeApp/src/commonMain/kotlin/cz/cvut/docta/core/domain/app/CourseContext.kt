@@ -1,6 +1,6 @@
 package cz.cvut.docta.core.domain.app
 
-import cz.cvut.docta.lesson.domain.model.Lesson
+import cz.cvut.docta.lesson.domain.model.LessonWithProgress
 
 class CourseContext {
 
@@ -9,20 +9,20 @@ class CourseContext {
     fun getCourseCode(): String {
         return courseCode
     }
-    fun setCourseCode(courseCode: String) {
-        this.courseCode = courseCode
+    fun setCourseCode(code: String) {
+        this.courseCode = code
     }
     fun resetCourseCode() {
         this.courseCode = ""
     }
 
 
-    private var sectionId: Long = 0
+    private var sectionId: Int = 0
 
-    fun getSectionId(): Long {
+    fun getSectionId(): Int {
         return sectionId
     }
-    fun setSectionId(sectionId: Long) {
+    fun setSectionId(sectionId: Int) {
         this.sectionId = sectionId
     }
     fun resetSectionId() {
@@ -30,12 +30,12 @@ class CourseContext {
     }
 
 
-    private var lesson: Lesson? = null
+    private var lesson: LessonWithProgress? = null
 
-    fun getLesson(): Lesson? {
+    fun getLesson(): LessonWithProgress? {
         return lesson
     }
-    fun setLesson(lesson: Lesson) {
+    fun setLesson(lesson: LessonWithProgress) {
         this.lesson = lesson
     }
 

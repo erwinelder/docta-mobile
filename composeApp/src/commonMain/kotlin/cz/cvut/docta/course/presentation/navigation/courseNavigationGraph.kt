@@ -54,7 +54,7 @@ fun NavGraphBuilder.courseNavigationGraph(
                 onEditCourses = { /* TODO-COURSE */ },
                 courses = courses,
                 onCourseClick = { course ->
-                    courseContext.setCourseCode(course.code)
+                    courseContext.setCourseCode(code = course.code)
                     navViewModel.navigate(
                         navController, CourseScreens.Sections(courseCode = course.code)
                     )
@@ -92,7 +92,7 @@ fun NavGraphBuilder.courseNavigationGraph(
             val viewModel = koinViewModel<CourseSectionsViewModel>()
 
             val course by viewModel.course.collectAsStateWithLifecycle()
-            val sectionList by viewModel.sectionList.collectAsStateWithLifecycle()
+            val sections by viewModel.sections.collectAsStateWithLifecycle()
 
             LaunchedEffect(courseCode) {
                 viewModel.fetchData(courseCode = courseCode)
@@ -102,7 +102,7 @@ fun NavGraphBuilder.courseNavigationGraph(
                 screenPadding = screenPadding,
                 courseName = course?.name ?: "",
                 onNavigateBack = navController::popBackStack,
-                sections = sectionList,
+                sections = sections,
                 onSectionClick = { section ->
                     navViewModel.navigate(
                         navController, CourseScreens.Lessons(sectionId = section.id)

@@ -39,7 +39,7 @@ fun PrimaryButton(
     text: String,
     iconRes: DrawableResource? = null,
     enabled: Boolean = true,
-    fontSize: TextUnit = 16.sp,
+    fontSize: TextUnit = 17.sp,
     enabledGradientColor: Pair<Color, Color> = DoctaColors.primaryGradientPair,
     onClick: () -> Unit = {}
 ) {

@@ -48,9 +48,11 @@
     <string name="create_account">Vytvořit účet</string>
     <string name="sign_in_to_your_docta_account">Přihlaste se ke svému Docta účtu</string>
     <string name="create_your_docta_account">Vytvořte nový Docta účet</string>
+    <string name="verifying_your_credentials">Ověřování vašich přihlašovacích údajů…</string>
+    <string name="creating_your_identity">Vytváření vaší identity…</string>
     <string name="email_verification">Ověřování e-mailu</string>
     <string name="sign_up_email_verification_sent_description">Ověřovací e-mail pro registraci byl odeslán. Postupujte podle odkazu v e-mailu k ověření účtu a vraťte se do aplikace, abyste dokončili registraci.</string>
-    <string name="checking_email_verification">Kontrola e-mailového ověření …</string>
+    <string name="checking_email_verification">Kontrola e-mailového ověření…</string>
     <string name="not_verified">Není ověřen</string>
     <string name="your_email_not_verified_description">Váš e-mail ještě nebyl ověřen. Postupujte podle odkazu v e-mailu k ověření účtu.</string>
     <string name="welcome_back_to_docta">Vítejte zpět v Docta!</string>
@@ -65,7 +67,7 @@
     <string name="confirm_password">Potvrzení hesla</string>
 
     <!-- Field placeholders -->
-    <string name="course_search_placeholder">Kód kurzu (např. „nss“) …</string>
+    <string name="course_search_placeholder">Kód kurzu (např. „nss“)…</string>
 
     <!-- Field validation -->
     <string name="is_valid">je platné</string>
@@ -87,15 +89,15 @@
     <string name="email_sent">E-mail odeslán!</string>
 
     <!-- Error handling message -->
-    <string name="wrong_credentials_error">Špatné přihlašovací údaje</string>
-    <string name="user_not_found_error">Uživatel nebyl nalezen</string>
-    <string name="user_already_exists_error">Uživatel již existuje</string>
-    <string name="email_not_verified_error">Email není ověřen</string>
-    <string name="email_verification_error">Ověření e-mailu se nezdařilo</string>
-    <string name="sign_in_error">Chyba během přihlášení</string>
-    <string name="sign_up_error">Chyba během registrace</string>
-    <string name="deleting_user_data_error">Při mazání uživatelských dat došlo k chybě</string>
-    <string name="deleting_user_account_error">Při mazání uživatelského účtu došlo k chybě</string>
+    <string name="wrong_credentials_error">Špatné přihlašovací údaje.</string>
+    <string name="user_not_found_error">Uživatel nebyl nalezen.</string>
+    <string name="user_already_exists_error">Uživatel již existuje.</string>
+    <string name="email_not_verified_error">Email není ověřen.</string>
+    <string name="email_verification_error">Ověření e-mailu se nezdařilo.</string>
+    <string name="sign_in_error">Chyba během přihlášení.</string>
+    <string name="sign_up_error">Chyba během registrace.</string>
+    <string name="deleting_user_data_error">Při mazání uživatelských dat došlo k chybě.</string>
+    <string name="deleting_user_account_error">Při mazání uživatelského účtu došlo k chybě.</string>
 
     <!-- Other -->
     <string name="greetings_title_morning">Dobré ráno!</string>

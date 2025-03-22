@@ -8,6 +8,6 @@ class GetCourseUseCaseImpl(
     private val courseRepository: CourseRepository
 ) : GetCourseUseCase {
     override suspend fun execute(courseCode: String): Course? {
-        return courseRepository.getCourse(courseCode)?.toDomainModel()
+        return courseRepository.getCourse(code = courseCode)?.toDomainModel()
     }
 }

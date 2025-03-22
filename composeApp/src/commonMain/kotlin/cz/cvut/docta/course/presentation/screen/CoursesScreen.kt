@@ -18,8 +18,8 @@ import cz.cvut.docta.core.presentation.component.buttons.SmallSecondaryButton
 import cz.cvut.docta.core.presentation.component.other.GreetingsMessage
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainer
 import cz.cvut.docta.core.presentation.theme.CurrWindowType
-import cz.cvut.docta.course.domain.model.Course
-import cz.cvut.docta.course.presentation.component.CourseNavButtonComponent
+import cz.cvut.docta.course.domain.model.CourseWithProgress
+import cz.cvut.docta.course.presentation.component.CourseWithProgressComponent
 import dev.icerock.moko.resources.compose.stringResource
 import docta.composeapp.generated.resources.Res
 import docta.composeapp.generated.resources.add_icon
@@ -31,8 +31,8 @@ fun CoursesScreen(
     username: String,
     onAddNewCourse: () -> Unit,
     onEditCourses: () -> Unit,
-    courses: List<Course>,
-    onCourseClick: (Course) -> Unit
+    courses: List<CourseWithProgress>,
+    onCourseClick: (CourseWithProgress) -> Unit
 ) {
     val lazyListState = rememberLazyListState()
 
@@ -73,8 +73,9 @@ fun CoursesScreen(
                 )
             ) {
                 items(items = targetCourses) { course ->
-                    CourseNavButtonComponent(
+                    CourseWithProgressComponent(
                         course = course,
+                        filledWidths = null,
                         onClick = onCourseClick
                     )
                 }

@@ -9,8 +9,8 @@ import kotlinx.serialization.json.JsonClassDiscriminator
 @Serializable
 @JsonClassDiscriminator("classType")
 sealed class LessonDto {
-    abstract val sectionId: Long
-    abstract val id: Long
+    abstract val sectionId: Int
+    abstract val id: Int
     abstract val orderNum: Int
     abstract val name: String
     abstract val difficulty: LessonDifficultyDto
@@ -18,8 +18,8 @@ sealed class LessonDto {
     @Serializable
     @SerialName("DefaultLesson")
     data class Default(
-        override val sectionId: Long,
-        override val id: Long,
+        override val sectionId: Int,
+        override val id: Int,
         override val orderNum: Int,
         override val name: String,
         override val difficulty: LessonDifficultyDto,
@@ -30,8 +30,8 @@ sealed class LessonDto {
     @Serializable
     @SerialName("StepByStepLesson")
     data class StepByStep(
-        override val sectionId: Long,
-        override val id: Long,
+        override val sectionId: Int,
+        override val id: Int,
         override val orderNum: Int,
         override val name: String,
         override val difficulty: LessonDifficultyDto,

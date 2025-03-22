@@ -54,7 +54,7 @@ fun OpenAnswerTextField(
                     }
                 ),
                 textStyle = TextStyle(
-                    fontSize = 17.sp,
+                    fontSize = 18.sp,
                     fontWeight = FontWeight.Medium,
                     fontFamily = Manrope
                 ),
@@ -68,7 +68,7 @@ fun OpenAnswerTextField(
                 placeholder = {
                     Text(
                         text = stringResource(SharedRes.strings.type_your_answer_here),
-                        fontSize = 16.sp,
+                        fontSize = 17.sp,
                         color = DoctaColors.outline,
                         fontWeight = FontWeight.Medium,
                         fontFamily = Manrope

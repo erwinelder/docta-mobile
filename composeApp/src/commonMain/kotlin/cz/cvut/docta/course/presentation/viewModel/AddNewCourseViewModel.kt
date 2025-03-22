@@ -2,10 +2,10 @@ package cz.cvut.docta.course.presentation.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cz.cvut.docta.course.domain.model.Course
-import cz.cvut.docta.course.presentation.model.CourseSearchState
+import cz.cvut.docta.course.domain.model.CourseWithProgress
 import cz.cvut.docta.course.domain.usecase.AddCourseToChosenUseCase
 import cz.cvut.docta.course.domain.usecase.SearchForCourseUseCase
+import cz.cvut.docta.course.presentation.model.CourseSearchState
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -36,7 +36,7 @@ class AddNewCourseViewModel(
         }
     }
 
-    private fun setCourseSearchCourseState(query: String, course: Course?) {
+    private fun setCourseSearchCourseState(query: String, course: CourseWithProgress?) {
         _courseSearchState.update {
             CourseSearchState.SearchedCourse(query = query, course = course)
         }
@@ -66,8 +66,8 @@ class AddNewCourseViewModel(
         setCourseSearchLoadingState()
         searchJob = viewModelScope.launch {
             val query = query.value.trim()
-            val course = searchForCourseUseCase.execute(query)
-            setCourseSearchCourseState(query = query, course = course)
+            val courseWithProgress = searchForCourseUseCase.execute(query)
+            setCourseSearchCourseState(query = query, course = courseWithProgress)
         }
     }
 
@@ -76,7 +76,7 @@ class AddNewCourseViewModel(
     }
 
 
-    fun addCourseToChosenCourses(course: Course) {
+    fun addCourseToChosenCourses(course: CourseWithProgress) {
         viewModelScope.launch {
             addCourseToChosenUseCase.add(code = course.code)
         }

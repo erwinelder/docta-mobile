@@ -19,7 +19,7 @@ import cz.cvut.docta.lesson.presentation.utils.asStringRes
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
-fun LessonDifficultyFlagComponent(difficulty: LessonDifficulty) {
+fun LessonDifficultyMarkComponent(difficulty: LessonDifficulty) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(5.dp),
         verticalAlignment = Alignment.CenterVertically

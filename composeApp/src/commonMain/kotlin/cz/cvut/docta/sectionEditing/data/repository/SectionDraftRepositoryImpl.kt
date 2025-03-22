@@ -7,7 +7,7 @@ class SectionDraftRepositoryImpl(
     private val localSource: SectionDraftLocalDataSource,
 ) : SectionDraftRepository {
 
-    override suspend fun getSectionDraft(id: Long): SectionDraftEntity? {
+    override suspend fun getSectionDraft(id: Int): SectionDraftEntity? {
         return localSource.getSectionDraft(id = id)
     }
 

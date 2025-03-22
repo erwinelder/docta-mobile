@@ -2,7 +2,7 @@ package cz.cvut.docta.lessonSession.mapper
 
 import cz.cvut.docta.lessonSession.domain.model.answer.AnswerText
 import cz.cvut.docta.lessonSession.domain.model.answer.CorrectAnswer
-import cz.cvut.docta.lesson.domain.model.Lesson
+import cz.cvut.docta.lesson.domain.model.LessonWithProgress
 import cz.cvut.docta.lesson.domain.model.LessonDifficulty
 import cz.cvut.docta.lessonSession.data.model.AnswerTextDto
 import cz.cvut.docta.lessonSession.data.model.CorrectAnswerDto
@@ -24,19 +24,19 @@ fun LessonDifficulty.toQuestionDifficultyDto(): QuestionDifficultyDto {
 }
 
 
-fun Lesson.getSessionOptions(): SessionOptions {
+fun LessonWithProgress.getSessionOptions(): SessionOptions {
     return when (this) {
-        is Lesson.Default -> SessionOptions.Default(
+        is LessonWithProgress.Default -> SessionOptions.Default(
             lessonId = this.id,
             difficulty = this.difficulty,
             matchAllTags = this.matchAllTags
         )
-        is Lesson.Test -> SessionOptions.Default(
+        is LessonWithProgress.Test -> SessionOptions.Default(
             lessonId = this.id,
             difficulty = LessonDifficulty.Hard, // TODO
             matchAllTags = this.matchAllTags
         )
-        is Lesson.StepByStep -> SessionOptions.StepByStep(lessonId = this.id)
+        is LessonWithProgress.StepByStep -> SessionOptions.StepByStep(lessonId = this.id)
     }
 }
 

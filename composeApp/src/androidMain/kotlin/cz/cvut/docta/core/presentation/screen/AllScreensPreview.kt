@@ -3,8 +3,8 @@ package cz.cvut.docta.core.presentation.screen
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import cz.cvut.docta.auth.mapper.toResultState
 import cz.cvut.docta.auth.presentation.model.AuthSuccessScreenType
-import cz.cvut.docta.auth.presentation.model.EmailVerificationState
 import cz.cvut.docta.auth.presentation.screen.AuthSuccessScreenPreview
 import cz.cvut.docta.auth.presentation.screen.EmailVerificationScreenPreview
 import cz.cvut.docta.auth.presentation.screen.SignInScreenPreview
@@ -12,6 +12,8 @@ import cz.cvut.docta.auth.presentation.screen.SignUpScreenPreview
 import cz.cvut.docta.core.domain.app.AppTheme
 import cz.cvut.docta.course.presentation.screen.AddNewCourseScreenPreview
 import cz.cvut.docta.course.presentation.screen.CoursesScreenPreview
+import cz.cvut.docta.errorHandling.domain.model.result.AuthError
+import cz.cvut.docta.errorHandling.presentation.model.RequestState
 import cz.cvut.docta.lesson.presentation.screen.SectionLessonsScreenPreview
 import cz.cvut.docta.lessonSession.presentation.screen.AnswerOptionsQuestionScreenPreview
 import cz.cvut.docta.lessonSession.presentation.screen.FillInBlanksQuestionScreenPreview
@@ -28,7 +30,7 @@ private const val locale: String = "en"
 
 @Preview(device = Devices.PIXEL_7_PRO, group = "Auth", locale = locale)
 @Composable
-private fun SignInScreenPreviewLocal() {
+private fun SignInScreenPreview_() {
     SignInScreenPreview(
         appTheme = appTheme
     )
@@ -36,7 +38,7 @@ private fun SignInScreenPreviewLocal() {
 
 @Preview(device = Devices.PIXEL_7_PRO, group = "Auth", locale = locale)
 @Composable
-private fun SignUpScreenPreviewLocal() {
+private fun SignUpScreenPreview_() {
     SignUpScreenPreview(
         appTheme = appTheme
     )
@@ -44,16 +46,26 @@ private fun SignUpScreenPreviewLocal() {
 
 @Preview(device = Devices.PIXEL_7_PRO, group = "Auth", locale = locale)
 @Composable
-private fun EmailVerificationScreenPreviewLocal() {
+private fun EmailVerificationScreenPromptedPreview() {
     EmailVerificationScreenPreview(
-        appTheme = appTheme,
-        emailVerificationState = EmailVerificationState.Prompted
+        appTheme = appTheme
     )
 }
 
 @Preview(device = Devices.PIXEL_7_PRO, group = "Auth", locale = locale)
 @Composable
-private fun AuthSuccessScreenPreviewLocal() {
+private fun EmailVerificationScreenNotVerifiedPreview() {
+    EmailVerificationScreenPreview(
+        appTheme = appTheme,
+        requestState = RequestState.Result(
+            resultState = AuthError.EmailNotVerifiedYet.toResultState()
+        )
+    )
+}
+
+@Preview(device = Devices.PIXEL_7_PRO, group = "Auth", locale = locale)
+@Composable
+private fun AuthSuccessScreenPreview_() {
     AuthSuccessScreenPreview(
         appTheme = appTheme,
         screenType = AuthSuccessScreenType.SignUp
@@ -63,7 +75,7 @@ private fun AuthSuccessScreenPreviewLocal() {
 
 @Preview(device = Devices.PIXEL_7_PRO, group = "Course", locale = locale)
 @Composable
-private fun CoursesScreenPreviewLocal() {
+private fun CoursesScreenPreview_() {
     CoursesScreenPreview(
         appTheme = appTheme
     )
@@ -71,7 +83,7 @@ private fun CoursesScreenPreviewLocal() {
 
 @Preview(device = Devices.PIXEL_7_PRO, group = "Course", locale = locale)
 @Composable
-private fun AddNewCourseScreenPreviewLocal() {
+private fun AddNewCourseScreenPreview_() {
     AddNewCourseScreenPreview(
         appTheme = appTheme
     )
@@ -80,7 +92,7 @@ private fun AddNewCourseScreenPreviewLocal() {
 
 @Preview(device = Devices.PIXEL_7_PRO, group = "Section", locale = locale)
 @Composable
-private fun CourseSectionsScreenPreviewLocal() {
+private fun CourseSectionsScreenPreview_() {
     CourseSectionsScreenPreview(
         appTheme = appTheme
     )
@@ -89,7 +101,7 @@ private fun CourseSectionsScreenPreviewLocal() {
 
 @Preview(device = Devices.PIXEL_7_PRO, group = "Lesson", locale = locale)
 @Composable
-private fun SectionLessonsScreenPreviewLocal() {
+private fun SectionLessonsScreenPreview_() {
     SectionLessonsScreenPreview(
         appTheme = appTheme
     )
@@ -98,7 +110,7 @@ private fun SectionLessonsScreenPreviewLocal() {
 
 @Preview(device = Devices.PIXEL_7_PRO, group = "Question", locale = locale)
 @Composable
-private fun OpenAnswerQuestionScreenPreviewLocal() {
+private fun OpenAnswerQuestionScreenPreview_() {
     OpenAnswerQuestionScreenPreview(
         appTheme = appTheme
     )
@@ -106,7 +118,7 @@ private fun OpenAnswerQuestionScreenPreviewLocal() {
 
 @Preview(device = Devices.PIXEL_7_PRO, group = "Question", locale = locale)
 @Composable
-private fun FillInBlanksQuestionScreenPreviewLocal() {
+private fun FillInBlanksQuestionScreenPreview_() {
     FillInBlanksQuestionScreenPreview(
         appTheme = appTheme
     )
@@ -114,7 +126,7 @@ private fun FillInBlanksQuestionScreenPreviewLocal() {
 
 @Preview(device = Devices.PIXEL_7_PRO, group = "Question", locale = locale)
 @Composable
-private fun AnswerOptionsQuestionScreenPreviewLocal() {
+private fun AnswerOptionsQuestionScreenPreview_() {
     AnswerOptionsQuestionScreenPreview(
         appTheme = appTheme
     )
@@ -122,7 +134,7 @@ private fun AnswerOptionsQuestionScreenPreviewLocal() {
 
 @Preview(device = Devices.PIXEL_7_PRO, group = "Question", locale = locale)
 @Composable
-private fun QuestionAnswerPairsQuestionScreenPreviewLocal() {
+private fun QuestionAnswerPairsQuestionScreenPreview_() {
     QuestionAnswerPairsQuestionScreenPreview(
         appTheme = appTheme
     )
@@ -131,7 +143,7 @@ private fun QuestionAnswerPairsQuestionScreenPreviewLocal() {
 
 @Preview(device = Devices.PIXEL_7_PRO, group = "CourseManagement")
 @Composable
-private fun CourseEditingScreenPreviewLocal() {
+private fun CourseEditingScreenPreview_() {
     CourseEditingScreenPreview(
         appTheme = appTheme
     )
@@ -139,7 +151,7 @@ private fun CourseEditingScreenPreviewLocal() {
 
 @Preview(device = Devices.PIXEL_7_PRO, group = "CourseManagement")
 @Composable
-private fun SectionEditingScreenPreviewLocal() {
+private fun SectionEditingScreenPreview_() {
     SectionEditingScreenPreview(
         appTheme = appTheme
     )

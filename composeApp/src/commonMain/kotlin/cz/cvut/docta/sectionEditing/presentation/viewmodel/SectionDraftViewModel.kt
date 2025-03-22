@@ -36,7 +36,7 @@ class SectionDraftViewModel(
         _lessons.update { lessons }
     }
 
-    fun fetchSectionDraftLessons(sectionId: Long) {
+    fun fetchSectionDraftLessons(sectionId: Int) {
         viewModelScope.launch {
             val lessons = getSectionLessonsDraftsUseCase.execute(sectionId = sectionId)
             changeLessonsList(lessons)
@@ -44,7 +44,7 @@ class SectionDraftViewModel(
     }
 
 
-    fun fetchSectionDraftData(sectionId: Long) {
+    fun fetchSectionDraftData(sectionId: Int) {
         viewModelScope.launch {
             val sectionDraft = getSectionDraftUseCase.execute(id = sectionId) ?: return@launch
             courseCode = sectionDraft.courseCode
@@ -52,7 +52,7 @@ class SectionDraftViewModel(
         }
     }
 
-    private fun getSectionDraft(sectionId: Long): SectionDraft {
+    private fun getSectionDraft(sectionId: Int): SectionDraft {
         return SectionDraft(
             courseCode = courseCode,
             id = sectionId,
@@ -60,7 +60,7 @@ class SectionDraftViewModel(
         )
     }
 
-    fun saveSectionDraftToDatabase(sectionId: Long) {
+    fun saveSectionDraftToDatabase(sectionId: Int) {
         val sectionDraft = getSectionDraft(sectionId)
         viewModelScope.launch {
             saveSectionDraftUseCase.execute(sectionDraft = sectionDraft)

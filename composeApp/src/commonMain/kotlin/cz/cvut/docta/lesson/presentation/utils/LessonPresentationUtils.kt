@@ -5,7 +5,7 @@ import androidx.compose.ui.graphics.Color
 import cz.cvut.docta.SharedRes
 import cz.cvut.docta.core.presentation.model.IconResByAppTheme
 import cz.cvut.docta.core.presentation.theme.DoctaColors
-import cz.cvut.docta.lesson.domain.model.Lesson
+import cz.cvut.docta.lesson.domain.model.LessonWithProgress
 import cz.cvut.docta.lesson.domain.model.LessonDifficulty
 import cz.cvut.docta.lesson.domain.model.LessonFilterType
 import cz.cvut.docta.lesson.presentation.navigation.LessonSessionScreens
@@ -20,17 +20,17 @@ import docta.composeapp.generated.resources.test_lesson_dark_icon
 import docta.composeapp.generated.resources.test_lesson_light_icon
 
 
-fun Lesson.getLessonIconRes(): IconResByAppTheme {
+fun LessonWithProgress.getLessonIconRes(): IconResByAppTheme {
     return when (this) {
-        is Lesson.Default -> IconResByAppTheme(
+        is LessonWithProgress.Default -> IconResByAppTheme(
             Res.drawable.one_step_questions_lesson_light_icon,
             Res.drawable.one_step_questions_lesson_dark_icon
         )
-        is Lesson.StepByStep -> IconResByAppTheme(
+        is LessonWithProgress.StepByStep -> IconResByAppTheme(
             Res.drawable.step_by_step_lesson_light_icon,
             Res.drawable.step_by_step_lesson_dark_icon
         )
-        is Lesson.Test -> IconResByAppTheme(
+        is LessonWithProgress.Test -> IconResByAppTheme(
             Res.drawable.test_lesson_light_icon,
             Res.drawable.test_lesson_dark_icon
         )

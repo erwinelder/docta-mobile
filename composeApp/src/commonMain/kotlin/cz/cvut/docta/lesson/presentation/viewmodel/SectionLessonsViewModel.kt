@@ -2,7 +2,7 @@ package cz.cvut.docta.lesson.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cz.cvut.docta.lesson.domain.model.Lesson
+import cz.cvut.docta.lesson.domain.model.LessonWithProgress
 import cz.cvut.docta.lesson.domain.model.LessonDifficulty
 import cz.cvut.docta.lesson.domain.model.LessonFilterType
 import cz.cvut.docta.lesson.domain.usecase.GetSectionLessonsWithStatisticsUseCase
@@ -25,7 +25,7 @@ class SectionLessonsViewModel(
     private val _section = MutableStateFlow<Section?>(null)
     val section = _section.asStateFlow()
 
-    private suspend fun fetchSection(sectionId: Long) {
+    private suspend fun fetchSection(sectionId: Int) {
         _section.update {
             getSectionUseCase.execute(sectionId = sectionId)
         }
@@ -48,8 +48,8 @@ class SectionLessonsViewModel(
     }
 
 
-    private val _sectionLessons = MutableStateFlow<List<Lesson>>(emptyList())
-    val sectionLessons: StateFlow<List<Lesson>> = combine(
+    private val _sectionLessons = MutableStateFlow<List<LessonWithProgress>>(emptyList())
+    val sectionLessons: StateFlow<List<LessonWithProgress>> = combine(
         _sectionLessons,
         lessonDifficulty,
         lessonFilterType
@@ -57,10 +57,10 @@ class SectionLessonsViewModel(
         lessons
             .filter { lesson ->
                 when (filterType) {
-                    LessonFilterType.OneStepQuestions -> lesson is Lesson.Default
-                    LessonFilterType.StepByStep -> lesson is Lesson.StepByStep
+                    LessonFilterType.OneStepQuestions -> lesson is LessonWithProgress.Default
+                    LessonFilterType.StepByStep -> lesson is LessonWithProgress.StepByStep
                     LessonFilterType.NotDone -> !lesson.completed
-                    LessonFilterType.Tests -> lesson is Lesson.Test
+                    LessonFilterType.Tests -> lesson is LessonWithProgress.Test
                     null -> true
                 }
             }
@@ -69,8 +69,8 @@ class SectionLessonsViewModel(
                     true
                 } else {
                     when (lesson) {
-                        is Lesson.Default -> lesson.difficulty == difficulty
-                        is Lesson.StepByStep -> lesson.difficulty == difficulty
+                        is LessonWithProgress.Default -> lesson.difficulty == difficulty
+                        is LessonWithProgress.StepByStep -> lesson.difficulty == difficulty
                         else -> false
                     }
                 }
@@ -90,7 +90,7 @@ class SectionLessonsViewModel(
     }
 
 
-    fun fetchData(sectionId: Long) {
+    fun fetchData(sectionId: Int) {
         viewModelScope.launch {
             fetchSection(sectionId = sectionId)
             fetchSectionLessons()

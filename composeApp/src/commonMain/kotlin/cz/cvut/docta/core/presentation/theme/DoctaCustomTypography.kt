@@ -20,9 +20,10 @@ data class DoctaCustomTypography(
         textAlign = TextAlign.Center,
         lineHeight = 40.sp
     ),
-    /**
-     * Normal centered 16.sp text
-     */
+    val courseUnitName: TextStyle = TextStyle(
+        fontSize = 20.sp,
+        fontWeight = FontWeight.W500,
+    ),
     val normal: TextStyle = TextStyle(
         textAlign = TextAlign.Center,
         fontSize = 16.sp

@@ -48,15 +48,17 @@
     <string name="create_account">Create account</string>
     <string name="sign_in_to_your_docta_account">Sign in to your Docta account</string>
     <string name="create_your_docta_account">Create your Docta account</string>
+    <string name="verifying_your_credentials">Verifying your credentials…</string>
+    <string name="creating_your_identity">Creating your identity…</string>
     <string name="email_verification">Email verification</string>
     <string name="sign_up_email_verification_sent_description">A verification email for sign-up has been sent. Please follow the link in the email to verify your account and return to the app to complete your registration.</string>
-    <string name="checking_email_verification">Checking email verification …</string>
+    <string name="checking_email_verification">Checking email verification…</string>
     <string name="not_verified">Not verified</string>
     <string name="your_email_not_verified_description">Your email is not verified yet. Please follow the link in the email to verify your account.</string>
     <string name="welcome_back_to_docta">Welcome back to Docta!</string>
     <string name="welcome_to_docta">Welcome to Docta!</string>
     <string name="account_deleted">Account deleted!</string>
-    <string name="your_account_has_been_deleted_successfully">Your account has been deleted successfully</string>
+    <string name="your_account_has_been_deleted_successfully">Your account has been deleted successfully.</string>
 
     <!-- Fields -->
     <string name="name">Name</string>
@@ -65,7 +67,7 @@
     <string name="confirm_password">Confirm password</string>
 
     <!-- Field placeholders -->
-    <string name="course_search_placeholder">Course code (e.g. "nss") …</string>
+    <string name="course_search_placeholder">Course code (e.g. "nss")…</string>
 
     <!-- Field validation -->
     <string name="is_valid">is valid</string>
@@ -87,15 +89,15 @@
     <string name="email_sent">Email sent!</string>
 
     <!-- Error handling message -->
-    <string name="wrong_credentials_error">Wrong credentials</string>
-    <string name="user_not_found_error">User not found</string>
-    <string name="user_already_exists_error">User already exists</string>
-    <string name="email_not_verified_error">Email is not verified</string>
-    <string name="email_verification_error">Email verification failed</string>
-    <string name="sign_in_error">Error while signing in</string>
-    <string name="sign_up_error">Error while signing up</string>
-    <string name="deleting_user_data_error">An error occurred while deleting user data</string>
-    <string name="deleting_user_account_error">An error occurred while deleting user account</string>
+    <string name="wrong_credentials_error">Wrong credentials.</string>
+    <string name="user_not_found_error">User not found.</string>
+    <string name="user_already_exists_error">User already exists.</string>
+    <string name="email_not_verified_error">Email is not verified.</string>
+    <string name="email_verification_error">Email verification failed.</string>
+    <string name="sign_in_error">Error while signing in.</string>
+    <string name="sign_up_error">Error while signing up.</string>
+    <string name="deleting_user_data_error">An error occurred while deleting user data.</string>
+    <string name="deleting_user_account_error">An error occurred while deleting user account.</string>
 
     <!-- Other -->
     <string name="greetings_title_morning">Good morning, %s!</string>

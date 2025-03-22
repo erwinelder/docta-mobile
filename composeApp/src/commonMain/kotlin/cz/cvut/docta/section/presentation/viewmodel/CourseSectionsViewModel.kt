@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cz.cvut.docta.course.domain.model.Course
 import cz.cvut.docta.course.domain.usecase.GetCourseUseCase
-import cz.cvut.docta.section.domain.model.SectionWithStatistics
-import cz.cvut.docta.section.domain.usecase.GetCourseSectionsUseCase
+import cz.cvut.docta.section.domain.model.SectionWithProgress
+import cz.cvut.docta.section.domain.usecase.GetSectionsWithProgressUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class CourseSectionsViewModel(
     private val getCourseUseCase: GetCourseUseCase,
-    private val getCourseSectionsUseCase: GetCourseSectionsUseCase
+    private val getSectionsWithProgressUseCase: GetSectionsWithProgressUseCase
 ) : ViewModel() {
 
     private val _course = MutableStateFlow<Course?>(null)
@@ -26,14 +26,14 @@ class CourseSectionsViewModel(
     }
 
 
-    private val _sectionList = MutableStateFlow<List<SectionWithStatistics>>(emptyList())
-    val sectionList = _sectionList.asStateFlow()
+    private val _sections = MutableStateFlow<List<SectionWithProgress>>(emptyList())
+    val sections = _sections.asStateFlow()
 
     private suspend fun fetchCourseSections() {
         val courseCode = course.value?.code ?: return
 
-        _sectionList.update {
-            getCourseSectionsUseCase.execute(courseCode = courseCode)
+        _sections.update {
+            getSectionsWithProgressUseCase.execute(courseCode = courseCode)
         }
     }
 

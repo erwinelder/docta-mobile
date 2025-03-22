@@ -6,6 +6,8 @@ import cz.cvut.docta.section.domain.usecase.GetCourseSectionsUseCase
 import cz.cvut.docta.section.domain.usecase.GetCourseSectionsUseCaseImpl
 import cz.cvut.docta.section.domain.usecase.GetSectionUseCase
 import cz.cvut.docta.section.domain.usecase.GetSectionUseCaseImpl
+import cz.cvut.docta.section.domain.usecase.GetSectionsWithProgressUseCase
+import cz.cvut.docta.section.domain.usecase.GetSectionsWithProgressUseCaseImpl
 import cz.cvut.docta.section.presentation.viewmodel.CourseSectionsViewModel
 import cz.cvut.docta.sectionEditing.data.local.source.SectionDraftLocalDataSource
 import cz.cvut.docta.sectionEditing.data.local.source.sectionDraftLocalDataSourceFactory
@@ -44,6 +46,9 @@ val sectionModule = module {
     single<GetCourseSectionsUseCase> {
         GetCourseSectionsUseCaseImpl(sectionRepository = get())
     }
+    single<GetSectionsWithProgressUseCase> {
+        GetSectionsWithProgressUseCaseImpl(sectionRepository = get())
+    }
     single<GetSectionUseCase> {
         GetSectionUseCaseImpl(
             sectionRepository = get(),
@@ -71,7 +76,7 @@ val sectionModule = module {
     viewModel {
         CourseSectionsViewModel(
             getCourseUseCase = get(),
-            getCourseSectionsUseCase = get()
+            getSectionsWithProgressUseCase = get()
         )
     }
 

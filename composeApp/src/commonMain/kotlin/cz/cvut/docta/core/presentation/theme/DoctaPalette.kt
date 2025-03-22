@@ -13,8 +13,6 @@ sealed class DoctaPalette(
     val primarySemiTransparent: Color = primary.copy(alpha = .6f),
     val onPrimary: Color,
 
-    val primaryText: Color,
-
     val background: Color,
     val surface: Color,
     val surfaceGradient: List<Color>,
@@ -58,7 +56,7 @@ sealed class DoctaPalette(
     val yellow: Color,
 ) {
     data object Light : DoctaPalette(
-        primary = Color(124, 154, 207),
+        primary = Color(101, 126, 168),
         primaryGradient = listOf(
             Color(119, 148, 199),
             Color(125, 158, 213)
@@ -68,8 +66,6 @@ sealed class DoctaPalette(
             Color(97, 140, 213, 51)
         ),
         onPrimary = Color(245, 245, 245),
-
-        primaryText = Color(91, 126, 187),
 
         background = Color.White,
         surface = Color(247, 247, 247),
@@ -90,8 +86,8 @@ sealed class DoctaPalette(
         semiTransparentBorder = Color(255, 255, 255, 50),
 
         disabledGradient = listOf(
-            Color(168, 168, 168),
-            Color(164, 164, 164)
+            Color(170, 173, 178),
+            Color(177, 180, 186)
         ),
         disabledSemiTransparentGradient = listOf(
             Color(168, 168, 168, 64),
@@ -125,7 +121,7 @@ sealed class DoctaPalette(
         yellow = Color(245, 195, 68),
     )
     data object Dark : DoctaPalette(
-        primary = Color(77, 101, 143),
+        primary = Color(90, 119, 168),
         primaryGradient = listOf(
             Color(76, 98, 138),
             Color(81, 106, 150)
@@ -135,8 +131,6 @@ sealed class DoctaPalette(
             Color(131, 177, 255, 77)
         ),
         onPrimary = Color(245, 245, 245),
-
-        primaryText = Color(91, 123, 179),
 
         background = Color.Black,
         surface = Color(33, 33, 33),
@@ -157,8 +151,8 @@ sealed class DoctaPalette(
         semiTransparentBorder = Color(0, 0, 0, 64),
 
         disabledGradient = listOf(
-            Color(106, 106, 106),
-            Color(110, 110, 110)
+            Color(73, 74, 77),
+            Color(80, 81, 84)
         ),
         disabledSemiTransparentGradient = listOf(
             Color(106, 106, 106, 64),

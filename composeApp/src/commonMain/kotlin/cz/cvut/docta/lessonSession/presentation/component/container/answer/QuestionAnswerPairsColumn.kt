@@ -44,7 +44,7 @@ private fun QuestionAnswerPairComponent(
     ) {
         Text(
             text = state.text,
-            fontSize = 17.sp,
+            fontSize = 18.sp,
             color = if (state.isDisabled) DoctaColors.outline else DoctaColors.onSurface,
             fontWeight = FontWeight.Normal,
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 12.dp)

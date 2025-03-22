@@ -51,7 +51,9 @@ fun FillInBlanksQuestionScreen(
                 FlowRow(
                     horizontalArrangement = Arrangement.spacedBy(5.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.fillMaxWidth(FilledWidthByScreenType().getByType(CurrWindowType))
+                    modifier = Modifier.fillMaxWidth(
+                        FilledWidthByScreenType().getByType(CurrWindowType)
+                    )
                 ) {
                     questionUnits.forEach { unit ->
                         when (unit) {
@@ -63,7 +65,7 @@ fun FillInBlanksQuestionScreen(
                             )
                             is QuestionBlankUnit.Word -> Text(
                                 text = unit.word,
-                                fontSize = 17.sp,
+                                fontSize = 18.sp,
                                 color = DoctaColors.onSurface,
                                 fontWeight = FontWeight.Medium,
                                 fontFamily = Manrope,

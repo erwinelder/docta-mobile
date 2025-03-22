@@ -22,6 +22,7 @@ import cz.cvut.docta.core.presentation.theme.NotoSans
 
 @Composable
 fun ScreenContainerWithTitleAndGlassSurface(
+    screenPadding: PaddingValues = PaddingValues(0.dp),
     title: String,
     glassSurfaceContent: @Composable BoxScope.() -> Unit,
     fillGlassSurface: Boolean = false,
@@ -30,6 +31,7 @@ fun ScreenContainerWithTitleAndGlassSurface(
     bottomButton: @Composable () -> Unit
 ) {
     ScreenContainer(
+        screenPadding = screenPadding,
         verticalArrangement = Arrangement.spacedBy(16.dp),
         padding = PaddingValues(top = 8.dp, bottom = 24.dp)
     ) {

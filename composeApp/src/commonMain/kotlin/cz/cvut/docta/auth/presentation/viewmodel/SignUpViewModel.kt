@@ -2,16 +2,18 @@ package cz.cvut.docta.auth.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import cz.cvut.docta.SharedRes
 import cz.cvut.docta.auth.domain.usecase.CheckEmailVerificationUseCase
 import cz.cvut.docta.auth.domain.usecase.SignUpUseCase
 import cz.cvut.docta.auth.domain.validation.UserDataValidator
-import cz.cvut.docta.auth.mapper.toUiState
-import cz.cvut.docta.auth.presentation.model.EmailVerificationState
+import cz.cvut.docta.auth.mapper.toResultState
 import cz.cvut.docta.errorHandling.domain.model.result.AuthError
 import cz.cvut.docta.errorHandling.domain.model.result.Result
 import cz.cvut.docta.errorHandling.mapper.toUiStates
-import cz.cvut.docta.errorHandling.presentation.model.ResultUiState
+import cz.cvut.docta.errorHandling.presentation.model.RequestState
+import cz.cvut.docta.errorHandling.presentation.model.ResultState
 import cz.cvut.docta.errorHandling.presentation.model.ValidatedFieldUiState
+import dev.icerock.moko.resources.StringResource
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -29,7 +31,7 @@ class SignUpViewModel(
 
     private val _nameState = MutableStateFlow(
         ValidatedFieldUiState(
-            validationStates = UserDataValidator.validateRequiredFieldIsNotEmpty("").toUiStates()
+            validationStates = UserDataValidator.validateName("").toUiStates()
         )
     )
     val nameState = _nameState.asStateFlow()
@@ -38,8 +40,7 @@ class SignUpViewModel(
         _nameState.update {
             it.copy(
                 fieldText = name,
-                validationStates = UserDataValidator.validateRequiredFieldIsNotEmpty(name)
-                    .toUiStates()
+                validationStates = UserDataValidator.validateName(name).toUiStates()
             )
         }
     }
@@ -118,6 +119,8 @@ class SignUpViewModel(
 
 
     suspend fun signUp(): Boolean {
+        setRequestLoadingState(messageRes = SharedRes.strings.creating_your_identity)
+
         val result = signUpUseCase.execute(
             name = nameState.value.fieldText,
             email = emailState.value.fieldText,
@@ -127,24 +130,25 @@ class SignUpViewModel(
         return when (result) {
             is Result.Success -> true
             is Result.Error -> {
-                setResultState(result.error.toUiState())
+                setRequestResultState(result.error.toResultState())
                 false
             }
         }
     }
 
 
-    private val _emailVerificationState = MutableStateFlow(EmailVerificationState.Prompted)
-    val emailVerificationState = _emailVerificationState.asStateFlow()
+    private val _emailVerified = MutableStateFlow(false)
+    val emailVerified = _emailVerified.asStateFlow()
 
-    fun setEmailVerificationState(state: EmailVerificationState) {
-        _emailVerificationState.update { state }
+    fun setEmailVerified(verified: Boolean) {
+        _emailVerified.update { verified }
     }
 
     private var checkVerificationJob: Job? = null
 
     fun checkEmailVerification() {
-        setEmailVerificationState(EmailVerificationState.Loading)
+        setRequestLoadingState(messageRes = SharedRes.strings.checking_email_verification)
+
         checkVerificationJob = viewModelScope.launch {
             val result = checkEmailVerificationUseCase.execute(
                 name = nameState.value.fieldText,
@@ -152,14 +156,12 @@ class SignUpViewModel(
                 password = passwordState.value.fieldText
             )
             when (result) {
-                is Result.Success -> setEmailVerificationState(
-                    state = EmailVerificationState.Verified
-                )
+                is Result.Success -> setEmailVerified(verified = true)
                 is Result.Error -> when (result.error) {
-                    AuthError.EmailNotVerified -> setEmailVerificationState(
-                        state = EmailVerificationState.NotVerified
+                    AuthError.EmailNotVerifiedError -> setRequestResultState(
+                        result = AuthError.EmailNotVerifiedYet.toResultState()
                     )
-                    else -> setResultState(result.error.toUiState())
+                    else -> setRequestResultState(result.error.toResultState())
                 }
             }
         }
@@ -170,15 +172,23 @@ class SignUpViewModel(
     }
 
 
-    private val _resultState = MutableStateFlow<ResultUiState?>(null)
-    val resultState = _resultState.asStateFlow()
+    private val _requestState = MutableStateFlow<RequestState?>(null)
+    val requestState = _requestState.asStateFlow()
 
-    private fun setResultState(result: ResultUiState) {
-        _resultState.update { result }
+    private fun setRequestLoadingState(messageRes: StringResource) {
+        _requestState.update {
+            RequestState.Loading(messageRes = messageRes)
+        }
+    }
+
+    private fun setRequestResultState(result: ResultState) {
+        _requestState.update {
+            RequestState.Result(resultState = result)
+        }
     }
 
     fun resetResultState() {
-        _resultState.update { null }
+        _requestState.update { null }
     }
 
 }

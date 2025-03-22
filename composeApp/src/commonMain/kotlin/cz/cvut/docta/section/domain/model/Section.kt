@@ -1,6 +1,9 @@
 package cz.cvut.docta.section.domain.model
 
 data class Section(
-    val id: Long,
-    val name: String
+    val courseCode: String,
+    val id: Int,
+    val orderNum: Int,
+    val name: String,
+    val lessonCount: Int
 )

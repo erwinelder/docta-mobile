@@ -5,8 +5,8 @@ import cz.cvut.docta.lesson.data.model.LessonWithProgressDto
 
 interface LessonRepository {
 
-    suspend fun getLessons(courseCode: String, sectionId: Long): List<LessonDto>
+    suspend fun getLessons(courseCode: String, sectionId: Int): List<LessonDto>
 
-    suspend fun getLessonsWithProgress(courseCode: String, sectionId: Long): List<LessonWithProgressDto>
+    suspend fun getLessonsWithProgress(courseCode: String, sectionId: Int): List<LessonWithProgressDto>
 
 }

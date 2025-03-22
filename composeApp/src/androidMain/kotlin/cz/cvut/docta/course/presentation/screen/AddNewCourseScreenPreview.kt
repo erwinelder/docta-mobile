@@ -5,8 +5,8 @@ import androidx.compose.ui.tooling.preview.Devices.PIXEL_7_PRO
 import androidx.compose.ui.tooling.preview.Preview
 import cz.cvut.docta.core.domain.app.AppTheme
 import cz.cvut.docta.core.presentation.preview.ScreenPreviewContainer
-import cz.cvut.docta.course.domain.model.Course
 import cz.cvut.docta.course.domain.model.CourseLocale
+import cz.cvut.docta.course.domain.model.CourseWithProgress
 import cz.cvut.docta.course.presentation.model.CourseSearchState
 
 @Preview(device = PIXEL_7_PRO)
@@ -16,7 +16,7 @@ fun AddNewCourseScreenPreview(
     query: String = "",
     searchedCourseState: CourseSearchState = CourseSearchState.SearchedCourse(
         query = "nss",
-        course = Course(
+        course = CourseWithProgress.Completed(
             code = "nss",
             locale = CourseLocale.English,
             name = "Návrh softwarových systémů",

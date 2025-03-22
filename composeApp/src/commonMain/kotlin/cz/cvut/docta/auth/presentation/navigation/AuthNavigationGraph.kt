@@ -1,8 +1,12 @@
 package cz.cvut.docta.auth.presentation.navigation
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -10,7 +14,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import androidx.navigation.toRoute
 import cz.cvut.docta.auth.presentation.model.AuthSuccessScreenType
-import cz.cvut.docta.auth.presentation.model.EmailVerificationState
 import cz.cvut.docta.auth.presentation.screen.AuthSuccessScreen
 import cz.cvut.docta.auth.presentation.screen.EmailVerificationScreen
 import cz.cvut.docta.auth.presentation.screen.SignInScreen
@@ -20,6 +23,7 @@ import cz.cvut.docta.auth.presentation.viewmodel.SignUpViewModel
 import cz.cvut.docta.core.presentation.navigation.MainScreens
 import cz.cvut.docta.core.presentation.navigation.sharedKoinNavViewModel
 import cz.cvut.docta.core.presentation.viewmodel.NavViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
@@ -27,7 +31,8 @@ import org.koin.core.parameter.parametersOf
 fun NavGraphBuilder.authGraph(
     startDestination: AuthScreens,
     navController: NavHostController,
-    navViewModel: NavViewModel
+    navViewModel: NavViewModel,
+    screenPadding: PaddingValues
 ) {
     navigation<MainScreens.AuthGraph>(
         startDestination = startDestination
@@ -42,18 +47,20 @@ fun NavGraphBuilder.authGraph(
             val emailState by viewModel.emailState.collectAsStateWithLifecycle()
             val passwordState by viewModel.passwordState.collectAsStateWithLifecycle()
             val signInIsAllowed by viewModel.signInIsAllowed.collectAsStateWithLifecycle()
-            val resultState by viewModel.resultState.collectAsStateWithLifecycle()
+            val requestState by viewModel.requestState.collectAsStateWithLifecycle()
 
             val coroutineScope = rememberCoroutineScope()
+            var job by remember { mutableStateOf<Job?>(null) }
 
             SignInScreen(
+                screenPadding = screenPadding,
                 emailState = emailState,
                 onEmailChange = viewModel::updateAndValidateEmail,
                 passwordState = passwordState,
                 onPasswordChange = viewModel::updateAndValidatePassword,
                 signInIsAllowed = signInIsAllowed,
                 onSignIn = {
-                    coroutineScope.launch {
+                    job = coroutineScope.launch {
                         if (viewModel.signIn()) navViewModel.navigate(
                             navController = navController,
                             screen = AuthScreens.ResultSuccess(
@@ -62,14 +69,18 @@ fun NavGraphBuilder.authGraph(
                         )
                     }
                 },
-                resultState = resultState,
-                onResultReset = viewModel::resetResultState,
                 onNavigateToSignUpScreen = {
                     navViewModel.popBackStackAndNavigate(
                         navController = navController,
                         screen = AuthScreens.SignUp(email = emailState.fieldText)
                     )
-                }
+                },
+                requestState = requestState,
+                onCancelRequest = {
+                    job?.cancel()
+                    job = null
+                },
+                onCloseResult = viewModel::resetResultState
             )
         }
         composable<AuthScreens.SignUp> { backStack ->
@@ -84,11 +95,13 @@ fun NavGraphBuilder.authGraph(
             val passwordState by viewModel.passwordState.collectAsStateWithLifecycle()
             val confirmPasswordState by viewModel.passwordConfirmationState.collectAsStateWithLifecycle()
             val signUpIsAllowed by viewModel.signUpIsAllowed.collectAsStateWithLifecycle()
-            val resultState by viewModel.resultState.collectAsStateWithLifecycle()
+            val requestState by viewModel.requestState.collectAsStateWithLifecycle()
 
             val coroutineScope = rememberCoroutineScope()
+            var job by remember { mutableStateOf<Job?>(null) }
 
             SignUpScreen(
+                screenPadding = screenPadding,
                 nameState = nameState,
                 onNameChange = viewModel::updateAndValidateName,
                 emailState = emailState,
@@ -99,7 +112,7 @@ fun NavGraphBuilder.authGraph(
                 onConfirmPasswordChange = viewModel::updateAndValidateConfirmPassword,
                 signUpIsAllowed = signUpIsAllowed,
                 onSignUp = {
-                    coroutineScope.launch {
+                    job = coroutineScope.launch {
                         if (!viewModel.signUp()) return@launch
                         viewModel.resetResultState()
                         navViewModel.navigate(
@@ -113,17 +126,22 @@ fun NavGraphBuilder.authGraph(
                         screen = AuthScreens.SignIn(email = emailState.fieldText)
                     )
                 },
-                resultState = resultState,
-                onResultReset = viewModel::resetResultState
+                requestState = requestState,
+                onCancelRequest = {
+                    job?.cancel()
+                    job = null
+                },
+                onCloseResult = viewModel::resetResultState
             )
         }
         composable<AuthScreens.EmailVerification> { backStack ->
             val viewModel = backStack.sharedKoinNavViewModel<SignUpViewModel>(navController)
 
-            val emailVerificationState by viewModel.emailVerificationState.collectAsStateWithLifecycle()
+            val emailVerified by viewModel.emailVerified.collectAsStateWithLifecycle()
+            val requestState by viewModel.requestState.collectAsStateWithLifecycle()
 
-            LaunchedEffect(emailVerificationState) {
-                if (emailVerificationState == EmailVerificationState.Verified) {
+            LaunchedEffect(emailVerified) {
+                if (emailVerified) {
                     navViewModel.navigateToScreenPoppingToStartDestination(
                         navController = navController,
                         navBackStackEntry = backStack,
@@ -135,10 +153,13 @@ fun NavGraphBuilder.authGraph(
             }
 
             EmailVerificationScreen(
+                screenPadding = screenPadding,
                 onNavigateBack = navController::popBackStack,
-                emailVerificationState = emailVerificationState,
+                emailVerified = emailVerified,
                 onCheckEmailVerification = viewModel::checkEmailVerification,
-                onCancelEmailVerificationCheck = viewModel::cancelEmailVerificationCheck
+                requestState = requestState,
+                onCancelRequest = viewModel::cancelEmailVerificationCheck,
+                onCloseResult = viewModel::checkEmailVerification
             )
         }
         composable<AuthScreens.ResultSuccess> { backStack ->
@@ -147,6 +168,7 @@ fun NavGraphBuilder.authGraph(
             )
 
             AuthSuccessScreen(
+                screenPadding = screenPadding,
                 screenType = screenType,
                 onContinueButtonClick = {
                     navViewModel.navigateToScreenPoppingToStartDestination(

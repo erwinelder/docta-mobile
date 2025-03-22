@@ -46,7 +46,7 @@ fun NavGraphBuilder.courseManagementNavigationGraph(
                 sections = sections,
                 onSectionClick = { sectionId ->
                     navViewModel.navigate(
-                        navController, CourseManagementScreens.SectionEditing(sectionId)
+                        navController, CourseManagementScreens.SectionEditing(sectionId = sectionId)
                     )
                 },
                 onSaveButtonClick = {

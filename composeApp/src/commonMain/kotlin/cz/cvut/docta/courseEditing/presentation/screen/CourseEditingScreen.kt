@@ -30,7 +30,7 @@ fun CourseEditingScreen(
     courseLocale: String,
     onLocaleChange: (String) -> Unit,
     sections: List<SectionDraft>,
-    onSectionClick: (Long) -> Unit,
+    onSectionClick: (Int) -> Unit,
     onSaveButtonClick: () -> Unit
 ) {
     ScreenContainer(

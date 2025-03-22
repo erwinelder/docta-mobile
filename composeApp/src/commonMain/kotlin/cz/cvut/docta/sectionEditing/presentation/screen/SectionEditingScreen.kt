@@ -28,7 +28,7 @@ fun SectionEditingScreen(
     sectionName: String,
     onNameChange: (String) -> Unit,
     lessons: List<LessonDraft>,
-    onLessonClick: (Long) -> Unit,
+    onLessonClick: (Int) -> Unit,
     onSaveButtonClick: () -> Unit
 ) {
     ScreenContainer(

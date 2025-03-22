@@ -13,6 +13,8 @@ import cz.cvut.docta.course.domain.usecase.GetCourseUseCase
 import cz.cvut.docta.course.domain.usecase.GetCourseUseCaseImpl
 import cz.cvut.docta.course.domain.usecase.GetCoursesUseCase
 import cz.cvut.docta.course.domain.usecase.GetCoursesUseCaseImpl
+import cz.cvut.docta.course.domain.usecase.GetCoursesWithProgressUseCase
+import cz.cvut.docta.course.domain.usecase.GetCoursesWithProgressUseCaseImpl
 import cz.cvut.docta.course.domain.usecase.SaveChosenCoursesUseCase
 import cz.cvut.docta.course.domain.usecase.SaveChosenCoursesUseCaseImpl
 import cz.cvut.docta.course.domain.usecase.SearchForCourseUseCase
@@ -58,6 +60,9 @@ val courseModule = module {
     single<GetCoursesUseCase> {
         GetCoursesUseCaseImpl(courseRepository = get())
     }
+    single<GetCoursesWithProgressUseCase> {
+        GetCoursesWithProgressUseCaseImpl(courseRepository = get())
+    }
     single<GetCourseUseCase> {
         GetCourseUseCaseImpl(courseRepository = get())
     }
@@ -90,7 +95,7 @@ val courseModule = module {
 
     viewModel {
         CoursesViewModel(
-            getCoursesUseCase = get(),
+            getCoursesWithProgressUseCase = get(),
             getChosenCoursesUseCase = get()
         )
     }

@@ -1,10 +1,12 @@
 package cz.cvut.docta.auth.presentation.screen
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import cz.cvut.docta.SharedRes
 import cz.cvut.docta.auth.presentation.model.AuthSuccessScreenType
 import cz.cvut.docta.core.presentation.component.buttons.PrimaryButton
@@ -16,6 +18,7 @@ import docta.composeapp.generated.resources.success_large_icon
 
 @Composable
 fun AuthSuccessScreen(
+    screenPadding: PaddingValues = PaddingValues(0.dp),
     screenType: AuthSuccessScreenType,
     onContinueButtonClick: () -> Unit
 ) {
@@ -25,7 +28,7 @@ fun AuthSuccessScreen(
         AuthSuccessScreenType.AccountDeletion -> SharedRes.strings.account_deleted
     }
 
-    ScreenContainer {
+    ScreenContainer(screenPadding = screenPadding) {
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier

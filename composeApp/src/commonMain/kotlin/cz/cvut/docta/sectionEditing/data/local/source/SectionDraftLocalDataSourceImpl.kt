@@ -8,7 +8,7 @@ class SectionDraftLocalDataSourceImpl(
     private val dao: SectionDraftDao
 ) : SectionDraftLocalDataSource {
 
-    override suspend fun getSectionDraft(id: Long): SectionDraftEntity? {
+    override suspend fun getSectionDraft(id: Int): SectionDraftEntity? {
         return dao.getSectionDraft(id = id)
     }
 

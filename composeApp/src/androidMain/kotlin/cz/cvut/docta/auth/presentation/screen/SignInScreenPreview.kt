@@ -25,15 +25,17 @@ fun SignInScreenPreview(
             onEmailChange = {},
             passwordState = ValidatedFieldUiState(
                 fieldText = password,
-                validationStates = UserDataValidator.validatePassword(password).toUiStates()
+                validationStates = UserDataValidator.validateRequiredFieldIsNotEmpty(password)
+                    .toUiStates()
             ),
             onPasswordChange = {},
             signInIsAllowed = UserDataValidator.isValidEmail(email) &&
                     UserDataValidator.isValidPassword(password),
             onSignIn = {},
-            resultState = null,
-            onResultReset = {},
-            onNavigateToSignUpScreen = {}
+            onNavigateToSignUpScreen = {},
+            requestState = null,
+            onCancelRequest = {},
+            onCloseResult = {}
         )
     }
 }

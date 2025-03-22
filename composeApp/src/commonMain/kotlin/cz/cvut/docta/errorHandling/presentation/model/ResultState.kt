@@ -4,7 +4,7 @@ import androidx.compose.runtime.Stable
 import dev.icerock.moko.resources.StringResource
 
 @Stable
-data class ResultUiState(
+data class ResultState(
     val isSuccessful: Boolean,
     val titleRes: StringResource,
     val messageRes: StringResource

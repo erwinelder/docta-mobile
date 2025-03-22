@@ -52,8 +52,9 @@ fun SignUpScreenPreview(
                     password == confirmPassword,
             onSignUp = {},
             onNavigateToSignInScreen = {},
-            resultState = null,
-            onResultReset = {}
+            requestState = null,
+            onCancelRequest = {},
+            onCloseResult = {}
         )
     }
 }
