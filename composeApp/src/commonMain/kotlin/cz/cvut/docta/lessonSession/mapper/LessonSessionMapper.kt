@@ -113,6 +113,7 @@ fun QuestionDto.QuestionAnswerPairs.toDomainModel(): Question.QuestionAnswerPair
     return Question.QuestionAnswerPairs(
         id = id,
         difficulty = difficulty,
+        text = text,
         questionPairs = questionPairs.map { it.toDomainModel() },
         answerPairs = answerPairs.map { it.toDomainModel() }
     )

@@ -42,6 +42,7 @@ sealed class QuestionDto {
     data class QuestionAnswerPairs(
         override val id: Long,
         val difficulty: QuestionDifficulty,
+        val text: String,
         val questionPairs: List<AnswerTextDto>,
         val answerPairs: List<AnswerTextDto>
     ) : QuestionDto()

@@ -10,5 +10,6 @@ fun UserRole.asStringRes(): StringResource {
         UserRole.User -> SharedRes.strings.user_role
         UserRole.Teacher -> SharedRes.strings.teacher_role
         UserRole.Admin -> SharedRes.strings.admin_role
+        UserRole.Owner -> SharedRes.strings.owner_role
     }
 }

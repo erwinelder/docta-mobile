@@ -72,6 +72,7 @@
     <string name="user_role">Uživatel</string>
     <string name="teacher_role">Vyučující</string>
     <string name="admin_role">Admin</string>
+    <string name="owner_role">Vlastník</string>
 
     <!-- Fields -->
     <string name="name">Jméno</string>

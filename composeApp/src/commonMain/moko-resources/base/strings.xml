@@ -72,6 +72,7 @@
     <string name="user_role">User</string>
     <string name="teacher_role">Teacher</string>
     <string name="admin_role">Admin</string>
+    <string name="owner_role">Owner</string>
 
     <!-- Fields -->
     <string name="name">Name</string>

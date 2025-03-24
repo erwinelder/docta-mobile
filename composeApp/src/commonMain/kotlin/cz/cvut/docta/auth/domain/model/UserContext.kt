@@ -1,5 +1,6 @@
 package cz.cvut.docta.auth.domain.model
 
+import cz.cvut.docta.auth.domain.model.UserRole
 import cz.cvut.docta.auth.domain.usecase.CheckAuthTokenValidityUseCase
 import cz.cvut.docta.auth.domain.usecase.GetAuthTokenFromEncStoreUseCase
 import cz.cvut.docta.auth.domain.usecase.GetUserDataFromSecureStorageUseCase
@@ -48,8 +49,9 @@ class UserContext(
         saveUserDataWithToken(data = UserDataWithToken())
     }
 
-    fun isAtLeastTeacher(): Boolean = role == UserRole.Teacher || role == UserRole.Admin
-    fun isAdmin(): Boolean = role == UserRole.Admin
+    fun isAtLeastTeacher(): Boolean = role in listOf(UserRole.Teacher, UserRole.Admin, UserRole.Owner)
+    fun isAtLeastAdmin(): Boolean = role in listOf(UserRole.Admin, UserRole.Owner)
+    fun isOwner(): Boolean = role == UserRole.Owner
 
     fun getAuthToken(): String {
         return getAuthTokenFromEncStoreUseCase.execute()

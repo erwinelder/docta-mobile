@@ -13,6 +13,7 @@ fun UserRoleDto.toDomainModel(): UserRole {
         UserRoleDto.User -> UserRole.User
         UserRoleDto.Teacher -> UserRole.Teacher
         UserRoleDto.Admin -> UserRole.Admin
+        UserRoleDto.Owner -> UserRole.Owner
     }
 }
 
