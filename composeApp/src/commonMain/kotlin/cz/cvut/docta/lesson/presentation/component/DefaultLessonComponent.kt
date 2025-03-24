@@ -28,7 +28,14 @@ fun DefaultLessonComponent(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-            LessonDifficultyMarkComponent(difficulty = lesson.difficulty)
+            Text(
+                text = lesson.description,
+                color = DoctaColors.outline,
+                fontSize = 15.sp,
+                fontFamily = Manrope,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
         }
     }
 }

@@ -117,7 +117,6 @@ fun NavGraphBuilder.courseNavigationGraph(
             val viewModel = koinViewModel<SectionLessonsViewModel>()
 
             val section by viewModel.section.collectAsStateWithLifecycle()
-            val activeDifficulty by viewModel.lessonDifficulty.collectAsStateWithLifecycle()
             val activeType by viewModel.lessonFilterType.collectAsStateWithLifecycle()
             val lessons by viewModel.sectionLessons.collectAsStateWithLifecycle()
 
@@ -132,8 +131,6 @@ fun NavGraphBuilder.courseNavigationGraph(
                 onNavigateBack = navController::popBackStack,
                 activeType = activeType,
                 onTypeSelect = viewModel::setLessonFilterType,
-                activeDifficulty = activeDifficulty,
-                onDifficultyChange = viewModel::setLessonDifficulty,
                 lessons = lessons,
                 onLessonClick = { lesson ->
                     courseContext.setLesson(lesson = lesson)

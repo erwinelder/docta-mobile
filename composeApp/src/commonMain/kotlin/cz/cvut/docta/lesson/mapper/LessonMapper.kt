@@ -1,20 +1,10 @@
 package cz.cvut.docta.lesson.mapper
 
 import cz.cvut.docta.lesson.data.model.DefaultLessonTypeDto
-import cz.cvut.docta.lesson.data.model.LessonDifficultyDto
 import cz.cvut.docta.lesson.data.model.LessonDto
 import cz.cvut.docta.lesson.data.model.LessonWithProgressDto
-import cz.cvut.docta.lesson.domain.model.LessonWithProgress
 import cz.cvut.docta.lesson.domain.model.LessonDraft
-
-
-fun LessonDifficultyDto.toLessonDifficultyDomainModel(): cz.cvut.docta.lesson.domain.model.LessonDifficulty {
-    return when(this) {
-        LessonDifficultyDto.Easy -> cz.cvut.docta.lesson.domain.model.LessonDifficulty.Easy
-        LessonDifficultyDto.Medium -> cz.cvut.docta.lesson.domain.model.LessonDifficulty.Medium
-        LessonDifficultyDto.Hard -> cz.cvut.docta.lesson.domain.model.LessonDifficulty.Hard
-    }
-}
+import cz.cvut.docta.lesson.domain.model.LessonWithProgress
 
 
 fun List<LessonWithProgressDto>.toDomainLessons(): List<LessonWithProgress> {
@@ -27,23 +17,21 @@ fun LessonWithProgressDto.toDomainLesson(): LessonWithProgress {
             DefaultLessonTypeDto.Default -> LessonWithProgress.Default(
                 id = id,
                 name = name,
-                completed = completed,
-                difficulty = difficulty.toLessonDifficultyDomainModel(),
-                matchAllTags = matchAllTags
+                description = description,
+                completed = completed
             )
             DefaultLessonTypeDto.Test -> LessonWithProgress.Test(
                 id = id,
                 name = name,
-                completed = completed,
-                matchAllTags = matchAllTags
+                description = description,
+                completed = completed
             )
         }
         is LessonWithProgressDto.StepByStepLesson -> LessonWithProgress.StepByStep(
             id = id,
             name = name,
-            completed = completed,
-            difficulty = difficulty.toLessonDifficultyDomainModel(),
-            description = description
+            description = description,
+            completed = completed
         )
     }
 }
@@ -59,18 +47,18 @@ fun LessonDto.toLessonDraft(): LessonDraft? {
             DefaultLessonTypeDto.Default -> LessonDraft.Default(
                 id = id,
                 name = name,
-                difficulty = difficulty.toLessonDifficultyDomainModel()
+                description = description
             )
             DefaultLessonTypeDto.Test -> LessonDraft.Test(
                 id = id,
-                name = name
+                name = name,
+                description = description
             )
         }
         is LessonDto.StepByStep -> LessonDraft.StepByStep(
             id = id,
             name = name,
-            description = description,
-            difficulty = difficulty.toLessonDifficultyDomainModel()
+            description = description
         )
     }
 }

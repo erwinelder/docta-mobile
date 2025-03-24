@@ -16,16 +16,14 @@ sealed class SessionOptionsDto {
     @SerialName("Default")
     data class Default(
         override val courseCode: String,
-        override val lessonId: Int,
-        val difficulty: QuestionDifficultyDto,
-        val matchAllTags: Boolean
+        override val lessonId: Int
     ) : SessionOptionsDto()
 
     @Serializable
     @SerialName("StepByStep")
     data class StepByStep(
         override val courseCode: String,
-        override val lessonId: Int,
+        override val lessonId: Int
     ) : SessionOptionsDto()
 
 }

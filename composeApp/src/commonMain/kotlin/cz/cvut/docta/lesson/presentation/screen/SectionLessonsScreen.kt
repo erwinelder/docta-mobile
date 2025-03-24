@@ -12,11 +12,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainerWithBackNavButton
-import cz.cvut.docta.lesson.domain.model.LessonDifficulty
 import cz.cvut.docta.lesson.domain.model.LessonFilterType
 import cz.cvut.docta.lesson.domain.model.LessonWithProgress
 import cz.cvut.docta.lesson.presentation.component.LessonWithProgressComponent
-import cz.cvut.docta.lesson.presentation.container.LessonDifficultyFilterBar
 import cz.cvut.docta.lesson.presentation.container.LessonTypeFilterBar
 import org.jetbrains.compose.resources.DrawableResource
 
@@ -28,8 +26,6 @@ fun SectionLessonsScreen(
     onNavigateBack: () -> Unit,
     activeType: LessonFilterType?,
     onTypeSelect: (LessonFilterType?) -> Unit,
-    activeDifficulty: LessonDifficulty?,
-    onDifficultyChange: (LessonDifficulty?) -> Unit,
     lessons: List<LessonWithProgress>,
     onLessonClick: (LessonWithProgress) -> Unit
 ) {
@@ -51,10 +47,6 @@ fun SectionLessonsScreen(
             LessonTypeFilterBar(
                 activeType = activeType,
                 onTypeSelect = onTypeSelect
-            )
-            LessonDifficultyFilterBar(
-                activeDifficulty = activeDifficulty,
-                onDifficultySelect = onDifficultyChange
             )
         }
         LazyColumn(

@@ -13,7 +13,7 @@ sealed class LessonDto {
     abstract val id: Int
     abstract val orderNum: Int
     abstract val name: String
-    abstract val difficulty: LessonDifficultyDto
+    abstract val description: String
 
     @Serializable
     @SerialName("DefaultLesson")
@@ -22,9 +22,8 @@ sealed class LessonDto {
         override val id: Int,
         override val orderNum: Int,
         override val name: String,
-        override val difficulty: LessonDifficultyDto,
-        val type: DefaultLessonTypeDto,
-        val matchAllTags: Boolean
+        override val description: String,
+        val type: DefaultLessonTypeDto
     ) : LessonDto()
 
     @Serializable
@@ -34,8 +33,7 @@ sealed class LessonDto {
         override val id: Int,
         override val orderNum: Int,
         override val name: String,
-        override val difficulty: LessonDifficultyDto,
-        val description: String
+        override val description: String
     ) : LessonDto()
 
 }

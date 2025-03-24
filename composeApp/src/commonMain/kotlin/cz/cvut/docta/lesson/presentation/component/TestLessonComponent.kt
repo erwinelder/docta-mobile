@@ -7,11 +7,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import cz.cvut.docta.SharedRes
 import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.core.presentation.theme.Manrope
 import cz.cvut.docta.lesson.domain.model.LessonWithProgress
-import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun TestLessonComponent(
@@ -31,9 +29,9 @@ fun TestLessonComponent(
                 overflow = TextOverflow.Ellipsis
             )
             Text(
-                text = stringResource(SharedRes.strings.test),
+                text = lesson.description,
                 color = DoctaColors.outline,
-                fontSize = 16.sp,
+                fontSize = 15.sp,
                 fontFamily = Manrope,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis

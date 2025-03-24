@@ -1,13 +1,9 @@
 package cz.cvut.docta.lesson.presentation.utils
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 import cz.cvut.docta.SharedRes
 import cz.cvut.docta.core.presentation.model.IconResByAppTheme
-import cz.cvut.docta.core.presentation.theme.DoctaColors
-import cz.cvut.docta.lesson.domain.model.LessonWithProgress
-import cz.cvut.docta.lesson.domain.model.LessonDifficulty
 import cz.cvut.docta.lesson.domain.model.LessonFilterType
+import cz.cvut.docta.lesson.domain.model.LessonWithProgress
 import cz.cvut.docta.lesson.presentation.navigation.LessonSessionScreens
 import cz.cvut.docta.lessonSession.presentation.model.QuestionAndAnswersWrapper
 import dev.icerock.moko.resources.StringResource
@@ -34,24 +30,6 @@ fun LessonWithProgress.getLessonIconRes(): IconResByAppTheme {
             Res.drawable.test_lesson_light_icon,
             Res.drawable.test_lesson_dark_icon
         )
-    }
-}
-
-
-fun LessonDifficulty.asStringRes(): StringResource {
-    return when (this) {
-        LessonDifficulty.Easy -> SharedRes.strings.easy
-        LessonDifficulty.Medium -> SharedRes.strings.medium
-        LessonDifficulty.Hard -> SharedRes.strings.hard
-    }
-}
-
-@Composable
-fun LessonDifficulty.asColor(): Color {
-    return when (this) {
-        LessonDifficulty.Easy -> DoctaColors.easyDifficultyColor
-        LessonDifficulty.Medium -> DoctaColors.mediumDifficultyColor
-        LessonDifficulty.Hard -> DoctaColors.hardDifficultyColor
     }
 }
 

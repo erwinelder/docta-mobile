@@ -1,41 +1,22 @@
 package cz.cvut.docta.lessonSession.mapper
 
-import cz.cvut.docta.lessonSession.domain.model.answer.AnswerText
-import cz.cvut.docta.lessonSession.domain.model.answer.CorrectAnswer
 import cz.cvut.docta.lesson.domain.model.LessonWithProgress
-import cz.cvut.docta.lesson.domain.model.LessonDifficulty
 import cz.cvut.docta.lessonSession.data.model.AnswerTextDto
 import cz.cvut.docta.lessonSession.data.model.CorrectAnswerDto
-import cz.cvut.docta.lessonSession.data.model.QuestionDifficultyDto
 import cz.cvut.docta.lessonSession.data.model.QuestionDto
 import cz.cvut.docta.lessonSession.data.model.QuestionWithCorrectAnswersDto
 import cz.cvut.docta.lessonSession.data.model.SessionOptionsDto
-import cz.cvut.docta.lessonSession.domain.model.question.Question
 import cz.cvut.docta.lessonSession.domain.model.QuestionWithCorrectAnswers
 import cz.cvut.docta.lessonSession.domain.model.SessionOptions
-
-
-fun LessonDifficulty.toQuestionDifficultyDto(): QuestionDifficultyDto {
-    return when (this) {
-        LessonDifficulty.Easy -> QuestionDifficultyDto.Easy
-        LessonDifficulty.Medium -> QuestionDifficultyDto.Medium
-        LessonDifficulty.Hard -> QuestionDifficultyDto.Hard
-    }
-}
+import cz.cvut.docta.lessonSession.domain.model.answer.AnswerText
+import cz.cvut.docta.lessonSession.domain.model.answer.CorrectAnswer
+import cz.cvut.docta.lessonSession.domain.model.question.Question
 
 
 fun LessonWithProgress.getSessionOptions(): SessionOptions {
     return when (this) {
-        is LessonWithProgress.Default -> SessionOptions.Default(
-            lessonId = this.id,
-            difficulty = this.difficulty,
-            matchAllTags = this.matchAllTags
-        )
-        is LessonWithProgress.Test -> SessionOptions.Default(
-            lessonId = this.id,
-            difficulty = LessonDifficulty.Hard, // TODO
-            matchAllTags = this.matchAllTags
-        )
+        is LessonWithProgress.Default -> SessionOptions.Default(lessonId = this.id)
+        is LessonWithProgress.Test -> SessionOptions.Default(lessonId = this.id)
         is LessonWithProgress.StepByStep -> SessionOptions.StepByStep(lessonId = this.id)
     }
 }
@@ -45,9 +26,7 @@ fun SessionOptions.toDto(courseCode: String): SessionOptionsDto {
     return when (this) {
         is SessionOptions.Default -> SessionOptionsDto.Default(
             courseCode = courseCode,
-            lessonId = lessonId,
-            difficulty = difficulty.toQuestionDifficultyDto(),
-            matchAllTags = matchAllTags
+            lessonId = lessonId
         )
         is SessionOptions.StepByStep -> SessionOptionsDto.StepByStep(
             courseCode = courseCode,

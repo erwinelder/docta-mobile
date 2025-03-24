@@ -12,8 +12,8 @@ sealed class LessonWithProgressDto {
     abstract val sectionId: Int
     abstract val id: Int
     abstract val orderNum: Int
-    abstract val difficulty: LessonDifficultyDto
     abstract val name: String
+    abstract val description: String
     abstract val completed: Boolean
 
     @Serializable
@@ -23,10 +23,9 @@ sealed class LessonWithProgressDto {
         override val id: Int,
         override val orderNum: Int,
         override val name: String,
-        override val difficulty: LessonDifficultyDto,
+        override val description: String,
         override val completed: Boolean,
-        val type: DefaultLessonTypeDto,
-        val matchAllTags: Boolean
+        val type: DefaultLessonTypeDto
     ) : LessonWithProgressDto()
 
     @Serializable
@@ -36,9 +35,8 @@ sealed class LessonWithProgressDto {
         override val id: Int,
         override val orderNum: Int,
         override val name: String,
-        override val difficulty: LessonDifficultyDto,
-        override val completed: Boolean,
-        val description: String
+        override val description: String,
+        override val completed: Boolean
     ) : LessonWithProgressDto()
 
 }

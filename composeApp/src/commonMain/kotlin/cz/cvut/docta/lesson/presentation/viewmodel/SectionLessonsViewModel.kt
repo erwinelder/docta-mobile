@@ -2,9 +2,8 @@ package cz.cvut.docta.lesson.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cz.cvut.docta.lesson.domain.model.LessonWithProgress
-import cz.cvut.docta.lesson.domain.model.LessonDifficulty
 import cz.cvut.docta.lesson.domain.model.LessonFilterType
+import cz.cvut.docta.lesson.domain.model.LessonWithProgress
 import cz.cvut.docta.lesson.domain.usecase.GetSectionLessonsWithStatisticsUseCase
 import cz.cvut.docta.section.domain.model.Section
 import cz.cvut.docta.section.domain.usecase.GetSectionUseCase
@@ -40,20 +39,11 @@ class SectionLessonsViewModel(
     }
 
 
-    private val _lessonDifficulty = MutableStateFlow<LessonDifficulty?>(null)
-    val lessonDifficulty = _lessonDifficulty.asStateFlow()
-
-    fun setLessonDifficulty(difficulty: LessonDifficulty?) {
-        _lessonDifficulty.update { difficulty }
-    }
-
-
     private val _sectionLessons = MutableStateFlow<List<LessonWithProgress>>(emptyList())
     val sectionLessons: StateFlow<List<LessonWithProgress>> = combine(
         _sectionLessons,
-        lessonDifficulty,
         lessonFilterType
-    ) { lessons, difficulty, filterType ->
+    ) { lessons, filterType ->
         lessons
             .filter { lesson ->
                 when (filterType) {
@@ -62,17 +52,6 @@ class SectionLessonsViewModel(
                     LessonFilterType.NotDone -> !lesson.completed
                     LessonFilterType.Tests -> lesson is LessonWithProgress.Test
                     null -> true
-                }
-            }
-            .filter { lesson ->
-                if (difficulty == null) {
-                    true
-                } else {
-                    when (lesson) {
-                        is LessonWithProgress.Default -> lesson.difficulty == difficulty
-                        is LessonWithProgress.StepByStep -> lesson.difficulty == difficulty
-                        else -> false
-                    }
                 }
             }
     }.stateIn(

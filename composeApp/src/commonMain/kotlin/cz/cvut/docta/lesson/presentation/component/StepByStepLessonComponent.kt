@@ -17,18 +17,10 @@ fun StepByStepLessonComponent(
     lesson: LessonWithProgress.StepByStep,
     onClick: (LessonWithProgress) -> Unit
 ) {
-    LessonWithProgressContainer(lesson = lesson, height = 92.dp, onClick = onClick) {
+    LessonWithProgressContainer(lesson = lesson, height = 70.dp, onClick = onClick) {
         Column(
             modifier = Modifier.weight(1f)
         ) {
-            Text(
-                text = lesson.description,
-                color = DoctaColors.outline,
-                fontSize = 16.sp,
-                fontFamily = Manrope,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
             Text(
                 text = lesson.name,
                 color = DoctaColors.onSurface,
@@ -38,7 +30,14 @@ fun StepByStepLessonComponent(
                 overflow = TextOverflow.Ellipsis,
                 style = DoctaTypography.courseUnitName
             )
-            LessonDifficultyMarkComponent(difficulty = lesson.difficulty)
+            Text(
+                text = lesson.description,
+                color = DoctaColors.outline,
+                fontSize = 15.sp,
+                fontFamily = Manrope,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
         }
     }
 }
