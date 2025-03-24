@@ -52,7 +52,7 @@ fun MainApplicationContent(
 
     val mainStartDestination: MainScreens by remember {
         derivedStateOf {
-            if (userContext.userId == 0) MainScreens.AuthGraph else MainScreens.CoursesGraph
+            if (userContext.userId == 0) MainScreens.Auth else MainScreens.Courses
         }
     }
     val authStartDestination: AuthScreens by remember {

@@ -2,6 +2,7 @@ package cz.cvut.docta.core.presentation.navigation
 
 import cz.cvut.docta.auth.presentation.navigation.AuthScreens
 import cz.cvut.docta.core.presentation.model.IconResByAppTheme
+import cz.cvut.docta.course.presentation.navigation.CourseScreens
 import docta.composeapp.generated.resources.Res
 import docta.composeapp.generated.resources.home_dark_active
 import docta.composeapp.generated.resources.home_dark_inactive
@@ -19,7 +20,7 @@ sealed class BottomBarNavButton(
 ) {
 
     data object Home : BottomBarNavButton(
-        screen = MainScreens.CoursesGraph,
+        screen = CourseScreens.Courses,
         inactiveIconRes = IconResByAppTheme(
             light = Res.drawable.home_light_inactive,
             dark = Res.drawable.home_dark_inactive

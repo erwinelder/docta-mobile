@@ -115,7 +115,7 @@ private fun BottomBarButton(
             contentDescription = "bottom bar ${button.screen} icon",
             modifier = Modifier
                 .bounceClickEffect {
-                    if (!isActive) onClick(button.screen)
+                    onClick(button.screen)
                 }
                 .size(36.dp)
         )

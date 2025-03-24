@@ -93,7 +93,7 @@ class NavViewModel : ViewModel() {
         onResetLessonProgression: () -> Unit
     ) {
         navController.navigate(nextQuestionScreen ?: LessonSessionScreens.LessonResults) {
-            popUpTo<MainScreens.LessonSessionGraph>()
+            popUpTo<MainScreens.LessonSession>()
             launchSingleTop = true
         }
         if (nextQuestionScreen == null) {

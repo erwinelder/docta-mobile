@@ -39,7 +39,7 @@ fun NavGraphBuilder.authGraph(
     navViewModel: NavViewModel,
     screenPadding: PaddingValues
 ) {
-    navigation<MainScreens.AuthGraph>(
+    navigation<MainScreens.Auth>(
         startDestination = startDestination
     ) {
         composable<AuthScreens.SignIn> { backStack ->
@@ -179,7 +179,7 @@ fun NavGraphBuilder.authGraph(
                     navViewModel.navigateToScreenPoppingToStartDestination(
                         navController = navController,
                         navBackStackEntry = backStack,
-                        screen = MainScreens.CoursesGraph
+                        screen = MainScreens.Courses
                     )
                 }
             )

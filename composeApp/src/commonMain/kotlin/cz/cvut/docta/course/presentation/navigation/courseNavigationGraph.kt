@@ -31,7 +31,7 @@ fun NavGraphBuilder.courseNavigationGraph(
     navViewModel: NavViewModel,
     screenPadding: PaddingValues
 ) {
-    navigation<MainScreens.CoursesGraph>(
+    navigation<MainScreens.Courses>(
         startDestination = CourseScreens.Courses
     ) {
         composable<CourseScreens.Courses> { backStack ->

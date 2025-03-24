@@ -38,7 +38,7 @@ fun NavGraphBuilder.lessonNavigationGraph(
     screenPadding: PaddingValues,
     lessonProgressViewModel: LessonProgressViewModel
 ) {
-    navigation<MainScreens.LessonSessionGraph>(
+    navigation<MainScreens.LessonSession>(
         startDestination = LessonSessionScreens.LessonStarter
     ) {
         composable<LessonSessionScreens.LessonStarter> { backStack ->
