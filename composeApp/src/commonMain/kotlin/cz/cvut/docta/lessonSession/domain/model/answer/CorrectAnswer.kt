@@ -47,6 +47,13 @@ sealed class CorrectAnswer(
 
     }
 
+    data class CategoriesOptions(
+        override val questionId: Long,
+        val categoriesOptions: Map<Long, List<Long>>
+    ) : CorrectAnswer(questionId) {
+        //
+    }
+
     data class StepAnswer(
         override val questionId: Long,
         val answer: String
