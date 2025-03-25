@@ -68,7 +68,9 @@
     <string name="user_data_not_fetched">Data uživatele nebyly načteny</string>
     <string name="user_data_not_fetched_error">Při načítání uživatelských dat došlo k chybě.</string>
     <string name="name_updated">Jméno bylo aktualizováno</string>
-    <string name="name_updated_error">Při aktualizaci uživatelského jména došlo k chybě.</string>
+    <string name="name_update_error">Při aktualizaci uživatelského jména došlo k chybě.</string>
+    <string name="role_updated">Role byla aktualizována</string>
+    <string name="role_update_error">Při aktualizaci uživatelské role došlo k chybě.</string>
     <string name="user_role">Uživatel</string>
     <string name="teacher_role">Vyučující</string>
     <string name="admin_role">Admin</string>

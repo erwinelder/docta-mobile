@@ -26,6 +26,7 @@ sealed class DoctaPalette(
     val glassSurfaceBorder: Color,
 
     val outline: Color,
+    val outlineSemiTransparent: Color = outline.copy(alpha = .5f),
 
     val semiTransparentBorder: Color,
 

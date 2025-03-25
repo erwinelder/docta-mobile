@@ -6,8 +6,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.SharedRes
 import cz.cvut.docta.auth.presentation.model.AuthSuccessScreenType
-import cz.cvut.docta.core.presentation.component.buttons.PrimaryButton
-import cz.cvut.docta.core.presentation.component.containers.LargePrimaryIconWithMessageContainer
+import cz.cvut.docta.core.presentation.component.button.PrimaryButton
+import cz.cvut.docta.core.presentation.component.container.LargePrimaryIconWithMessageContainer
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainer
 import dev.icerock.moko.resources.compose.stringResource
 import docta.composeapp.generated.resources.Res

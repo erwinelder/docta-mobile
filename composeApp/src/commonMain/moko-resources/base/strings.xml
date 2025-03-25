@@ -68,7 +68,9 @@
     <string name="user_data_not_fetched">User data not fetched</string>
     <string name="user_data_not_fetched_error">An error occurred while fetching user data.</string>
     <string name="name_updated">Name has been updated</string>
-    <string name="name_updated_error">An error occurred while updating user name.</string>
+    <string name="name_update_error">An error occurred while updating user name.</string>
+    <string name="role_updated">Role has been updated</string>
+    <string name="role_update_error">An error occurred while updating user role.</string>
     <string name="user_role">User</string>
     <string name="teacher_role">Teacher</string>
     <string name="admin_role">Admin</string>

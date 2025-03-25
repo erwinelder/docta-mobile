@@ -4,6 +4,7 @@ import cz.cvut.docta.auth.data.model.SignUpFormDto
 import cz.cvut.docta.auth.data.model.UserCredentialsDto
 import cz.cvut.docta.auth.data.model.UserDataDto
 import cz.cvut.docta.auth.data.model.UserDataWithTokenDto
+import cz.cvut.docta.auth.data.model.UserRoleDto
 import cz.cvut.docta.core.data.remote.doctaBackendUrl
 import cz.cvut.docta.core.data.remote.httpClient
 import cz.cvut.docta.errorHandling.domain.model.result.AuthError
@@ -152,6 +153,28 @@ class AuthRepositoryImpl() : AuthRepository {
             }
         } catch (_: Exception) {
             Result.Error(AuthError.NameUpdateError)
+        }
+    }
+
+    override suspend fun saveUserRole(
+        userId: Int,
+        role: UserRoleDto,
+        token: String
+    ): Result<AuthSuccess, AuthError> {
+        return try {
+            val response = httpClient.post(
+                urlString = "$doctaBackendUrl/account/$userId/save/role/${role.name}"
+            ) {
+                header("Authorization", "Bearer $token")
+                contentType(ContentType.Application.Json)
+            }
+
+            when (response.status) {
+                HttpStatusCode.Created -> Result.Success(AuthSuccess.RoleUpdated)
+                else -> Result.Error(AuthError.RoleUpdateError)
+            }
+        } catch (_: Exception) {
+            Result.Error(AuthError.RoleUpdateError)
         }
     }
 

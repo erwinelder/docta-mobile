@@ -12,7 +12,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cz.cvut.docta.lessonSession.presentation.model.answer.AnswerOptionUiState
-import cz.cvut.docta.core.presentation.component.containers.GlassSurfaceWithAdaptiveColor
+import cz.cvut.docta.core.presentation.component.container.GlassSurfaceWithAdaptiveColor
 import cz.cvut.docta.core.presentation.modifier.bounceClickEffect
 import cz.cvut.docta.core.presentation.theme.DoctaColors
 

@@ -27,7 +27,6 @@ import cz.cvut.docta.auth.presentation.viewmodel.SignUpViewModel
 import cz.cvut.docta.core.presentation.navigation.MainScreens
 import cz.cvut.docta.core.presentation.navigation.sharedKoinNavViewModel
 import cz.cvut.docta.core.presentation.viewmodel.NavViewModel
-import cz.cvut.docta.core.utils.takeActionIf
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
@@ -191,31 +190,43 @@ fun NavGraphBuilder.authGraph(
             }
 
             val userData by viewModel.userData.collectAsStateWithLifecycle()
+            val nameEditingState by viewModel.nameEditingState.collectAsStateWithLifecycle()
             val nameState by viewModel.nameState.collectAsStateWithLifecycle()
-            val userNameEditingState by viewModel.userNameEditingState.collectAsStateWithLifecycle()
-            val requestState by viewModel.requestState.collectAsStateWithLifecycle()
+            val roleEditingState by viewModel.roleEditingState.collectAsStateWithLifecycle()
+            val roleState by viewModel.roleState.collectAsStateWithLifecycle()
+            val requestState by viewModel.userDataRequestState.collectAsStateWithLifecycle()
 
             ProfileScreen(
                 screenPadding = screenPadding,
+                permissions = viewModel.permissions,
                 onNavigateToDeleteAccountScreen = {
                     navViewModel.navigate(
                         navController = navController, screen = AuthScreens.DeleteAccount
                     )
                 },
-                onNavigateToSignOutScreen = takeActionIf(userId == 0) {
+                onNavigateToSignOutScreen = {
                     navViewModel.navigate(
                         navController = navController, screen = AuthScreens.SignOut
                     )
                 },
                 userData = userData,
-                nameState = nameState,
-                userNameEditingState = userNameEditingState,
-                onToggleUserNameEditingState = viewModel::toggleUserNameEditingState,
-                onNameChange = viewModel::changeName,
+
+                nameEditingState = nameEditingState,
+                onToggleNameEditingState = viewModel::toggleNameEditingState,
                 onSaveName = viewModel::saveName,
-                requestState = requestState,
-                onCancelRequest = navController::popBackStack,
-                onCloseResult = navController::popBackStack
+                nameState = nameState,
+                onNameChange = viewModel::changeName,
+
+                roleEditingState = roleEditingState,
+                onToggleRoleEditingState = viewModel::toggleRoleEditingState,
+                onSaveRole = viewModel::saveRole,
+                roleState = roleState,
+                availableRoles = viewModel.availableRoles,
+                onRoleSelect = viewModel::selectRole,
+
+                userDataRequestState = requestState,
+                onCancelUserDataRequest = navController::popBackStack,
+                onUserDataFetchResult = navController::popBackStack
             )
         }
         composable<AuthScreens.SignOut> { backStack ->

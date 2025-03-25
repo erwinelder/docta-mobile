@@ -5,5 +5,6 @@ enum class AuthSuccess : Success {
     EmailVerificationSent,
     SignedUp,
     NameUpdated,
+    RoleUpdated,
     AccountDeleted
 }

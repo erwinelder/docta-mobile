@@ -23,7 +23,7 @@ import cz.cvut.docta.achievement.presentation.viewmodel.AchievementsViewModel
 import cz.cvut.docta.auth.domain.model.UserContext
 import cz.cvut.docta.auth.presentation.navigation.AuthScreens
 import cz.cvut.docta.auth.presentation.navigation.authGraph
-import cz.cvut.docta.core.presentation.component.containers.BottomNavBar
+import cz.cvut.docta.core.presentation.component.container.BottomNavBar
 import cz.cvut.docta.core.presentation.navigation.MainScreens
 import cz.cvut.docta.core.presentation.utils.anyScreenInHierarchyIs
 import cz.cvut.docta.core.presentation.utils.currentScreenIs

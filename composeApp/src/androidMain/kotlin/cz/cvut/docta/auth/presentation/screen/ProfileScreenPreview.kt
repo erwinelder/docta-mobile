@@ -5,7 +5,8 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import cz.cvut.docta.auth.domain.model.UserData
 import cz.cvut.docta.auth.domain.model.UserRole
-import cz.cvut.docta.auth.presentation.model.UserNameEditingState
+import cz.cvut.docta.auth.presentation.model.ProfilePermissions
+import cz.cvut.docta.auth.presentation.model.DataEditingState
 import cz.cvut.docta.core.domain.app.AppTheme
 import cz.cvut.docta.core.presentation.preview.ScreenPreviewContainer
 import cz.cvut.docta.errorHandling.presentation.model.ValidatedFieldUiState
@@ -23,17 +24,32 @@ fun ProfileScreenPreview(
 ) {
     ScreenPreviewContainer(appTheme = appTheme) {
         ProfileScreen(
+            permissions = ProfilePermissions(
+                allowDeleteAccount = true,
+                allowSignOut = true,
+                allowChangeName = true,
+                allowChangeRole = true
+            ),
             onNavigateToDeleteAccountScreen = {},
             onNavigateToSignOutScreen = {},
             userData = userData,
-            nameState = ValidatedFieldUiState(),
-            userNameEditingState = UserNameEditingState.Idle(name = userData.name),
-            onToggleUserNameEditingState = {},
-            onNameChange = {},
+
+            nameEditingState = DataEditingState.Idle,
+            onToggleNameEditingState = {},
             onSaveName = {},
-            requestState = null,
-            onCancelRequest = {},
-            onCloseResult = {}
+            nameState = ValidatedFieldUiState(fieldText = userData.name),
+            onNameChange = {},
+
+            roleEditingState = DataEditingState.Idle,
+            onToggleRoleEditingState = {},
+            onSaveRole = {},
+            roleState = userData.role,
+            availableRoles = UserRole.entries,
+            onRoleSelect = {},
+
+            userDataRequestState = null,
+            onCancelUserDataRequest = {},
+            onUserDataFetchResult = {}
         )
     }
 }

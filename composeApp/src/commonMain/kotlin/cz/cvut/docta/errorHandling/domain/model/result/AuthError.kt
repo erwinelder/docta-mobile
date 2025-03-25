@@ -12,5 +12,6 @@ enum class AuthError : Error {
     DataDeletionError,
     AccountDeletionError,
     NameUpdateError,
+    RoleUpdateError,
     UserDataFetchError,
 }

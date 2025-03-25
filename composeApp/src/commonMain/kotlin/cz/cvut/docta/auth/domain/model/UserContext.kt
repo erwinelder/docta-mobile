@@ -1,6 +1,5 @@
 package cz.cvut.docta.auth.domain.model
 
-import cz.cvut.docta.auth.domain.model.UserRole
 import cz.cvut.docta.auth.domain.usecase.CheckAuthTokenValidityUseCase
 import cz.cvut.docta.auth.domain.usecase.GetAuthTokenFromEncStoreUseCase
 import cz.cvut.docta.auth.domain.usecase.GetUserDataFromSecureStorageUseCase

@@ -4,8 +4,8 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import cz.cvut.docta.SharedRes
-import cz.cvut.docta.core.presentation.component.buttons.PrimaryButton
-import cz.cvut.docta.core.presentation.component.containers.LargePrimaryIconWithMessageContainer
+import cz.cvut.docta.core.presentation.component.button.PrimaryButton
+import cz.cvut.docta.core.presentation.component.container.LargePrimaryIconWithMessageContainer
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainerWithBackNavButton
 import dev.icerock.moko.resources.compose.stringResource
 import docta.composeapp.generated.resources.Res

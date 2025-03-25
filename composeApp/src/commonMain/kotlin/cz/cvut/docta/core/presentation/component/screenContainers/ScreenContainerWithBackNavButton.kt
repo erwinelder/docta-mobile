@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.core.domain.app.FilledWidthByScreenType
-import cz.cvut.docta.core.presentation.component.buttons.GlassSurfaceTopBackNavButton
+import cz.cvut.docta.core.presentation.component.button.GlassSurfaceTopBackNavButton
 import cz.cvut.docta.core.presentation.theme.CurrWindowType
 import cz.cvut.docta.core.presentation.utils.add
 import org.jetbrains.compose.resources.DrawableResource

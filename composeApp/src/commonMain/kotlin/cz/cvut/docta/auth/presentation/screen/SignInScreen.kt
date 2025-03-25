@@ -9,9 +9,9 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.SharedRes
-import cz.cvut.docta.core.presentation.component.buttons.PrimaryButton
-import cz.cvut.docta.core.presentation.component.buttons.SecondaryButton
-import cz.cvut.docta.core.presentation.component.containers.GlassSurfaceContentColumnWrapper
+import cz.cvut.docta.core.presentation.component.button.PrimaryButton
+import cz.cvut.docta.core.presentation.component.button.SecondaryButton
+import cz.cvut.docta.core.presentation.component.container.GlassSurfaceContentColumnWrapper
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainerWithTitleAndGlassSurface
 import cz.cvut.docta.errorHandling.presentation.component.container.ScreenWithRequestState
 import cz.cvut.docta.errorHandling.presentation.component.field.LargeTextFieldWithLabelAndMessages

@@ -30,6 +30,7 @@ private fun AuthSuccess.asTitleRes(): StringResource {
         AuthSuccess.EmailVerificationSent -> SharedRes.strings.email_sent
         AuthSuccess.SignedUp -> SharedRes.strings.welcome_to_docta
         AuthSuccess.NameUpdated -> SharedRes.strings.name_updated
+        AuthSuccess.RoleUpdated -> SharedRes.strings.role_updated
         AuthSuccess.AccountDeleted -> SharedRes.strings.account_deleted
     }
 }
@@ -40,6 +41,7 @@ private fun AuthSuccess.asMessageRes(): StringResource {
         AuthSuccess.EmailVerificationSent -> SharedRes.strings.sign_up_email_verification_sent_description
         AuthSuccess.SignedUp -> SharedRes.strings.welcome_to_docta
         AuthSuccess.NameUpdated -> SharedRes.strings.name_updated
+        AuthSuccess.RoleUpdated -> SharedRes.strings.role_updated
         AuthSuccess.AccountDeleted -> SharedRes.strings.account_deletion_success_message
     }
 }
@@ -55,10 +57,11 @@ private fun AuthError.asTitleRes(): StringResource {
         AuthError.SignUpError,
         AuthError.EmailNotVerifiedError,
         AuthError.DataDeletionError,
+        AuthError.UserDataFetchError,
         AuthError.AccountDeletionError -> SharedRes.strings.oops
         AuthError.EmailNotVerifiedYet -> SharedRes.strings.not_verified
-        AuthError.NameUpdateError -> SharedRes.strings.name_updated_error
-        AuthError.UserDataFetchError -> SharedRes.strings.user_data_not_fetched_error
+        AuthError.NameUpdateError -> SharedRes.strings.name_update_error
+        AuthError.RoleUpdateError -> SharedRes.strings.role_update_error
     }
 }
 
@@ -74,7 +77,8 @@ private fun AuthError.asMessageRes(): StringResource {
         AuthError.EmailNotVerifiedYet -> SharedRes.strings.your_email_not_verified_description
         AuthError.DataDeletionError -> SharedRes.strings.deleting_user_data_error
         AuthError.AccountDeletionError -> SharedRes.strings.deleting_user_account_error
-        AuthError.NameUpdateError -> SharedRes.strings.name_updated_error
+        AuthError.NameUpdateError -> SharedRes.strings.name_update_error
+        AuthError.RoleUpdateError -> SharedRes.strings.role_update_error
         AuthError.UserDataFetchError -> SharedRes.strings.user_data_not_fetched_error
     }
 }

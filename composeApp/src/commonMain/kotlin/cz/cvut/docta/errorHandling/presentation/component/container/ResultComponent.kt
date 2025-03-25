@@ -7,8 +7,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.SharedRes
-import cz.cvut.docta.core.presentation.component.buttons.SmallSecondaryButton
-import cz.cvut.docta.core.presentation.component.containers.LargePrimaryIconWithMessage
+import cz.cvut.docta.core.presentation.component.button.SmallSecondaryButton
+import cz.cvut.docta.core.presentation.component.container.LargePrimaryIconWithMessage
 import dev.icerock.moko.resources.compose.stringResource
 import docta.composeapp.generated.resources.Res
 import docta.composeapp.generated.resources.close_icon

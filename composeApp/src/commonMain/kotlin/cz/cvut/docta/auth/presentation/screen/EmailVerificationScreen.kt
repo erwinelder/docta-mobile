@@ -10,8 +10,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.SharedRes
-import cz.cvut.docta.core.presentation.component.buttons.SmallPrimaryButton
-import cz.cvut.docta.core.presentation.component.containers.LargePrimaryIconWithMessage
+import cz.cvut.docta.core.presentation.component.button.SmallPrimaryButton
+import cz.cvut.docta.core.presentation.component.container.LargePrimaryIconWithMessage
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainerWithBackNavButton
 import cz.cvut.docta.errorHandling.presentation.component.container.RequestStateComponent
 import cz.cvut.docta.errorHandling.presentation.model.RequestState

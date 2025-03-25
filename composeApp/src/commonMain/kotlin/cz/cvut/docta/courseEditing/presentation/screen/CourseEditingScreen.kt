@@ -13,9 +13,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cz.cvut.docta.SharedRes
 import cz.cvut.docta.core.domain.app.FilledWidthByScreenType
-import cz.cvut.docta.core.presentation.component.buttons.GlassSurfaceNavigationButton
-import cz.cvut.docta.core.presentation.component.buttons.GlassSurfaceTopBackNavButton
-import cz.cvut.docta.core.presentation.component.buttons.PrimaryButton
+import cz.cvut.docta.core.presentation.component.button.GlassSurfaceNavigationButton
+import cz.cvut.docta.core.presentation.component.button.GlassSurfaceTopBackNavButton
+import cz.cvut.docta.core.presentation.component.button.PrimaryButton
 import cz.cvut.docta.core.presentation.component.field.LargeTextField
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainer
 import cz.cvut.docta.core.presentation.theme.CurrWindowType

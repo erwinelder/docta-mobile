@@ -19,6 +19,8 @@ import cz.cvut.docta.auth.domain.usecase.SaveUserNameToSecureStorageUseCase
 import cz.cvut.docta.auth.domain.usecase.SaveUserNameToSecureStorageUseCaseImpl
 import cz.cvut.docta.auth.domain.usecase.SaveUserNameUseCase
 import cz.cvut.docta.auth.domain.usecase.SaveUserNameUseCaseImpl
+import cz.cvut.docta.auth.domain.usecase.SaveUserRoleUseCase
+import cz.cvut.docta.auth.domain.usecase.SaveUserRoleUseCaseImpl
 import cz.cvut.docta.auth.domain.usecase.SignInUseCase
 import cz.cvut.docta.auth.domain.usecase.SignInUseCaseImpl
 import cz.cvut.docta.auth.domain.usecase.SignOutUseCase
@@ -97,6 +99,13 @@ val authModule = module {
         )
     }
 
+    single<SaveUserRoleUseCase> {
+        SaveUserRoleUseCaseImpl(
+            authRepository = get(),
+            userContext = get()
+        )
+    }
+
     single<SignOutUseCase> {
         SignOutUseCaseImpl(userContext = get())
     }
@@ -124,7 +133,8 @@ val authModule = module {
             userId = parameters.getOrNull<Int>()?.takeIf { it != 0 },
             getUserDataUseCase = get(),
             saveUserNameUseCase = get(),
-            saveUserNameToSecureStorageUseCase = get()
+            saveUserNameToSecureStorageUseCase = get(),
+            saveUserRoleUseCase = get()
         )
     }
 
