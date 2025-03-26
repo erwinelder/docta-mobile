@@ -3,21 +3,23 @@ package cz.cvut.docta.core.presentation.screen
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import cz.cvut.docta.auth.mapper.toResultState
 import cz.cvut.docta.auth.presentation.screen.DeleteOwnAccountScreenPreview
 import cz.cvut.docta.auth.presentation.screen.DeleteOwnAccountScreenSuccessPreview
 import cz.cvut.docta.auth.presentation.screen.DeleteUserAccountScreenErrorPreview
 import cz.cvut.docta.auth.presentation.screen.DeleteUserAccountScreenPreview
 import cz.cvut.docta.auth.presentation.screen.DeleteUserAccountScreenSuccessPreview
+import cz.cvut.docta.auth.presentation.screen.EmailVerificationScreenErrorPreview
 import cz.cvut.docta.auth.presentation.screen.EmailVerificationScreenPreview
+import cz.cvut.docta.auth.presentation.screen.EmailVerificationScreenSuccessPreview
 import cz.cvut.docta.auth.presentation.screen.ProfileScreenPreview
+import cz.cvut.docta.auth.presentation.screen.SignInScreenErrorPreview
 import cz.cvut.docta.auth.presentation.screen.SignInScreenPreview
+import cz.cvut.docta.auth.presentation.screen.SignInScreenSuccessPreview
+import cz.cvut.docta.auth.presentation.screen.SignUpScreenErrorPreview
 import cz.cvut.docta.auth.presentation.screen.SignUpScreenPreview
 import cz.cvut.docta.core.domain.app.AppTheme
 import cz.cvut.docta.course.presentation.screen.AddNewCourseScreenPreview
 import cz.cvut.docta.course.presentation.screen.CoursesScreenPreview
-import cz.cvut.docta.errorHandling.domain.model.result.AuthError
-import cz.cvut.docta.errorHandling.presentation.model.RequestState
 import cz.cvut.docta.lesson.presentation.screen.SectionLessonsScreenPreview
 import cz.cvut.docta.lessonSession.presentation.screen.AnswerOptionsQuestionScreenPreview
 import cz.cvut.docta.lessonSession.presentation.screen.FillInBlanksQuestionScreenPreview
@@ -42,6 +44,22 @@ private fun SignInScreenPreview_() {
 
 @Preview(device = Devices.PIXEL_7_PRO, group = "Auth", locale = locale)
 @Composable
+private fun SignInScreenSuccessPreview_() {
+    SignInScreenSuccessPreview(
+        appTheme = appTheme
+    )
+}
+
+@Preview(device = Devices.PIXEL_7_PRO, group = "Auth", locale = locale)
+@Composable
+private fun SignInScreenErrorPreview_() {
+    SignInScreenErrorPreview(
+        appTheme = appTheme
+    )
+}
+
+@Preview(device = Devices.PIXEL_7_PRO, group = "Auth", locale = locale)
+@Composable
 private fun SignUpScreenPreview_() {
     SignUpScreenPreview(
         appTheme = appTheme
@@ -50,7 +68,15 @@ private fun SignUpScreenPreview_() {
 
 @Preview(device = Devices.PIXEL_7_PRO, group = "Auth", locale = locale)
 @Composable
-private fun EmailVerificationScreenPromptedPreview() {
+private fun SignUpScreenErrorPreview_() {
+    SignUpScreenErrorPreview(
+        appTheme = appTheme
+    )
+}
+
+@Preview(device = Devices.PIXEL_7_PRO, group = "Auth", locale = locale)
+@Composable
+private fun EmailVerificationScreenPreview_() {
     EmailVerificationScreenPreview(
         appTheme = appTheme
     )
@@ -58,12 +84,17 @@ private fun EmailVerificationScreenPromptedPreview() {
 
 @Preview(device = Devices.PIXEL_7_PRO, group = "Auth", locale = locale)
 @Composable
-private fun EmailVerificationScreenNotVerifiedPreview() {
-    EmailVerificationScreenPreview(
-        appTheme = appTheme,
-        requestState = RequestState.Result(
-            resultState = AuthError.EmailNotVerifiedYet.toResultState()
-        )
+private fun EmailVerificationScreenSuccessPreview_() {
+    EmailVerificationScreenSuccessPreview(
+        appTheme = appTheme
+    )
+}
+
+@Preview(device = Devices.PIXEL_7_PRO, group = "Auth", locale = locale)
+@Composable
+private fun EmailVerificationScreenErrorPreview_() {
+    EmailVerificationScreenErrorPreview(
+        appTheme = appTheme
     )
 }
 
