@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.core.presentation.navigation.SetBackHandler
+import cz.cvut.docta.errorHandling.presentation.component.screenContainer.RequestStateScreen
 import cz.cvut.docta.errorHandling.presentation.model.RequestState
 
 @Composable
@@ -26,12 +27,12 @@ fun ScreenWithRequestState(
         modifier = Modifier
             .fillMaxSize()
             .padding(screenPadding)
-    ) { result ->
-        if (result == null) {
+    ) { state ->
+        if (state == null) {
             screenContent()
         } else {
-            RequestStateComponent(
-                state = result,
+            RequestStateScreen(
+                state = state,
                 onCancelRequest = onCancelRequest,
                 onSuccessClose = onSuccessClose,
                 onErrorClose = onErrorClose

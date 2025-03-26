@@ -18,6 +18,7 @@
     <string name="edit_courses">Upravit kurzy</string>
     <string name="searching_for_course">Hledání "%s"</string>
     <string name="course_with_code_not_found">Kurz s kódem “%s” nebyl nalezen</string>
+    <string name="no_courses_message">Momentálně nemáte žádné kurzy.</string>
 
     <!-- Course section -->
     <string name="edit_section">Upravit sekci</string>
@@ -101,6 +102,7 @@
     <string name="owner_role">Vlastník</string>
 
     <!-- Loaders -->
+    <string name="fetching_courses">Načítání kurzů…</string>
     <string name="saving_loader">Ukládáni…</string>
     <string name="verifying_your_credentials_loader">Ověřování vašich přihlašovacích údajů…</string>
     <string name="creating_your_identity_loader">Vytváření vaší identity…</string>

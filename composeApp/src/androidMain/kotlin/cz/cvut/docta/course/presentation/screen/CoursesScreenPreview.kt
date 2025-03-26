@@ -12,6 +12,7 @@ import cz.cvut.docta.course.domain.model.CourseWithProgress
 @Composable
 fun CoursesScreenPreview(
     appTheme: AppTheme = AppTheme.Light,
+    userName: String = "username",
     courses : List<CourseWithProgress> = listOf(
         CourseWithProgress.Completed(
             code = "code",
@@ -36,11 +37,14 @@ fun CoursesScreenPreview(
 ) {
     ScreenPreviewContainer(appTheme = appTheme) {
         CoursesScreen(
-            username = "username",
+            username = userName,
             onAddNewCourse = {},
             onEditCourses = {},
             courses = courses,
-            onCourseClick = {}
+//            courses = emptyList(),
+            onCourseClick = {},
+            requestState = null
+//            requestState = RequestState.Loading(messageRes = SharedRes.strings.fetching_courses)
         )
     }
 }

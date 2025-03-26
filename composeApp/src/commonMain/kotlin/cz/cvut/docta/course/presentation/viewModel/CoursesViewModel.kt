@@ -2,9 +2,11 @@ package cz.cvut.docta.course.presentation.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import cz.cvut.docta.SharedRes
 import cz.cvut.docta.course.domain.model.CourseWithProgress
 import cz.cvut.docta.course.domain.usecase.GetChosenCoursesUseCase
 import cz.cvut.docta.course.domain.usecase.GetCoursesWithProgressUseCase
+import cz.cvut.docta.errorHandling.presentation.model.RequestState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -36,9 +38,12 @@ class CoursesViewModel(
     }
 
     private fun fetchAllCourses() {
+        setRequestLoadingState()
+
         viewModelScope.launch {
             getChosenCoursesUseCase.getFlow().collect { codes ->
-                fetchCourses(codes)
+                fetchCourses(codes = codes)
+                resetResultState()
             }
         }
     }
@@ -47,6 +52,20 @@ class CoursesViewModel(
         _courses.update {
             it + course
         }
+    }
+
+
+    private val _requestState = MutableStateFlow<RequestState?>(null)
+    val requestState = _requestState.asStateFlow()
+
+    private fun setRequestLoadingState() {
+        _requestState.update {
+            RequestState.Loading(messageRes = SharedRes.strings.fetching_courses)
+        }
+    }
+
+    fun resetResultState() {
+        _requestState.update { null }
     }
 
 

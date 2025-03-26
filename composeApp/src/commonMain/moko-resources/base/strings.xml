@@ -18,6 +18,7 @@
     <string name="edit_courses">Edit courses</string>
     <string name="searching_for_course">Searching for "%s"</string>
     <string name="course_with_code_not_found">Course with code “%s” was not found</string>
+    <string name="no_courses_message">You currently have no courses.</string>
 
     <!-- Course section -->
     <string name="edit_section">Edit section</string>
@@ -101,6 +102,7 @@
     <string name="owner_role">Owner</string>
 
     <!-- Loaders -->
+    <string name="fetching_courses">Fetching courses…</string>
     <string name="saving_loader">Saving…</string>
     <string name="verifying_your_credentials_loader">Verifying your credentials…</string>
     <string name="creating_your_identity_loader">Creating your identity…</string>

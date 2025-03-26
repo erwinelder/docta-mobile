@@ -40,6 +40,7 @@ fun NavGraphBuilder.courseNavigationGraph(
             val viewModel = backStack.sharedKoinNavViewModel<CoursesViewModel>(navController)
 
             val courses by viewModel.courses.collectAsStateWithLifecycle()
+            val requestState by viewModel.requestState.collectAsStateWithLifecycle()
 
             LaunchedEffect(true) {
                 courseContext.resetCourseCode()
@@ -49,16 +50,20 @@ fun NavGraphBuilder.courseNavigationGraph(
                 screenPadding = screenPadding,
                 username = userContext.name,
                 onAddNewCourse = {
-                    navViewModel.navigate(navController, CourseScreens.AddNewCourse)
+                    navViewModel.navigate(
+                        navController = navController, screen = CourseScreens.AddNewCourse
+                    )
                 },
                 onEditCourses = { /* TODO-COURSE */ },
                 courses = courses,
                 onCourseClick = { course ->
                     courseContext.setCourseCode(code = course.code)
                     navViewModel.navigate(
-                        navController, CourseScreens.Sections(courseCode = course.code)
+                        navController = navController,
+                        screen = CourseScreens.Sections(courseCode = course.code)
                     )
-                }
+                },
+                requestState = requestState
             )
         }
         composable<CourseScreens.AddNewCourse> { backStack ->
@@ -105,7 +110,8 @@ fun NavGraphBuilder.courseNavigationGraph(
                 sections = sections,
                 onSectionClick = { section ->
                     navViewModel.navigate(
-                        navController, CourseScreens.Lessons(sectionId = section.id)
+                        navController = navController,
+                        screen = CourseScreens.Lessons(sectionId = section.id)
                     )
                 }
             )
@@ -121,7 +127,7 @@ fun NavGraphBuilder.courseNavigationGraph(
             val lessons by viewModel.sectionLessons.collectAsStateWithLifecycle()
 
             LaunchedEffect(sectionId) {
-                courseContext.setSectionId(sectionId)
+                courseContext.setSectionId(sectionId = sectionId)
                 viewModel.fetchData(sectionId = sectionId)
             }
 
