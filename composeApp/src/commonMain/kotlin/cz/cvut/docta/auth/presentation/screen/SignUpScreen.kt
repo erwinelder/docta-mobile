@@ -35,16 +35,15 @@ fun SignUpScreen(
     onNavigateToSignInScreen: () -> Unit,
     requestState: RequestState?,
     onCancelRequest: () -> Unit,
-    onCloseResult: () -> Unit
+    onErrorClose: () -> Unit
 ) {
     ScreenWithRequestState(
         screenPadding = screenPadding,
         requestState = requestState,
         onCancelRequest = onCancelRequest,
-        onErrorClose = onCloseResult
+        onErrorClose = onErrorClose
     ) {
         ScreenContainerWithTitleAndGlassSurface(
-            screenPadding = screenPadding,
             title = stringResource(SharedRes.strings.create_your_docta_account),
             glassSurfaceContent = {
                 GlassSurfaceContent(

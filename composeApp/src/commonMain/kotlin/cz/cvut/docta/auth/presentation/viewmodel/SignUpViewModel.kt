@@ -8,6 +8,7 @@ import cz.cvut.docta.auth.domain.usecase.SignUpUseCase
 import cz.cvut.docta.auth.domain.validation.UserDataValidator
 import cz.cvut.docta.auth.mapper.toResultState
 import cz.cvut.docta.errorHandling.domain.model.result.AuthError
+import cz.cvut.docta.errorHandling.domain.model.result.AuthSuccess
 import cz.cvut.docta.errorHandling.domain.model.result.Result
 import cz.cvut.docta.errorHandling.mapper.toUiStates
 import cz.cvut.docta.errorHandling.presentation.model.RequestState
@@ -137,13 +138,6 @@ class SignUpViewModel(
     }
 
 
-    private val _emailVerified = MutableStateFlow(false)
-    val emailVerified = _emailVerified.asStateFlow()
-
-    fun setEmailVerified(verified: Boolean) {
-        _emailVerified.update { verified }
-    }
-
     private var checkVerificationJob: Job? = null
 
     fun checkEmailVerification() {
@@ -156,7 +150,9 @@ class SignUpViewModel(
                 password = passwordState.value.fieldText
             )
             when (result) {
-                is Result.Success -> setEmailVerified(verified = true)
+                is Result.Success -> setRequestResultState(
+                    result = AuthSuccess.SignedUp.toResultState()
+                )
                 is Result.Error -> when (result.error) {
                     AuthError.EmailNotVerifiedError -> setRequestResultState(
                         result = AuthError.EmailNotVerifiedYet.toResultState()

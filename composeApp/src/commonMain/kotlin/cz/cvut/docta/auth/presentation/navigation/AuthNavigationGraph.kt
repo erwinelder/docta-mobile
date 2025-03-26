@@ -1,7 +1,6 @@
 package cz.cvut.docta.auth.presentation.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -13,8 +12,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import androidx.navigation.toRoute
-import cz.cvut.docta.auth.presentation.model.AuthSuccessScreenType
-import cz.cvut.docta.auth.presentation.screen.AuthSuccessScreen
 import cz.cvut.docta.auth.presentation.screen.DeleteOwnAccountScreen
 import cz.cvut.docta.auth.presentation.screen.DeleteUserAccountScreen
 import cz.cvut.docta.auth.presentation.screen.EmailVerificationScreen
@@ -69,12 +66,7 @@ fun NavGraphBuilder.authGraph(
                 signInIsAllowed = signInIsAllowed,
                 onSignIn = {
                     job = coroutineScope.launch {
-                        if (viewModel.signIn()) navViewModel.navigate(
-                            navController = navController,
-                            screen = AuthScreens.ResultSuccess(
-                                screenType = AuthSuccessScreenType.SignIn.name
-                            )
-                        )
+                        viewModel.signIn()
                     }
                 },
                 onNavigateToSignUpScreen = {
@@ -88,7 +80,12 @@ fun NavGraphBuilder.authGraph(
                     job?.cancel()
                     job = null
                 },
-                onCloseResult = viewModel::resetResultState
+                onSuccessClose = {
+                    navViewModel.navigateAndPopUpTo(
+                        navController = navController, screenToNavigateTo = MainScreens.Courses
+                    )
+                },
+                onErrorClose = viewModel::resetResultState
             )
         }
         composable<AuthScreens.SignUp> { backStack ->
@@ -139,52 +136,26 @@ fun NavGraphBuilder.authGraph(
                     job?.cancel()
                     job = null
                 },
-                onCloseResult = viewModel::resetResultState
+                onErrorClose = viewModel::resetResultState
             )
         }
         composable<AuthScreens.EmailVerification> { backStack ->
             val viewModel = backStack.sharedKoinNavViewModel<SignUpViewModel>(navController)
 
-            val emailVerified by viewModel.emailVerified.collectAsStateWithLifecycle()
             val requestState by viewModel.requestState.collectAsStateWithLifecycle()
-
-            LaunchedEffect(emailVerified) {
-                if (emailVerified) {
-                    navViewModel.navigateToScreenPoppingToStartDestination(
-                        navController = navController,
-                        navBackStackEntry = backStack,
-                        screen = AuthScreens.ResultSuccess(
-                            screenType = AuthSuccessScreenType.SignUp.name
-                        )
-                    )
-                }
-            }
 
             EmailVerificationScreen(
                 screenPadding = screenPadding,
                 onNavigateBack = navController::popBackStack,
-                emailVerified = emailVerified,
                 onCheckEmailVerification = viewModel::checkEmailVerification,
                 requestState = requestState,
                 onCancelRequest = viewModel::cancelEmailVerificationCheck,
-                onCloseResult = viewModel::checkEmailVerification
-            )
-        }
-        composable<AuthScreens.ResultSuccess> { backStack ->
-            val screenType = enumValueOf<AuthSuccessScreenType>(
-                name = backStack.toRoute<AuthScreens.ResultSuccess>().screenType
-            )
-
-            AuthSuccessScreen(
-                screenPadding = screenPadding,
-                screenType = screenType,
-                onContinueButtonClick = {
-                    navViewModel.navigateToScreenPoppingToStartDestination(
-                        navController = navController,
-                        navBackStackEntry = backStack,
-                        screen = MainScreens.Courses
+                onSuccessClose = {
+                    navViewModel.navigateAndPopUpTo(
+                        navController = navController, screenToNavigateTo = MainScreens.Courses
                     )
-                }
+                },
+                onErrorClose = viewModel::resetResultState
             )
         }
         composable<AuthScreens.Profile> { backStack ->

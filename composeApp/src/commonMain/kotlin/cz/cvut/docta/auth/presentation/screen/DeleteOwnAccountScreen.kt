@@ -40,9 +40,8 @@ fun DeleteOwnAccountScreen(
         onErrorClose = onErrorClose
     ) {
         ScreenContainerWithBackNavButtonTitleAndGlassSurface(
-            screenPadding = screenPadding,
             onNavigateBack = onNavigateBack,
-            backButtonText = stringResource(SharedRes.strings.sign_out),
+            backButtonText = stringResource(SharedRes.strings.delete_account),
             title = stringResource(SharedRes.strings.delete_own_account_question),
             glassSurfaceContent = {
                 val scrollState = rememberScrollState()

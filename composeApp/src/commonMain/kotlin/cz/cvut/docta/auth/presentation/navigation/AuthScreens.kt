@@ -14,9 +14,6 @@ sealed interface AuthScreens {
     data object EmailVerification : AuthScreens
 
     @Serializable
-    data class ResultSuccess(val screenType: String) : AuthScreens
-
-    @Serializable
     data class Profile(val userId: Int = 0) : AuthScreens
 
     @Serializable

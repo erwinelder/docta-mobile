@@ -76,7 +76,6 @@ fun ProfileScreen(
         onErrorClose = onUserDataFetchResult
     ) {
         ScreenContainer(
-            screenPadding = screenPadding,
             verticalArrangement = Arrangement.spacedBy(48.dp),
             modifier = Modifier.clickable { focusManager.clearFocus() }
         ) {

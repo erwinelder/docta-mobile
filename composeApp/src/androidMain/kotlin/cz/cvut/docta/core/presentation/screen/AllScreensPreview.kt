@@ -4,8 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import cz.cvut.docta.auth.mapper.toResultState
-import cz.cvut.docta.auth.presentation.model.AuthSuccessScreenType
-import cz.cvut.docta.auth.presentation.screen.AuthSuccessScreenPreview
+import cz.cvut.docta.auth.presentation.screen.DeleteOwnAccountScreenPreview
+import cz.cvut.docta.auth.presentation.screen.DeleteOwnAccountScreenSuccessPreview
+import cz.cvut.docta.auth.presentation.screen.DeleteUserAccountScreenErrorPreview
+import cz.cvut.docta.auth.presentation.screen.DeleteUserAccountScreenPreview
+import cz.cvut.docta.auth.presentation.screen.DeleteUserAccountScreenSuccessPreview
 import cz.cvut.docta.auth.presentation.screen.EmailVerificationScreenPreview
 import cz.cvut.docta.auth.presentation.screen.ProfileScreenPreview
 import cz.cvut.docta.auth.presentation.screen.SignInScreenPreview
@@ -66,17 +69,48 @@ private fun EmailVerificationScreenNotVerifiedPreview() {
 
 @Preview(device = Devices.PIXEL_7_PRO, group = "Auth", locale = locale)
 @Composable
-private fun AuthSuccessScreenPreview_() {
-    AuthSuccessScreenPreview(
-        appTheme = appTheme,
-        screenType = AuthSuccessScreenType.SignUp
+private fun ProfileScreenPreview_() {
+    ProfileScreenPreview(
+        appTheme = appTheme
     )
 }
 
 @Preview(device = Devices.PIXEL_7_PRO, group = "Auth", locale = locale)
 @Composable
-private fun ProfileScreenPreview_() {
-    ProfileScreenPreview(
+private fun DeleteOwnAccountScreenPreview_() {
+    DeleteOwnAccountScreenPreview(
+        appTheme = appTheme
+    )
+}
+
+@Preview(device = Devices.PIXEL_7_PRO, group = "Auth", locale = locale)
+@Composable
+private fun DeleteOwnAccountScreenSuccessPreview_() {
+    DeleteOwnAccountScreenSuccessPreview(
+        appTheme = appTheme
+    )
+}
+
+@Preview(device = Devices.PIXEL_7_PRO, group = "Auth", locale = locale)
+@Composable
+private fun DeleteUserAccountScreenPreview_() {
+    DeleteUserAccountScreenPreview(
+        appTheme = appTheme
+    )
+}
+
+@Preview(device = Devices.PIXEL_7_PRO, group = "Auth", locale = locale)
+@Composable
+private fun DeleteUserAccountScreenSuccessPreview_() {
+    DeleteUserAccountScreenSuccessPreview(
+        appTheme = appTheme
+    )
+}
+
+@Preview(device = Devices.PIXEL_7_PRO, group = "Auth", locale = locale)
+@Composable
+private fun DeleteUserAccountScreenErrorPreview_() {
+    DeleteUserAccountScreenErrorPreview(
         appTheme = appTheme
     )
 }

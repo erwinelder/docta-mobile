@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import cz.cvut.docta.core.presentation.navigation.SetBackHandler
 import cz.cvut.docta.errorHandling.presentation.model.RequestState
 
 @Composable
@@ -18,6 +19,8 @@ fun ScreenWithRequestState(
     onErrorClose: () -> Unit,
     screenContent: @Composable () -> Unit
 ) {
+    SetBackHandler(enabled = requestState != null) {}
+
     AnimatedContent(
         targetState = requestState,
         modifier = Modifier

@@ -35,7 +35,8 @@ fun SignInScreenPreview(
             onNavigateToSignUpScreen = {},
             requestState = null,
             onCancelRequest = {},
-            onCloseResult = {}
+            onSuccessClose = {},
+            onErrorClose = {}
         )
     }
 }

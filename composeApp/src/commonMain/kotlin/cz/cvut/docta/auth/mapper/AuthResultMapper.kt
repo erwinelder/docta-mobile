@@ -54,11 +54,11 @@ private fun AuthSuccess.asTitleRes(): StringResource {
     }
 }
 
-private fun AuthSuccess.asMessageRes(): StringResource {
+private fun AuthSuccess.asMessageRes(): StringResource? {
     return when (this) {
-        AuthSuccess.SignedIn -> SharedRes.strings.welcome_back_to_docta
+        AuthSuccess.SignedIn -> null
         AuthSuccess.EmailVerificationSent -> SharedRes.strings.sign_up_email_verification_sent_description
-        AuthSuccess.SignedUp -> SharedRes.strings.welcome_to_docta
+        AuthSuccess.SignedUp -> null
         AuthSuccess.NameUpdated -> SharedRes.strings.name_updated
         AuthSuccess.RoleUpdated -> SharedRes.strings.role_updated
         AuthSuccess.OwnAccountDeleted -> SharedRes.strings.own_account_deletion_success_message

@@ -11,17 +11,16 @@ import cz.cvut.docta.errorHandling.presentation.model.RequestState
 @Composable
 fun EmailVerificationScreenPreview(
     appTheme: AppTheme = AppTheme.Light,
-    emailVerified: Boolean = false,
     requestState: RequestState? = null
 ) {
     ScreenPreviewContainer(appTheme = appTheme) {
         EmailVerificationScreen(
             onNavigateBack = {},
-            emailVerified = emailVerified,
             onCheckEmailVerification = {},
             requestState = requestState,
             onCancelRequest = {},
-            onCloseResult = {}
+            onSuccessClose = {},
+            onErrorClose = {}
         )
     }
 }

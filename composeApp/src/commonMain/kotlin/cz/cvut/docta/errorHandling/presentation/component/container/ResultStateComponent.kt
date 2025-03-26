@@ -25,7 +25,7 @@ fun ResultStateComponent(
         iconDescription = iconDescription,
         iconGradient = iconGradient,
         title = stringResource(resultState.titleRes),
-        message = stringResource(resultState.messageRes),
+        message = resultState.messageRes?.let { stringResource(it) },
         buttonText = stringResource(resultState.buttonTextRes),
         buttonIconRes = resultState.buttonIconRes,
         usePrimaryButtonInstead = resultState.isSuccessful,

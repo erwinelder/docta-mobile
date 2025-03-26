@@ -31,13 +31,15 @@ fun SignInScreen(
     onNavigateToSignUpScreen: () -> Unit,
     requestState: RequestState?,
     onCancelRequest: () -> Unit,
-    onCloseResult: () -> Unit
+    onSuccessClose: () -> Unit,
+    onErrorClose: () -> Unit
 ) {
     ScreenWithRequestState(
         screenPadding = screenPadding,
         requestState = requestState,
         onCancelRequest = onCancelRequest,
-        onErrorClose = onCloseResult
+        onSuccessClose = onSuccessClose,
+        onErrorClose = onErrorClose
     ) {
         ScreenContainerWithTitleAndGlassSurface(
             title = stringResource(SharedRes.strings.sign_in_to_your_docta_account),

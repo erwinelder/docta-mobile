@@ -1,9 +1,6 @@
 package cz.cvut.docta.core.presentation.component.screenContainers
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxScope
@@ -23,6 +20,7 @@ import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.core.domain.app.FilledWidthByScreenType
 import cz.cvut.docta.core.presentation.component.container.GlassSurface
+import cz.cvut.docta.core.presentation.component.container.KeyboardTypingAnimatedVisibilityContainer
 import cz.cvut.docta.core.presentation.theme.CurrWindowType
 import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.core.presentation.theme.DoctaTypography
@@ -58,9 +56,8 @@ fun ScreenContainerWithTitleAndGlassSurface(
                 .weight(1f, fill = fillGlassSurface)
         ) {
             Spacer(modifier = Modifier.weight(1f))
-            AnimatedVisibility(
-                visible = !keyboardInFocus, enter = fadeIn(), exit = fadeOut()
-            ) {
+
+            KeyboardTypingAnimatedVisibilityContainer(isVisible = !keyboardInFocus) {
                 Text(
                     text = title,
                     style = DoctaTypography.titleLarge,
@@ -72,7 +69,9 @@ fun ScreenContainerWithTitleAndGlassSurface(
                         .padding(vertical = 16.dp)
                 )
             }
+
             Spacer(modifier = Modifier.weight(1f))
+
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -85,12 +84,11 @@ fun ScreenContainerWithTitleAndGlassSurface(
                 )
                 buttonUnderGlassSurface?.invoke()
             }
+
             Spacer(modifier = Modifier.weight(1f))
         }
 
-        AnimatedVisibility(
-            visible = !keyboardInFocus, enter = fadeIn(), exit = fadeOut()
-        ) {
+        KeyboardTypingAnimatedVisibilityContainer(isVisible = !keyboardInFocus) {
             bottomButton()
         }
 

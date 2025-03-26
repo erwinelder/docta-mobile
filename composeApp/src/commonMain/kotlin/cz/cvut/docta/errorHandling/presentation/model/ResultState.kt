@@ -8,7 +8,7 @@ import org.jetbrains.compose.resources.DrawableResource
 data class ResultState(
     val isSuccessful: Boolean,
     val titleRes: StringResource,
-    val messageRes: StringResource,
+    val messageRes: StringResource?,
     val buttonTextRes: StringResource,
     val buttonIconRes: DrawableResource?
 )

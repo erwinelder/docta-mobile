@@ -6,7 +6,6 @@ import cz.cvut.docta.SharedRes
 import cz.cvut.docta.auth.domain.usecase.SignInUseCase
 import cz.cvut.docta.auth.domain.validation.UserDataValidator
 import cz.cvut.docta.auth.mapper.toResultState
-import cz.cvut.docta.errorHandling.domain.model.result.Result
 import cz.cvut.docta.errorHandling.mapper.toUiStates
 import cz.cvut.docta.errorHandling.presentation.model.RequestState
 import cz.cvut.docta.errorHandling.presentation.model.ResultState
@@ -71,7 +70,7 @@ class SignInViewModel(
     )
 
 
-    suspend fun signIn(): Boolean {
+    suspend fun signIn() {
         setRequestLoadingState()
 
         val result = signInUseCase.execute(
@@ -79,11 +78,7 @@ class SignInViewModel(
             password = passwordState.value.fieldText
         )
 
-        if (result is Result.Error) {
-            setRequestResultState(result.error.toResultState())
-        }
-
-        return result is Result.Success
+        setRequestResultState(result.toResultState())
     }
 
 
