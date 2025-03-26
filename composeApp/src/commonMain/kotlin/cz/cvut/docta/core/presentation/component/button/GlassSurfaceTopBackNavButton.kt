@@ -12,7 +12,7 @@ import org.jetbrains.compose.resources.DrawableResource
 fun GlassSurfaceTopBackNavButton(
     text: String,
     iconRes: DrawableResource? = null,
-    padding: PaddingValues = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
+    padding: PaddingValues = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
@@ -22,7 +22,7 @@ fun GlassSurfaceTopBackNavButton(
         showRightIconInsteadOfLeft = false,
         filledWidths = FilledWidthByScreenType(.96f, .75f, .75f),
         padding = padding,
-        fontSize = 20.sp,
+        fontSize = 21.sp,
         cornerSize = 20.dp,
         modifier = modifier,
         onClick = onClick
