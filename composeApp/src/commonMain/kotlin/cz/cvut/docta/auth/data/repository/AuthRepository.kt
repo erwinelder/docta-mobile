@@ -24,4 +24,13 @@ interface AuthRepository {
 
     suspend fun saveUserRole(userId: Int, role: UserRoleDto, token: String): Result<AuthSuccess, AuthError>
 
+    suspend fun deleteOwnAccount(
+        userId: Int,
+        token: String,
+        email: String,
+        password: String
+    ): Result<AuthSuccess, AuthError>
+
+    suspend fun deleteUserAccount(userId: Int, token: String): Result<AuthSuccess, AuthError>
+
 }

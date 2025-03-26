@@ -15,11 +15,15 @@ import androidx.navigation.navigation
 import androidx.navigation.toRoute
 import cz.cvut.docta.auth.presentation.model.AuthSuccessScreenType
 import cz.cvut.docta.auth.presentation.screen.AuthSuccessScreen
+import cz.cvut.docta.auth.presentation.screen.DeleteOwnAccountScreen
+import cz.cvut.docta.auth.presentation.screen.DeleteUserAccountScreen
 import cz.cvut.docta.auth.presentation.screen.EmailVerificationScreen
 import cz.cvut.docta.auth.presentation.screen.ProfileScreen
 import cz.cvut.docta.auth.presentation.screen.SignInScreen
 import cz.cvut.docta.auth.presentation.screen.SignOutScreen
 import cz.cvut.docta.auth.presentation.screen.SignUpScreen
+import cz.cvut.docta.auth.presentation.viewmodel.DeleteOwnAccountViewModel
+import cz.cvut.docta.auth.presentation.viewmodel.DeleteUserAccountViewModel
 import cz.cvut.docta.auth.presentation.viewmodel.ProfileViewModel
 import cz.cvut.docta.auth.presentation.viewmodel.SignInViewModel
 import cz.cvut.docta.auth.presentation.viewmodel.SignOutViewModel
@@ -201,7 +205,12 @@ fun NavGraphBuilder.authGraph(
                 permissions = viewModel.permissions,
                 onNavigateToDeleteAccountScreen = {
                     navViewModel.navigate(
-                        navController = navController, screen = AuthScreens.DeleteAccount
+                        navController = navController,
+                        screen = if (userId == 0) {
+                            AuthScreens.DeleteOwnAccount
+                        } else {
+                            AuthScreens.DeleteUserAccount(userId = userId)
+                        }
                     )
                 },
                 onNavigateToSignOutScreen = {
@@ -247,8 +256,70 @@ fun NavGraphBuilder.authGraph(
                 }
             )
         }
-        composable<AuthScreens.DeleteAccount> { backStack ->
+        composable<AuthScreens.DeleteOwnAccount> {
+            val viewModel = koinViewModel<DeleteOwnAccountViewModel>()
 
+            val passwordState by viewModel.passwordState.collectAsStateWithLifecycle()
+            val requestState by viewModel.requestState.collectAsStateWithLifecycle()
+            val allowDeleteAccount by viewModel.allowDeleteAccount.collectAsStateWithLifecycle()
+
+            val coroutineScope = rememberCoroutineScope()
+            var job by remember { mutableStateOf<Job?>(null) }
+
+            DeleteOwnAccountScreen(
+                screenPadding = screenPadding,
+                onNavigateBack = navController::popBackStack,
+                passwordState = passwordState,
+                onPasswordChange = viewModel::updateAndValidatePassword,
+                allowDeleteAccount = allowDeleteAccount,
+                onDeleteAccount = {
+                    job = coroutineScope.launch {
+                        viewModel.deleteAccount()
+                    }
+                },
+                requestState = requestState,
+                onCancelRequest = {
+                    job?.cancel()
+                    job = null
+                },
+                onSuccessClose = {
+                    navViewModel.navigateAndPopUpTo(
+                        navController = navController, screenToNavigateTo = AuthScreens.SignIn()
+                    )
+                },
+                onErrorClose = viewModel::resetResultState
+            )
+        }
+        composable<AuthScreens.DeleteUserAccount> { backStack ->
+            val userId = backStack.toRoute<AuthScreens.Profile>().userId
+            val viewModel = koinViewModel<DeleteUserAccountViewModel> {
+                parametersOf(userId)
+            }
+
+            val requestState by viewModel.requestState.collectAsStateWithLifecycle()
+
+            val coroutineScope = rememberCoroutineScope()
+            var job by remember { mutableStateOf<Job?>(null) }
+
+            DeleteUserAccountScreen(
+                screenPadding = screenPadding,
+                onNavigateBack = navController::popBackStack,
+                onDeleteAccount = {
+                    job = coroutineScope.launch {
+                        viewModel.deleteAccount()
+                    }
+                },
+                requestState = requestState,
+                onCancelRequest = {
+                    job?.cancel()
+                    job = null
+                },
+                onSuccessClose = {
+                    navController.popBackStack()
+                    navController.popBackStack()
+                },
+                onErrorClose = viewModel::resetResultState
+            )
         }
     }
 }

@@ -23,6 +23,9 @@ sealed interface AuthScreens {
     data object SignOut : AuthScreens
 
     @Serializable
-    data object DeleteAccount : AuthScreens
+    data object DeleteOwnAccount : AuthScreens
+
+    @Serializable
+    data class DeleteUserAccount(val userId: Int) : AuthScreens
 
 }

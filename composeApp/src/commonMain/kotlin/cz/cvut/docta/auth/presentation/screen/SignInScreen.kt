@@ -37,7 +37,7 @@ fun SignInScreen(
         screenPadding = screenPadding,
         requestState = requestState,
         onCancelRequest = onCancelRequest,
-        onCloseResult = onCloseResult
+        onErrorClose = onCloseResult
     ) {
         ScreenContainerWithTitleAndGlassSurface(
             title = stringResource(SharedRes.strings.sign_in_to_your_docta_account),
@@ -94,8 +94,8 @@ private fun GlassSurfaceContent(
             keyboardType = KeyboardType.Password,
             placeholderText = stringResource(SharedRes.strings.password),
             labelText = stringResource(SharedRes.strings.password),
-            imeAction = ImeAction.Done,
-            onDoneKeyboardAction = onSignIn
+            imeAction = ImeAction.Go,
+            onGoKeyboardAction = onSignIn
         )
     }
 }

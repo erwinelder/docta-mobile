@@ -54,7 +54,7 @@ fun EditableDataComponent(
                     is DataEditingState.Idle -> idleStateComponent()
                     is DataEditingState.Editing -> editingStateComponent()
                     is DataEditingState.Saving -> SmallLoaderComponent(
-                        text = stringResource(SharedRes.strings.saving)
+                        text = stringResource(SharedRes.strings.saving_loader)
                     )
                 }
             }

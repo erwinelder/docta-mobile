@@ -3,10 +3,9 @@ package cz.cvut.docta.auth.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cz.cvut.docta.SharedRes
-import cz.cvut.docta.auth.domain.usecase.SignInUseCase
+import cz.cvut.docta.auth.domain.usecase.DeleteOwnAccountUseCase
 import cz.cvut.docta.auth.domain.validation.UserDataValidator
 import cz.cvut.docta.auth.mapper.toResultState
-import cz.cvut.docta.errorHandling.domain.model.result.Result
 import cz.cvut.docta.errorHandling.mapper.toUiStates
 import cz.cvut.docta.errorHandling.presentation.model.RequestState
 import cz.cvut.docta.errorHandling.presentation.model.ResultState
@@ -14,32 +13,13 @@ import cz.cvut.docta.errorHandling.presentation.model.ValidatedFieldUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 
-class SignInViewModel(
-    email: String,
-    private val signInUseCase: SignInUseCase
+class DeleteOwnAccountViewModel(
+    private val deleteOwnAccountUseCase: DeleteOwnAccountUseCase
 ) : ViewModel() {
-
-    private val _emailState = MutableStateFlow(
-        ValidatedFieldUiState(
-            fieldText = email,
-            validationStates = UserDataValidator.validateEmail(email).toUiStates()
-        )
-    )
-    val emailState = _emailState.asStateFlow()
-
-    fun updateAndValidateEmail(email: String) {
-        _emailState.update {
-            it.copy(
-                fieldText = email,
-                validationStates = UserDataValidator.validateEmail(email).toUiStates()
-            )
-        }
-    }
-
 
     private val _passwordState = MutableStateFlow(
         ValidatedFieldUiState(
@@ -59,31 +39,20 @@ class SignInViewModel(
     }
 
 
-    val signInIsAllowed = combine(
-        emailState, passwordState
-    ) { emailState, passwordState ->
-        UserDataValidator.isValidEmail(email = emailState.fieldText) &&
-                passwordState.fieldText.isNotEmpty()
+    val allowDeleteAccount = _passwordState.map {
+        it.isValid()
     }.stateIn(
         scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000L),
+        started = SharingStarted.WhileSubscribed(),
         initialValue = false
     )
 
 
-    suspend fun signIn(): Boolean {
+    suspend fun deleteAccount() {
         setRequestLoadingState()
 
-        val result = signInUseCase.execute(
-            email = emailState.value.fieldText,
-            password = passwordState.value.fieldText
-        )
-
-        if (result is Result.Error) {
-            setRequestResultState(result.error.toResultState())
-        }
-
-        return result is Result.Success
+        val result = deleteOwnAccountUseCase.execute(password = passwordState.value.fieldText)
+        setRequestResultState(result.toResultState())
     }
 
 
@@ -92,12 +61,14 @@ class SignInViewModel(
 
     private fun setRequestLoadingState() {
         _requestState.update {
-            RequestState.Loading(messageRes = SharedRes.strings.verifying_your_credentials_loader)
+            RequestState.Loading(messageRes = SharedRes.strings.deleting_account_loader)
         }
     }
 
     private fun setRequestResultState(result: ResultState) {
-        _requestState.update { RequestState.Result(resultState = result) }
+        _requestState.update {
+            RequestState.Result(resultState = result)
+        }
     }
 
     fun resetResultState() {

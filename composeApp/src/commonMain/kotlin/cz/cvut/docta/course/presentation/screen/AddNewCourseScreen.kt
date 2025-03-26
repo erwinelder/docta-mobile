@@ -45,10 +45,10 @@ fun AddNewCourseScreen(
     onAddCourse: (CourseWithProgress) -> Unit
 ) {
     ScreenContainerWithBackNavButton(
-        onNavigateBack = onNavigateBack,
-        backButtonText = stringResource(SharedRes.strings.add_new_course),
+        screenPadding = screenPadding,
         verticalArrangement = Arrangement.Center,
-        screenPadding = screenPadding
+        onNavigateBack = onNavigateBack,
+        backButtonText = stringResource(SharedRes.strings.add_new_course)
     ) {
         AnimatedContent(
             targetState = searchedCourseState,

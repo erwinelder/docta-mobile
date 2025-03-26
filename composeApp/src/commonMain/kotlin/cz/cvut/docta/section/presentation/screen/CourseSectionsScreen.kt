@@ -28,12 +28,12 @@ fun CourseSectionsScreen(
     val lazyListState = rememberLazyListState()
 
     ScreenContainerWithBackNavButton(
+        screenPadding = screenPadding,
+        padding = PaddingValues(top = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(24.dp),
         onNavigateBack = onNavigateBack,
         backButtonText = courseName,
         backButtonIconRes = courseIconRes,
-        verticalArrangement = Arrangement.spacedBy(24.dp),
-        screenPadding = screenPadding,
-        padding = PaddingValues(top = 8.dp),
         contentFilledWith = FilledWidthByScreenType()
     ) {
         LazyColumn(

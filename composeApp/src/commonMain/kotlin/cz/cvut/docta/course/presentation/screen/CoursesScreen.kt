@@ -37,8 +37,8 @@ fun CoursesScreen(
     val lazyListState = rememberLazyListState()
 
     ScreenContainer(
-        verticalArrangement = Arrangement.spacedBy(48.dp),
-        screenPadding = screenPadding
+        screenPadding = screenPadding,
+        verticalArrangement = Arrangement.spacedBy(48.dp)
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp),

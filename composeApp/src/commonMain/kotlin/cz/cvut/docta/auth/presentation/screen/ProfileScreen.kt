@@ -40,7 +40,6 @@ import cz.cvut.docta.errorHandling.presentation.model.ValidatedFieldUiState
 import dev.icerock.moko.resources.compose.stringResource
 import docta.composeapp.generated.resources.Res
 import docta.composeapp.generated.resources.delete_account_icon
-import docta.composeapp.generated.resources.short_arrow_left_icon
 import docta.composeapp.generated.resources.sign_out_icon
 
 @Composable
@@ -73,14 +72,12 @@ fun ProfileScreen(
     ScreenWithRequestState(
         screenPadding = screenPadding,
         requestState = userDataRequestState,
-        closeButtonText = stringResource(SharedRes.strings.back),
-        closeButtonIconRes = Res.drawable.short_arrow_left_icon,
         onCancelRequest = onCancelUserDataRequest,
-        onCloseResult = onUserDataFetchResult
+        onErrorClose = onUserDataFetchResult
     ) {
         ScreenContainer(
-            verticalArrangement = Arrangement.spacedBy(48.dp),
             screenPadding = screenPadding,
+            verticalArrangement = Arrangement.spacedBy(48.dp),
             modifier = Modifier.clickable { focusManager.clearFocus() }
         ) {
             ButtonsBlock(
@@ -126,6 +123,7 @@ private fun ButtonsBlock(
                 text = stringResource(SharedRes.strings.delete_account),
                 iconRes = Res.drawable.delete_account_icon,
                 enabledGradientColor = DoctaColors.dangerousGlassGradientPair,
+                alpha = 1f,
                 contentColor = DoctaColors.onPrimary,
                 borderColor = DoctaColors.semiTransparentBorder,
                 onClick = onNavigateToDeleteAccountScreen

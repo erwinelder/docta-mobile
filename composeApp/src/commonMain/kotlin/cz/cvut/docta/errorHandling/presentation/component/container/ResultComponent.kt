@@ -7,6 +7,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.SharedRes
+import cz.cvut.docta.core.presentation.component.button.SmallPrimaryButton
 import cz.cvut.docta.core.presentation.component.button.SmallSecondaryButton
 import cz.cvut.docta.core.presentation.component.container.LargePrimaryIconWithMessage
 import dev.icerock.moko.resources.compose.stringResource
@@ -22,8 +23,9 @@ fun ResultComponent(
     title: String,
     message: String? = null,
     buttonText: String = stringResource(SharedRes.strings.close),
-    buttonIconRes: DrawableResource = Res.drawable.close_icon,
-    onClose: () -> Unit
+    buttonIconRes: DrawableResource? = Res.drawable.close_icon,
+    usePrimaryButtonInstead: Boolean = false,
+    onButtonClick: () -> Unit
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -36,10 +38,18 @@ fun ResultComponent(
             iconDescription = iconDescription,
             gradientColor = iconGradient
         )
-        SmallSecondaryButton(
-            text = buttonText,
-            iconRes = buttonIconRes,
-            onClick = onClose
-        )
+        if (usePrimaryButtonInstead) {
+            SmallPrimaryButton(
+                text = buttonText,
+                iconRes = buttonIconRes,
+                onClick = onButtonClick
+            )
+        } else {
+            SmallSecondaryButton(
+                text = buttonText,
+                iconRes = buttonIconRes,
+                onClick = onButtonClick
+            )
+        }
     }
 }

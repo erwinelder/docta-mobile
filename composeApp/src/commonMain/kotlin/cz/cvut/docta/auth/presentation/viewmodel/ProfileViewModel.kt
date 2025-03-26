@@ -158,14 +158,12 @@ class ProfileViewModel(
 
     private fun setUserDataRequestLoadingState() {
         _userDataRequestState.update {
-            RequestState.Loading(messageRes = SharedRes.strings.loading_user_data)
+            RequestState.Loading(messageRes = SharedRes.strings.loading_user_data_loader)
         }
     }
 
     private fun setUserDataRequestResultState(result: ResultState) {
-        _userDataRequestState.update {
-            RequestState.Result(resultState = result)
-        }
+        _userDataRequestState.update { RequestState.Result(resultState = result) }
     }
 
     private fun resetUserDataRequestState() {

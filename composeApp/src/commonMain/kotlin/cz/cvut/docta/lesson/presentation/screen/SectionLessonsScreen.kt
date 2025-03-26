@@ -32,12 +32,12 @@ fun SectionLessonsScreen(
     val lazyListState = rememberLazyListState()
 
     ScreenContainerWithBackNavButton(
+        screenPadding = screenPadding,
+        padding = PaddingValues(top = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(24.dp),
         onNavigateBack = onNavigateBack,
         backButtonText = sectionName,
-        backButtonIconRes = sectionIconRes,
-        verticalArrangement = Arrangement.spacedBy(24.dp),
-        screenPadding = screenPadding,
-        padding = PaddingValues(top = 8.dp)
+        backButtonIconRes = sectionIconRes
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,

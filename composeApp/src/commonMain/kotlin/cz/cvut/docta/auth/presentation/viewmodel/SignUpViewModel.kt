@@ -119,7 +119,7 @@ class SignUpViewModel(
 
 
     suspend fun signUp(): Boolean {
-        setRequestLoadingState(messageRes = SharedRes.strings.creating_your_identity)
+        setRequestLoadingState(messageRes = SharedRes.strings.creating_your_identity_loader)
 
         val result = signUpUseCase.execute(
             name = nameState.value.fieldText,
@@ -147,7 +147,7 @@ class SignUpViewModel(
     private var checkVerificationJob: Job? = null
 
     fun checkEmailVerification() {
-        setRequestLoadingState(messageRes = SharedRes.strings.checking_email_verification)
+        setRequestLoadingState(messageRes = SharedRes.strings.checking_email_verification_loader)
 
         checkVerificationJob = viewModelScope.launch {
             val result = checkEmailVerificationUseCase.execute(
@@ -182,9 +182,7 @@ class SignUpViewModel(
     }
 
     private fun setRequestResultState(result: ResultState) {
-        _requestState.update {
-            RequestState.Result(resultState = result)
-        }
+        _requestState.update { RequestState.Result(resultState = result) }
     }
 
     fun resetResultState() {

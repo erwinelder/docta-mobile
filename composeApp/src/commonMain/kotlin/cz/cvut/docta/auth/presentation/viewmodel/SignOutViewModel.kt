@@ -8,7 +8,7 @@ class SignOutViewModel(
 ) : ViewModel() {
 
     suspend fun signOut() {
-        signOutUseCase.signOut()
+        signOutUseCase.execute()
     }
 
 }

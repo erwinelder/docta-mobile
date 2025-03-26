@@ -32,11 +32,9 @@ fun QuestionScreenContainer(
     val bottomPadding by animateDpAsState(imeBottomInset.coerceAtLeast(24.dp))
 
     ScreenContainer(
+        screenPadding = screenPadding,
+        padding = PaddingValues(top = 24.dp, bottom = bottomPadding),
         verticalArrangement = Arrangement.SpaceBetween,
-        padding = PaddingValues(
-            top = screenPadding.calculateTopPadding() + 24.dp,
-            bottom = bottomPadding
-        ),
         modifier = Modifier.clickable { focusManager.clearFocus() }
     ) {
         QuestionInstructionsTitle(questionInstructions = questionInstructions)

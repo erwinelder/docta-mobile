@@ -18,7 +18,6 @@ import cz.cvut.docta.errorHandling.presentation.model.RequestState
 import dev.icerock.moko.resources.compose.stringResource
 import docta.composeapp.generated.resources.Res
 import docta.composeapp.generated.resources.email_large_icon
-import docta.composeapp.generated.resources.reset_icon
 
 @Composable
 fun EmailVerificationScreen(
@@ -32,9 +31,9 @@ fun EmailVerificationScreen(
 ) {
     ScreenContainerWithBackNavButton(
         screenPadding = screenPadding,
+        verticalArrangement = Arrangement.Center,
         onNavigateBack = onNavigateBack,
-        backButtonText = stringResource(SharedRes.strings.email_verification),
-        verticalArrangement = Arrangement.Center
+        backButtonText = stringResource(SharedRes.strings.email_verification)
     ) {
         AnimatedContent(
             targetState = requestState,
@@ -46,10 +45,9 @@ fun EmailVerificationScreen(
             } else if (result != null) {
                 RequestStateComponent(
                     state = result,
-                    closeButtonText = stringResource(SharedRes.strings.try_again),
-                    closeButtonIconRes = Res.drawable.reset_icon,
                     onCancelRequest = onCancelRequest,
-                    onCloseResult = onCloseResult
+                    onSuccessClose = {},
+                    onErrorClose = onCloseResult
                 )
             }
         }

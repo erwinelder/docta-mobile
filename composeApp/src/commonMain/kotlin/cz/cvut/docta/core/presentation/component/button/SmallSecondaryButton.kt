@@ -38,15 +38,16 @@ fun SmallSecondaryButton(
     enabled: Boolean = true,
     fontSize: TextUnit = 17.sp,
     enabledGradientColor: Pair<Color, Color> = DoctaColors.glassSurfaceGradientPair,
+    alpha: Float = .5f,
     contentColor: Color = DoctaColors.onSurface,
     borderColor: Color = DoctaColors.primarySemiTransparent,
     onClick: () -> Unit = {}
 ) {
     val buttonLighterColor by animateColorAsState(
-        targetValue = enabledGradientColor.first.copy(.5f)
+        targetValue = enabledGradientColor.first.copy(alpha = alpha)
     )
     val buttonDarkerColor by animateColorAsState(
-        targetValue = enabledGradientColor.second.copy(.5f)
+        targetValue = enabledGradientColor.second.copy(alpha = alpha)
     )
 
     Box(
@@ -63,13 +64,13 @@ fun SmallSecondaryButton(
                 disabledContentColor = DoctaColors.onPrimary,
             ),
             elevation = null,
-            contentPadding = PaddingValues(horizontal = 24.dp, vertical = 12.dp),
+            contentPadding = PaddingValues(horizontal = 18.dp, vertical = 12.dp),
             modifier = Modifier
                 .clip(RoundedCornerShape(16.dp))
                 .border(1.dp, borderColor, RoundedCornerShape(16.dp))
                 .background(
                     brush = Brush.linearGradient(
-                        colors = listOf(buttonDarkerColor, buttonLighterColor),
+                        colors = listOf(buttonLighterColor, buttonDarkerColor),
                         start = Offset(75f, 210f),
                         end = Offset(95f, -10f)
                     )

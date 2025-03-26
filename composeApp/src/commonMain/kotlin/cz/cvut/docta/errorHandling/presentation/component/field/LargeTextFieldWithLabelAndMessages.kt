@@ -21,7 +21,8 @@ fun LargeTextFieldWithLabelAndMessages(
     cornerSize: Dp = 15.dp,
     labelText: String? = null,
     imeAction: ImeAction = ImeAction.Done,
-    onDoneKeyboardAction: () -> Unit = {}
+    onDoneKeyboardAction: () -> Unit = {},
+    onGoKeyboardAction: () -> Unit = {}
 ) {
     LabelWithMessagesFieldWrapper(state = state, labelText = labelText) {
         SmallTextField(
@@ -33,7 +34,8 @@ fun LargeTextFieldWithLabelAndMessages(
             fontSize = fontSize,
             cornerSize = cornerSize,
             imeAction = imeAction,
-            onDoneKeyboardAction = onDoneKeyboardAction
+            onDoneKeyboardAction = onDoneKeyboardAction,
+            onGoKeyboardAction = onGoKeyboardAction
         )
     }
 }

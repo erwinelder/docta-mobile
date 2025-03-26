@@ -178,4 +178,50 @@ class AuthRepositoryImpl() : AuthRepository {
         }
     }
 
+    override suspend fun deleteOwnAccount(
+        userId: Int,
+        token: String,
+        email: String,
+        password: String
+    ): Result<AuthSuccess, AuthError> {
+        return try {
+            val response = httpClient.post(
+                urlString = "$doctaBackendUrl/account/$userId/delete"
+            ) {
+                header("Authorization", "Bearer $token")
+                contentType(ContentType.Application.Json)
+                setBody(UserCredentialsDto(email = email, password = password))
+            }
+
+            when (response.status) {
+                HttpStatusCode.NoContent -> Result.Success(AuthSuccess.OwnAccountDeleted)
+                HttpStatusCode.Unauthorized -> Result.Error(AuthError.WrongCredentials)
+                else -> Result.Error(AuthError.AccountDeletionError)
+            }
+        } catch (_: Exception) {
+            Result.Error(AuthError.AccountDeletionError)
+        }
+    }
+
+    override suspend fun deleteUserAccount(
+        userId: Int,
+        token: String
+    ): Result<AuthSuccess, AuthError> {
+        return try {
+            val response = httpClient.post(
+                urlString = "$doctaBackendUrl/account/$userId/delete"
+            ) {
+                header("Authorization", "Bearer $token")
+                contentType(ContentType.Application.Json)
+            }
+
+            when (response.status) {
+                HttpStatusCode.NoContent -> Result.Success(AuthSuccess.UserAccountDeleted)
+                else -> Result.Error(AuthError.AccountDeletionError)
+            }
+        } catch (_: Exception) {
+            Result.Error(AuthError.AccountDeletionError)
+        }
+    }
+
 }

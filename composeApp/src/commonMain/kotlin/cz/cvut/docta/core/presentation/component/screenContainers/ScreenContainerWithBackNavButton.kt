@@ -20,13 +20,13 @@ import org.jetbrains.compose.resources.DrawableResource
 
 @Composable
 fun ScreenContainerWithBackNavButton(
+    screenPadding: PaddingValues = PaddingValues(0.dp),
+    padding: PaddingValues = PaddingValues(vertical = 8.dp),
+    verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(24.dp),
+    gap: Dp = 24.dp,
     onNavigateBack: () -> Unit,
     backButtonText: String,
     backButtonIconRes: DrawableResource? = null,
-    verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(24.dp),
-    screenPadding: PaddingValues = PaddingValues(0.dp),
-    padding: PaddingValues = PaddingValues(vertical = 8.dp),
-    gap: Dp = 24.dp,
     contentFilledWith: FilledWidthByScreenType? = null,
     content: @Composable ColumnScope.() -> Unit
 ) {
@@ -38,9 +38,7 @@ fun ScreenContainerWithBackNavButton(
             .fillMaxSize()
     ) {
         GlassSurfaceTopBackNavButton(
-            text = backButtonText,
-            iconRes = backButtonIconRes,
-            onClick = onNavigateBack
+            text = backButtonText, iconRes = backButtonIconRes, onClick = onNavigateBack
         )
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,

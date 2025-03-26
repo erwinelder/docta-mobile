@@ -34,8 +34,8 @@ fun CourseEditingScreen(
     onSaveButtonClick: () -> Unit
 ) {
     ScreenContainer(
-        verticalArrangement = Arrangement.spacedBy(32.dp),
-        padding = PaddingValues(top = 8.dp, bottom = 24.dp)
+        padding = PaddingValues(top = 8.dp, bottom = 24.dp),
+        verticalArrangement = Arrangement.spacedBy(32.dp)
     ) {
         GlassSurfaceTopBackNavButton(
             text = stringResource(SharedRes.strings.edit_course),

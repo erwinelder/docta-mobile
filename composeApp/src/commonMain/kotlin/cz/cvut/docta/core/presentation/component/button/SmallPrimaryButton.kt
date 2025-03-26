@@ -61,7 +61,7 @@ fun SmallPrimaryButton(
                 disabledContentColor = DoctaColors.onPrimary,
             ),
             elevation = null,
-            contentPadding = PaddingValues(horizontal = 24.dp, vertical = 12.dp),
+            contentPadding = PaddingValues(horizontal = 18.dp, vertical = 12.dp),
             modifier = Modifier
                 .clip(RoundedCornerShape(16.dp))
                 .border(1.5.dp, DoctaColors.semiTransparentBorder, RoundedCornerShape(16.dp))

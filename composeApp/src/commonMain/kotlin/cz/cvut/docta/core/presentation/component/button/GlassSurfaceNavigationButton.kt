@@ -39,12 +39,13 @@ fun GlassSurfaceNavigationButton(
     padding: PaddingValues = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
     fontSize: TextUnit = 20.sp,
     cornerSize: Dp = 30.dp,
+    modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
     GlassSurface(
         filledWidths = filledWidths,
         cornerSize = cornerSize,
-        modifier = Modifier.bounceClickEffect(.98f, onClick = onClick)
+        modifier = modifier.bounceClickEffect(.98f, onClick = onClick)
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(12.dp),
@@ -58,14 +59,14 @@ fun GlassSurfaceNavigationButton(
                     painter = painterResource(Res.drawable.short_arrow_left_icon),
                     contentDescription = "left arrow icon",
                     tint = DoctaColors.onSurface,
-                    modifier = Modifier.size(24.dp)
+                    modifier = Modifier.size(20.dp)
                 )
             }
             iconRes?.let {
                 Image(
                     painter = painterResource(iconRes),
                     contentDescription = "$text icon",
-                    modifier = Modifier.size(46.dp)
+                    modifier = Modifier.size(42.dp)
                 )
             }
             Text(
@@ -83,7 +84,7 @@ fun GlassSurfaceNavigationButton(
                     painter = painterResource(rightIconRes),
                     contentDescription = "right arrow icon",
                     tint = DoctaColors.onSurface,
-                    modifier = Modifier.size(24.dp)
+                    modifier = Modifier.size(20.dp)
                 )
             }
         }

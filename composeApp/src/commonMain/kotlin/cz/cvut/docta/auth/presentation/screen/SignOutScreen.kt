@@ -3,6 +3,7 @@ package cz.cvut.docta.auth.presentation.screen
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import cz.cvut.docta.SharedRes
 import cz.cvut.docta.core.presentation.component.button.PrimaryButton
 import cz.cvut.docta.core.presentation.component.container.LargePrimaryIconWithMessageContainer
@@ -18,9 +19,10 @@ fun SignOutScreen(
     onSignOut: () -> Unit
 ) {
     ScreenContainerWithBackNavButton(
+        screenPadding = screenPadding,
+        padding = PaddingValues(top = 8.dp, bottom = 24.dp),
         onNavigateBack = onNavigateBack,
-        backButtonText = stringResource(SharedRes.strings.sign_out),
-        screenPadding = screenPadding
+        backButtonText = stringResource(SharedRes.strings.sign_out)
     ) {
         LargePrimaryIconWithMessageContainer(
             title = stringResource(SharedRes.strings.sign_out_question),

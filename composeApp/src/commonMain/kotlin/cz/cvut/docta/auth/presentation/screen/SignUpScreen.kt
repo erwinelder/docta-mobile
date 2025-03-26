@@ -41,7 +41,7 @@ fun SignUpScreen(
         screenPadding = screenPadding,
         requestState = requestState,
         onCancelRequest = onCancelRequest,
-        onCloseResult = onCloseResult
+        onErrorClose = onCloseResult
     ) {
         ScreenContainerWithTitleAndGlassSurface(
             screenPadding = screenPadding,
@@ -123,8 +123,8 @@ private fun GlassSurfaceContent(
             keyboardType = KeyboardType.Password,
             placeholderText = stringResource(SharedRes.strings.password),
             labelText = stringResource(SharedRes.strings.password),
-            imeAction = ImeAction.Done,
-            onDoneKeyboardAction = onSignUp
+            imeAction = ImeAction.Go,
+            onGoKeyboardAction = onSignUp
         )
     }
 }
