@@ -1,22 +1,26 @@
 package cz.cvut.docta.di
 
-import cz.cvut.docta.core.data.local.AppLocalDatabase
-import cz.cvut.docta.core.data.local.getLocalDatabaseBuilder
-import cz.cvut.docta.core.data.remote.getRemoteDatabaseBuilder
-import cz.cvut.docta.core.data.local.getRoomLocalDatabase
-import cz.cvut.docta.core.data.remote.AppRemoteDatabase
-import cz.cvut.docta.core.data.remote.getRoomRemoteDatabase
+import com.russhwolf.settings.Settings
+import cz.cvut.docta.core.data.database.AppDatabase
+import cz.cvut.docta.core.data.database.getLocalDatabaseBuilder
+import cz.cvut.docta.core.data.database.getRoomDatabase
+import cz.cvut.docta.core.data.preferences.getSecureStorage
 import org.koin.dsl.module
 
 actual val platformModule = module {
-    single<AppLocalDatabase> {
-        getRoomLocalDatabase(
+
+    /* ---------- Database ---------- */
+
+    single<AppDatabase> {
+        getRoomDatabase(
             builder = getLocalDatabaseBuilder(context = get())
         )
     }
-    single<AppRemoteDatabase> {
-        getRoomRemoteDatabase(
-            builder = getRemoteDatabaseBuilder(context = get())
-        )
+
+    /* ---------- Preferences ---------- */
+
+    single<Settings> {
+        getSecureStorage(context = get())
     }
+
 }

@@ -2,6 +2,8 @@ package cz.cvut.docta.sectionEditing.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import cz.cvut.docta.lesson.domain.model.LessonDraft
+import cz.cvut.docta.lesson.domain.usecase.GetSectionLessonsDraftsUseCase
 import cz.cvut.docta.sectionEditing.domain.model.SectionDraft
 import cz.cvut.docta.sectionEditing.domain.usecase.GetSectionDraftUseCase
 import cz.cvut.docta.sectionEditing.domain.usecase.SaveSectionDraftUseCase
@@ -12,41 +14,57 @@ import kotlinx.coroutines.launch
 
 class SectionDraftViewModel(
     private val getSectionDraftUseCase: GetSectionDraftUseCase,
-    private val saveSectionDraftUseCase: SaveSectionDraftUseCase
+    private val saveSectionDraftUseCase: SaveSectionDraftUseCase,
+    private val getSectionLessonsDraftsUseCase: GetSectionLessonsDraftsUseCase
 ) : ViewModel() {
+
+    private var courseCode = ""
+
 
     private val _sectionName = MutableStateFlow("")
     val sectionName = _sectionName.asStateFlow()
-
-    private val _courseCode = MutableStateFlow("")
-    val courseCode = _courseCode.asStateFlow()
 
     fun changeSectionName(name: String) {
         _sectionName.update { name }
     }
 
-    fun saveSectionDraftToDatabase(sectionId: Long) {
-        val sectionDraft = getSectionDraft(sectionId)
+
+    private val _lessons = MutableStateFlow<List<LessonDraft>>(emptyList())
+    val lessons = _lessons.asStateFlow()
+
+    private fun changeLessonsList(lessons: List<LessonDraft>) {
+        _lessons.update { lessons }
+    }
+
+    fun fetchSectionDraftLessons(sectionId: Int) {
         viewModelScope.launch {
-            saveSectionDraftUseCase.execute(sectionDraft)
+            val lessons = getSectionLessonsDraftsUseCase.execute(sectionId = sectionId)
+            changeLessonsList(lessons)
         }
     }
 
-    private fun getSectionDraft(sectionId: Long): SectionDraft {
-        val courseCodeValue = courseCode.value
 
+    fun fetchSectionDraftData(sectionId: Int) {
+        viewModelScope.launch {
+            val sectionDraft = getSectionDraftUseCase.execute(id = sectionId) ?: return@launch
+            courseCode = sectionDraft.courseCode
+            changeSectionName(name = sectionDraft.name)
+        }
+    }
+
+    private fun getSectionDraft(sectionId: Int): SectionDraft {
         return SectionDraft(
-            courseCode = courseCodeValue,
+            courseCode = courseCode,
             id = sectionId,
             name = sectionName.value
         )
     }
 
-    fun fetchSectionDraftData(sectionId: Long) {
+    fun saveSectionDraftToDatabase(sectionId: Int) {
+        val sectionDraft = getSectionDraft(sectionId)
         viewModelScope.launch {
-            val sectionDraft = getSectionDraftUseCase.execute(sectionId) ?: return@launch
-            _courseCode.update { sectionDraft.courseCode }
-            changeSectionName(sectionDraft.name)
+            saveSectionDraftUseCase.execute(sectionDraft = sectionDraft)
         }
     }
+
 }

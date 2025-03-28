@@ -49,16 +49,15 @@ kotlin {
             // Room & SQLite
             implementation(libs.room.runtime)
             implementation(libs.sqlite.bundled)
-            // DataStore
+            // Preferences
             implementation(libs.androidx.datastore)
             implementation(libs.androidx.datastore.preferences)
+            implementation(libs.multiplatform.settings)
             // Ktor
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.cio)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
-            // Firebase
-//            implementation(libs.firebase.auth)
             // Koin
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
@@ -78,6 +77,8 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             // Coroutines
             implementation(libs.kotlinx.coroutines.android)
+            // Preferences
+            implementation(libs.androidx.security.crypto)
             // Koin
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
@@ -125,15 +126,15 @@ room {
 
 dependencies {
     debugImplementation(compose.uiTooling)
-    ksp(libs.room.compiler)
+//    ksp(libs.room.compiler)
 
-//    kspCommonMainMetadata(libs.room.compiler)
+    kspCommonMainMetadata(libs.room.compiler)
 
-//    add("kspAndroid", libs.room.compiler)
+    add("kspAndroid", libs.room.compiler)
 
-//    add("kspIosX64", libs.room.compiler)
-//    add("kspIosArm64", libs.room.compiler)
-//    add("kspIosSimulatorArm64", libs.room.compiler)
+    add("kspIosX64", libs.room.compiler)
+    add("kspIosArm64", libs.room.compiler)
+    add("kspIosSimulatorArm64", libs.room.compiler)
 }
 
 afterEvaluate {

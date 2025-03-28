@@ -1,53 +1,64 @@
 package cz.cvut.docta.lesson.data.repository
 
-import cz.cvut.docta.core.data.utils.synchroniseData
-import cz.cvut.docta.core.utils.enumValueOrNull
-import cz.cvut.docta.lesson.data.local.model.LessonType
-import cz.cvut.docta.lesson.data.local.source.LessonLocalDataSource
-import cz.cvut.docta.lesson.data.mapper.toLessonDetailsToSync
-import cz.cvut.docta.lesson.data.local.model.entity_with_details.LessonDetails
-import cz.cvut.docta.lesson.data.local.model.entity_with_details.LessonDetailsWithUserStats
-import cz.cvut.docta.lesson.data.remote.source.LessonRemoteDataSource
-import cz.cvut.docta.lesson.data.remote.model.LessonRemoteDetails
+import cz.cvut.docta.auth.domain.model.UserContext
+import cz.cvut.docta.core.data.remote.doctaBackendUrl
+import cz.cvut.docta.core.data.remote.httpClient
+import cz.cvut.docta.lesson.data.model.LessonDto
+import cz.cvut.docta.lesson.data.model.LessonWithProgressDto
+import io.ktor.client.request.get
+import io.ktor.client.request.header
+import io.ktor.client.statement.bodyAsText
+import io.ktor.http.ContentType
+import io.ktor.http.HttpStatusCode
+import io.ktor.http.contentType
+import kotlinx.serialization.json.Json
 
 class LessonRepositoryImpl(
-    private val localSource: LessonLocalDataSource,
-    private val remoteSource: LessonRemoteDataSource
+    private val userContext: UserContext
 ) : LessonRepository {
 
-    private suspend fun synchroniseLessons(courseCode: String) {
-        synchroniseData(
-            courseCode = courseCode,
-            localUpdateTimeGetter = localSource::getUpdateTime,
-            remoteUpdateTimeGetter = remoteSource::getUpdateTime,
-            remoteDataGetter = remoteSource::getLessonsAfterTimestamp,
-            remoteDataToDataToSyncMapper = List<LessonRemoteDetails>::toLessonDetailsToSync,
-            localSynchroniser = localSource::synchroniseLessons
-        )
-    }
-
-    override suspend fun getLessonType(courseCode: String, sectionId: Long, lessonId: Long): LessonType? {
-        synchroniseLessons(courseCode = courseCode)
-        val typeString = localSource.getLessonType(lessonId = lessonId)
-        return enumValueOrNull<LessonType>(typeString)
-    }
-
-    override suspend fun getDefaultLesson(courseCode: String, sectionId: Long, lessonId: Long): LessonDetails.Default? {
-        synchroniseLessons(courseCode = courseCode)
-        return localSource.getDefaultLesson(lessonId = lessonId)
-    }
-
-    override suspend fun getSectionLessons(courseCode: String, sectionId: Long): List<LessonDetails> {
-        synchroniseLessons(courseCode = courseCode)
-        return localSource.getSectionLessons(sectionId = sectionId)
-    }
-
-    override suspend fun getSectionLessonsWithStatistics(
+    override suspend fun getLessons(
         courseCode: String,
-        sectionId: Long
-    ): List<LessonDetailsWithUserStats> {
-        synchroniseLessons(courseCode = courseCode)
-        return localSource.getSectionLessonsWithStatistics(sectionId = sectionId)
+        sectionId: Int
+    ): List<LessonDto> {
+        return try {
+            val response = httpClient.get(
+                urlString = "$doctaBackendUrl/sections/$sectionId/lessons"
+            ) {
+                header("Authorization", "Bearer ${userContext.getAuthToken()}")
+                contentType(ContentType.Application.Json)
+            }
+
+            if (response.status == HttpStatusCode.OK) {
+                Json.decodeFromString<List<LessonDto>>(string = response.bodyAsText())
+            } else {
+                emptyList()
+            }
+        } catch (_: Exception) {
+            emptyList()
+        }
+    }
+
+    override suspend fun getLessonsWithProgress(
+        courseCode: String,
+        sectionId: Int
+    ): List<LessonWithProgressDto> {
+        return try {
+            val response = httpClient.get(
+                urlString = "$doctaBackendUrl/sections/$sectionId/lessons-with-progress"
+            ) {
+                header("Authorization", "Bearer ${userContext.getAuthToken()}")
+                contentType(ContentType.Application.Json)
+            }
+
+            if (response.status == HttpStatusCode.OK) {
+                Json.decodeFromString<List<LessonWithProgressDto>>(string = response.bodyAsText())
+            } else {
+                emptyList()
+            }
+        } catch (_: Exception) {
+            emptyList()
+        }
     }
 
 }

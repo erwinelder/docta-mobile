@@ -9,6 +9,8 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.core.presentation.theme.DoctaTypography
@@ -18,7 +20,7 @@ import cz.cvut.docta.core.utils.getGreetingsWidgetTitleRes
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
-fun GreetingsMessage() {
+fun GreetingsMessage(username: String) {
     val currentLocalDateTime = getCurrentLocalDateTime()
     val greetingsTitleRes by remember(currentLocalDateTime.hour) {
         derivedStateOf {
@@ -26,7 +28,7 @@ fun GreetingsMessage() {
         }
     }
 
-    GreetingsMessageContent(message = stringResource(greetingsTitleRes))
+    GreetingsMessageContent(message = stringResource(greetingsTitleRes, username))
 }
 
 @Composable
@@ -40,6 +42,9 @@ fun GreetingsMessageContent(message: String) {
             text = message,
             color = DoctaColors.onSurface,
             fontFamily = Manrope,
+            textAlign = TextAlign.Start,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
             style = DoctaTypography.titleMedium
         )
     }

@@ -5,32 +5,46 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import cz.cvut.docta.core.domain.app.AppTheme
 import cz.cvut.docta.core.presentation.preview.ScreenPreviewContainer
-import cz.cvut.docta.course.domain.model.Course
 import cz.cvut.docta.course.domain.model.CourseLocale
+import cz.cvut.docta.course.domain.model.CourseWithProgress
 
 @Preview(device = Devices.PIXEL_7_PRO)
 @Composable
 fun CoursesScreenPreview(
     appTheme: AppTheme = AppTheme.Light,
-    courses : List<Course> = listOf(
-        Course(
-            code = "course_code_1",
-            locale = CourseLocale.Czech,
-            name = "Course name 1"
-        ),
-        Course(
-            code = "course_code_2",
+    userName: String = "username",
+    courses : List<CourseWithProgress> = listOf(
+        CourseWithProgress.Completed(
+            code = "code",
             locale = CourseLocale.English,
-            name = "Course name 2"
+            name = "Completed course name",
+            sectionCount = 14
+        ),
+        CourseWithProgress.InProgress(
+            code = "code",
+            locale = CourseLocale.English,
+            name = "In progress course name",
+            sectionCount = 14,
+            completed = 10
+        ),
+        CourseWithProgress.NotStarted(
+            code = "code",
+            locale = CourseLocale.English,
+            name = "Not started course name",
+            sectionCount = 14
         ),
     )
 ) {
     ScreenPreviewContainer(appTheme = appTheme) {
         CoursesScreen(
+            username = userName,
             onAddNewCourse = {},
             onEditCourses = {},
             courses = courses,
-            onCourseClick = {}
+//            courses = emptyList(),
+            onCourseClick = {},
+            requestState = null
+//            requestState = RequestState.Loading(messageRes = SharedRes.strings.fetching_courses)
         )
     }
 }

@@ -7,8 +7,10 @@
     <string name="save">Uložit</string>
     <string name="search">Hledat</string>
     <string name="cancel">Zrušit</string>
+    <string name="close">Zavřít</string>
     <string name="try_again">Zkusit znovu</string>
     <string name="add">Přidat</string>
+    <string name="continue_to_app">Pokračovat do aplikace</string>
 
     <!-- Course -->
     <string name="edit_course">Upravit kurz</string>
@@ -16,6 +18,7 @@
     <string name="edit_courses">Upravit kurzy</string>
     <string name="searching_for_course">Hledání "%s"</string>
     <string name="course_with_code_not_found">Kurz s kódem “%s” nebyl nalezen</string>
+    <string name="no_courses_message">Momentálně nemáte žádné kurzy.</string>
 
     <!-- Course section -->
     <string name="edit_section">Upravit sekci</string>
@@ -26,7 +29,7 @@
     <string name="hard">Obtížné</string>
     <string name="one_step">Jednokrokové</string>
     <string name="step_by_step">Krok za krokem</string>
-    <string name="not_done">Nedokončeno</string>
+    <string name="not_done">Nedokončené</string>
     <string name="tests">Testy</string>
     <string name="test">Test</string>
 
@@ -43,6 +46,91 @@
 
     <!-- Placeholders -->
     <string name="course_search_placeholder">Kód kurzu (např. „nss“) …</string>
+
+    <!-- Achievements -->
+    <string name="achievements_screen_title">Dosažení</string>
+
+    <!-- Fields -->
+    <string name="name">Jméno</string>
+    <string name="email">E-mail</string>
+    <string name="password">Heslo</string>
+    <string name="confirm_password">Potvrzení hesla</string>
+
+    <!-- Field placeholders -->
+    <string name="course_search_placeholder">Kód kurzu (např. „nss“)…</string>
+
+    <!-- Field validation -->
+    <string name="is_valid">je platné</string>
+    <string name="not_valid">není neplatné</string>
+    <string name="required_field">povinné pole</string>
+    <string name="too_short">příliš kratké</string>
+    <string name="too_long">too long</string>
+    <string name="email_domain_not_fel_cvut_cz">doména emailu není fel.cvut.cz</string>
+    <string name="at_least_1_spec_char">alespoň 1 speciální znak</string>
+    <string name="at_least_1_digit">alespoň 1 číslice</string>
+    <string name="at_least_1_uppercase_letter">alespoň 1 velké písmeno</string>
+    <string name="at_least_1_lowercase_letter">alespoň 1 malé písmeno</string>
+    <string name="passwords_do_match">Hesla se shodují</string>
+    <string name="passwords_do_not_match">Hesla se neshodují</string>
+
+    <!-- Authentication -->
+    <string name="sign_in">Přihlásit se</string>
+    <string name="create_account">Vytvořit účet</string>
+    <string name="sign_in_to_your_docta_account">Přihlaste se ke svému Docta účtu</string>
+    <string name="create_your_docta_account">Vytvořte nový Docta účet</string>
+    <string name="email_verification">Ověřování e-mailu</string>
+    <string name="sign_up_email_verification_sent_description">Ověřovací e-mail pro registraci byl odeslán. Postupujte podle odkazu v e-mailu k ověření účtu a vraťte se do aplikace, abyste dokončili registraci.</string>
+    <string name="not_verified">Není ověřen</string>
+    <string name="your_email_not_verified_description">Váš e-mail ještě nebyl ověřen. Postupujte podle odkazu v e-mailu k ověření účtu.</string>
+    <string name="welcome_back_to_docta">Vítejte zpět v Docta!</string>
+    <string name="welcome_to_docta">Vítejte v Docta!</string>
+    <string name="sign_out">Odhlásit se</string>
+    <string name="sign_out_question">Odhlásit se?</string>
+    <string name="sign_out_confirmation">Odhlásit se z vašeho účtu? Budete se muset znovu přihlásit, abyste získali přístup k Doctě.</string>
+    <string name="delete_account">Smazat účet</string>
+    <string name="delete_own_account_question">Smazat váš účet?</string>
+    <string name="delete_own_account_confirmation">Smazat váš účet spolu s veškerým pokrokem a daty?</string>
+    <string name="delete_user_account_question">Smazat tento účet?</string>
+    <string name="delete_user_account_confirmation">Smazat tento uživatelský účet spolu s veškerým pokrokem a daty?</string>
+    <string name="account_deleted">Účet smazán!</string>
+    <string name="own_account_deletion_success_message">Váš účet byl úspěšně smazán.</string>
+    <string name="user_account_deletion_success_message">Uživatelský účet byl úspěšně smazán.</string>
+    <string name="account_deletion_error_message">Při mazání účtu došlo k chybě.</string>
+    <string name="user_data_not_fetched">Data uživatele nebyly načteny</string>
+    <string name="user_data_not_fetched_error">Při načítání uživatelských dat došlo k chybě.</string>
+    <string name="name_updated">Jméno bylo aktualizováno</string>
+    <string name="name_update_error">Při aktualizaci uživatelského jména došlo k chybě.</string>
+    <string name="role_updated">Role byla aktualizována</string>
+    <string name="role_update_error">Při aktualizaci uživatelské role došlo k chybě.</string>
+    <string name="user_role">Uživatel</string>
+    <string name="teacher_role">Vyučující</string>
+    <string name="admin_role">Admin</string>
+    <string name="owner_role">Vlastník</string>
+
+    <!-- Loaders -->
+    <string name="loading_courses">Načítání kurzů…</string>
+    <string name="loading_sections">Načítání sekcí…</string>
+    <string name="loading_lessons">Načítání cvičení…</string>
+    <string name="saving_loader">Ukládáni…</string>
+    <string name="verifying_your_credentials_loader">Ověřování vašich přihlašovacích údajů…</string>
+    <string name="creating_your_identity_loader">Vytváření vaší identity…</string>
+    <string name="checking_email_verification_loader">Kontrola e-mailového ověření…</string>
+    <string name="loading_user_data_loader">Načítání uživatelských dat…</string>
+    <string name="deleting_account_loader">Mazání účtu…</string>
+
+    <!-- Error handling title -->
+    <string name="all_set">Vše připraveno!</string>
+    <string name="oops">Jejda!</string>
+    <string name="email_sent">E-mail odeslán!</string>
+
+    <!-- Error handling message -->
+    <string name="wrong_credentials_error">Špatné přihlašovací údaje.</string>
+    <string name="user_not_found_error">Uživatel nebyl nalezen.</string>
+    <string name="user_already_exists_error">Uživatel již existuje.</string>
+    <string name="email_not_verified_error">Email není ověřen.</string>
+    <string name="email_verification_error">Ověření e-mailu se nezdařilo.</string>
+    <string name="sign_in_error">Chyba během přihlášení.</string>
+    <string name="sign_up_error">Chyba během registrace.</string>
 
     <!-- Other -->
     <string name="greetings_title_morning">Dobré ráno!</string>

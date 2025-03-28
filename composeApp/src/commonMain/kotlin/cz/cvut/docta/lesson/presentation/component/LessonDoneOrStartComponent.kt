@@ -19,12 +19,12 @@ import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun LessonDoneOrStartComponent(
-    isDone: Boolean,
+    completed: Boolean,
     verticalPadding: Dp = 22.dp
 ) {
-    val gradientColors = if (isDone) DoctaColors.primaryGradient else DoctaColors.disabledSemiTransparentGradient
-    val iconColor = if (isDone) DoctaColors.onPrimary else DoctaColors.onSurface
-    val iconResAndDescription = if (isDone) Res.drawable.reset_icon to "do lesson again icon" else
+    val gradientColors = if (completed) DoctaColors.primaryGradient else DoctaColors.disabledSemiTransparentGradient
+    val iconColor = if (completed) DoctaColors.onPrimary else DoctaColors.onSurface
+    val iconResAndDescription = if (completed) Res.drawable.reset_icon to "do lesson again icon" else
         Res.drawable.long_right_arrow_icon to "start lesson icon"
 
     Box(

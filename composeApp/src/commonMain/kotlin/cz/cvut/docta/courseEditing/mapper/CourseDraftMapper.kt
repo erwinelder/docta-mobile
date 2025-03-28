@@ -1,12 +1,13 @@
 package cz.cvut.docta.courseEditing.mapper
 
-import cz.cvut.docta.course.data.local.model.CourseEntity
+import cz.cvut.docta.course.data.model.CourseDto
 import cz.cvut.docta.course.domain.model.CourseLocale
+import cz.cvut.docta.course.mapper.toDomainModel
 import cz.cvut.docta.courseEditing.data.model.CourseDraftEntity
 import cz.cvut.docta.courseEditing.domain.model.CourseDraft
 
 
-fun CourseDraftEntity.toDomain(): CourseDraft? {
+fun CourseDraftEntity.toDomainModel(): CourseDraft? {
     val locale = CourseLocale.fromLangCode(locale) ?: return null
 
     return CourseDraft(
@@ -16,7 +17,7 @@ fun CourseDraftEntity.toDomain(): CourseDraft? {
     )
 }
 
-fun CourseDraft.toEntity(): CourseDraftEntity {
+fun CourseDraft.toDataModel(): CourseDraftEntity {
     return CourseDraftEntity(
         code = code,
         locale = locale.langCode,
@@ -25,12 +26,10 @@ fun CourseDraft.toEntity(): CourseDraftEntity {
 }
 
 
-fun CourseEntity.toCourseDraft(): CourseDraft? {
-    val locale = CourseLocale.fromLangCode(locale) ?: return null
-
+fun CourseDto.toCourseDraft(): CourseDraft? {
     return CourseDraft(
         code = code,
-        locale = locale,
+        locale = locale.toDomainModel(),
         name = name
     )
 }

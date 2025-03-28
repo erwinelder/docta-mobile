@@ -4,14 +4,15 @@ import cz.cvut.docta.courseEditing.data.local.source.CourseDraftLocalDataSource
 import cz.cvut.docta.courseEditing.data.model.CourseDraftEntity
 
 class CourseDraftRepositoryImpl(
-    private val localSource: CourseDraftLocalDataSource,
+    private val localSource: CourseDraftLocalDataSource
 ) : CourseDraftRepository {
 
-    override suspend fun getCourseEditing(courseCode: String): CourseDraftEntity? {
+    override suspend fun getCourseDraft(courseCode: String): CourseDraftEntity? {
         return localSource.getCourseDraft(courseCode)
     }
 
-    override suspend fun saveCourseEditing(courseDraftEntity: CourseDraftEntity) {
-        localSource.saveCourseDraft(courseDraftEntity)
+    override suspend fun saveCourseDraft(courseDraft: CourseDraftEntity) {
+        localSource.saveCourseDraft(courseDraft)
     }
+
 }

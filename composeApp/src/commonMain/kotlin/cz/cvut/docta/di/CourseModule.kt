@@ -1,26 +1,20 @@
 package cz.cvut.docta.di
 
 import cz.cvut.docta.core.domain.app.CourseContext
-import cz.cvut.docta.core.domain.usecase.SaveTestCoursesToDatabaseUseCase
-import cz.cvut.docta.core.domain.usecase.saveTestCoursesToDatabaseUseCaseFactory
-import cz.cvut.docta.course.data.local.source.CourseLocalDataSource
-import cz.cvut.docta.course.data.local.source.courseLocalDataSourceFactory
-import cz.cvut.docta.course.data.remote.source.CourseRemoteDataSource
-import cz.cvut.docta.course.data.remote.source.courseRemoteDataSourceFactory
 import cz.cvut.docta.course.data.repository.ChosenCourseRepository
-import cz.cvut.docta.course.data.repository.CourseRemoteRepository
+import cz.cvut.docta.course.data.repository.CourseRepositoryImpl
 import cz.cvut.docta.course.data.repository.CourseRepository
 import cz.cvut.docta.course.data.repository.chosenCourseRepositoryFactory
 import cz.cvut.docta.course.domain.usecase.AddCourseToChosenUseCase
 import cz.cvut.docta.course.domain.usecase.AddCourseToChosenUseCaseImpl
-import cz.cvut.docta.course.domain.usecase.GetAllCoursesUseCase
-import cz.cvut.docta.course.domain.usecase.GetAllCoursesUseCaseImpl
 import cz.cvut.docta.course.domain.usecase.GetChosenCoursesUseCase
 import cz.cvut.docta.course.domain.usecase.GetChosenCoursesUseCaseImpl
 import cz.cvut.docta.course.domain.usecase.GetCourseUseCase
 import cz.cvut.docta.course.domain.usecase.GetCourseUseCaseImpl
 import cz.cvut.docta.course.domain.usecase.GetCoursesUseCase
 import cz.cvut.docta.course.domain.usecase.GetCoursesUseCaseImpl
+import cz.cvut.docta.course.domain.usecase.GetCoursesWithProgressUseCase
+import cz.cvut.docta.course.domain.usecase.GetCoursesWithProgressUseCaseImpl
 import cz.cvut.docta.course.domain.usecase.SaveChosenCoursesUseCase
 import cz.cvut.docta.course.domain.usecase.SaveChosenCoursesUseCaseImpl
 import cz.cvut.docta.course.domain.usecase.SearchForCourseUseCase
@@ -43,26 +37,18 @@ val courseModule = module {
 
     /* ---------- Data Sources ---------- */
 
-    single<CourseLocalDataSource> {
-        courseLocalDataSourceFactory(appLocalDatabase = get())
-    }
-    single<CourseRemoteDataSource> {
-        courseRemoteDataSourceFactory(appRemoteDatabase = get())
-    }
-
     single<CourseDraftLocalDataSource> {
-        courseDraftLocalDataSourceFactory(appLocalDatabase = get())
+        courseDraftLocalDataSourceFactory(appDatabase = get())
     }
 
     /* ---------- Repositories ---------- */
 
     single<CourseRepository> {
-//        CourseRepositoryImpl(localSource = get(), remoteSource = get())
-        CourseRemoteRepository()
+        CourseRepositoryImpl(userContext = get())
     }
 
     single<ChosenCourseRepository> {
-        chosenCourseRepositoryFactory(appLocalDatabase = get())
+        chosenCourseRepositoryFactory(appDatabase = get())
     }
 
     single<CourseDraftRepository> {
@@ -71,11 +57,11 @@ val courseModule = module {
 
     /* ---------- Use Cases ---------- */
 
-    single<GetAllCoursesUseCase> {
-        GetAllCoursesUseCaseImpl(courseRepository = get())
-    }
     single<GetCoursesUseCase> {
         GetCoursesUseCaseImpl(courseRepository = get())
+    }
+    single<GetCoursesWithProgressUseCase> {
+        GetCoursesWithProgressUseCaseImpl(courseRepository = get())
     }
     single<GetCourseUseCase> {
         GetCourseUseCaseImpl(courseRepository = get())
@@ -105,29 +91,27 @@ val courseModule = module {
         SaveCourseDraftUseCaseImpl(repository = get())
     }
 
-    // Temporary use case
-    single<SaveTestCoursesToDatabaseUseCase> {
-        saveTestCoursesToDatabaseUseCaseFactory(appRemoteDatabase = get())
-    }
-
     /* ---------- View Models ---------- */
 
     viewModel {
         CoursesViewModel(
-            getCoursesUseCase = get(),
+            getCoursesWithProgressUseCase = get(),
             getChosenCoursesUseCase = get()
         )
     }
+    
     viewModel {
         AddNewCourseViewModel(
             searchForCourseUseCase = get(),
             addCourseToChosenUseCase = get()
         )
     }
+    
     viewModel {
         CourseDraftViewModel(
             getCourseDraftUseCase = get(),
-            saveCourseDraftUseCase = get()
+            saveCourseDraftUseCase = get(),
+            getCourseDraftSectionsUseCase = get()
         )
     }
 

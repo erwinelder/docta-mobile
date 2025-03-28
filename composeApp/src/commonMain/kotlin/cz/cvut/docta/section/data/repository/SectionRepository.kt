@@ -1,11 +1,14 @@
 package cz.cvut.docta.section.data.repository
 
-import cz.cvut.docta.section.data.local.model.SectionEntity
+import cz.cvut.docta.section.data.model.SectionDto
+import cz.cvut.docta.section.data.model.SectionWithProgressDto
 
 interface SectionRepository {
 
-    suspend fun getSection(courseCode: String, sectionId: Long): SectionEntity?
+    suspend fun getSections(courseCode: String): List<SectionDto>
 
-    suspend fun getSections(courseCode: String): List<SectionEntity>
+    suspend fun getSection(courseCode: String, sectionId: Int): SectionDto?
+
+    suspend fun getSectionsWithProgress(courseCode: String): List<SectionWithProgressDto>
 
 }

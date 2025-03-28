@@ -7,8 +7,10 @@
     <string name="save">Save</string>
     <string name="search">Search</string>
     <string name="cancel">Cancel</string>
+    <string name="close">Close</string>
     <string name="try_again">Try again</string>
     <string name="add">Add</string>
+    <string name="continue_to_app">Continue to app</string>
 
     <!-- Course -->
     <string name="edit_course">Edit course</string>
@@ -16,6 +18,7 @@
     <string name="edit_courses">Edit courses</string>
     <string name="searching_for_course">Searching for "%s"</string>
     <string name="course_with_code_not_found">Course with code “%s” was not found</string>
+    <string name="no_courses_message">You currently have no courses.</string>
 
     <!-- Course section -->
     <string name="edit_section">Edit section</string>
@@ -43,11 +46,96 @@
 
     <!-- Placeholders -->
     <string name="course_search_placeholder">Course code (e.g. "nss") …</string>
+  
+    <!-- Achievements -->
+    <string name="achievements_screen_title">Achievements</string>
+
+    <!-- Fields -->
+    <string name="name">Name</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
+
+    <!-- Field placeholders -->
+    <string name="course_search_placeholder">Course code (e.g. "nss")…</string>
+
+    <!-- Field validation -->
+    <string name="is_valid">is valid</string>
+    <string name="not_valid">not valid</string>
+    <string name="required_field">required field</string>
+    <string name="too_short">too short</string>
+    <string name="too_long">too long</string>
+    <string name="email_domain_not_fel_cvut_cz">email domain is not fel.cvut.cz</string>
+    <string name="at_least_1_spec_char">at least 1 special character</string>
+    <string name="at_least_1_digit">at least 1 digit</string>
+    <string name="at_least_1_uppercase_letter">at least 1 uppercase letter</string>
+    <string name="at_least_1_lowercase_letter">at least 1 lowercase letter</string>
+    <string name="passwords_do_match">Passwords do match</string>
+    <string name="passwords_do_not_match">Passwords do not match</string>
+
+    <!-- Authentication -->
+    <string name="sign_in">Sign in</string>
+    <string name="create_account">Create account</string>
+    <string name="sign_in_to_your_docta_account">Sign in to your Docta account</string>
+    <string name="create_your_docta_account">Create your Docta account</string>
+    <string name="email_verification">Email verification</string>
+    <string name="sign_up_email_verification_sent_description">A verification email for sign-up has been sent. Please follow the link in the email to verify your account and return to the app to complete your registration.</string>
+    <string name="not_verified">Not verified</string>
+    <string name="your_email_not_verified_description">Your email is not verified yet. Please follow the link in the email to verify your account.</string>
+    <string name="welcome_back_to_docta">Welcome back to Docta!</string>
+    <string name="welcome_to_docta">Welcome to Docta!</string>
+    <string name="sign_out">Sign out</string>
+    <string name="sign_out_question">Sign out?</string>
+    <string name="sign_out_confirmation">Sign out of your account? You will need to sign in again to access Docta.</string>
+    <string name="delete_account">Delete account</string>
+    <string name="delete_own_account_question">Delete your account?</string>
+    <string name="delete_own_account_confirmation">Delete your account along with all your progress and data?</string>
+    <string name="delete_user_account_question">Delete this account?</string>
+    <string name="delete_user_account_confirmation">Delete this user account along with all their progress and data?</string>
+    <string name="account_deleted">Account deleted!</string>
+    <string name="own_account_deletion_success_message">Your account has been deleted successfully.</string>
+    <string name="user_account_deletion_success_message">User account has been deleted successfully.</string>
+    <string name="account_deletion_error_message">An error occurred while deleting the account.</string>
+    <string name="user_data_not_fetched">User data not fetched</string>
+    <string name="user_data_not_fetched_error">An error occurred while fetching user data.</string>
+    <string name="name_updated">Name has been updated</string>
+    <string name="name_update_error">An error occurred while updating user name.</string>
+    <string name="role_updated">Role has been updated</string>
+    <string name="role_update_error">An error occurred while updating user role.</string>
+    <string name="user_role">User</string>
+    <string name="teacher_role">Teacher</string>
+    <string name="admin_role">Admin</string>
+    <string name="owner_role">Owner</string>
+
+    <!-- Loaders -->
+    <string name="loading_courses">Loading courses…</string>
+    <string name="loading_sections">Loading sections…</string>
+    <string name="loading_lessons">Loading lessons…</string>
+    <string name="saving_loader">Saving…</string>
+    <string name="verifying_your_credentials_loader">Verifying your credentials…</string>
+    <string name="creating_your_identity_loader">Creating your identity…</string>
+    <string name="checking_email_verification_loader">Checking email verification…</string>
+    <string name="loading_user_data_loader">Loading user data…</string>
+    <string name="deleting_account_loader">Deleting account…</string>
+
+    <!-- Error handling title -->
+    <string name="all_set">All set!</string>
+    <string name="oops">Oops!</string>
+    <string name="email_sent">Email sent!</string>
+
+    <!-- Error handling message -->
+    <string name="wrong_credentials_error">Wrong credentials.</string>
+    <string name="user_not_found_error">User not found.</string>
+    <string name="user_already_exists_error">User already exists.</string>
+    <string name="email_not_verified_error">Email is not verified.</string>
+    <string name="email_verification_error">Email verification failed.</string>
+    <string name="sign_in_error">Error while signing in.</string>
+    <string name="sign_up_error">Error while signing up.</string>
 
     <!-- Other -->
-    <string name="greetings_title_morning">Good morning!</string>
-    <string name="greetings_title_afternoon">Good afternoon!</string>
-    <string name="greetings_title_evening">Good evening!</string>
-    <string name="greetings_title_night">Good evening!</string>
+    <string name="greetings_title_morning">Good morning, %s!</string>
+    <string name="greetings_title_afternoon">Good afternoon, %s!</string>
+    <string name="greetings_title_evening">Good evening, %s!</string>
+    <string name="greetings_title_night">Good evening, %s!</string>
 
 </resources>

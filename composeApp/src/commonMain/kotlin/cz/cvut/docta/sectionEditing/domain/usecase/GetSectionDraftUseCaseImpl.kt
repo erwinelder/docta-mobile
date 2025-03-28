@@ -13,8 +13,8 @@ class GetSectionDraftUseCaseImpl(
     private val courseContext: CourseContext
 ) : GetSectionDraftUseCase {
 
-    override suspend fun execute(id: Long): SectionDraft? {
-        return sectionDraftRepository.getSectionEditing(id)?.toDomain()
+    override suspend fun execute(id: Int): SectionDraft? {
+        return sectionDraftRepository.getSectionDraft(id = id)?.toDomain()
             ?: sectionRepository
                 .getSection(courseCode = courseContext.getCourseCode(), sectionId = id)
                 ?.toSectionDraft()

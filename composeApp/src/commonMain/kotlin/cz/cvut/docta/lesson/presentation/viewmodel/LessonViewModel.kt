@@ -1,14 +1,15 @@
 package cz.cvut.docta.lesson.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
-import cz.cvut.docta.lesson.presentation.navigation.LessonScreens
+import cz.cvut.docta.lesson.presentation.navigation.LessonSessionScreens
 import cz.cvut.docta.lesson.presentation.utils.getLessonScreenToNavigateTo
-import cz.cvut.docta.question.domain.model.QuestionWithCheckResult
-import cz.cvut.docta.question.domain.usecase.GetLessonQuestionsWithAnswersUseCase
-import cz.cvut.docta.question.presentation.model.QuestionAndAnswersWrapper
+import cz.cvut.docta.lessonSession.domain.model.QuestionWithCheckResult
+import cz.cvut.docta.lessonSession.domain.model.SessionOptions
+import cz.cvut.docta.lessonSession.domain.usecase.GetLessonQuestionsWithAnswersUseCase
+import cz.cvut.docta.lessonSession.presentation.model.QuestionAndAnswersWrapper
 
 class LessonViewModel(
-    private val getLessonQuestionsWithAnswersUseCase: GetLessonQuestionsWithAnswersUseCase,
+    private val getLessonQuestionsWithAnswersUseCase: GetLessonQuestionsWithAnswersUseCase
     // TODO-STATISTICS: add statistics use case
 ) : ViewModel() {
 
@@ -37,7 +38,7 @@ class LessonViewModel(
         return getNextQuestion() as T
     }
 
-    fun processToNextQuestion(): LessonScreens? {
+    fun processToNextQuestion(): LessonSessionScreens? {
         questions.removeAt(0)
         return getNextQuestionOrNull()?.getLessonScreenToNavigateTo()
     }
@@ -58,8 +59,9 @@ class LessonViewModel(
     }
 
 
-    suspend fun fetchQuestions(lessonId: Long): Int {
-        val questions = getLessonQuestionsWithAnswersUseCase.execute(lessonId = lessonId)
+    suspend fun fetchQuestions(sessionOptions: SessionOptions): Int {
+        val questions = getLessonQuestionsWithAnswersUseCase
+            .execute(sessionOptions = sessionOptions)
             .map { QuestionAndAnswersWrapper.fromQuestion(it) }
 
         setQuestions(questions = questions)

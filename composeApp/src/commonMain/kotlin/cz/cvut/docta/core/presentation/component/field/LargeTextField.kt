@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import cz.cvut.docta.core.presentation.component.containers.GlassSurface
+import cz.cvut.docta.core.presentation.component.container.GlassSurface
 import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.core.presentation.theme.Manrope
 import docta.composeapp.generated.resources.Res
@@ -146,7 +146,7 @@ private fun ShowHidePasswordIcon(
             ),
             tint = DoctaColors.onSurface,
             contentDescription = if (isPasswordVisible) "Hide password" else "Show password",
-            modifier = Modifier.size(26.dp)
+            modifier = Modifier.size(24.dp)
         )
     }
 }

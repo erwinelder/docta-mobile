@@ -4,7 +4,8 @@ import cz.cvut.docta.courseEditing.data.model.CourseDraftEntity
 
 interface CourseDraftRepository {
 
-    suspend fun getCourseEditing(courseCode: String): CourseDraftEntity?
+    suspend fun getCourseDraft(courseCode: String): CourseDraftEntity?
 
-    suspend fun saveCourseEditing(courseDraftEntity: CourseDraftEntity)
+    suspend fun saveCourseDraft(courseDraft: CourseDraftEntity)
+
 }

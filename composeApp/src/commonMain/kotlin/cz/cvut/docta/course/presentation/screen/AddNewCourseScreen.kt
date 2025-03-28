@@ -2,10 +2,10 @@ package cz.cvut.docta.course.presentation.screen
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -14,15 +14,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cz.cvut.docta.SharedRes
-import cz.cvut.docta.core.presentation.component.buttons.SmallPrimaryButton
-import cz.cvut.docta.core.presentation.component.buttons.SmallSecondaryButton
+import cz.cvut.docta.core.presentation.component.button.SmallPrimaryButton
+import cz.cvut.docta.core.presentation.component.button.SmallSecondaryButton
 import cz.cvut.docta.core.presentation.component.field.LargeTextField
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainerWithBackNavButton
 import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.core.presentation.theme.Manrope
-import cz.cvut.docta.course.domain.model.Course
-import cz.cvut.docta.course.domain.model.CourseSearchState
+import cz.cvut.docta.course.domain.mapper.toCourse
+import cz.cvut.docta.course.domain.model.CourseWithProgress
 import cz.cvut.docta.course.presentation.component.CourseComponent
+import cz.cvut.docta.course.presentation.model.CourseSearchState
 import dev.icerock.moko.resources.compose.stringResource
 import docta.composeapp.generated.resources.Res
 import docta.composeapp.generated.resources.add_icon
@@ -32,6 +33,7 @@ import docta.composeapp.generated.resources.search_icon
 
 @Composable
 fun AddNewCourseScreen(
+    screenPadding: PaddingValues = PaddingValues(0.dp),
     onNavigateBack: () -> Unit,
     searchedCourseState: CourseSearchState,
     query: String,
@@ -40,36 +42,35 @@ fun AddNewCourseScreen(
     onSearch: () -> Unit,
     onSearchCancel: () -> Unit,
     onTryAgain: () -> Unit,
-    onAddCourse: (Course) -> Unit
+    onAddCourse: (CourseWithProgress) -> Unit
 ) {
     ScreenContainerWithBackNavButton(
-        onBackButtonClick = onNavigateBack,
+        screenPadding = screenPadding,
+        verticalArrangement = Arrangement.Center,
+        onNavigateBack = onNavigateBack,
         backButtonText = stringResource(SharedRes.strings.add_new_course)
     ) {
-        Box(
+        AnimatedContent(
+            targetState = searchedCourseState,
             contentAlignment = Alignment.Center,
-            modifier = Modifier.fillMaxSize()
-        ) {
-            AnimatedContent(
-                targetState = searchedCourseState
-            ) { state ->
-                when (state) {
-                    is CourseSearchState.Prompt -> CourseSearchPromptComponent(
-                        query = query,
-                        onQueryChange = onQueryChange,
-                        searchIsAllowed = searchIsAllowed,
-                        onSearch = onSearch
-                    )
-                    is CourseSearchState.Loading -> CourseSearchLoadingComponent(
-                        state = state,
-                        onCancel = onSearchCancel
-                    )
-                    is CourseSearchState.SearchedCourse -> CourseSearchSearchedCourseComponent(
-                        state = state,
-                        onTryAgain = onTryAgain,
-                        onAddCourse = onAddCourse
-                    )
-                }
+            modifier = Modifier.fillMaxWidth()
+        ) { state ->
+            when (state) {
+                is CourseSearchState.Prompt -> CourseSearchPromptComponent(
+                    query = query,
+                    onQueryChange = onQueryChange,
+                    searchIsAllowed = searchIsAllowed,
+                    onSearch = onSearch
+                )
+                is CourseSearchState.Loading -> CourseSearchLoadingComponent(
+                    state = state,
+                    onCancel = onSearchCancel
+                )
+                is CourseSearchState.SearchedCourse -> CourseSearchSearchedCourseComponent(
+                    state = state,
+                    onTryAgain = onTryAgain,
+                    onAddCourse = onAddCourse
+                )
             }
         }
     }
@@ -128,14 +129,16 @@ private fun CourseSearchLoadingComponent(
 private fun CourseSearchSearchedCourseComponent(
     state: CourseSearchState.SearchedCourse,
     onTryAgain: () -> Unit,
-    onAddCourse: (Course) -> Unit
+    onAddCourse: (CourseWithProgress) -> Unit
 ) {
+    val course = state.course?.toCourse()
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        if (state.course != null) {
-            CourseComponent(course = state.course)
+        if (course != null) {
+            CourseComponent(course = course)
         } else {
             Text(
                 text = stringResource(SharedRes.strings.course_with_code_not_found, state.query),
@@ -153,11 +156,11 @@ private fun CourseSearchSearchedCourseComponent(
                 iconRes = Res.drawable.reset_icon,
                 onClick = onTryAgain
             )
-            state.course?.let {
+            state.course?.let { course ->
                 SmallPrimaryButton(
                     text = stringResource(SharedRes.strings.add),
                     iconRes = Res.drawable.add_icon,
-                    onClick = { onAddCourse(it) }
+                    onClick = { onAddCourse(course) }
                 )
             }
         }
