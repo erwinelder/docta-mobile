@@ -1,22 +1,27 @@
 package cz.cvut.docta.achievement.data.repository
 
 import cz.cvut.docta.achievement.data.model.AchievementDto
-import cz.cvut.docta.achievement.data.model.UserAchievementDto
+import cz.cvut.docta.auth.domain.model.UserContext
 
-class AchievementRemoteRepository: AchievementRepository {
+class AchievementRepositoryImpl(
+    val userContext: UserContext
+) : AchievementRepository {
 
-    override suspend fun getAchievements(): List<AchievementDto> {
+    override suspend fun getAchievementsProgress(): List<AchievementDto> {
         // TODO-ACHIEVEMENTS: Implement fetching achievements from the server
-        return emptyList()
-    }
 
-    override suspend fun getUserAchievements(userId: Int): List<UserAchievementDto> {
-        // TODO-ACHIEVEMENTS: Implement fetching user achievements from the server
-        return emptyList()
+        return listOf(
+            AchievementDto(
+                achievementName = "educational_marathon", completedSteps = 1, numberOfSteps = 1000
+            ),
+            AchievementDto(
+                achievementName = "knowledge_is_power",
+                completedSteps = 16,
+                numberOfSteps = 32
+            ),
+            AchievementDto(
+                achievementName = "first_step", completedSteps = 1, numberOfSteps = 1
+            )
+        )
     }
-
-    override suspend fun getAchievementWithProgress(achievementId: Int): AchievementDto {
-        // TODO-ACHIEVEMENTS: Implement fetching achievement with user progress from the server
-    }
-
 }
