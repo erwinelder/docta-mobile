@@ -1,6 +1,6 @@
 package cz.cvut.docta.di
 
-import cz.cvut.docta.achievement.data.repository.AchievementRemoteRepository
+import cz.cvut.docta.achievement.data.repository.AchievementRepositoryImpl
 import cz.cvut.docta.achievement.data.repository.AchievementRepository
 import cz.cvut.docta.achievement.domain.usecase.GetAchievementsUseCase
 import cz.cvut.docta.achievement.domain.usecase.GetAchievementsUseCaseImpl
@@ -13,7 +13,9 @@ val achievementModule = module {
     /* ---------- Repositories ---------- */
 
     single<AchievementRepository> {
-        AchievementRemoteRepository()
+        AchievementRepositoryImpl(
+            userContext = get()
+        )
     }
 
     /* ---------- Use Cases ---------- */
@@ -21,7 +23,6 @@ val achievementModule = module {
     single<GetAchievementsUseCase> {
         GetAchievementsUseCaseImpl(
             achievementRepository = get(),
-            userContext = get()
         )
     }
 
