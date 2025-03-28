@@ -14,9 +14,9 @@ import cz.cvut.docta.core.presentation.utils.add
 
 @Composable
 fun ScreenContainer(
-    verticalArrangement: Arrangement.Vertical = Arrangement.Center,
     screenPadding: PaddingValues = PaddingValues(0.dp),
     padding: PaddingValues = PaddingValues(vertical = 24.dp),
+    verticalArrangement: Arrangement.Vertical = Arrangement.Center,
     modifier: Modifier = Modifier,
     content: @Composable ColumnScope.() -> Unit
 ) {

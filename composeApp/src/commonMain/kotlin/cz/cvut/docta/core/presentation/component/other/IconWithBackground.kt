@@ -24,7 +24,7 @@ fun LargePrimaryIcon(
     iconRes: DrawableResource,
     gradientColor: List<Color>,
     iconDescription: String,
-    iconTint: Color = DoctaColors.background,
+    iconTint: Color = DoctaColors.onPrimary,
     iconSize: Dp = 100.dp
 ) {
     Box(

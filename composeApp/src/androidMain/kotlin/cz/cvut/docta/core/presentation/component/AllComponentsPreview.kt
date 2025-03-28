@@ -3,9 +3,9 @@ package cz.cvut.docta.core.presentation.component
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import cz.cvut.docta.core.domain.app.AppTheme
-import cz.cvut.docta.core.presentation.component.buttons.PrimaryButton
-import cz.cvut.docta.core.presentation.component.buttons.SmallPrimaryButton
-import cz.cvut.docta.core.presentation.component.buttons.SmallSecondaryButton
+import cz.cvut.docta.core.presentation.component.button.PrimaryButton
+import cz.cvut.docta.core.presentation.component.button.SmallPrimaryButton
+import cz.cvut.docta.core.presentation.component.button.SmallSecondaryButton
 import cz.cvut.docta.core.presentation.component.other.GreetingsMessage
 import cz.cvut.docta.core.presentation.preview.PreviewWrapper
 import docta.composeapp.generated.resources.Res

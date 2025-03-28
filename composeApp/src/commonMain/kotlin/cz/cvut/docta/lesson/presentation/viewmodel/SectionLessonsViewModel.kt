@@ -2,9 +2,10 @@ package cz.cvut.docta.lesson.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cz.cvut.docta.lesson.domain.model.Lesson
-import cz.cvut.docta.lesson.domain.model.LessonDifficulty
+import cz.cvut.docta.SharedRes
+import cz.cvut.docta.errorHandling.presentation.model.RequestState
 import cz.cvut.docta.lesson.domain.model.LessonFilterType
+import cz.cvut.docta.lesson.domain.model.LessonWithProgress
 import cz.cvut.docta.lesson.domain.usecase.GetSectionLessonsWithStatisticsUseCase
 import cz.cvut.docta.section.domain.model.Section
 import cz.cvut.docta.section.domain.usecase.GetSectionUseCase
@@ -18,6 +19,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class SectionLessonsViewModel(
+    private val sectionId: Int,
     private val getSectionUseCase: GetSectionUseCase,
     private val getSectionLessonsWithStatisticsUseCase: GetSectionLessonsWithStatisticsUseCase
 ) : ViewModel() {
@@ -25,9 +27,11 @@ class SectionLessonsViewModel(
     private val _section = MutableStateFlow<Section?>(null)
     val section = _section.asStateFlow()
 
-    private suspend fun fetchSection(sectionId: Long) {
-        _section.update {
-            getSectionUseCase.execute(sectionId = sectionId)
+    private fun fetchSection() {
+        viewModelScope.launch {
+            _section.update {
+                getSectionUseCase.execute(sectionId = sectionId)
+            }
         }
     }
 
@@ -40,61 +44,56 @@ class SectionLessonsViewModel(
     }
 
 
-    private val _lessonDifficulty = MutableStateFlow<LessonDifficulty?>(null)
-    val lessonDifficulty = _lessonDifficulty.asStateFlow()
-
-    fun setLessonDifficulty(difficulty: LessonDifficulty?) {
-        _lessonDifficulty.update { difficulty }
-    }
-
-
-    private val _sectionLessons = MutableStateFlow<List<Lesson>>(emptyList())
-    val sectionLessons: StateFlow<List<Lesson>> = combine(
+    private val _sectionLessons = MutableStateFlow<List<LessonWithProgress>>(emptyList())
+    val sectionLessons: StateFlow<List<LessonWithProgress>> = combine(
         _sectionLessons,
-        lessonDifficulty,
         lessonFilterType
-    ) { lessons, difficulty, filterType ->
+    ) { lessons, filterType ->
         lessons
             .filter { lesson ->
                 when (filterType) {
-                    LessonFilterType.OneStepQuestions -> lesson is Lesson.Default
-                    LessonFilterType.StepByStep -> lesson is Lesson.StepByStep
-                    LessonFilterType.NotDone -> !lesson.statistics.isDone
-                    LessonFilterType.Tests -> lesson is Lesson.Test
+                    LessonFilterType.OneStepQuestions -> lesson is LessonWithProgress.Default
+                    LessonFilterType.StepByStep -> lesson is LessonWithProgress.StepByStep
+                    LessonFilterType.NotDone -> !lesson.completed
+                    LessonFilterType.Tests -> lesson is LessonWithProgress.Test
                     null -> true
-                }
-            }
-            .filter { lesson ->
-                if (difficulty == null) {
-                    true
-                } else {
-                    when (lesson) {
-                        is Lesson.Default -> lesson.difficulty == difficulty
-                        is Lesson.StepByStep -> lesson.difficulty == difficulty
-                        else -> false
-                    }
                 }
             }
     }.stateIn(
         scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000L),
+        started = SharingStarted.WhileSubscribed(),
         initialValue = emptyList()
     )
 
-    private suspend fun fetchSectionLessons() {
-        val sectionId = section.value?.id ?: return
+    private fun fetchSectionLessons() {
+        setRequestLoadingState()
 
-        _sectionLessons.update {
-            getSectionLessonsWithStatisticsUseCase.execute(sectionId = sectionId)
+        viewModelScope.launch {
+            _sectionLessons.update {
+                getSectionLessonsWithStatisticsUseCase.execute(sectionId = sectionId)
+            }
+            resetResultState()
         }
     }
 
 
-    fun fetchData(sectionId: Long) {
-        viewModelScope.launch {
-            fetchSection(sectionId = sectionId)
-            fetchSectionLessons()
+    private val _requestState = MutableStateFlow<RequestState?>(null)
+    val requestState = _requestState.asStateFlow()
+
+    private fun setRequestLoadingState() {
+        _requestState.update {
+            RequestState.Loading(messageRes = SharedRes.strings.loading_lessons)
         }
+    }
+
+    fun resetResultState() {
+        _requestState.update { null }
+    }
+
+
+    init {
+        fetchSection()
+        fetchSectionLessons()
     }
 
 }

@@ -1,7 +1,7 @@
 package cz.cvut.docta.lesson.domain.usecase
 
-import cz.cvut.docta.lesson.domain.model.Lesson
+import cz.cvut.docta.lesson.domain.model.LessonWithProgress
 
 interface GetSectionLessonsWithStatisticsUseCase {
-    suspend fun execute(sectionId: Long): List<Lesson>
+    suspend fun execute(sectionId: Int): List<LessonWithProgress>
 }

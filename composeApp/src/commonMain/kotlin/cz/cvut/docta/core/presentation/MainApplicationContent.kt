@@ -21,7 +21,7 @@ import cz.cvut.docta.achievement.presentation.navigation.achievementNavigationGr
 import cz.cvut.docta.auth.domain.model.UserContext
 import cz.cvut.docta.auth.presentation.navigation.AuthScreens
 import cz.cvut.docta.auth.presentation.navigation.authGraph
-import cz.cvut.docta.core.presentation.component.containers.BottomNavBar
+import cz.cvut.docta.core.presentation.component.container.BottomNavBar
 import cz.cvut.docta.core.presentation.navigation.MainScreens
 import cz.cvut.docta.core.presentation.utils.anyScreenInHierarchyIs
 import cz.cvut.docta.core.presentation.utils.currentScreenIs
@@ -46,15 +46,16 @@ fun MainApplicationContent(
             navViewModel.needToDisplayBottomNavBar(navBackStackEntry = navBackStackEntry)
         }
     }
+    val systemBarPadding = WindowInsets.systemBars.asPaddingValues().calculateBottomPadding()
 
     val mainStartDestination: MainScreens by remember {
         derivedStateOf {
-            if (userContext.userId == 0) MainScreens.AuthGraph else MainScreens.CoursesGraph
+            if (userContext.userId == 0) MainScreens.Auth else MainScreens.Courses
         }
     }
     val authStartDestination: AuthScreens by remember {
         derivedStateOf {
-            if (userContext.userId == 0) AuthScreens.SignIn(email = "") else AuthScreens.Profile
+            if (userContext.userId == 0) AuthScreens.SignIn() else AuthScreens.Profile()
         }
     }
 
@@ -75,7 +76,7 @@ fun MainApplicationContent(
                 ),
                 anyScreenInHierarchyIsScreenProvider = navBackStackEntry::anyScreenInHierarchyIs,
                 currentScreenIsScreenProvider = navBackStackEntry::currentScreenIs,
-                onNavigateToScreen = { screen: MainScreens ->
+                onNavigateToScreen = { screen: Any ->
                     navViewModel.navigateToScreenPoppingToStartDestination(
                         navController = navController,
                         navBackStackEntry = navBackStackEntry,
@@ -113,7 +114,8 @@ fun MainApplicationContent(
             authGraph(
                 startDestination = authStartDestination,
                 navController = navController,
-                navViewModel = navViewModel
+                navViewModel = navViewModel,
+                screenPadding = PaddingValues(bottom = systemBarPadding)
             )
         }
     }

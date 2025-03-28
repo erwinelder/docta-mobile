@@ -9,9 +9,9 @@ class GetSectionLessonsDraftsUseCaseImpl(
     private val lessonRepository: LessonRepository,
     private val courseContext: CourseContext
 ) : GetSectionLessonsDraftsUseCase {
-    override suspend fun execute(sectionId: Long): List<LessonDraft> {
+    override suspend fun execute(sectionId: Int): List<LessonDraft> {
         return lessonRepository
-            .getSectionLessons(courseCode = courseContext.getCourseCode(), sectionId = sectionId)
+            .getLessons(courseCode = courseContext.getCourseCode(), sectionId = sectionId)
             .sortedBy { it.orderNum }
             .toLessonDraftList()
     }

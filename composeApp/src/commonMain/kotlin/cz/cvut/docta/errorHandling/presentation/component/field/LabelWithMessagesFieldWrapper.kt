@@ -20,13 +20,6 @@ fun LabelWithMessagesFieldWrapper(
     ) {
         labelText?.let { FieldLabel(text = it) }
         field()
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(4.dp)
-        ) {
-            state.validationStates.forEach { validationState ->
-                FieldMessage(state = validationState)
-            }
-        }
+        FieldValidationMessages(validationStates = state.validationStates)
     }
 }

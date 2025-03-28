@@ -5,85 +5,36 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import cz.cvut.docta.core.domain.app.AppTheme
 import cz.cvut.docta.core.presentation.preview.ScreenPreviewContainer
-import cz.cvut.docta.section.domain.model.SectionWithStatistics
-import cz.cvut.docta.section.domain.model.SectionStatistics
+import cz.cvut.docta.section.domain.model.SectionWithProgress
 
 @Preview(device = Devices.PIXEL_7_PRO)
 @Composable
 fun CourseSectionsScreenPreview(
     appTheme: AppTheme = AppTheme.Light,
     courseName: String = "Course name",
-    sections: List<SectionWithStatistics> = listOf(
-        SectionWithStatistics(
+    sections: List<SectionWithProgress> = listOf(
+        SectionWithProgress.Completed(
+            courseCode = "code",
             id = 1,
-            name = "Section name 1",
-            statistics = SectionStatistics(
-                correctAnswerAmount = 10, wrongAnswerAmount = 20
-            )
+            orderNum = 1,
+            name = "Completed section name",
+            lessonCount = 12
         ),
-        SectionWithStatistics(
+        SectionWithProgress.InProgress(
+            courseCode = "code",
             id = 2,
-            name = "Section name 2",
-            statistics = SectionStatistics(
-                correctAnswerAmount = 30, wrongAnswerAmount = 40
-            )
+            orderNum = 2,
+            name = "In progress section name",
+            lessonCount = 10,
+            completed = 3
         ),
-        SectionWithStatistics(
+        SectionWithProgress.NotStarted(
+            courseCode = "code",
             id = 3,
-            name = "Section name 3",
-            statistics = SectionStatistics(
-                correctAnswerAmount = 30, wrongAnswerAmount = 40
-            )
-        ),
-        SectionWithStatistics(
-            id = 4,
-            name = "Section name 4",
-            statistics = SectionStatistics(
-                correctAnswerAmount = 30, wrongAnswerAmount = 40
-            )
-        ),
-        SectionWithStatistics(
-            id = 5,
-            name = "Section name 5",
-            statistics = SectionStatistics(
-                correctAnswerAmount = 30, wrongAnswerAmount = 40
-            )
-        ),
-        SectionWithStatistics(
-            id = 6,
-            name = "Section name 6",
-            statistics = SectionStatistics(
-                correctAnswerAmount = 30, wrongAnswerAmount = 40
-            )
-        ),
-        SectionWithStatistics(
-            id = 7,
-            name = "Section name 7",
-            statistics = SectionStatistics(
-                correctAnswerAmount = 30, wrongAnswerAmount = 40
-            )
-        ),
-        SectionWithStatistics(
-            id = 8,
-            name = "Section name 8",
-            statistics = SectionStatistics(
-                correctAnswerAmount = 30, wrongAnswerAmount = 40
-            )
-        ),
-        SectionWithStatistics(
-            id = 9,
-            name = "Section name 9",
-            statistics = SectionStatistics(
-                correctAnswerAmount = 30, wrongAnswerAmount = 40
-            )
-        ),
-        SectionWithStatistics(
-            id = 10,
-            name = "Section name 10",
-            statistics = SectionStatistics(
-                correctAnswerAmount = 30, wrongAnswerAmount = 40
-            )
-        ),
+            orderNum = 3,
+            name = "Not started section name",
+            lessonCount = 8
+        )
     )
 ) {
     ScreenPreviewContainer(appTheme = appTheme) {
@@ -91,7 +42,8 @@ fun CourseSectionsScreenPreview(
             courseName = courseName,
             onNavigateBack = {},
             sections = sections,
-            onSectionClick = {}
+            onSectionClick = {},
+            requestState = null
         )
     }
 }

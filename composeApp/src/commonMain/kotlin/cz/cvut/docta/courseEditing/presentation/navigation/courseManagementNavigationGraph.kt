@@ -20,7 +20,7 @@ fun NavGraphBuilder.courseManagementNavigationGraph(
     navController: NavHostController,
     navViewModel: NavViewModel
 ) {
-    navigation<MainScreens.CourseManagementGraph>(
+    navigation<MainScreens.CourseManagement>(
         startDestination = CourseManagementScreens.CourseEditing("")
     ) {
         composable<CourseManagementScreens.CourseEditing> { backStack ->
@@ -46,7 +46,7 @@ fun NavGraphBuilder.courseManagementNavigationGraph(
                 sections = sections,
                 onSectionClick = { sectionId ->
                     navViewModel.navigate(
-                        navController, CourseManagementScreens.SectionEditing(sectionId)
+                        navController, CourseManagementScreens.SectionEditing(sectionId = sectionId)
                     )
                 },
                 onSaveButtonClick = {

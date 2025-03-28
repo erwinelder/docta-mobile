@@ -1,27 +1,27 @@
 package cz.cvut.docta.auth.presentation.screen
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.SharedRes
-import cz.cvut.docta.core.presentation.component.buttons.PrimaryButton
-import cz.cvut.docta.core.presentation.component.buttons.SecondaryButton
-import cz.cvut.docta.core.presentation.component.containers.GlassSurfaceContentColumnWrapper
-import cz.cvut.docta.core.presentation.component.containers.ResultBottomSheet
+import cz.cvut.docta.core.presentation.component.button.PrimaryButton
+import cz.cvut.docta.core.presentation.component.button.SecondaryButton
+import cz.cvut.docta.core.presentation.component.container.GlassSurfaceContentColumnWrapper
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainerWithTitleAndGlassSurface
+import cz.cvut.docta.errorHandling.presentation.component.container.ScreenWithRequestState
 import cz.cvut.docta.errorHandling.presentation.component.field.LargeTextFieldWithLabelAndMessages
-import cz.cvut.docta.errorHandling.presentation.model.ResultUiState
+import cz.cvut.docta.errorHandling.presentation.model.RequestState
 import cz.cvut.docta.errorHandling.presentation.model.ValidatedFieldUiState
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun SignUpScreen(
+    screenPadding: PaddingValues = PaddingValues(0.dp),
     nameState: ValidatedFieldUiState,
     onNameChange: (String) -> Unit,
     emailState: ValidatedFieldUiState,
@@ -33,10 +33,16 @@ fun SignUpScreen(
     signUpIsAllowed: Boolean,
     onSignUp: () -> Unit,
     onNavigateToSignInScreen: () -> Unit,
-    resultState: ResultUiState?,
-    onResultReset: () -> Unit
+    requestState: RequestState?,
+    onCancelRequest: () -> Unit,
+    onErrorClose: () -> Unit
 ) {
-    Box {
+    ScreenWithRequestState(
+        screenPadding = screenPadding,
+        requestState = requestState,
+        onCancelRequest = onCancelRequest,
+        onErrorClose = onErrorClose
+    ) {
         ScreenContainerWithTitleAndGlassSurface(
             title = stringResource(SharedRes.strings.create_your_docta_account),
             glassSurfaceContent = {
@@ -48,19 +54,16 @@ fun SignUpScreen(
                     passwordState = passwordState,
                     onPasswordChange = onPasswordChange,
                     confirmPasswordState = confirmPasswordState,
-                    onConfirmPasswordChange = onConfirmPasswordChange
+                    onConfirmPasswordChange = onConfirmPasswordChange,
+                    onSignUp = onSignUp
                 )
             },
             buttonUnderGlassSurface = {
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    PrimaryButton(
-                        text = stringResource(SharedRes.strings.create_account),
-                        enabled = signUpIsAllowed,
-                        onClick = onSignUp
-                    )
-                }
+                PrimaryButton(
+                    text = stringResource(SharedRes.strings.create_account),
+                    enabled = signUpIsAllowed,
+                    onClick = onSignUp
+                )
             },
             bottomButton = {
                 SecondaryButton(
@@ -69,7 +72,6 @@ fun SignUpScreen(
                 )
             }
         )
-        ResultBottomSheet(resultState = resultState, onDismissRequest = onResultReset)
     }
 }
 
@@ -82,7 +84,8 @@ private fun GlassSurfaceContent(
     passwordState: ValidatedFieldUiState,
     onPasswordChange: (String) -> Unit,
     confirmPasswordState: ValidatedFieldUiState,
-    onConfirmPasswordChange: (String) -> Unit
+    onConfirmPasswordChange: (String) -> Unit,
+    onSignUp: () -> Unit
 ) {
     val scrollState = rememberScrollState()
 
@@ -94,28 +97,33 @@ private fun GlassSurfaceContent(
             onValueChange = onNameChange,
             keyboardType = KeyboardType.Text,
             placeholderText = stringResource(SharedRes.strings.name),
-            labelText = stringResource(SharedRes.strings.name)
+            labelText = stringResource(SharedRes.strings.name),
+            imeAction = ImeAction.Next
         )
         LargeTextFieldWithLabelAndMessages(
             state = emailState,
             onValueChange = onEmailChange,
             keyboardType = KeyboardType.Email,
             placeholderText = stringResource(SharedRes.strings.email),
-            labelText = stringResource(SharedRes.strings.email)
+            labelText = stringResource(SharedRes.strings.email),
+            imeAction = ImeAction.Next
         )
         LargeTextFieldWithLabelAndMessages(
             state = passwordState,
             onValueChange = onPasswordChange,
             keyboardType = KeyboardType.Password,
             placeholderText = stringResource(SharedRes.strings.password),
-            labelText = stringResource(SharedRes.strings.password)
+            labelText = stringResource(SharedRes.strings.password),
+            imeAction = ImeAction.Next
         )
         LargeTextFieldWithLabelAndMessages(
             state = confirmPasswordState,
             onValueChange = onConfirmPasswordChange,
             keyboardType = KeyboardType.Password,
             placeholderText = stringResource(SharedRes.strings.password),
-            labelText = stringResource(SharedRes.strings.password)
+            labelText = stringResource(SharedRes.strings.password),
+            imeAction = ImeAction.Go,
+            onGoKeyboardAction = onSignUp
         )
     }
 }

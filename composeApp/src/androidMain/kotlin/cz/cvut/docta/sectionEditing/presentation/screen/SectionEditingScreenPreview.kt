@@ -21,15 +21,18 @@ fun SectionEditingScreenPreview(
             lessons = listOf(
                 LessonDraft.Test(
                     id = 1,
-                    name = "Lesson 1 name"
+                    name = "Lesson 1 name",
+                    description = "Lesson 1 description"
                 ),
                 LessonDraft.Test(
                     id = 2,
-                    name = "Lesson 3 name"
+                    name = "Lesson 2 name",
+                    description = "Lesson 2 description"
                 ),
                 LessonDraft.Test(
                     id = 3,
-                    name = "Lesson 3 name"
+                    name = "Lesson 3 name",
+                    description = "Lesson 3 description"
                 )
             ),
             onLessonClick = {}

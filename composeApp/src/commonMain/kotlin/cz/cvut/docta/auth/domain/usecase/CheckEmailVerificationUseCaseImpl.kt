@@ -1,6 +1,6 @@
 package cz.cvut.docta.auth.domain.usecase
 
-import cz.cvut.docta.auth.data.model.UserDataDto
+import cz.cvut.docta.auth.data.model.UserDataWithTokenDto
 import cz.cvut.docta.auth.data.repository.AuthRepository
 import cz.cvut.docta.auth.domain.model.UserContext
 import cz.cvut.docta.auth.mapper.toDomainModel
@@ -23,10 +23,10 @@ class CheckEmailVerificationUseCaseImpl(
                 email = email,
                 password = password
             )
-            .mapData(UserDataDto::toDomainModel)
+            .mapData(UserDataWithTokenDto::toDomainModel)
 
         result.getDataIfSuccess()?.let {
-            userContext.saveUserData(userDataWithToken = it)
+            userContext.saveUserDataWithToken(data = it)
         }
 
         return result.toDefaultResult(success = AuthSuccess.SignedUp)

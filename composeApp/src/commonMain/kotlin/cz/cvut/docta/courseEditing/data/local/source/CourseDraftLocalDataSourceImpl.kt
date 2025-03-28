@@ -1,6 +1,6 @@
 package cz.cvut.docta.courseEditing.data.local.source
 
-import cz.cvut.docta.core.data.database.AppLocalDatabase
+import cz.cvut.docta.core.data.database.AppDatabase
 import cz.cvut.docta.courseEditing.data.local.dao.CourseDraftDao
 import cz.cvut.docta.courseEditing.data.model.CourseDraftEntity
 
@@ -18,8 +18,8 @@ class CourseDraftLocalDataSourceImpl(
 
 }
 
-fun courseDraftLocalDataSourceFactory(appLocalDatabase: AppLocalDatabase): CourseDraftLocalDataSource {
+fun courseDraftLocalDataSourceFactory(appDatabase: AppDatabase): CourseDraftLocalDataSource {
     return CourseDraftLocalDataSourceImpl(
-        dao = appLocalDatabase.courseEditingDao()
+        dao = appDatabase.courseEditingDao()
     )
 }

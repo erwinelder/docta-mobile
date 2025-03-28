@@ -1,15 +1,13 @@
 package cz.cvut.docta.di
 
-import cz.cvut.docta.section.data.local.source.SectionLocalDataSource
-import cz.cvut.docta.section.data.local.source.sectionLocalDataSourceFactory
-import cz.cvut.docta.section.data.remote.source.SectionRemoteDataSource
-import cz.cvut.docta.section.data.remote.source.sectionRemoteDataSourceFactory
-import cz.cvut.docta.section.data.repository.SectionRemoteRepository
 import cz.cvut.docta.section.data.repository.SectionRepository
+import cz.cvut.docta.section.data.repository.SectionRepositoryImpl
 import cz.cvut.docta.section.domain.usecase.GetCourseSectionsUseCase
 import cz.cvut.docta.section.domain.usecase.GetCourseSectionsUseCaseImpl
 import cz.cvut.docta.section.domain.usecase.GetSectionUseCase
 import cz.cvut.docta.section.domain.usecase.GetSectionUseCaseImpl
+import cz.cvut.docta.section.domain.usecase.GetSectionsWithProgressUseCase
+import cz.cvut.docta.section.domain.usecase.GetSectionsWithProgressUseCaseImpl
 import cz.cvut.docta.section.presentation.viewmodel.CourseSectionsViewModel
 import cz.cvut.docta.sectionEditing.data.local.source.SectionDraftLocalDataSource
 import cz.cvut.docta.sectionEditing.data.local.source.sectionDraftLocalDataSourceFactory
@@ -29,25 +27,14 @@ val sectionModule = module {
 
     /* ---------- Data Sources ---------- */
 
-    single<SectionLocalDataSource> {
-        sectionLocalDataSourceFactory(appLocalDatabase = get())
-    }
-    single<SectionRemoteDataSource> {
-        sectionRemoteDataSourceFactory(appRemoteDatabase = get())
-    }
-
     single<SectionDraftLocalDataSource> {
-        sectionDraftLocalDataSourceFactory(appLocalDatabase = get())
+        sectionDraftLocalDataSourceFactory(appDatabase = get())
     }
 
     /* ---------- Repositories ---------- */
 
     single<SectionRepository> {
-//        SectionRepositoryImpl(
-//            localSource = get(),
-//            remoteSource = get()
-//        )
-        SectionRemoteRepository(userContext = get())
+        SectionRepositoryImpl(userContext = get())
     }
 
     single<SectionDraftRepository> {
@@ -58,6 +45,9 @@ val sectionModule = module {
 
     single<GetCourseSectionsUseCase> {
         GetCourseSectionsUseCaseImpl(sectionRepository = get())
+    }
+    single<GetSectionsWithProgressUseCase> {
+        GetSectionsWithProgressUseCaseImpl(sectionRepository = get())
     }
     single<GetSectionUseCase> {
         GetSectionUseCaseImpl(
@@ -83,10 +73,11 @@ val sectionModule = module {
 
     /* ---------- View Models ---------- */
 
-    viewModel {
+    viewModel { parameters ->
         CourseSectionsViewModel(
+            courseCode = parameters.get<String>(),
             getCourseUseCase = get(),
-            getCourseSectionsUseCase = get()
+            getSectionsWithProgressUseCase = get()
         )
     }
 

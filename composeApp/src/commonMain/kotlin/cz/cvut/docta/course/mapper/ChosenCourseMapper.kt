@@ -1,6 +1,6 @@
 package cz.cvut.docta.course.mapper
 
-import cz.cvut.docta.course.data.local.model.ChosenCourseEntity
+import cz.cvut.docta.course.data.model.ChosenCourseEntity
 
 
 fun List<ChosenCourseEntity>.toCodes(): List<String> {

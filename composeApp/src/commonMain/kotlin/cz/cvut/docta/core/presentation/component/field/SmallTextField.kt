@@ -37,7 +37,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import cz.cvut.docta.core.presentation.component.containers.GlassSurface
+import cz.cvut.docta.core.presentation.component.container.GlassSurface
 import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.core.presentation.theme.Manrope
 import docta.composeapp.generated.resources.Res
@@ -56,6 +56,8 @@ fun SmallTextField(
     cornerSize: Dp = 15.dp,
     keyboardType: KeyboardType = KeyboardType.Text,
     imeAction: ImeAction = ImeAction.Done,
+    onDoneKeyboardAction: () -> Unit = {},
+    onGoKeyboardAction: () -> Unit = {},
     readOnly: Boolean = false,
     isError: Boolean = false,
     modifier: Modifier = Modifier
@@ -92,7 +94,14 @@ fun SmallTextField(
                 ),
                 keyboardActions = KeyboardActions(
                     onNext = { focusManager.moveFocus(FocusDirection.Down) },
-                    onDone = { focusManager.clearFocus() }
+                    onDone = {
+                        focusManager.clearFocus()
+                        onDoneKeyboardAction()
+                    },
+                    onGo = {
+                        focusManager.clearFocus()
+                        onGoKeyboardAction()
+                    }
                 ),
                 visualTransformation = visualTransformation,
                 singleLine = true,

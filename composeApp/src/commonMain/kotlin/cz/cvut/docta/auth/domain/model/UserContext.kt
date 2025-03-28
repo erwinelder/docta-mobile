@@ -22,25 +22,35 @@ class UserContext(
         private set
 
 
-    fun saveUserData(userDataWithToken: UserDataWithToken) {
-        this.userId = userDataWithToken.id
-        this.email = userDataWithToken.email
-        this.role = userDataWithToken.role
-        this.name = userDataWithToken.name
-
-        saveUserDataToSecureStorageUseCase.execute(userDataWithToken = userDataWithToken)
-    }
-
-    fun resetUserData() {
-        saveUserData(
-            userDataWithToken = UserDataWithToken(
-                id = 0, email = "", role = UserRole.User, name = "", token = ""
-            )
+    fun getUserData(): UserData {
+        return UserData(
+            id = userId,
+            email = email,
+            role = role,
+            name = name
         )
     }
 
-    fun isAtLeastTeacher(): Boolean = role == UserRole.Teacher || role == UserRole.Admin
-    fun isAdmin(): Boolean = role == UserRole.Admin
+    fun setUserName(name: String) {
+        this.name = name
+    }
+
+    fun saveUserDataWithToken(data: UserDataWithToken) {
+        this.userId = data.id
+        this.email = data.email
+        this.role = data.role
+        this.name = data.name
+
+        saveUserDataToSecureStorageUseCase.execute(userDataWithToken = data)
+    }
+
+    fun resetUserData() {
+        saveUserDataWithToken(data = UserDataWithToken())
+    }
+
+    fun isAtLeastTeacher(): Boolean = role in listOf(UserRole.Teacher, UserRole.Admin, UserRole.Owner)
+    fun isAtLeastAdmin(): Boolean = role in listOf(UserRole.Admin, UserRole.Owner)
+    fun isOwner(): Boolean = role == UserRole.Owner
 
     fun getAuthToken(): String {
         return getAuthTokenFromEncStoreUseCase.execute()

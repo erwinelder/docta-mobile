@@ -7,7 +7,10 @@ enum class AuthError : Error {
     UserAlreadyExists,
     EmailVerificationError,
     SignUpError,
-    EmailNotVerified,
-    DataDeletionError,
+    EmailNotVerifiedError,
+    EmailNotVerifiedYet,
+    NameUpdateError,
+    RoleUpdateError,
+    UserDataFetchError,
     AccountDeletionError
 }

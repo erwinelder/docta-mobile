@@ -8,9 +8,9 @@ sealed interface CourseManagementScreens {
     data class CourseEditing(val courseCode: String) : CourseManagementScreens
 
     @Serializable
-    data class SectionEditing(val sectionId: Long) : CourseManagementScreens
+    data class SectionEditing(val sectionId: Int) : CourseManagementScreens
 
     @Serializable
-    data class LessonEditing(val lessonId: Long) : CourseManagementScreens
+    data class LessonEditing(val lessonId: Int) : CourseManagementScreens
 
 }

@@ -19,6 +19,6 @@ import cz.cvut.docta.courseEditing.data.model.CourseDraftEntity
 data class SectionDraftEntity(
     val courseCode: String,
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
+    val id: Int,
     val name: String
 )

@@ -1,83 +1,64 @@
 package cz.cvut.docta.lesson.mapper
 
-import cz.cvut.docta.lesson.data.local.model.DefaultLessonType
-import cz.cvut.docta.lesson.data.local.model.LessonDifficulty
-import cz.cvut.docta.lesson.data.local.model.UserLessonDetailsStats
-import cz.cvut.docta.lesson.data.local.model.entity_with_details.LessonDetails
-import cz.cvut.docta.lesson.data.local.model.entity_with_details.LessonDetailsWithUserStats
-import cz.cvut.docta.lesson.domain.model.Lesson
+import cz.cvut.docta.lesson.data.model.DefaultLessonTypeDto
+import cz.cvut.docta.lesson.data.model.LessonDto
+import cz.cvut.docta.lesson.data.model.LessonWithProgressDto
 import cz.cvut.docta.lesson.domain.model.LessonDraft
-import cz.cvut.docta.lesson.domain.model.UserLessonStats
+import cz.cvut.docta.lesson.domain.model.LessonWithProgress
 
 
-fun LessonDifficulty.toLessonDifficultyDomainModel(): cz.cvut.docta.lesson.domain.model.LessonDifficulty {
-    return when(this) {
-        LessonDifficulty.Easy -> cz.cvut.docta.lesson.domain.model.LessonDifficulty.Easy
-        LessonDifficulty.Medium -> cz.cvut.docta.lesson.domain.model.LessonDifficulty.Medium
-        LessonDifficulty.Hard -> cz.cvut.docta.lesson.domain.model.LessonDifficulty.Hard
-    }
+fun List<LessonWithProgressDto>.toDomainLessons(): List<LessonWithProgress> {
+    return map { it.toDomainLesson() }
 }
 
-
-fun UserLessonDetailsStats.toDomainLessonStatistics(): UserLessonStats {
-    return UserLessonStats(
-        isDone = isDone
-    )
-}
-
-
-fun List<LessonDetailsWithUserStats>.toDomainLessons(): List<Lesson> {
-    return mapNotNull { it.toDomainLesson() }
-}
-
-fun LessonDetailsWithUserStats.toDomainLesson(): Lesson? {
+fun LessonWithProgressDto.toDomainLesson(): LessonWithProgress {
     return when (this) {
-        is LessonDetailsWithUserStats.DefaultLesson -> when (this.type) {
-            DefaultLessonType.Default -> Lesson.Default(
+        is LessonWithProgressDto.DefaultLesson -> when (this.type) {
+            DefaultLessonTypeDto.Default -> LessonWithProgress.Default(
                 id = id,
                 name = name,
-                statistics = statistics.toDomainLessonStatistics(),
-                difficulty = difficulty.toLessonDifficultyDomainModel()
+                description = description,
+                completed = completed
             )
-            DefaultLessonType.Test -> Lesson.Test(
+            DefaultLessonTypeDto.Test -> LessonWithProgress.Test(
                 id = id,
                 name = name,
-                statistics = statistics.toDomainLessonStatistics()
+                description = description,
+                completed = completed
             )
         }
-        is LessonDetailsWithUserStats.StepByStepLesson -> Lesson.StepByStep(
+        is LessonWithProgressDto.StepByStepLesson -> LessonWithProgress.StepByStep(
             id = id,
             name = name,
-            statistics = statistics.toDomainLessonStatistics(),
-            difficulty = difficulty.toLessonDifficultyDomainModel(),
-            description = description
+            description = description,
+            completed = completed
         )
     }
 }
 
 
-fun List<LessonDetails>.toLessonDraftList(): List<LessonDraft> {
+fun List<LessonDto>.toLessonDraftList(): List<LessonDraft> {
     return mapNotNull { it.toLessonDraft() }
 }
 
-fun LessonDetails.toLessonDraft(): LessonDraft? {
+fun LessonDto.toLessonDraft(): LessonDraft? {
     return when (this) {
-        is LessonDetails.Default -> when (this.type) {
-            DefaultLessonType.Default -> LessonDraft.Default(
+        is LessonDto.Default -> when (this.type) {
+            DefaultLessonTypeDto.Default -> LessonDraft.Default(
                 id = id,
                 name = name,
-                difficulty = difficulty.toLessonDifficultyDomainModel()
+                description = description
             )
-            DefaultLessonType.Test -> LessonDraft.Test(
+            DefaultLessonTypeDto.Test -> LessonDraft.Test(
                 id = id,
-                name = name
+                name = name,
+                description = description
             )
         }
-        is LessonDetails.StepByStep -> LessonDraft.StepByStep(
+        is LessonDto.StepByStep -> LessonDraft.StepByStep(
             id = id,
             name = name,
-            description = description,
-            difficulty = difficulty.toLessonDifficultyDomainModel()
+            description = description
         )
     }
 }

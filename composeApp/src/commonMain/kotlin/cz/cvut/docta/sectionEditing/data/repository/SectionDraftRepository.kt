@@ -4,7 +4,7 @@ import cz.cvut.docta.sectionEditing.data.model.SectionDraftEntity
 
 interface SectionDraftRepository {
 
-    suspend fun getSectionDraft(id: Long): SectionDraftEntity?
+    suspend fun getSectionDraft(id: Int): SectionDraftEntity?
 
     suspend fun getSectionDrafts(courseCode: String): List<SectionDraftEntity>
 

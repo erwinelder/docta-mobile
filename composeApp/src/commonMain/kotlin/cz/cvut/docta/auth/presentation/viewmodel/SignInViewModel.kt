@@ -2,12 +2,13 @@ package cz.cvut.docta.auth.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import cz.cvut.docta.SharedRes
 import cz.cvut.docta.auth.domain.usecase.SignInUseCase
 import cz.cvut.docta.auth.domain.validation.UserDataValidator
-import cz.cvut.docta.auth.mapper.toUiState
-import cz.cvut.docta.errorHandling.domain.model.result.Result
+import cz.cvut.docta.auth.mapper.toResultState
 import cz.cvut.docta.errorHandling.mapper.toUiStates
-import cz.cvut.docta.errorHandling.presentation.model.ResultUiState
+import cz.cvut.docta.errorHandling.presentation.model.RequestState
+import cz.cvut.docta.errorHandling.presentation.model.ResultState
 import cz.cvut.docta.errorHandling.presentation.model.ValidatedFieldUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -69,29 +70,33 @@ class SignInViewModel(
     )
 
 
-    suspend fun signIn(): Boolean {
+    suspend fun signIn() {
+        setRequestLoadingState()
+
         val result = signInUseCase.execute(
             email = emailState.value.fieldText,
             password = passwordState.value.fieldText
         )
 
-        if (result is Result.Error) {
-            setResultState(result.error.toUiState())
-        }
-
-        return result is Result.Success
+        setRequestResultState(result.toResultState())
     }
 
 
-    private val _resultState = MutableStateFlow<ResultUiState?>(null)
-    val resultState = _resultState.asStateFlow()
+    private val _requestState = MutableStateFlow<RequestState?>(null)
+    val requestState = _requestState.asStateFlow()
 
-    private fun setResultState(result: ResultUiState) {
-        _resultState.update { result }
+    private fun setRequestLoadingState() {
+        _requestState.update {
+            RequestState.Loading(messageRes = SharedRes.strings.verifying_your_credentials_loader)
+        }
+    }
+
+    private fun setRequestResultState(result: ResultState) {
+        _requestState.update { RequestState.Result(resultState = result) }
     }
 
     fun resetResultState() {
-        _resultState.update { null }
+        _requestState.update { null }
     }
 
 }

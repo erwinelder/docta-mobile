@@ -4,6 +4,7 @@ import androidx.compose.ui.graphics.Color
 
 sealed class DoctaPalette(
     val primary: Color,
+    val primaryText: Color,
     val primaryGradient: List<Color>,
     val primaryGradientPair: Pair<Color, Color> = Pair(primaryGradient[0], primaryGradient[1]),
     val primaryGlassGradient: List<Color>,
@@ -25,6 +26,7 @@ sealed class DoctaPalette(
     val glassSurfaceBorder: Color,
 
     val outline: Color,
+    val outlineSemiTransparent: Color = outline.copy(alpha = .5f),
 
     val semiTransparentBorder: Color,
 
@@ -39,6 +41,13 @@ sealed class DoctaPalette(
     val mediumDifficultyColor: Color,
     val hardDifficultyColor: Color,
 
+    val success: Color,
+    val successGradient: List<Color>,
+    val successGradientPair: Pair<Color, Color> = Pair(successGradient[0], successGradient[1]),
+    val error: Color,
+    val errorGradient: List<Color>,
+    val errorGradientPair: Pair<Color, Color> = Pair(errorGradient[0], errorGradient[1]),
+
     val successGlassGradient: List<Color>,
     val successGlassGradientPair: Pair<Color, Color> = Pair(
         successGlassGradient[0], successGlassGradient[1]
@@ -48,15 +57,15 @@ sealed class DoctaPalette(
         errorGlassGradient[0], errorGlassGradient[1]
     ),
 
-    val success: Color,
-    val successGradient: List<Color>,
-    val error: Color,
-    val errorGradient: List<Color>,
-
+    val dangerousGlassGradient: List<Color>,
+    val dangerousGlassGradientPair: Pair<Color, Color> = Pair(
+        dangerousGlassGradient[0], dangerousGlassGradient[1]
+    ),
     val yellow: Color,
 ) {
     data object Light : DoctaPalette(
         primary = Color(124, 154, 207),
+        primaryText = Color(101, 126, 168),
         primaryGradient = listOf(
             Color(119, 148, 199),
             Color(125, 158, 213)
@@ -86,8 +95,8 @@ sealed class DoctaPalette(
         semiTransparentBorder = Color(255, 255, 255, 50),
 
         disabledGradient = listOf(
-            Color(168, 168, 168),
-            Color(164, 164, 164)
+            Color(170, 173, 178),
+            Color(177, 180, 186)
         ),
         disabledSemiTransparentGradient = listOf(
             Color(168, 168, 168, 64),
@@ -98,6 +107,17 @@ sealed class DoctaPalette(
         mediumDifficultyColor = Color(189, 164, 94),
         hardDifficultyColor = Color(187, 109, 109),
 
+        success = Color(92, 180, 85),
+        successGradient = listOf(
+            Color(75, 148, 70),
+            Color(92, 180, 85)
+        ),
+        error = Color(211, 92, 92),
+        errorGradient = listOf(
+            Color(171, 67, 67),
+            Color(211, 92, 92)
+        ),
+
         successGlassGradient = listOf(
             Color(130, 211, 110, 128),
             Color(121, 200, 101, 128)
@@ -107,21 +127,16 @@ sealed class DoctaPalette(
             Color(219, 107, 107, 128)
         ),
 
-        success = Color(92, 180, 85),
-        successGradient = listOf(
-            Color(92, 180, 85),
-            Color(75, 148, 70)
-        ),
-        error = Color(211, 92, 92),
-        errorGradient = listOf(
-            Color(211, 92, 92),
-            Color(171, 67, 67)
+        dangerousGlassGradient = listOf(
+            Color(194, 95, 95),
+            Color(212, 104, 104)
         ),
 
         yellow = Color(245, 195, 68),
     )
     data object Dark : DoctaPalette(
         primary = Color(77, 101, 143),
+        primaryText = Color(90, 119, 168),
         primaryGradient = listOf(
             Color(76, 98, 138),
             Color(81, 106, 150)
@@ -151,8 +166,8 @@ sealed class DoctaPalette(
         semiTransparentBorder = Color(0, 0, 0, 64),
 
         disabledGradient = listOf(
-            Color(106, 106, 106),
-            Color(110, 110, 110)
+            Color(73, 74, 77),
+            Color(80, 81, 84)
         ),
         disabledSemiTransparentGradient = listOf(
             Color(106, 106, 106, 64),
@@ -163,6 +178,17 @@ sealed class DoctaPalette(
         mediumDifficultyColor = Color(162, 141, 82),
         hardDifficultyColor = Color(162, 100, 100),
 
+        success = Color(82, 161, 76),
+        successGradient = listOf(
+            Color(72, 141, 66),
+            Color(82, 161, 76)
+        ),
+        error = Color(169, 66, 66),
+        errorGradient = listOf(
+            Color(150, 52, 52),
+            Color(169, 66, 66)
+        ),
+
         successGlassGradient = listOf(
             Color(155, 233, 135, 128),
             Color(167, 244, 148, 128)
@@ -172,15 +198,9 @@ sealed class DoctaPalette(
             Color(255, 129, 129, 128)
         ),
 
-        success = Color(82, 161, 76),
-        successGradient = listOf(
-            Color(82, 161, 76),
-            Color(72, 141, 66)
-        ),
-        error = Color(169, 66, 66),
-        errorGradient = listOf(
-            Color(169, 66, 66),
-            Color(150, 52, 52)
+        dangerousGlassGradient = listOf(
+            Color(158, 68, 68),
+            Color(171, 73, 73)
         ),
 
         yellow = Color(245, 195, 68),

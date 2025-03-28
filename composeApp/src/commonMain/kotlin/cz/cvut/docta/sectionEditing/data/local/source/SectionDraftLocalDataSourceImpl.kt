@@ -1,6 +1,6 @@
 package cz.cvut.docta.sectionEditing.data.local.source
 
-import cz.cvut.docta.core.data.database.AppLocalDatabase
+import cz.cvut.docta.core.data.database.AppDatabase
 import cz.cvut.docta.sectionEditing.data.local.dao.SectionDraftDao
 import cz.cvut.docta.sectionEditing.data.model.SectionDraftEntity
 
@@ -8,7 +8,7 @@ class SectionDraftLocalDataSourceImpl(
     private val dao: SectionDraftDao
 ) : SectionDraftLocalDataSource {
 
-    override suspend fun getSectionDraft(id: Long): SectionDraftEntity? {
+    override suspend fun getSectionDraft(id: Int): SectionDraftEntity? {
         return dao.getSectionDraft(id = id)
     }
 
@@ -22,8 +22,8 @@ class SectionDraftLocalDataSourceImpl(
 
 }
 
-fun sectionDraftLocalDataSourceFactory(appLocalDatabase: AppLocalDatabase): SectionDraftLocalDataSource {
+fun sectionDraftLocalDataSourceFactory(appDatabase: AppDatabase): SectionDraftLocalDataSource {
     return SectionDraftLocalDataSourceImpl(
-        dao = appLocalDatabase.sectionEditingDao()
+        dao = appDatabase.sectionEditingDao()
     )
 }

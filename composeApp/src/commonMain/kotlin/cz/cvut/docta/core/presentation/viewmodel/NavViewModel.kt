@@ -8,7 +8,7 @@ import cz.cvut.docta.auth.presentation.navigation.AuthScreens
 import cz.cvut.docta.core.presentation.navigation.MainScreens
 import cz.cvut.docta.core.presentation.utils.currentScreenIsAnyOf
 import cz.cvut.docta.course.presentation.navigation.CourseScreens
-import cz.cvut.docta.lesson.presentation.navigation.LessonScreens
+import cz.cvut.docta.lesson.presentation.navigation.LessonSessionScreens
 
 class NavViewModel : ViewModel() {
 
@@ -18,10 +18,18 @@ class NavViewModel : ViewModel() {
         return navBackStackEntry.currentScreenIsAnyOf(
             CourseScreens.Courses, CourseScreens.AddNewCourse, CourseScreens.Sections(),
             CourseScreens.Lessons(),
-            AuthScreens.Profile
+            AuthScreens.Profile()
         )
     }
 
+
+    fun <T : Any> popBackStack(
+        navController: NavController,
+        screen: T,
+        inclusive: Boolean = false
+    ) {
+        navController.popBackStack(route = screen, inclusive = inclusive)
+    }
 
     fun <T : Any> navigate(
         navController: NavController,
@@ -63,23 +71,24 @@ class NavViewModel : ViewModel() {
         screenToNavigateTo: N,
         inclusive: Boolean = true
     ) {
-        navigateAndPopUpTo(
-            navController = navController,
-            screenToNavigateTo = screenToNavigateTo,
-            screenToPopUpTo = screenToNavigateTo,
-            inclusive = inclusive
-        )
+        navController.navigate(screenToNavigateTo) {
+            launchSingleTop = true
+            popUpTo(0) {
+                this.inclusive = inclusive
+            }
+        }
     }
 
     fun navigateToScreenPoppingToStartDestination(
         navController: NavController,
         navBackStackEntry: NavBackStackEntry?,
-        screen: Any
+        screen: Any,
+        inclusive: Boolean = false
     ) {
         navController.navigate(screen) {
             navController.graph.findStartDestination().route?.let {
                 popUpTo(it) {
-                    inclusive = false
+                    this.inclusive = inclusive
                 }
             }
             launchSingleTop = true
@@ -89,11 +98,11 @@ class NavViewModel : ViewModel() {
 
     fun navigateToNextQuestionOrResultsScreen(
         navController: NavController,
-        nextQuestionScreen: LessonScreens?,
+        nextQuestionScreen: LessonSessionScreens?,
         onResetLessonProgression: () -> Unit
     ) {
-        navController.navigate(nextQuestionScreen ?: LessonScreens.LessonResults) {
-            popUpTo<MainScreens.LessonGraph>()
+        navController.navigate(nextQuestionScreen ?: LessonSessionScreens.LessonResults) {
+            popUpTo<MainScreens.LessonSession>()
             launchSingleTop = true
         }
         if (nextQuestionScreen == null) {
