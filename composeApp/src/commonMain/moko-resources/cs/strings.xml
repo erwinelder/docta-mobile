@@ -29,7 +29,7 @@
     <string name="hard">Obtížné</string>
     <string name="one_step">Jednokrokové</string>
     <string name="step_by_step">Krok za krokem</string>
-    <string name="not_done">Nedokončeno</string>
+    <string name="not_done">Nedokončené</string>
     <string name="tests">Testy</string>
     <string name="test">Test</string>
 
@@ -102,7 +102,9 @@
     <string name="owner_role">Vlastník</string>
 
     <!-- Loaders -->
-    <string name="fetching_courses">Načítání kurzů…</string>
+    <string name="loading_courses">Načítání kurzů…</string>
+    <string name="loading_sections">Načítání sekcí…</string>
+    <string name="loading_lessons">Načítání cvičení…</string>
     <string name="saving_loader">Ukládáni…</string>
     <string name="verifying_your_credentials_loader">Ověřování vašich přihlašovacích údajů…</string>
     <string name="creating_your_identity_loader">Vytváření vaší identity…</string>

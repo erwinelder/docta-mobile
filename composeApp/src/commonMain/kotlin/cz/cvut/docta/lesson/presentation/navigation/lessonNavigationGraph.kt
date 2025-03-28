@@ -200,12 +200,9 @@ fun NavGraphBuilder.lessonNavigationGraph(
             LessonResultsScreen(
                 results = lessonResults,
                 onContinueButtonClick = {
-                    navViewModel.navigateAndPopUpTo(
+                    navViewModel.popBackStack(
                         navController = navController,
-                        screenToNavigateTo = CourseScreens.Lessons(
-                            sectionId = courseContext.getSectionId()
-                        ),
-                        inclusive = false
+                        screen = CourseScreens.Lessons(sectionId = courseContext.getSectionId())
                     )
                 }
             )

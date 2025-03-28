@@ -38,8 +38,9 @@ val lessonModule = module {
 
     /* ---------- View Models ---------- */
 
-    viewModel {
+    viewModel { parameters ->
         SectionLessonsViewModel(
+            sectionId = parameters.get<Int>(),
             getSectionUseCase = get(),
             getSectionLessonsWithStatisticsUseCase = get()
         )

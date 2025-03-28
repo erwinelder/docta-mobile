@@ -23,6 +23,14 @@ class NavViewModel : ViewModel() {
     }
 
 
+    fun <T : Any> popBackStack(
+        navController: NavController,
+        screen: T,
+        inclusive: Boolean = false
+    ) {
+        navController.popBackStack(route = screen, inclusive = inclusive)
+    }
+
     fun <T : Any> navigate(
         navController: NavController,
         screen: T,

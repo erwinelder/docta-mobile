@@ -2,8 +2,10 @@ package cz.cvut.docta.section.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import cz.cvut.docta.SharedRes
 import cz.cvut.docta.course.domain.model.Course
 import cz.cvut.docta.course.domain.usecase.GetCourseUseCase
+import cz.cvut.docta.errorHandling.presentation.model.RequestState
 import cz.cvut.docta.section.domain.model.SectionWithProgress
 import cz.cvut.docta.section.domain.usecase.GetSectionsWithProgressUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,6 +14,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class CourseSectionsViewModel(
+    private val courseCode: String,
     private val getCourseUseCase: GetCourseUseCase,
     private val getSectionsWithProgressUseCase: GetSectionsWithProgressUseCase
 ) : ViewModel() {
@@ -19,9 +22,11 @@ class CourseSectionsViewModel(
     private val _course = MutableStateFlow<Course?>(null)
     val course = _course.asStateFlow()
 
-    private suspend fun fetchCourse(courseCode: String) {
-        _course.update {
-            getCourseUseCase.execute(courseCode = courseCode)
+    private fun fetchCourse() {
+        viewModelScope.launch {
+            _course.update {
+                getCourseUseCase.execute(courseCode = courseCode)
+            }
         }
     }
 
@@ -29,20 +34,35 @@ class CourseSectionsViewModel(
     private val _sections = MutableStateFlow<List<SectionWithProgress>>(emptyList())
     val sections = _sections.asStateFlow()
 
-    private suspend fun fetchCourseSections() {
-        val courseCode = course.value?.code ?: return
+    private fun fetchCourseSections() {
+        setRequestLoadingState()
 
-        _sections.update {
-            getSectionsWithProgressUseCase.execute(courseCode = courseCode)
+        viewModelScope.launch {
+            _sections.update {
+                getSectionsWithProgressUseCase.execute(courseCode = courseCode)
+            }
+            resetResultState()
         }
     }
 
 
-    fun fetchData(courseCode: String) {
-        viewModelScope.launch {
-            fetchCourse(courseCode = courseCode)
-            fetchCourseSections()
+    private val _requestState = MutableStateFlow<RequestState?>(null)
+    val requestState = _requestState.asStateFlow()
+
+    private fun setRequestLoadingState() {
+        _requestState.update {
+            RequestState.Loading(messageRes = SharedRes.strings.loading_sections)
         }
+    }
+
+    fun resetResultState() {
+        _requestState.update { null }
+    }
+
+
+    init {
+        fetchCourse()
+        fetchCourseSections()
     }
 
 }

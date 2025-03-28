@@ -102,7 +102,9 @@
     <string name="owner_role">Owner</string>
 
     <!-- Loaders -->
-    <string name="fetching_courses">Fetching courses…</string>
+    <string name="loading_courses">Loading courses…</string>
+    <string name="loading_sections">Loading sections…</string>
+    <string name="loading_lessons">Loading lessons…</string>
     <string name="saving_loader">Saving…</string>
     <string name="verifying_your_credentials_loader">Verifying your credentials…</string>
     <string name="creating_your_identity_loader">Creating your identity…</string>

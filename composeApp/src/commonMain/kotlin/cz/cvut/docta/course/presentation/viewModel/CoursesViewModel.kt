@@ -49,9 +49,7 @@ class CoursesViewModel(
     }
 
     fun addCourse(course: CourseWithProgress) {
-        _courses.update {
-            it + course
-        }
+        _courses.update { it + course }
     }
 
 
@@ -60,7 +58,7 @@ class CoursesViewModel(
 
     private fun setRequestLoadingState() {
         _requestState.update {
-            RequestState.Loading(messageRes = SharedRes.strings.fetching_courses)
+            RequestState.Loading(messageRes = SharedRes.strings.loading_courses)
         }
     }
 
