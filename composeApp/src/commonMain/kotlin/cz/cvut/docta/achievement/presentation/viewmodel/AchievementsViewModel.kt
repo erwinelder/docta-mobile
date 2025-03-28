@@ -14,6 +14,8 @@ class AchievementsViewModel(
     private val getAchievementsUseCase: GetAchievementsUseCase
 ) : ViewModel() {
 
+    // ================= Achievements list ================
+
     private val _achievements = MutableStateFlow<List<AchievementUiState>>(emptyList())
     val achievements = _achievements.asStateFlow()
 
@@ -29,6 +31,15 @@ class AchievementsViewModel(
         viewModelScope.launch {
             applyAchievements(achievements = getAchievementsUseCase.execute())
         }
+    }
+
+    // ================= Single achievement ================
+
+    private val _achievement = MutableStateFlow<AchievementUiState?>(null)
+    val achievement = _achievement.asStateFlow()
+
+    fun applyAchievement(achievement: AchievementUiState) {
+        _achievement.update { achievement }
     }
 
     init {
