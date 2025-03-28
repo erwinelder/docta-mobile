@@ -14,15 +14,15 @@ sealed interface AuthScreens {
     data object EmailVerification : AuthScreens
 
     @Serializable
-    data class ResultSuccess(val screenType: String) : AuthScreens
-
-    @Serializable
     data class Profile(val userId: Int = 0) : AuthScreens
 
     @Serializable
     data object SignOut : AuthScreens
 
     @Serializable
-    data object DeleteAccount : AuthScreens
+    data object DeleteOwnAccount : AuthScreens
+
+    @Serializable
+    data class DeleteUserAccount(val userId: Int) : AuthScreens
 
 }

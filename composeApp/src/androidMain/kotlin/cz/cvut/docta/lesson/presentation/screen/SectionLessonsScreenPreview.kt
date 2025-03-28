@@ -60,7 +60,8 @@ fun SectionLessonsScreenPreview(
             activeType = activeType,
             onTypeSelect = {},
             lessons = lessons,
-            onLessonClick = {}
+            onLessonClick = {},
+            requestState = null
         )
     }
 }

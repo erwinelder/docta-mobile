@@ -23,6 +23,14 @@ class NavViewModel : ViewModel() {
     }
 
 
+    fun <T : Any> popBackStack(
+        navController: NavController,
+        screen: T,
+        inclusive: Boolean = false
+    ) {
+        navController.popBackStack(route = screen, inclusive = inclusive)
+    }
+
     fun <T : Any> navigate(
         navController: NavController,
         screen: T,
@@ -63,23 +71,24 @@ class NavViewModel : ViewModel() {
         screenToNavigateTo: N,
         inclusive: Boolean = true
     ) {
-        navigateAndPopUpTo(
-            navController = navController,
-            screenToNavigateTo = screenToNavigateTo,
-            screenToPopUpTo = screenToNavigateTo,
-            inclusive = inclusive
-        )
+        navController.navigate(screenToNavigateTo) {
+            launchSingleTop = true
+            popUpTo(0) {
+                this.inclusive = inclusive
+            }
+        }
     }
 
     fun navigateToScreenPoppingToStartDestination(
         navController: NavController,
         navBackStackEntry: NavBackStackEntry?,
-        screen: Any
+        screen: Any,
+        inclusive: Boolean = false
     ) {
         navController.navigate(screen) {
             navController.graph.findStartDestination().route?.let {
                 popUpTo(it) {
-                    inclusive = false
+                    this.inclusive = inclusive
                 }
             }
             launchSingleTop = true

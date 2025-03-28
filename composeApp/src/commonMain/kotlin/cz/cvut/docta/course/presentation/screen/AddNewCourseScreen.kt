@@ -14,8 +14,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cz.cvut.docta.SharedRes
-import cz.cvut.docta.core.presentation.component.buttons.SmallPrimaryButton
-import cz.cvut.docta.core.presentation.component.buttons.SmallSecondaryButton
+import cz.cvut.docta.core.presentation.component.button.SmallPrimaryButton
+import cz.cvut.docta.core.presentation.component.button.SmallSecondaryButton
 import cz.cvut.docta.core.presentation.component.field.LargeTextField
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainerWithBackNavButton
 import cz.cvut.docta.core.presentation.theme.DoctaColors
@@ -45,10 +45,10 @@ fun AddNewCourseScreen(
     onAddCourse: (CourseWithProgress) -> Unit
 ) {
     ScreenContainerWithBackNavButton(
-        onNavigateBack = onNavigateBack,
-        backButtonText = stringResource(SharedRes.strings.add_new_course),
+        screenPadding = screenPadding,
         verticalArrangement = Arrangement.Center,
-        screenPadding = screenPadding
+        onNavigateBack = onNavigateBack,
+        backButtonText = stringResource(SharedRes.strings.add_new_course)
     ) {
         AnimatedContent(
             targetState = searchedCourseState,

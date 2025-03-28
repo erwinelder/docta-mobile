@@ -2,6 +2,8 @@ package cz.cvut.docta.lesson.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import cz.cvut.docta.SharedRes
+import cz.cvut.docta.errorHandling.presentation.model.RequestState
 import cz.cvut.docta.lesson.domain.model.LessonFilterType
 import cz.cvut.docta.lesson.domain.model.LessonWithProgress
 import cz.cvut.docta.lesson.domain.usecase.GetSectionLessonsWithStatisticsUseCase
@@ -17,6 +19,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class SectionLessonsViewModel(
+    private val sectionId: Int,
     private val getSectionUseCase: GetSectionUseCase,
     private val getSectionLessonsWithStatisticsUseCase: GetSectionLessonsWithStatisticsUseCase
 ) : ViewModel() {
@@ -24,9 +27,11 @@ class SectionLessonsViewModel(
     private val _section = MutableStateFlow<Section?>(null)
     val section = _section.asStateFlow()
 
-    private suspend fun fetchSection(sectionId: Int) {
-        _section.update {
-            getSectionUseCase.execute(sectionId = sectionId)
+    private fun fetchSection() {
+        viewModelScope.launch {
+            _section.update {
+                getSectionUseCase.execute(sectionId = sectionId)
+            }
         }
     }
 
@@ -56,24 +61,39 @@ class SectionLessonsViewModel(
             }
     }.stateIn(
         scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000L),
+        started = SharingStarted.WhileSubscribed(),
         initialValue = emptyList()
     )
 
-    private suspend fun fetchSectionLessons() {
-        val sectionId = section.value?.id ?: return
+    private fun fetchSectionLessons() {
+        setRequestLoadingState()
 
-        _sectionLessons.update {
-            getSectionLessonsWithStatisticsUseCase.execute(sectionId = sectionId)
+        viewModelScope.launch {
+            _sectionLessons.update {
+                getSectionLessonsWithStatisticsUseCase.execute(sectionId = sectionId)
+            }
+            resetResultState()
         }
     }
 
 
-    fun fetchData(sectionId: Int) {
-        viewModelScope.launch {
-            fetchSection(sectionId = sectionId)
-            fetchSectionLessons()
+    private val _requestState = MutableStateFlow<RequestState?>(null)
+    val requestState = _requestState.asStateFlow()
+
+    private fun setRequestLoadingState() {
+        _requestState.update {
+            RequestState.Loading(messageRes = SharedRes.strings.loading_lessons)
         }
+    }
+
+    fun resetResultState() {
+        _requestState.update { null }
+    }
+
+
+    init {
+        fetchSection()
+        fetchSectionLessons()
     }
 
 }

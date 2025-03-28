@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.core.domain.app.FilledWidthByScreenType
-import cz.cvut.docta.core.presentation.component.containers.GlassSurface
+import cz.cvut.docta.core.presentation.component.container.GlassSurface
 import cz.cvut.docta.core.presentation.modifier.bounceClickEffect
 import cz.cvut.docta.core.presentation.theme.CurrAppTheme
 import cz.cvut.docta.course.presentation.component.CourseUnitCompletionMarkComponent

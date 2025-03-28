@@ -17,6 +17,15 @@ fun UserRoleDto.toDomainModel(): UserRole {
     }
 }
 
+fun UserRole.toDto(): UserRoleDto {
+    return when (this) {
+        UserRole.User -> UserRoleDto.User
+        UserRole.Teacher -> UserRoleDto.Teacher
+        UserRole.Admin -> UserRoleDto.Admin
+        UserRole.Owner -> UserRoleDto.Owner
+    }
+}
+
 
 fun UserDataDto.toDomainModel(): UserData {
     return UserData(

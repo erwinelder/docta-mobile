@@ -42,7 +42,8 @@ fun CourseSectionsScreenPreview(
             courseName = courseName,
             onNavigateBack = {},
             sections = sections,
-            onSectionClick = {}
+            onSectionClick = {},
+            requestState = null
         )
     }
 }

@@ -9,7 +9,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cz.cvut.docta.SharedRes
-import cz.cvut.docta.core.presentation.component.buttons.SmallSecondaryButton
+import cz.cvut.docta.core.presentation.component.button.SmallSecondaryButton
 import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.core.presentation.theme.Manrope
 import dev.icerock.moko.resources.compose.stringResource
@@ -19,7 +19,7 @@ import docta.composeapp.generated.resources.close_icon
 @Composable
 fun LoadingStateComponent(
     message: String,
-    onCancel: () -> Unit
+    onCancel: (() -> Unit)? = null
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -32,10 +32,12 @@ fun LoadingStateComponent(
             fontWeight = FontWeight.W400,
             fontFamily = Manrope
         )
-        SmallSecondaryButton(
-            text = stringResource(SharedRes.strings.cancel),
-            iconRes = Res.drawable.close_icon,
-            onClick = onCancel
-        )
+        onCancel?.let {
+            SmallSecondaryButton(
+                text = stringResource(SharedRes.strings.cancel),
+                iconRes = Res.drawable.close_icon,
+                onClick = onCancel
+            )
+        }
     }
 }

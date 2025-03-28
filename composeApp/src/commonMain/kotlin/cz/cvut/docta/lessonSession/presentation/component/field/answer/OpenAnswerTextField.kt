@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cz.cvut.docta.SharedRes
 import cz.cvut.docta.core.domain.app.FilledWidthByScreenType
-import cz.cvut.docta.core.presentation.component.containers.GlassSurface
+import cz.cvut.docta.core.presentation.component.container.GlassSurface
 import cz.cvut.docta.core.presentation.component.field.TextSelectionColorsProviderWrapper
 import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.core.presentation.theme.Manrope

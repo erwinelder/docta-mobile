@@ -11,7 +11,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.SharedRes
-import cz.cvut.docta.core.presentation.component.buttons.PrimaryButton
+import cz.cvut.docta.core.presentation.component.button.PrimaryButton
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainer
 import cz.cvut.docta.core.presentation.utils.getImeBottomInset
 import cz.cvut.docta.lessonSession.presentation.component.text.QuestionInstructionsTitle
@@ -32,11 +32,9 @@ fun QuestionScreenContainer(
     val bottomPadding by animateDpAsState(imeBottomInset.coerceAtLeast(24.dp))
 
     ScreenContainer(
+        screenPadding = screenPadding,
+        padding = PaddingValues(top = 24.dp, bottom = bottomPadding),
         verticalArrangement = Arrangement.SpaceBetween,
-        padding = PaddingValues(
-            top = screenPadding.calculateTopPadding() + 24.dp,
-            bottom = bottomPadding
-        ),
         modifier = Modifier.clickable { focusManager.clearFocus() }
     ) {
         QuestionInstructionsTitle(questionInstructions = questionInstructions)

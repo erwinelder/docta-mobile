@@ -26,6 +26,7 @@ sealed class DoctaPalette(
     val glassSurfaceBorder: Color,
 
     val outline: Color,
+    val outlineSemiTransparent: Color = outline.copy(alpha = .5f),
 
     val semiTransparentBorder: Color,
 
@@ -42,8 +43,10 @@ sealed class DoctaPalette(
 
     val success: Color,
     val successGradient: List<Color>,
+    val successGradientPair: Pair<Color, Color> = Pair(successGradient[0], successGradient[1]),
     val error: Color,
     val errorGradient: List<Color>,
+    val errorGradientPair: Pair<Color, Color> = Pair(errorGradient[0], errorGradient[1]),
 
     val successGlassGradient: List<Color>,
     val successGlassGradientPair: Pair<Color, Color> = Pair(
@@ -125,9 +128,10 @@ sealed class DoctaPalette(
         ),
 
         dangerousGlassGradient = listOf(
-            Color(202, 16, 16, 128),
-            Color(189, 15, 15, 128)
+            Color(194, 95, 95),
+            Color(212, 104, 104)
         ),
+
         yellow = Color(245, 195, 68),
     )
     data object Dark : DoctaPalette(
@@ -195,9 +199,10 @@ sealed class DoctaPalette(
         ),
 
         dangerousGlassGradient = listOf(
-            Color(255, 102, 102, 128),
-            Color(242, 97, 97, 128)
+            Color(158, 68, 68),
+            Color(171, 73, 73)
         ),
+
         yellow = Color(245, 195, 68),
     )
 }

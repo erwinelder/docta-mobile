@@ -1,7 +1,6 @@
 package cz.cvut.docta.auth.presentation.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -13,13 +12,15 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import androidx.navigation.toRoute
-import cz.cvut.docta.auth.presentation.model.AuthSuccessScreenType
-import cz.cvut.docta.auth.presentation.screen.AuthSuccessScreen
+import cz.cvut.docta.auth.presentation.screen.DeleteOwnAccountScreen
+import cz.cvut.docta.auth.presentation.screen.DeleteUserAccountScreen
 import cz.cvut.docta.auth.presentation.screen.EmailVerificationScreen
 import cz.cvut.docta.auth.presentation.screen.ProfileScreen
 import cz.cvut.docta.auth.presentation.screen.SignInScreen
 import cz.cvut.docta.auth.presentation.screen.SignOutScreen
 import cz.cvut.docta.auth.presentation.screen.SignUpScreen
+import cz.cvut.docta.auth.presentation.viewmodel.DeleteOwnAccountViewModel
+import cz.cvut.docta.auth.presentation.viewmodel.DeleteUserAccountViewModel
 import cz.cvut.docta.auth.presentation.viewmodel.ProfileViewModel
 import cz.cvut.docta.auth.presentation.viewmodel.SignInViewModel
 import cz.cvut.docta.auth.presentation.viewmodel.SignOutViewModel
@@ -27,7 +28,6 @@ import cz.cvut.docta.auth.presentation.viewmodel.SignUpViewModel
 import cz.cvut.docta.core.presentation.navigation.MainScreens
 import cz.cvut.docta.core.presentation.navigation.sharedKoinNavViewModel
 import cz.cvut.docta.core.presentation.viewmodel.NavViewModel
-import cz.cvut.docta.core.utils.takeActionIf
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
@@ -66,12 +66,7 @@ fun NavGraphBuilder.authGraph(
                 signInIsAllowed = signInIsAllowed,
                 onSignIn = {
                     job = coroutineScope.launch {
-                        if (viewModel.signIn()) navViewModel.navigate(
-                            navController = navController,
-                            screen = AuthScreens.ResultSuccess(
-                                screenType = AuthSuccessScreenType.SignIn.name
-                            )
-                        )
+                        viewModel.signIn()
                     }
                 },
                 onNavigateToSignUpScreen = {
@@ -85,7 +80,12 @@ fun NavGraphBuilder.authGraph(
                     job?.cancel()
                     job = null
                 },
-                onCloseResult = viewModel::resetResultState
+                onSuccessClose = {
+                    navViewModel.navigateAndPopUpTo(
+                        navController = navController, screenToNavigateTo = MainScreens.Courses
+                    )
+                },
+                onErrorClose = viewModel::resetResultState
             )
         }
         composable<AuthScreens.SignUp> { backStack ->
@@ -136,52 +136,26 @@ fun NavGraphBuilder.authGraph(
                     job?.cancel()
                     job = null
                 },
-                onCloseResult = viewModel::resetResultState
+                onErrorClose = viewModel::resetResultState
             )
         }
         composable<AuthScreens.EmailVerification> { backStack ->
             val viewModel = backStack.sharedKoinNavViewModel<SignUpViewModel>(navController)
 
-            val emailVerified by viewModel.emailVerified.collectAsStateWithLifecycle()
             val requestState by viewModel.requestState.collectAsStateWithLifecycle()
-
-            LaunchedEffect(emailVerified) {
-                if (emailVerified) {
-                    navViewModel.navigateToScreenPoppingToStartDestination(
-                        navController = navController,
-                        navBackStackEntry = backStack,
-                        screen = AuthScreens.ResultSuccess(
-                            screenType = AuthSuccessScreenType.SignUp.name
-                        )
-                    )
-                }
-            }
 
             EmailVerificationScreen(
                 screenPadding = screenPadding,
                 onNavigateBack = navController::popBackStack,
-                emailVerified = emailVerified,
                 onCheckEmailVerification = viewModel::checkEmailVerification,
                 requestState = requestState,
                 onCancelRequest = viewModel::cancelEmailVerificationCheck,
-                onCloseResult = viewModel::checkEmailVerification
-            )
-        }
-        composable<AuthScreens.ResultSuccess> { backStack ->
-            val screenType = enumValueOf<AuthSuccessScreenType>(
-                name = backStack.toRoute<AuthScreens.ResultSuccess>().screenType
-            )
-
-            AuthSuccessScreen(
-                screenPadding = screenPadding,
-                screenType = screenType,
-                onContinueButtonClick = {
-                    navViewModel.navigateToScreenPoppingToStartDestination(
-                        navController = navController,
-                        navBackStackEntry = backStack,
-                        screen = MainScreens.Courses
+                onSuccessClose = {
+                    navViewModel.navigateAndPopUpTo(
+                        navController = navController, screenToNavigateTo = MainScreens.Courses
                     )
-                }
+                },
+                onErrorClose = viewModel::resetResultState
             )
         }
         composable<AuthScreens.Profile> { backStack ->
@@ -191,31 +165,48 @@ fun NavGraphBuilder.authGraph(
             }
 
             val userData by viewModel.userData.collectAsStateWithLifecycle()
+            val nameEditingState by viewModel.nameEditingState.collectAsStateWithLifecycle()
             val nameState by viewModel.nameState.collectAsStateWithLifecycle()
-            val userNameEditingState by viewModel.userNameEditingState.collectAsStateWithLifecycle()
-            val requestState by viewModel.requestState.collectAsStateWithLifecycle()
+            val roleEditingState by viewModel.roleEditingState.collectAsStateWithLifecycle()
+            val roleState by viewModel.roleState.collectAsStateWithLifecycle()
+            val requestState by viewModel.userDataRequestState.collectAsStateWithLifecycle()
 
             ProfileScreen(
                 screenPadding = screenPadding,
+                permissions = viewModel.permissions,
                 onNavigateToDeleteAccountScreen = {
                     navViewModel.navigate(
-                        navController = navController, screen = AuthScreens.DeleteAccount
+                        navController = navController,
+                        screen = if (userId == 0) {
+                            AuthScreens.DeleteOwnAccount
+                        } else {
+                            AuthScreens.DeleteUserAccount(userId = userId)
+                        }
                     )
                 },
-                onNavigateToSignOutScreen = takeActionIf(userId == 0) {
+                onNavigateToSignOutScreen = {
                     navViewModel.navigate(
                         navController = navController, screen = AuthScreens.SignOut
                     )
                 },
                 userData = userData,
-                nameState = nameState,
-                userNameEditingState = userNameEditingState,
-                onToggleUserNameEditingState = viewModel::toggleUserNameEditingState,
-                onNameChange = viewModel::changeName,
+
+                nameEditingState = nameEditingState,
+                onToggleNameEditingState = viewModel::toggleNameEditingState,
                 onSaveName = viewModel::saveName,
-                requestState = requestState,
-                onCancelRequest = navController::popBackStack,
-                onCloseResult = navController::popBackStack
+                nameState = nameState,
+                onNameChange = viewModel::changeName,
+
+                roleEditingState = roleEditingState,
+                onToggleRoleEditingState = viewModel::toggleRoleEditingState,
+                onSaveRole = viewModel::saveRole,
+                roleState = roleState,
+                availableRoles = viewModel.availableRoles,
+                onRoleSelect = viewModel::selectRole,
+
+                userDataRequestState = requestState,
+                onCancelUserDataRequest = navController::popBackStack,
+                onUserDataFetchResult = navController::popBackStack
             )
         }
         composable<AuthScreens.SignOut> { backStack ->
@@ -236,8 +227,70 @@ fun NavGraphBuilder.authGraph(
                 }
             )
         }
-        composable<AuthScreens.DeleteAccount> { backStack ->
+        composable<AuthScreens.DeleteOwnAccount> {
+            val viewModel = koinViewModel<DeleteOwnAccountViewModel>()
 
+            val passwordState by viewModel.passwordState.collectAsStateWithLifecycle()
+            val requestState by viewModel.requestState.collectAsStateWithLifecycle()
+            val allowDeleteAccount by viewModel.allowDeleteAccount.collectAsStateWithLifecycle()
+
+            val coroutineScope = rememberCoroutineScope()
+            var job by remember { mutableStateOf<Job?>(null) }
+
+            DeleteOwnAccountScreen(
+                screenPadding = screenPadding,
+                onNavigateBack = navController::popBackStack,
+                passwordState = passwordState,
+                onPasswordChange = viewModel::updateAndValidatePassword,
+                allowDeleteAccount = allowDeleteAccount,
+                onDeleteAccount = {
+                    job = coroutineScope.launch {
+                        viewModel.deleteAccount()
+                    }
+                },
+                requestState = requestState,
+                onCancelRequest = {
+                    job?.cancel()
+                    job = null
+                },
+                onSuccessClose = {
+                    navViewModel.navigateAndPopUpTo(
+                        navController = navController, screenToNavigateTo = AuthScreens.SignIn()
+                    )
+                },
+                onErrorClose = viewModel::resetResultState
+            )
+        }
+        composable<AuthScreens.DeleteUserAccount> { backStack ->
+            val userId = backStack.toRoute<AuthScreens.Profile>().userId
+            val viewModel = koinViewModel<DeleteUserAccountViewModel> {
+                parametersOf(userId)
+            }
+
+            val requestState by viewModel.requestState.collectAsStateWithLifecycle()
+
+            val coroutineScope = rememberCoroutineScope()
+            var job by remember { mutableStateOf<Job?>(null) }
+
+            DeleteUserAccountScreen(
+                screenPadding = screenPadding,
+                onNavigateBack = navController::popBackStack,
+                onDeleteAccount = {
+                    job = coroutineScope.launch {
+                        viewModel.deleteAccount()
+                    }
+                },
+                requestState = requestState,
+                onCancelRequest = {
+                    job?.cancel()
+                    job = null
+                },
+                onSuccessClose = {
+                    navController.popBackStack()
+                    navController.popBackStack()
+                },
+                onErrorClose = viewModel::resetResultState
+            )
         }
     }
 }

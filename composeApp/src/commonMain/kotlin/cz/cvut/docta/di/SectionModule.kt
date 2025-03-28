@@ -73,8 +73,9 @@ val sectionModule = module {
 
     /* ---------- View Models ---------- */
 
-    viewModel {
+    viewModel { parameters ->
         CourseSectionsViewModel(
+            courseCode = parameters.get<String>(),
             getCourseUseCase = get(),
             getSectionsWithProgressUseCase = get()
         )

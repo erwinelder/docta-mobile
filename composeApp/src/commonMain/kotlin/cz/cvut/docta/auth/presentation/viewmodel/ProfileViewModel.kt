@@ -5,12 +5,15 @@ import androidx.lifecycle.viewModelScope
 import cz.cvut.docta.SharedRes
 import cz.cvut.docta.auth.domain.model.UserContext
 import cz.cvut.docta.auth.domain.model.UserData
+import cz.cvut.docta.auth.domain.model.UserRole
 import cz.cvut.docta.auth.domain.usecase.GetUserDataUseCase
 import cz.cvut.docta.auth.domain.usecase.SaveUserNameToSecureStorageUseCase
 import cz.cvut.docta.auth.domain.usecase.SaveUserNameUseCase
+import cz.cvut.docta.auth.domain.usecase.SaveUserRoleUseCase
 import cz.cvut.docta.auth.domain.validation.UserDataValidator
 import cz.cvut.docta.auth.mapper.toResultState
-import cz.cvut.docta.auth.presentation.model.UserNameEditingState
+import cz.cvut.docta.auth.presentation.model.DataEditingState
+import cz.cvut.docta.auth.presentation.model.ProfilePermissions
 import cz.cvut.docta.errorHandling.domain.model.result.Result
 import cz.cvut.docta.errorHandling.domain.model.result.ResultData
 import cz.cvut.docta.errorHandling.mapper.toUiState
@@ -27,23 +30,30 @@ class ProfileViewModel(
     private val userId: Int?,
     private val getUserDataUseCase: GetUserDataUseCase,
     private val saveUserNameUseCase: SaveUserNameUseCase,
-    private val saveUserNameToSecureStorageUseCase: SaveUserNameToSecureStorageUseCase
+    private val saveUserNameToSecureStorageUseCase: SaveUserNameToSecureStorageUseCase,
+    private val saveUserRoleUseCase: SaveUserRoleUseCase
 ) : ViewModel() {
+
+    val permissions = ProfilePermissions.fromViewerAndProfileUserId(
+        viewerContext = userContext,
+        profileUserId = userId ?: userContext.userId
+    )
+
 
     private val _userData = MutableStateFlow(UserData())
     val userData = _userData.asStateFlow()
 
     private fun applyUserData(data: UserData) {
         _userData.update { data }
-        _userNameEditingState.update {
-            UserNameEditingState.Idle(name = data.name)
-        }
+        _nameEditingState.update { DataEditingState.Idle }
+        _roleEditingState.update { DataEditingState.Idle }
         changeName(name = data.name)
-        resetRequestState()
+        selectRole(role = data.role)
+        resetUserDataRequestState()
     }
 
     private fun fetchUserData(userId: Int) {
-        setRequestLoadingState()
+        setUserDataRequestLoadingState()
 
         viewModelScope.launch {
             val result = getUserDataUseCase.execute(userId = userId)
@@ -53,12 +63,19 @@ class ProfileViewModel(
                     applyUserData(data = result.data)
                 }
                 is ResultData.Error -> {
-                    setRequestResultState(result.error.toResultState())
+                    setUserDataRequestResultState(result.error.toResultState())
                 }
             }
         }
     }
 
+
+    private val _nameEditingState = MutableStateFlow<DataEditingState>(DataEditingState.Idle)
+    val nameEditingState = _nameEditingState.asStateFlow()
+
+    fun toggleNameEditingState() {
+        _nameEditingState.update { it.toggle { resetName() } }
+    }
 
     private val _nameState = MutableStateFlow(
         ValidatedFieldUiState(fieldText = userData.value.name, validationStates = emptyList())
@@ -82,70 +99,75 @@ class ProfileViewModel(
         }
     }
 
-
-    private val _userNameEditingState = MutableStateFlow<UserNameEditingState>(
-        UserNameEditingState.Idle(name = userData.value.name)
-    )
-    val userNameEditingState = _userNameEditingState.asStateFlow()
-
-    fun toggleUserNameEditingState() {
-        _userNameEditingState.update {
-            when (it) {
-                is UserNameEditingState.Idle -> UserNameEditingState.Editing
-                is UserNameEditingState.Editing -> {
-                    resetName()
-                    UserNameEditingState.Idle(name = userData.value.name)
-                }
-                is UserNameEditingState.Saving -> it
-            }
-        }
-    }
-
     fun saveName() {
         if (nameState.value.isNotValid()) return
         val name = nameState.value.fieldText
 
         viewModelScope.launch {
-            _userNameEditingState.update { UserNameEditingState.Saving }
+            _nameEditingState.update { DataEditingState.Saving }
 
             val result = saveUserNameUseCase.execute(userId = userData.value.id, name = name)
+            _nameEditingState.update { DataEditingState.Idle }
 
-            when (result) {
-                is Result.Success -> {
-                    _userNameEditingState.update {
-                        UserNameEditingState.Idle(name = name)
-                    }
-                    if (userId == null) {
-                        saveUserNameToSecureStorageUseCase.execute(name = name)
-                    }
-                }
-                is Result.Error -> {
-                    _userNameEditingState.update {
-                        UserNameEditingState.Idle(name = userData.value.name)
-                    }
-                }
+            if (result is Result.Success && userId == null) {
+                _userData.update { it.copy(name = name) }
+                saveUserNameToSecureStorageUseCase.execute(name = name)
             }
         }
     }
 
 
-    private val _requestState = MutableStateFlow<RequestState?>(null)
-    val requestState = _requestState.asStateFlow()
+    private val _roleEditingState = MutableStateFlow<DataEditingState>(DataEditingState.Idle)
+    val roleEditingState = _roleEditingState.asStateFlow()
 
-    private fun setRequestLoadingState() {
-        _requestState.update {
-            RequestState.Loading(messageRes = SharedRes.strings.loading_user_data)
+    fun toggleRoleEditingState() {
+        _roleEditingState.update { it.toggle { resetRole() } }
+    }
+
+    val availableRoles = UserRole.entries.filter { it != UserRole.Owner }
+
+    private val _roleState = MutableStateFlow<UserRole>(UserRole.User)
+    val roleState = _roleState.asStateFlow()
+
+    fun selectRole(role: UserRole) {
+        _roleState.update { role }
+    }
+
+    fun resetRole() {
+        _roleState.update { userData.value.role }
+    }
+
+    fun saveRole() {
+        val role = roleState.value
+
+        viewModelScope.launch {
+            _roleEditingState.update { DataEditingState.Saving }
+
+            val result = saveUserRoleUseCase.execute(userId = userData.value.id, role = role)
+            _roleEditingState.update { DataEditingState.Idle }
+
+            if (result is Result.Success) {
+                _userData.update { it.copy(role = role) }
+            }
         }
     }
 
-    private fun setRequestResultState(result: ResultState) {
-        _requestState.update {
-            RequestState.Result(resultState = result)
+
+    private val _userDataRequestState = MutableStateFlow<RequestState?>(null)
+    val userDataRequestState = _userDataRequestState.asStateFlow()
+
+    private fun setUserDataRequestLoadingState() {
+        _userDataRequestState.update {
+            RequestState.Loading(messageRes = SharedRes.strings.loading_user_data_loader)
         }
     }
 
-    private fun resetRequestState() {
-        _requestState.update { null }
+    private fun setUserDataRequestResultState(result: ResultState) {
+        _userDataRequestState.update { RequestState.Result(resultState = result) }
+    }
+
+    private fun resetUserDataRequestState() {
+        _userDataRequestState.update { null }
     }
 
 
