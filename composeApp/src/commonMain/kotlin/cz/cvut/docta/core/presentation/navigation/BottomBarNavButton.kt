@@ -8,6 +8,10 @@ import docta.composeapp.generated.resources.home_dark_active
 import docta.composeapp.generated.resources.home_dark_inactive
 import docta.composeapp.generated.resources.home_light_active
 import docta.composeapp.generated.resources.home_light_inactive
+import docta.composeapp.generated.resources.leaders_dark_active
+import docta.composeapp.generated.resources.leaders_dark_inactive
+import docta.composeapp.generated.resources.leaders_light_active
+import docta.composeapp.generated.resources.leaders_light_inactive
 import docta.composeapp.generated.resources.profile_dark_active
 import docta.composeapp.generated.resources.profile_dark_inactive
 import docta.composeapp.generated.resources.profile_light_active
@@ -43,6 +47,18 @@ sealed class BottomBarNavButton(
         )
     )
 
+    data object Leaderboard: BottomBarNavButton (
+        screen = MainScreens.Leaderboard,
+        inactiveIconRes = IconResByAppTheme(
+            light = Res.drawable.leaders_light_inactive,
+            dark = Res.drawable.leaders_dark_inactive
+        ),
+        activeIconRes = IconResByAppTheme(
+            light = Res.drawable.leaders_light_active,
+            dark = Res.drawable.leaders_dark_active,
+        )
+    )
+
 
     fun getIconRes(isActive: Boolean): IconResByAppTheme {
         return if (isActive) activeIconRes else inactiveIconRes
@@ -54,7 +70,8 @@ sealed class BottomBarNavButton(
         fun asDefaultList(): List<BottomBarNavButton> {
             return listOf(
                 Home,
-                Profile
+                Profile,
+                Leaderboard
             )
         }
 

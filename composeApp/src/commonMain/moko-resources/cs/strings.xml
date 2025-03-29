@@ -41,6 +41,13 @@
     <string name="step_question_instructions">Vyřešte tento krok úkolu</string>
     <string name="type_your_answer_here">Sem napište svou odpověď…</string>
 
+    <!-- Leaderboard -->
+    <string name="leaderboard">Žebříček</string>
+    <string name="section_still_under_developments">Tato sekce je stále ve vývoji</string>
+
+    <!-- Placeholders -->
+    <string name="course_search_placeholder">Kód kurzu (např. „nss“) …</string>
+
     <!-- Achievements -->
     <string name="achievements_screen_title">Dosažení</string>
 
