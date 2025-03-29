@@ -30,6 +30,8 @@ import cz.cvut.docta.core.presentation.utils.currentScreenIs
 import cz.cvut.docta.core.presentation.viewmodel.NavViewModel
 import cz.cvut.docta.course.presentation.navigation.courseNavigationGraph
 import cz.cvut.docta.courseEditing.presentation.navigation.courseManagementNavigationGraph
+import cz.cvut.docta.leaderboard.presentation.screen.LeaderboardScreen
+import cz.cvut.docta.leaderboard.presentation.viewmodel.LeaderboardViewModel
 import cz.cvut.docta.lesson.presentation.component.LessonProgressBar
 import cz.cvut.docta.lesson.presentation.navigation.lessonNavigationGraph
 import cz.cvut.docta.lesson.presentation.viewmodel.LessonProgressViewModel
@@ -121,6 +123,13 @@ fun MainApplicationContent(
                 navViewModel = navViewModel,
                 screenPadding = PaddingValues(bottom = systemBarPadding)
             )
+            composable<MainScreens.Leaderboard> {
+                val viewModel = koinViewModel<LeaderboardViewModel>()
+
+                val leaders by viewModel.leaders.collectAsStateWithLifecycle()
+
+                LeaderboardScreen(leaders = leaders)
+            }
         }
     }
 }
