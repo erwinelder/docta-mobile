@@ -43,6 +43,7 @@
 
     <!-- Leaderboard -->
     <string name="leaderboard">Leaderboard</string>
+    <string name="section_still_under_developments">This section is still under development</string>
 
     <!-- Placeholders -->
     <string name="course_search_placeholder">Course code (e.g. "nss") …</string>

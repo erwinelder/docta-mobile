@@ -19,11 +19,13 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cz.cvut.docta.SharedRes
 import cz.cvut.docta.core.presentation.component.container.GlassSurface
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainer
 import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.core.presentation.theme.Manrope
 import cz.cvut.docta.leaderboard.domain.model.LeaderboardItem
+import dev.icerock.moko.resources.compose.stringResource
 import docta.composeapp.generated.resources.Res
 import docta.composeapp.generated.resources.star_filled_icon
 import org.jetbrains.compose.resources.painterResource
@@ -38,7 +40,7 @@ fun LeaderboardScreen(
         screenPadding = screenPadding
     ) {
         Text(
-            text = "This section is still under development",
+            text = stringResource(SharedRes.strings.section_still_under_developments),
             textAlign = TextAlign.Center,
             fontFamily = Manrope,
             modifier = Modifier.padding(horizontal = 15.dp)
@@ -58,7 +60,7 @@ fun LeaderboardScreen(
 }
 
 @Composable
-fun ColumnScope.LeadersList(
+private fun ColumnScope.LeadersList(
     leaders: List<LeaderboardItem>
 ) {
     LazyColumn(
@@ -75,7 +77,7 @@ fun ColumnScope.LeadersList(
 }
 
 @Composable
-fun LeaderListItem(
+private fun LeaderListItem(
     leader: LeaderboardItem
 ) {
     val transparentGradient = listOf(
@@ -111,7 +113,7 @@ fun LeaderListItem(
 }
 
 @Composable
-fun LeaderListItemPoints(
+private fun LeaderListItemPoints(
     points: Double,
     textStyle: TextStyle
 ) {

@@ -43,6 +43,7 @@
 
     <!-- Leaderboard -->
     <string name="leaderboard">Žebříček</string>
+    <string name="section_still_under_developments">Tato sekce je stále ve vývoji</string>
 
     <!-- Placeholders -->
     <string name="course_search_placeholder">Kód kurzu (např. „nss“) …</string>
