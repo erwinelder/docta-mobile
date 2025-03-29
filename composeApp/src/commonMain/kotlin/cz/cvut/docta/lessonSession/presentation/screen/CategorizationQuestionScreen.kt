@@ -28,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cz.cvut.docta.SharedRes
+import cz.cvut.docta.core.presentation.component.container.GlassSurface
 import cz.cvut.docta.core.presentation.component.picker.PickerButton
 import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.core.presentation.theme.Manrope
@@ -75,7 +76,7 @@ fun CategorizationQuestionScreen(
                         modifier = Modifier.fillMaxWidth()
                     )
                     options.forEach { optionUiState ->
-                        CategorizationOptionRow(
+                        CategoryAndOptionBlock(
                             option = optionUiState,
                             categories = categories,
                             onCategorySelect = onCategorySelect
@@ -94,29 +95,24 @@ fun CategorizationQuestionScreen(
 }
 
 @Composable
-fun CategorizationOptionRow(
+fun CategoryAndOptionBlock(
     option: CategorizationOptionUiState,
     categories: List<CategoryUiState>,
     onCategorySelect: (Long, Long) -> Unit
 ) {
     var isExpanded by remember { mutableStateOf(false) }
 
-    val selectedCategoryName = categories
-        .find { it.id == option.selectedCategoryId }
-        ?.name ?: "Category text"
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp)
+            .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.End,
-            verticalAlignment = Alignment.CenterVertically
+            horizontalArrangement = Arrangement.End
         ) {
             PickerButton(
-                text = selectedCategoryName,
+                text = categories.find { it.id == option.selectedCategoryId }?.name ?: "Category text",
                 isExpanded = isExpanded,
                 selectedColor = DoctaColors.onSurface,
                 onClick = { isExpanded = !isExpanded }
@@ -138,29 +134,20 @@ fun CategorizationOptionRow(
                 }
             }
         }
-
-        Box(
+        GlassSurface(
             modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(min = 50.dp)
-                .padding(top = 4.dp)
-                .border(1.dp, DoctaColors.glassSurfaceBorder, RoundedCornerShape(12.dp))
-                .clip(RoundedCornerShape(12.dp))
-                .background(
-                    brush = Brush.linearGradient(
-                        colors = DoctaColors.glassSurfaceGradient,
-                        start = Offset(75f, 210f),
-                        end = Offset(95f, -10f)
-                    )
-                )
-                .padding(horizontal = 12.dp, vertical = 10.dp)
+                .padding(top = 6.dp),
+            cornerSize = 12.dp,
+            borderSize = 1.dp
         ) {
             Text(
                 text = option.text,
                 color = DoctaColors.onSurface,
                 fontSize = 16.sp,
                 fontFamily = Manrope,
-                fontWeight = FontWeight.Normal
+                fontWeight = FontWeight.Normal,
+                modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp)
             )
         }
     }
