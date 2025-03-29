@@ -33,9 +33,4 @@ sealed class Question(
         val answerPairs: List<AnswerText>
     ) : Question(id)
 
-    data class StepByStep(
-        override val id: Long,
-        val text: String
-    ) : Question(id)
-
 }

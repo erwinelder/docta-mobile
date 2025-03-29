@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 enum class QuestionDifficulty {
-    Easy, Medium, Hard
+    Simple, Hard
 }

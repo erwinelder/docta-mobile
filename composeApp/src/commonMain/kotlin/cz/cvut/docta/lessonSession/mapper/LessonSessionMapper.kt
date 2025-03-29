@@ -3,6 +3,7 @@ package cz.cvut.docta.lessonSession.mapper
 import cz.cvut.docta.lesson.domain.model.LessonWithProgress
 import cz.cvut.docta.lessonSession.data.model.AnswerTextDto
 import cz.cvut.docta.lessonSession.data.model.CorrectAnswerDto
+import cz.cvut.docta.lessonSession.data.model.QuestionDifficultyDto
 import cz.cvut.docta.lessonSession.data.model.QuestionDto
 import cz.cvut.docta.lessonSession.data.model.QuestionWithCorrectAnswersDto
 import cz.cvut.docta.lessonSession.data.model.SessionOptionsDto
@@ -11,6 +12,7 @@ import cz.cvut.docta.lessonSession.domain.model.SessionOptions
 import cz.cvut.docta.lessonSession.domain.model.answer.AnswerText
 import cz.cvut.docta.lessonSession.domain.model.answer.CorrectAnswer
 import cz.cvut.docta.lessonSession.domain.model.question.Question
+import cz.cvut.docta.lessonSession.domain.model.question.QuestionDifficulty
 
 
 fun LessonWithProgress.getSessionOptions(): SessionOptions {
@@ -36,6 +38,21 @@ fun SessionOptions.toDto(courseCode: String): SessionOptionsDto {
 }
 
 
+fun QuestionDifficultyDto.toDomainModel(): QuestionDifficulty {
+    return when (this) {
+        QuestionDifficultyDto.Simple -> QuestionDifficulty.Simple
+        QuestionDifficultyDto.Hard -> QuestionDifficulty.Hard
+    }
+}
+
+fun QuestionDifficulty.toDto(): QuestionDifficultyDto {
+    return when (this) {
+        QuestionDifficulty.Simple -> QuestionDifficultyDto.Simple
+        QuestionDifficulty.Hard -> QuestionDifficultyDto.Hard
+    }
+}
+
+
 fun QuestionWithCorrectAnswersDto.toDomainModel(): QuestionWithCorrectAnswers {
     return when (this) {
         is QuestionWithCorrectAnswersDto.OpenAnswer -> QuestionWithCorrectAnswers.OpenAnswer(
@@ -53,10 +70,6 @@ fun QuestionWithCorrectAnswersDto.toDomainModel(): QuestionWithCorrectAnswers {
         is QuestionWithCorrectAnswersDto.QuestionAnswerPairs -> QuestionWithCorrectAnswers.QuestionAnswerPairs(
             question = this.question.toDomainModel()
         )
-        is QuestionWithCorrectAnswersDto.StepByStep -> QuestionWithCorrectAnswers.StepByStep(
-            question = this.question.toDomainModel(),
-            answer = this.answer.toDomainModel()
-        )
     }
 }
 
@@ -67,22 +80,21 @@ fun QuestionDto.toDomainModel(): Question {
         is QuestionDto.FillInBlanks -> this.toDomainModel()
         is QuestionDto.AnswerOptions -> this.toDomainModel()
         is QuestionDto.QuestionAnswerPairs -> this.toDomainModel()
-        is QuestionDto.StepByStep -> this.toDomainModel()
     }
 }
 
 fun QuestionDto.OpenAnswer.toDomainModel(): Question.OpenAnswer {
-    return Question.OpenAnswer(id = id, difficulty = difficulty, text = text)
+    return Question.OpenAnswer(id = id, difficulty = difficulty.toDomainModel(), text = text)
 }
 
 fun QuestionDto.FillInBlanks.toDomainModel(): Question.FillInBlanks {
-    return Question.FillInBlanks(id = id, difficulty = difficulty, text = text)
+    return Question.FillInBlanks(id = id, difficulty = difficulty.toDomainModel(), text = text)
 }
 
 fun QuestionDto.AnswerOptions.toDomainModel(): Question.AnswerOptions {
     return Question.AnswerOptions(
         id = id,
-        difficulty = difficulty,
+        difficulty = difficulty.toDomainModel(),
         text = text,
         options = options.map { it.toDomainModel() }
     )
@@ -91,15 +103,11 @@ fun QuestionDto.AnswerOptions.toDomainModel(): Question.AnswerOptions {
 fun QuestionDto.QuestionAnswerPairs.toDomainModel(): Question.QuestionAnswerPairs {
     return Question.QuestionAnswerPairs(
         id = id,
-        difficulty = difficulty,
+        difficulty = difficulty.toDomainModel(),
         text = text,
         questionPairs = questionPairs.map { it.toDomainModel() },
         answerPairs = answerPairs.map { it.toDomainModel() }
     )
-}
-
-fun QuestionDto.StepByStep.toDomainModel(): Question.StepByStep {
-    return Question.StepByStep(id = id, text = text)
 }
 
 
@@ -108,7 +116,6 @@ fun CorrectAnswerDto.toDomainModel(): CorrectAnswer {
         is CorrectAnswerDto.OpenAnswers -> this.toDomainModel()
         is CorrectAnswerDto.Blanks -> this.toDomainModel()
         is CorrectAnswerDto.Option -> this.toDomainModel()
-        is CorrectAnswerDto.StepAnswer -> this.toDomainModel()
     }
 }
 
@@ -122,10 +129,6 @@ fun CorrectAnswerDto.Blanks.toDomainModel(): CorrectAnswer.Blanks {
 
 fun CorrectAnswerDto.Option.toDomainModel(): CorrectAnswer.Option {
     return CorrectAnswer.Option(questionId = questionId, id = id)
-}
-
-fun CorrectAnswerDto.StepAnswer.toDomainModel(): CorrectAnswer.StepAnswer {
-    return CorrectAnswer.StepAnswer(questionId = questionId, answer = answer)
 }
 
 

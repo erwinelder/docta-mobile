@@ -53,8 +53,4 @@ sealed class AnswerInput {
 
     }
 
-    data class Step(
-        val answer: String
-    ) : AnswerInput()
-
 }

@@ -30,12 +30,6 @@ sealed class QuestionAndAnswersWrapper {
         val answerInput: AnswerInput.QuestionAnswerPair
     ) : QuestionAndAnswersWrapper()
 
-    data class StepByStep(
-        val question: Question.StepByStep,
-        val correctAnswer: CorrectAnswer.StepAnswer,
-        val answerInput: AnswerInput.Step
-    ) : QuestionAndAnswersWrapper()
-
 
     companion object {
 
@@ -66,11 +60,6 @@ sealed class QuestionAndAnswersWrapper {
                         questions = questionWithCorrectAnswers.question.questionPairs,
                         answers = questionWithCorrectAnswers.question.answerPairs
                     )
-                )
-                is QuestionWithCorrectAnswers.StepByStep -> StepByStep(
-                    question = questionWithCorrectAnswers.question,
-                    correctAnswer = questionWithCorrectAnswers.answer,
-                    answerInput = AnswerInput.Step(answer = "")
                 )
             }
         }

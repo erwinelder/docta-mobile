@@ -28,47 +28,4 @@ sealed class QuestionWithAnswerInput(
         override val answerInput: AnswerInput.QuestionAnswerPair
     ) : QuestionWithAnswerInput(question, answerInput)
 
-    data class Step(
-        override val question: Question.StepByStep,
-        override val answerInput: AnswerInput.Step
-    ) : QuestionWithAnswerInput(question, answerInput)
-
-
-    // TODO: Remove this
-    /*companion object {
-
-        fun fromQuestion(question: Question): QuestionWithAnswerInput {
-            return when (question) {
-                is Question.OpenAnswer -> OpenAnswer(
-                    question = question,
-                    answerInput = AnswerInput.Open(answer = ""),
-                    checkIsAllowed = false
-                )
-                is Question.FillInBlanks -> FillInBlanks(
-                    question = question,
-                    answerInput = AnswerInput.Blanks.fromBlankNumbers(question.getBlankNumbers()),
-                    checkIsAllowed = false
-                )
-                is Question.AnswerOptions -> AnswerOptions(
-                    question = question,
-                    answerInput = AnswerInput.Option(id = null),
-                    checkIsAllowed = false
-                )
-                is Question.QuestionAnswerPairs -> QuestionAnswerPairs(
-                    question = question,
-                    answerInput = AnswerInput.QuestionAnswerPair.fromIds(
-                        questionIds = question.questionPairs.map { it.id },
-                        answerIds = question.answerPairs.map { it.id }
-                    )
-                )
-                is Question.StepByStep -> Step(
-                    question = question,
-                    answerInput = AnswerInput.Step(answer = ""),
-                    checkIsAllowed = false
-                )
-            }
-        }
-
-    }*/
-
 }

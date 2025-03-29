@@ -37,11 +37,4 @@ sealed class QuestionWithCorrectAnswersDto {
         val question: QuestionDto.QuestionAnswerPairs
     ) : QuestionWithCorrectAnswersDto()
 
-    @Serializable
-    @SerialName("StepByStep")
-    data class StepByStep(
-        val question: QuestionDto.StepByStep,
-        val answer: CorrectAnswerDto.StepAnswer
-    ) : QuestionWithCorrectAnswersDto()
-
 }
