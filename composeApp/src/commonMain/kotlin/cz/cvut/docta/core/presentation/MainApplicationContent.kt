@@ -128,7 +128,10 @@ fun MainApplicationContent(
 
                 val leaders by viewModel.leaders.collectAsStateWithLifecycle()
 
-                LeaderboardScreen(leaders = leaders)
+                LeaderboardScreen(
+                    screenPadding = screenPadding,
+                    leaders = leaders
+                )
             }
         }
     }

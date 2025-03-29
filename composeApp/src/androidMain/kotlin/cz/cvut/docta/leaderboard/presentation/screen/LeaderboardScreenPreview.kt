@@ -20,6 +20,6 @@ fun LeaderboardScreenPreview(
     )
 ) {
     ScreenPreviewContainer(appTheme = appTheme) {
-        LeaderboardScreen(leaders)
+        LeaderboardScreen(leaders = leaders)
     }
 }

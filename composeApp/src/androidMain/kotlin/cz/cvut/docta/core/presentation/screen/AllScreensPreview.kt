@@ -20,6 +20,7 @@ import cz.cvut.docta.auth.presentation.screen.SignUpScreenPreview
 import cz.cvut.docta.core.domain.app.AppTheme
 import cz.cvut.docta.course.presentation.screen.AddNewCourseScreenPreview
 import cz.cvut.docta.course.presentation.screen.CoursesScreenPreview
+import cz.cvut.docta.leaderboard.presentation.screen.LeaderboardScreenPreview
 import cz.cvut.docta.lesson.presentation.screen.SectionLessonsScreenPreview
 import cz.cvut.docta.lessonSession.presentation.screen.AnswerOptionsQuestionScreenPreview
 import cz.cvut.docta.lessonSession.presentation.screen.FillInBlanksQuestionScreenPreview
@@ -210,6 +211,15 @@ private fun AnswerOptionsQuestionScreenPreview_() {
 @Composable
 private fun QuestionAnswerPairsQuestionScreenPreview_() {
     QuestionAnswerPairsQuestionScreenPreview(
+        appTheme = appTheme
+    )
+}
+
+
+@Preview(device = Devices.PIXEL_7_PRO, group = "Leaderboard", locale = locale)
+@Composable
+private fun LeaderboardScreenPreview_() {
+    LeaderboardScreenPreview(
         appTheme = appTheme
     )
 }

@@ -32,18 +32,19 @@ import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun LeaderboardScreen(
-    leaders: List<LeaderboardItem>,
-    screenPadding: PaddingValues = PaddingValues()
+    screenPadding: PaddingValues = PaddingValues(0.dp),
+    leaders: List<LeaderboardItem>
 ) {
     ScreenContainer(
-        verticalArrangement = Arrangement.spacedBy(24.dp),
         screenPadding = screenPadding
     ) {
         Text(
-            text = stringResource(SharedRes.strings.section_still_under_developments),
-            textAlign = TextAlign.Center,
+            text = stringResource(SharedRes.strings.section_still_under_development),
+            color = DoctaColors.outline,
+            fontSize = 18.sp,
             fontFamily = Manrope,
-            modifier = Modifier.padding(horizontal = 15.dp)
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(horizontal = 16.dp)
         )
 //        Text(
 //            text = stringResource(SharedRes.strings.leaderboard),

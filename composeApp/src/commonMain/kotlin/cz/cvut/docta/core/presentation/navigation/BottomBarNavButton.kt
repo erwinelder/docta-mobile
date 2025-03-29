@@ -35,6 +35,18 @@ sealed class BottomBarNavButton(
         )
     )
 
+    data object Leaderboard : BottomBarNavButton(
+        screen = MainScreens.Leaderboard,
+        inactiveIconRes = IconResByAppTheme(
+            light = Res.drawable.leaders_light_inactive,
+            dark = Res.drawable.leaders_dark_inactive
+        ),
+        activeIconRes = IconResByAppTheme(
+            light = Res.drawable.leaders_light_active,
+            dark = Res.drawable.leaders_dark_active,
+        )
+    )
+
     data object Profile : BottomBarNavButton(
         screen = AuthScreens.Profile(),
         inactiveIconRes = IconResByAppTheme(
@@ -44,18 +56,6 @@ sealed class BottomBarNavButton(
         activeIconRes = IconResByAppTheme(
             light = Res.drawable.profile_light_active,
             dark = Res.drawable.profile_dark_active
-        )
-    )
-
-    data object Leaderboard: BottomBarNavButton (
-        screen = MainScreens.Leaderboard,
-        inactiveIconRes = IconResByAppTheme(
-            light = Res.drawable.leaders_light_inactive,
-            dark = Res.drawable.leaders_dark_inactive
-        ),
-        activeIconRes = IconResByAppTheme(
-            light = Res.drawable.leaders_light_active,
-            dark = Res.drawable.leaders_dark_active,
         )
     )
 
@@ -70,8 +70,8 @@ sealed class BottomBarNavButton(
         fun asDefaultList(): List<BottomBarNavButton> {
             return listOf(
                 Home,
-                Profile,
-                Leaderboard
+                Leaderboard,
+                Profile
             )
         }
 

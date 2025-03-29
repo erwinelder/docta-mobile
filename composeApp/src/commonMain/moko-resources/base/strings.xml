@@ -43,11 +43,7 @@
 
     <!-- Leaderboard -->
     <string name="leaderboard">Leaderboard</string>
-    <string name="section_still_under_developments">This section is still under development</string>
 
-    <!-- Placeholders -->
-    <string name="course_search_placeholder">Course code (e.g. "nss") …</string>
-  
     <!-- Achievements -->
     <string name="achievements_screen_title">Achievements</string>
 
@@ -134,6 +130,7 @@
     <string name="sign_up_error">Error while signing up.</string>
 
     <!-- Other -->
+    <string name="section_still_under_development">This section is still under development.</string>
     <string name="greetings_title_morning">Good morning, %s!</string>
     <string name="greetings_title_afternoon">Good afternoon, %s!</string>
     <string name="greetings_title_evening">Good evening, %s!</string>

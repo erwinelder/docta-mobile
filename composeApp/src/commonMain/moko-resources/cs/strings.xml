@@ -43,10 +43,6 @@
 
     <!-- Leaderboard -->
     <string name="leaderboard">Žebříček</string>
-    <string name="section_still_under_developments">Tato sekce je stále ve vývoji</string>
-
-    <!-- Placeholders -->
-    <string name="course_search_placeholder">Kód kurzu (např. „nss“) …</string>
 
     <!-- Achievements -->
     <string name="achievements_screen_title">Dosažení</string>
@@ -134,6 +130,7 @@
     <string name="sign_up_error">Chyba během registrace.</string>
 
     <!-- Other -->
+    <string name="section_still_under_development">Tato sekce je stále ve vývoji.</string>
     <string name="greetings_title_morning">Dobré ráno!</string>
     <string name="greetings_title_afternoon">Dobré poledne!</string>
     <string name="greetings_title_evening">Dobré odpoledne!</string>
