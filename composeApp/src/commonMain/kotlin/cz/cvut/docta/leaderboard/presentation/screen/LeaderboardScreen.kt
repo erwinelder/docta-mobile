@@ -19,14 +19,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import cz.cvut.docta.SharedRes
-import cz.cvut.docta.core.presentation.component.containers.GlassSurface
-import cz.cvut.docta.core.presentation.component.pickers.ListPicker
+import cz.cvut.docta.core.presentation.component.container.GlassSurface
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainer
 import cz.cvut.docta.core.presentation.theme.DoctaColors
-import cz.cvut.docta.core.presentation.theme.DoctaTypography
+import cz.cvut.docta.core.presentation.theme.Manrope
 import cz.cvut.docta.leaderboard.domain.model.LeaderboardItem
-import dev.icerock.moko.resources.compose.stringResource
 import docta.composeapp.generated.resources.Res
 import docta.composeapp.generated.resources.star_filled_icon
 import org.jetbrains.compose.resources.painterResource
@@ -37,19 +34,26 @@ fun LeaderboardScreen(
     screenPadding: PaddingValues = PaddingValues()
 ) {
     ScreenContainer(
-        verticalArrangement = Arrangement.spacedBy(24.dp)
+        verticalArrangement = Arrangement.spacedBy(24.dp),
+        screenPadding = screenPadding
     ) {
         Text(
-            text = stringResource(SharedRes.strings.leaderboard),
-            style = DoctaTypography.titleMedium,
-            modifier = Modifier.fillMaxWidth()
+            text = "This section is still under development",
+            textAlign = TextAlign.Center,
+            fontFamily = Manrope,
+            modifier = Modifier.padding(horizontal = 15.dp)
         )
-        ListPicker(
-            items = listOf(),
-            selectedItem = "Architecture",
-            onItemSelect = {},
-        )
-        LeadersList(leaders)
+//        Text(
+//            text = stringResource(SharedRes.strings.leaderboard),
+//            style = DoctaTypography.titleMedium,
+//            modifier = Modifier.fillMaxWidth()
+//        )
+//        ListPicker(
+//            items = listOf(),
+//            selectedItem = "Architecture",
+//            onItemSelect = {},
+//        )
+//        LeadersList(leaders)
     }
 }
 
