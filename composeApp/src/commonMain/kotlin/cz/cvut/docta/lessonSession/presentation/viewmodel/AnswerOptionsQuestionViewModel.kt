@@ -20,7 +20,6 @@ class AnswerOptionsQuestionViewModel(
 
     val questionText = question.question.text
 
-
     private val _options = MutableStateFlow(
         question.question.options.map {
             AnswerOptionUiState(id = it.id, text = it.text, isSelected = false)

@@ -17,6 +17,9 @@ sealed interface LessonSessionScreens {
     data object AnswerOptionsQuestion : LessonSessionScreens
 
     @Serializable
+    data object CategorizationQuestion : LessonSessionScreens
+
+    @Serializable
     data object QuestionAnswerPairsQuestion : LessonSessionScreens
 
     @Serializable
