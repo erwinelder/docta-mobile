@@ -53,6 +53,19 @@ sealed class AnswerInput {
 
     }
 
+    data class CategorizationQuestion(
+        val optionsCategory: Map<Long, Long?>
+    ) : AnswerInput() {
+        companion object{
+            fun fromOptions(options: List<AnswerText>): CategorizationQuestion {
+                return CategorizationQuestion(
+                    optionsCategory = options.map{ it.id
+                    }.associateWith { null }
+                )
+            }
+        }
+    }
+
     data class Step(
         val answer: String
     ) : AnswerInput()

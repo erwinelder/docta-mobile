@@ -5,6 +5,7 @@ import cz.cvut.docta.lessonSession.data.repository.LessonSessionRepositoryImpl
 import cz.cvut.docta.lessonSession.domain.usecase.GetLessonQuestionsWithAnswersUseCase
 import cz.cvut.docta.lessonSession.domain.usecase.GetLessonQuestionsWithAnswersUseCaseImpl
 import cz.cvut.docta.lessonSession.presentation.viewmodel.AnswerOptionsQuestionViewModel
+import cz.cvut.docta.lessonSession.presentation.viewmodel.CategorizationQuestionViewModel
 import cz.cvut.docta.lessonSession.presentation.viewmodel.FillInBlanksQuestionViewModel
 import cz.cvut.docta.lessonSession.presentation.viewmodel.OpenAnswerQuestionViewModel
 import cz.cvut.docta.lessonSession.presentation.viewmodel.QuestionAnswerPairsQuestionViewModel
@@ -40,6 +41,10 @@ val lessonSessionModule = module {
 
     viewModel { parameters ->
         AnswerOptionsQuestionViewModel(question = parameters.get())
+    }
+
+    viewModel { parameters ->
+        CategorizationQuestionViewModel(question = parameters.get())
     }
 
     viewModel { parameters ->

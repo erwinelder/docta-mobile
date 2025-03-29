@@ -30,6 +30,12 @@ sealed class QuestionAndAnswersWrapper {
         val answerInput: AnswerInput.QuestionAnswerPair
     ) : QuestionAndAnswersWrapper()
 
+    data class CategorizationQuestion(
+        val question: Question.CategorizationQuestion,
+        val correctAnswer: CorrectAnswer.CategoriesOptions,
+        val answerInput: AnswerInput.CategorizationQuestion
+    ) : QuestionAndAnswersWrapper()
+
     data class StepByStep(
         val question: Question.StepByStep,
         val correctAnswer: CorrectAnswer.StepAnswer,
@@ -67,6 +73,11 @@ sealed class QuestionAndAnswersWrapper {
                         answers = questionWithCorrectAnswers.question.answerPairs
                     )
                 )
+                is QuestionWithCorrectAnswers.CategorizationQuestion -> CategorizationQuestion(
+                    question = questionWithCorrectAnswers.question,
+                    correctAnswer = questionWithCorrectAnswers.categoriesOptions,
+                    answerInput = AnswerInput.CategorizationQuestion.fromOptions(options = questionWithCorrectAnswers.question.options)
+                )
                 is QuestionWithCorrectAnswers.StepByStep -> StepByStep(
                     question = questionWithCorrectAnswers.question,
                     correctAnswer = questionWithCorrectAnswers.answer,
@@ -74,7 +85,6 @@ sealed class QuestionAndAnswersWrapper {
                 )
             }
         }
-
     }
 
 }
