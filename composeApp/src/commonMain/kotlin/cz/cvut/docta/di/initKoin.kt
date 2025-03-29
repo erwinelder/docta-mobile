@@ -9,7 +9,7 @@ fun initKoin(config: KoinAppDeclaration? = null) {
         modules(
             platformModule, authModule, coreModule,
             courseModule, sectionModule, lessonModule, lessonSessionModule,
-            achievementModule
+            achievementModule, leaderboardModule
         )
     }
 }
