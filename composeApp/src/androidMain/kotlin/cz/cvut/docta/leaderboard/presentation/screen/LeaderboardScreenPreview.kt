@@ -9,16 +9,17 @@ import cz.cvut.docta.leaderboard.domain.model.LeaderboardItem
 
 @Composable
 @Preview(device = Devices.PIXEL_7_PRO)
-fun LeaderboardScreenPreview (
+fun LeaderboardScreenPreview(
     appTheme: AppTheme = AppTheme.Light,
     leaders: List<LeaderboardItem> = listOf(
-        LeaderboardItem("Petr pavel", 45.0, false),
-        LeaderboardItem("Pavel Naplava", 34.0, true),
-        LeaderboardItem("Jiri Sebek", 12.0, false),
-        LeaderboardItem("This User", 10.0, false),
+        LeaderboardItem(name = "Katharine Michael", points = 2.3, isCurrentUser = false),
+        LeaderboardItem(name = "Ramon Holt", points = 6.7, isCurrentUser = false),
+        LeaderboardItem(name = "Cathy Berg", points = 10.11, isCurrentUser = false),
+        LeaderboardItem(name = "Cameron Weeks", points = 14.15, isCurrentUser = false),
+        LeaderboardItem(name = "Aimee Glass", points = 18.19, isCurrentUser = false),
     )
-){
-    ScreenPreviewContainer (appTheme = appTheme) {
+) {
+    ScreenPreviewContainer(appTheme = appTheme) {
         LeaderboardScreen(leaders)
     }
 }
