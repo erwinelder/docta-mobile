@@ -19,7 +19,10 @@ class AnswerOptionsQuestionViewModel(
 ) : ViewModel() {
 
     val questionText = question.question.text
+    val isMultipleChoice = question.question.isMultipleChoice
 
+    private val _selectedOptionIds = MutableStateFlow<List<Long>>(emptyList())
+    val selectedOptionIds = _selectedOptionIds.asStateFlow()
 
     private val _options = MutableStateFlow(
         question.question.options.map {
@@ -28,62 +31,39 @@ class AnswerOptionsQuestionViewModel(
     )
     val options = _options.asStateFlow()
 
-    fun onOptionSelect(optionId: Long) {
+    fun onSelectionChanged(selectedIds: List<Long>) {
+        _selectedOptionIds.value = selectedIds
         _options.update {
             it.map { option ->
-                option.copy(isSelected = option.id == optionId)
+                option.copy(isSelected = selectedIds.contains(option.id))
             }
         }
     }
 
-    private fun getSelectedOption(): Long? {
-        return options.value.find { it.isSelected }?.id
-    }
-
-
-    val checkIsAllowed = combine(_options) { optionsArray ->
-        val options = optionsArray[0]
-        options.any { it.isSelected }
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000L),
-        initialValue = false
-    )
-
+    val checkIsAllowed = _selectedOptionIds
+        .combine(_options) { selected, _ -> selected.isNotEmpty() }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000L),
+            initialValue = false
+        )
 
     private val _checkResult = MutableStateFlow<QuestionCheckResult?>(null)
     val checkResult = _checkResult.asStateFlow()
 
     private fun setCheckResult(result: QuestionCheckResult) {
-        _checkResult.update { result }
+        _checkResult.value = result
     }
 
+    fun checkAnswer(): QuestionWithCheckResult {
+        val selectedIds = selectedOptionIds.value
+        val result = question.checkAnswer(selectedIds)
 
-    private fun getQuestionWithAppliedAnswer(): QuestionAndAnswersWrapper.AnswerOptions? {
-        val selectedOption = getSelectedOption() ?: return null
-
-        return question.copy(
-            answerInput = AnswerInput.Option(id = selectedOption)
-        )
-    }
-
-    private fun processGivenAnswer(): QuestionCheckResult {
-        val isCorrect = getSelectedOption()
-            ?.let { question.correctAnswer.checkOption(id = it) }
-            ?: false
-
-        return QuestionCheckResult(isCorrect = isCorrect)
-    }
-
-    fun checkAnswer(): QuestionWithCheckResult? {
-        val checkResult = processGivenAnswer()
-        val questionWithAppliedAnswer = getQuestionWithAppliedAnswer() ?: return null
-
-        setCheckResult(checkResult)
+        _checkResult.value = result
 
         return QuestionWithCheckResult(
-            question = questionWithAppliedAnswer, result = checkResult
+            question = question,
+            result = result
         )
     }
-
 }

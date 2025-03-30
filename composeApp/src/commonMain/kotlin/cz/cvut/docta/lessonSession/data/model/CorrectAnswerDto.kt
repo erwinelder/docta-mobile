@@ -29,7 +29,7 @@ sealed class CorrectAnswerDto {
     @SerialName("Option")
     data class Option(
         override val questionId: Long,
-        val id: Long
+        val ids: List<Long>
     ) : CorrectAnswerDto()
 
     @Serializable

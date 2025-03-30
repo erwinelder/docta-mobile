@@ -55,7 +55,7 @@ class OpenAnswerQuestionViewModel(
     private fun processGivenAnswer(): QuestionCheckResult {
         val isCorrect = question.correctAnswer.checkAnswer(answerInput.value)
 
-        return QuestionCheckResult(isCorrect = isCorrect)
+        return QuestionCheckResult(isCorrect = isCorrect, questionId = question.question.id)
     }
 
     fun checkAnswer(): QuestionWithCheckResult {

@@ -22,7 +22,8 @@ sealed class Question(
         override val id: Long,
         val difficulty: QuestionDifficulty,
         val text: String,
-        val options: List<AnswerText>
+        val options: List<AnswerText>,
+        val isMultipleChoice: Boolean = false
     ) : Question(id)
 
     data class QuestionAnswerPairs(

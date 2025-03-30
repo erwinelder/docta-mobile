@@ -38,11 +38,11 @@ sealed class CorrectAnswer(
 
     data class Option(
         override val questionId: Long,
-        val id: Long
+        val ids: List<Long>
     ) : CorrectAnswer(questionId) {
 
-        fun checkOption(id: Long?): Boolean {
-            return this.id == id
+        fun checkOptions(selectedIds: List<Long>): Boolean {
+            return ids.toSet() == selectedIds.toSet()
         }
 
     }

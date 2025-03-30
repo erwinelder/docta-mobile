@@ -20,7 +20,6 @@ class FillInBlanksQuestionViewModel(
 
     val questionUnits = QuestionBlankUnit.fromText(question.question.text)
 
-
     private val _blanksAnswers = MutableStateFlow(question.answerInput.answers)
     val blanksAnswers = _blanksAnswers.asStateFlow()
 
@@ -28,7 +27,6 @@ class FillInBlanksQuestionViewModel(
         val newBlanksAnswers = blanksAnswers.value.toMutableMap().apply { put(blankNumber, answer) }
         _blanksAnswers.update { newBlanksAnswers }
     }
-
 
     val checkIsAllowed = combine(_blanksAnswers) { blanksAnswersArray ->
         val blanksAnswers = blanksAnswersArray[0]
@@ -39,14 +37,12 @@ class FillInBlanksQuestionViewModel(
         initialValue = false
     )
 
-
     private val _checkResult = MutableStateFlow<QuestionCheckResult?>(null)
     val checkResult = _checkResult.asStateFlow()
 
     private fun setCheckResult(result: QuestionCheckResult) {
         _checkResult.update { result }
     }
-
 
     private fun getQuestionWithAppliedAnswer(): QuestionAndAnswersWrapper.FillInBlanks {
         return question.copy(
@@ -59,7 +55,10 @@ class FillInBlanksQuestionViewModel(
             .getWrongBlanksWithCorrectAnswer(blanksAnswers.value)
             .isEmpty()
 
-        return QuestionCheckResult(isCorrect = isCorrect)
+        return QuestionCheckResult(
+            isCorrect = isCorrect,
+            questionId = question.question.id
+        )
     }
 
     fun checkAnswers(): QuestionWithCheckResult {
@@ -72,5 +71,4 @@ class FillInBlanksQuestionViewModel(
             result = checkResult
         )
     }
-
 }

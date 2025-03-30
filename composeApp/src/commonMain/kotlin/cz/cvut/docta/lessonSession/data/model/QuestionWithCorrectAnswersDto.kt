@@ -28,7 +28,7 @@ sealed class QuestionWithCorrectAnswersDto {
     @SerialName("AnswerOptions")
     data class AnswerOptions(
         val question: QuestionDto.AnswerOptions,
-        val answer: CorrectAnswerDto.Option
+        val answers: List<CorrectAnswerDto.Option>
     ) : QuestionWithCorrectAnswersDto()
 
     @Serializable

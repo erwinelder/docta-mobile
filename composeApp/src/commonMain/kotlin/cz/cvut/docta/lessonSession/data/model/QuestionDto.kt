@@ -34,7 +34,8 @@ sealed class QuestionDto {
         override val id: Long,
         val difficulty: QuestionDifficulty,
         val text: String,
-        val options: List<AnswerTextDto>
+        val options: List<AnswerTextDto>,
+        val isMultipleChoice: Boolean = false
     ) : QuestionDto()
 
     @Serializable

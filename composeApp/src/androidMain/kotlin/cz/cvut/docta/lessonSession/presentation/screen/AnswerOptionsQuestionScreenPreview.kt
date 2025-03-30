@@ -2,6 +2,8 @@ package cz.cvut.docta.lessonSession.presentation.screen
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import cz.cvut.docta.lessonSession.presentation.model.answer.AnswerOptionUiState
@@ -23,12 +25,16 @@ fun AnswerOptionsQuestionScreenPreview(
     checkIsAllowed: Boolean = true,
     checkResult: QuestionCheckResult? = null
 ) {
+    val selected = remember { mutableStateOf(listOf(1L)) }
+
     ScreenPreviewContainer(appTheme = appTheme) {
         AnswerOptionsQuestionScreen(
             screenPadding = PaddingValues(),
             questionText = questionText,
             options = options,
-            onOptionSelect = {},
+            selectedOptionIds = selected.value,
+            onSelectionChanged = { selected.value = it },
+            isMultipleChoice = true,
             checkIsAllowed = checkIsAllowed,
             checkResult = checkResult,
             onCheckButtonClick = {},

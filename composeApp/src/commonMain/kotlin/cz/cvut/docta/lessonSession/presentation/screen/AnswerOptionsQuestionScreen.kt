@@ -1,10 +1,14 @@
 package cz.cvut.docta.lessonSession.presentation.screen
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Checkbox
+import androidx.compose.material.RadioButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -28,7 +32,9 @@ fun AnswerOptionsQuestionScreen(
     screenPadding: PaddingValues,
     questionText: String,
     options: List<AnswerOptionUiState>,
-    onOptionSelect: (Long) -> Unit,
+    selectedOptionIds: List<Long>,
+    onSelectionChanged: (List<Long>) -> Unit,
+    isMultipleChoice: Boolean,
     checkIsAllowed: Boolean,
     checkResult: QuestionCheckResult?,
     onCheckButtonClick: () -> Unit,
@@ -61,10 +67,42 @@ fun AnswerOptionsQuestionScreen(
                             FilledWidthByScreenType(.82f).getByType(CurrWindowType)
                         )
                     )
-                    AnswerOptionsList(
-                        options = options,
-                        onOptionSelect = onOptionSelect
-                    )
+
+                    options.forEach { option ->
+                        val isSelected = selectedOptionIds.contains(option.id)
+
+                        androidx.compose.foundation.layout.Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable {
+                                    val updated = if (isMultipleChoice) {
+                                        if (isSelected) selectedOptionIds - option.id
+                                        else selectedOptionIds + option.id
+                                    } else {
+                                        listOf(option.id)
+                                    }
+                                    onSelectionChanged(updated)
+                                }
+                                .padding(8.dp)
+                        ) {
+                            if (isMultipleChoice) {
+                                Checkbox(
+                                    checked = isSelected,
+                                    onCheckedChange = null
+                                )
+                            } else {
+                                RadioButton(
+                                    selected = isSelected,
+                                    onClick = null
+                                )
+                            }
+                            Text(
+                                text = option.text,
+                                modifier = Modifier.padding(start = 8.dp)
+                            )
+                        }
+                    }
                 }
             } else {
                 Text(

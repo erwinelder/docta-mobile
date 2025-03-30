@@ -56,9 +56,8 @@ fun NavGraphBuilder.lessonNavigationGraph(
                     navViewModel.navigate(navController, nextScreen)
                 }
             }
-
-
         }
+
         composable<LessonSessionScreens.OpenAnswerQuestion> { backStack ->
             val lessonViewModel = backStack.sharedKoinNavViewModel<LessonViewModel>(navController)
             val questionViewModel = koinViewModel<OpenAnswerQuestionViewModel> {
@@ -91,6 +90,7 @@ fun NavGraphBuilder.lessonNavigationGraph(
                 }
             )
         }
+
         composable<LessonSessionScreens.FillInBlanksQuestion> { backStack ->
             val lessonViewModel = backStack.sharedKoinNavViewModel<LessonViewModel>(navController)
             val questionViewModel = koinViewModel<FillInBlanksQuestionViewModel> {
@@ -123,6 +123,7 @@ fun NavGraphBuilder.lessonNavigationGraph(
                 }
             )
         }
+
         composable<LessonSessionScreens.AnswerOptionsQuestion> { backStack ->
             val lessonViewModel = backStack.sharedKoinNavViewModel<LessonViewModel>(navController)
             val questionViewModel = koinViewModel<AnswerOptionsQuestionViewModel> {
@@ -134,17 +135,21 @@ fun NavGraphBuilder.lessonNavigationGraph(
             val options by questionViewModel.options.collectAsStateWithLifecycle()
             val checkIsAllowed by questionViewModel.checkIsAllowed.collectAsStateWithLifecycle()
             val checkResult by questionViewModel.checkResult.collectAsStateWithLifecycle()
+            val selectedOptionIds by questionViewModel.selectedOptionIds.collectAsStateWithLifecycle()
 
             AnswerOptionsQuestionScreen(
                 screenPadding = screenPadding,
                 questionText = questionViewModel.questionText,
                 options = options,
-                onOptionSelect = questionViewModel::onOptionSelect,
+                selectedOptionIds = selectedOptionIds,
+                onSelectionChanged = questionViewModel::onSelectionChanged,
+                isMultipleChoice = questionViewModel.isMultipleChoice,
                 checkIsAllowed = checkIsAllowed,
                 checkResult = checkResult,
                 onCheckButtonClick = {
-                    questionViewModel.checkAnswer()?.let(lessonViewModel::processQuestionCheckResult)
-                    lessonProgressViewModel.incrementProgression()
+                    questionViewModel.checkAnswer()?.let {
+                        lessonViewModel.processQuestionCheckResult(it)
+                    }
                 },
                 onContinueButtonClick = {
                     navViewModel.navigateToNextQuestionOrResultsScreen(
@@ -155,6 +160,7 @@ fun NavGraphBuilder.lessonNavigationGraph(
                 }
             )
         }
+
         composable<LessonSessionScreens.QuestionAnswerPairsQuestion> { backStack ->
             val lessonViewModel = backStack.sharedKoinNavViewModel<LessonViewModel>(navController)
             val questionViewModel = koinViewModel<QuestionAnswerPairsQuestionViewModel> {
@@ -174,7 +180,7 @@ fun NavGraphBuilder.lessonNavigationGraph(
                 onQuestionSelect = { id ->
                     questionViewModel.onQuestionSelect(id)
                 },
-                onAnswerSelect = {id ->
+                onAnswerSelect = { id ->
                     questionViewModel.onAnswerSelect(id)
                 },
                 continueButtonEnabled = continueButtonEnabled,
@@ -188,13 +194,10 @@ fun NavGraphBuilder.lessonNavigationGraph(
                 }
             )
         }
+
         composable<LessonSessionScreens.LessonResults> { backStack ->
             val courseContext = koinInject<CourseContext>()
-
             val viewModel = backStack.sharedKoinNavViewModel<LessonViewModel>(navController)
-
-//            val lessonState by viewModel.lessonState.collectAsStateWithLifecycle()
-//            val lessonResults = lessonState as? LessonState.Results
             val lessonResults = LessonResults(successRate = 50)
 
             LessonResultsScreen(

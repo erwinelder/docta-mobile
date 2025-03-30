@@ -17,7 +17,7 @@ sealed class QuestionWithCorrectAnswers {
 
     data class AnswerOptions(
         val question: Question.AnswerOptions,
-        val answer: CorrectAnswer.Option
+        val answers: List<CorrectAnswer.Option>
     ) : QuestionWithCorrectAnswers()
 
     data class QuestionAnswerPairs(
@@ -28,7 +28,6 @@ sealed class QuestionWithCorrectAnswers {
         val question: Question.StepByStep,
         val answer: CorrectAnswer.StepAnswer
     ) : QuestionWithCorrectAnswers()
-
 
     fun getQuestion(): Question {
         return when (this) {

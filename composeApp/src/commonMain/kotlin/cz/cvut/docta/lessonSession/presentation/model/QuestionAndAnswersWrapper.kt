@@ -4,6 +4,7 @@ import cz.cvut.docta.lessonSession.domain.model.answer.CorrectAnswer
 import cz.cvut.docta.lessonSession.presentation.model.answer.AnswerInput
 import cz.cvut.docta.lessonSession.domain.model.question.Question
 import cz.cvut.docta.lessonSession.domain.model.QuestionWithCorrectAnswers
+import cz.cvut.docta.lessonSession.domain.model.question.QuestionCheckResult
 
 sealed class QuestionAndAnswersWrapper {
 
@@ -21,9 +22,17 @@ sealed class QuestionAndAnswersWrapper {
 
     data class AnswerOptions(
         val question: Question.AnswerOptions,
-        val correctAnswer: CorrectAnswer.Option,
+        val correctAnswers: List<CorrectAnswer.Option>,
         val answerInput: AnswerInput.Option
-    ) : QuestionAndAnswersWrapper()
+    ) : QuestionAndAnswersWrapper() {
+        fun checkAnswer(selectedIds: List<Long>): QuestionCheckResult {
+            val isCorrect = correctAnswers.map { it.ids.toSet() }.any { it == selectedIds.toSet() }
+            return QuestionCheckResult(
+                questionId = question.id,
+                isCorrect = isCorrect
+            )
+        }
+    }
 
     data class QuestionAnswerPairs(
         val question: Question.QuestionAnswerPairs,
@@ -35,7 +44,6 @@ sealed class QuestionAndAnswersWrapper {
         val correctAnswer: CorrectAnswer.StepAnswer,
         val answerInput: AnswerInput.Step
     ) : QuestionAndAnswersWrapper()
-
 
     companion object {
 
@@ -57,7 +65,7 @@ sealed class QuestionAndAnswersWrapper {
                 )
                 is QuestionWithCorrectAnswers.AnswerOptions -> AnswerOptions(
                     question = questionWithCorrectAnswers.question,
-                    correctAnswer = questionWithCorrectAnswers.answer,
+                    correctAnswers = questionWithCorrectAnswers.answers,
                     answerInput = AnswerInput.Option(id = null)
                 )
                 is QuestionWithCorrectAnswers.QuestionAnswerPairs -> QuestionAnswerPairs(
@@ -74,7 +82,5 @@ sealed class QuestionAndAnswersWrapper {
                 )
             }
         }
-
     }
-
 }
