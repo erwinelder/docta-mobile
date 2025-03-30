@@ -163,7 +163,7 @@ fun NavGraphBuilder.lessonNavigationGraph(
 
             val questionViewModel = koinViewModel<CategorizationQuestionViewModel> {
                 parametersOf(
-                    lessonViewModel.getNextQuestionAs<QuestionAndAnswersWrapper.CategorizationQuestion>()
+                    lessonViewModel.getNextQuestionAs<QuestionAndAnswersWrapper.Categorization>()
                 )
             }
 

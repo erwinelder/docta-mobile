@@ -53,14 +53,16 @@ sealed class AnswerInput {
 
     }
 
-    data class CategorizationQuestion(
-        val optionsCategory: Map<Long, Long?>
+    data class CategorizedOptions(
+        val optionsCategoryToMap: Map<Long, Long?>
     ) : AnswerInput() {
         companion object{
-            fun fromOptions(options: List<AnswerText>): CategorizationQuestion {
-                return CategorizationQuestion(
-                    optionsCategory = options.map{ it.id
-                    }.associateWith { null }
+            fun fromOptions(options: List<AnswerText>): CategorizedOptions {
+                return CategorizedOptions(
+                    optionsCategoryToMap = options.map{
+                        it.id
+                    }.associateWith
+                    { null }
                 )
             }
         }

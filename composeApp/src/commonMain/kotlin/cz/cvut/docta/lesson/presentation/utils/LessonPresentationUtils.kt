@@ -49,7 +49,7 @@ fun QuestionAndAnswersWrapper.getLessonScreenToNavigateTo(): LessonSessionScreen
         is QuestionAndAnswersWrapper.OpenAnswer -> LessonSessionScreens.OpenAnswerQuestion
         is QuestionAndAnswersWrapper.FillInBlanks -> LessonSessionScreens.FillInBlanksQuestion
         is QuestionAndAnswersWrapper.AnswerOptions -> LessonSessionScreens.AnswerOptionsQuestion
-        is QuestionAndAnswersWrapper.CategorizationQuestion -> LessonSessionScreens.CategorizationQuestion
+        is QuestionAndAnswersWrapper.Categorization -> LessonSessionScreens.CategorizationQuestion
         is QuestionAndAnswersWrapper.QuestionAnswerPairs -> LessonSessionScreens.QuestionAnswerPairsQuestion
         is QuestionAndAnswersWrapper.StepByStep -> LessonSessionScreens.StepByStepQuestion
     }

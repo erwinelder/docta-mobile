@@ -28,9 +28,9 @@ sealed class QuestionWithAnswerInput(
         override val answerInput: AnswerInput.QuestionAnswerPair
     ) : QuestionWithAnswerInput(question, answerInput)
 
-    data class CategorizationQuestion(
-        override val question: Question.CategorizationQuestion,
-        override val answerInput: AnswerInput.CategorizationQuestion
+    data class Categorization(
+        override val question: Question.Categorization,
+        override val answerInput: AnswerInput.CategorizedOptions
     ) : QuestionWithAnswerInput(question, answerInput)
 
     data class Step(

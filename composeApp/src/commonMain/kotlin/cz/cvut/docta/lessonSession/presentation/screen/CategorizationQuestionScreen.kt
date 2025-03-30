@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import cz.cvut.docta.SharedRes
 import cz.cvut.docta.core.presentation.component.container.GlassSurface
 import cz.cvut.docta.core.presentation.component.picker.PickerButton
+import cz.cvut.docta.core.presentation.component.picker.PopupPicker
 import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.core.presentation.theme.Manrope
 import cz.cvut.docta.lessonSession.domain.model.question.QuestionCheckResult
@@ -52,7 +53,7 @@ fun CategorizationQuestionScreen(
 ) {
     QuestionScreenContainer(
         screenPadding = screenPadding,
-        questionInstructions = stringResource(SharedRes.strings.answer_option_question_instructions),
+        questionInstructions = stringResource(SharedRes.strings.categorization_question_instructions),
         buttonIsEnabled = checkIsAllowed,
         showCheckButton = checkResult == null,
         onCheckButtonClick = onCheckButtonClick,
@@ -100,40 +101,27 @@ fun CategoryAndOptionBlock(
     categories: List<CategoryUiState>,
     onCategorySelect: (Long, Long) -> Unit
 ) {
-    var isExpanded by remember { mutableStateOf(false) }
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(end = 0.dp),
             horizontalArrangement = Arrangement.End
         ) {
-            PickerButton(
-                text = categories.find { it.id == option.selectedCategoryId }?.name ?: "Category text",
-                isExpanded = isExpanded,
-                selectedColor = DoctaColors.onSurface,
-                onClick = { isExpanded = !isExpanded }
+            CategoryPicker(
+                selectedCategoryName = option.selectedCategoryName,
+                selectedCategoryId = option.selectedCategoryId,
+                categories = categories,
+                onSelect = { categoryId ->
+                    onCategorySelect(option.id, categoryId)
+                }
             )
         }
 
-        DropdownMenu(
-            expanded = isExpanded,
-            onDismissRequest = { isExpanded = false }
-        ) {
-            categories.forEach { category ->
-                DropdownMenuItem(
-                    onClick = {
-                        isExpanded = false
-                        onCategorySelect(option.id, category.id)
-                    }
-                ) {
-                    Text(text = category.name)
-                }
-            }
-        }
         GlassSurface(
             modifier = Modifier
                 .fillMaxWidth()
@@ -152,3 +140,28 @@ fun CategoryAndOptionBlock(
         }
     }
 }
+
+@Composable
+private fun CategoryPicker(
+    selectedCategoryId: Long?,
+    selectedCategoryName: String?,
+    categories: List<CategoryUiState>,
+    onSelect: (Long) -> Unit
+) {
+    val selected = selectedCategoryName ?: "Category text"
+
+    val selectedCategory = CategoryUiState(
+        id = selectedCategoryId ?: -1L,
+        name = selected
+    )
+
+    PopupPicker(
+        selectedItem = selectedCategory,
+        itemList = categories,
+        itemToStringMapper = { it.name },
+        onItemSelect = { onSelect(it.id) },
+        outerPadding = PaddingValues(0.dp)
+    )
+}
+
+

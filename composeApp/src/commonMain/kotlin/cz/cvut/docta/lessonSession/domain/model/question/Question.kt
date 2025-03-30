@@ -33,7 +33,7 @@ sealed class Question(
         val answerPairs: List<AnswerText>
     ) : Question(id)
 
-    data class CategorizationQuestion(
+    data class Categorization(
         override val id: Long,
         val difficulty: QuestionDifficulty,
         val text: String,

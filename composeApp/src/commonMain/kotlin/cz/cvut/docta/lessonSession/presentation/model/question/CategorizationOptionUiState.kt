@@ -6,5 +6,6 @@ import androidx.compose.runtime.Stable
 data class CategorizationOptionUiState(
     val id: Long,
     val text: String,
-    val selectedCategoryId: Long?
+    val selectedCategoryId: Long?,
+    val selectedCategoryName: String? = null
 )

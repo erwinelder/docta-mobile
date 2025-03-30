@@ -24,9 +24,9 @@ sealed class QuestionWithCorrectAnswers {
         val question: Question.QuestionAnswerPairs
     ) : QuestionWithCorrectAnswers()
 
-    data class CategorizationQuestion(
-        val question: Question.CategorizationQuestion,
-        val categoriesOptions: CorrectAnswer.CategoriesOptions
+    data class Categorization(
+        val question: Question.Categorization,
+        val categoriesOptions: CorrectAnswer.CategorizedOptions
     ) : QuestionWithCorrectAnswers()
 
     data class StepByStep(
@@ -41,7 +41,7 @@ sealed class QuestionWithCorrectAnswers {
             is FillInBlanks -> question
             is AnswerOptions -> question
             is QuestionAnswerPairs -> question
-            is CategorizationQuestion -> question
+            is Categorization -> question
             is StepByStep -> question
         }
     }

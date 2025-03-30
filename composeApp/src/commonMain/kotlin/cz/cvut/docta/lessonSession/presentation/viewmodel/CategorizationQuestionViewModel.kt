@@ -12,11 +12,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 
 class CategorizationQuestionViewModel (
-    private val question: QuestionAndAnswersWrapper.CategorizationQuestion
+    private val question: QuestionAndAnswersWrapper.Categorization
 ) : ViewModel() {
     val questionText = question.question.text
 
@@ -25,7 +26,8 @@ class CategorizationQuestionViewModel (
             CategorizationOptionUiState(
                 id = domainItem.id,
                 text = domainItem.text,
-                selectedCategoryId = null
+                selectedCategoryId = null,
+                selectedCategoryName = null
             )
         }
     )
@@ -34,23 +36,30 @@ class CategorizationQuestionViewModel (
     val categories get() = question.question.categories
 
     fun onCategorySelect(optionId: Long, categoryId: Long) {
-        _options.update { currentList ->
-            currentList.map { item ->
-                if (item.id == optionId) {
-                    item.copy(selectedCategoryId = categoryId)
-                } else item
+        val categoryName = question.question.categories.find { it.id == categoryId }?.text ?: return
+
+        _options.update { current ->
+            current.map {
+                if (it.id == optionId) {
+                    it.copy(
+                        selectedCategoryId = categoryId,
+                        selectedCategoryName = categoryName
+                    )
+                } else it
             }
         }
     }
 
-    val checkIsAllowed = combine(_options) { optionsArray ->
-        val options = optionsArray[0]
-        options.all { it.selectedCategoryId != null }
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000L),
-        initialValue = false
-    )
+    val checkIsAllowed = _options
+        .map { options ->
+            options.all { it.selectedCategoryId != null }
+        }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000L),
+            initialValue = false
+        )
+
 
     private val _checkResult = MutableStateFlow<QuestionCheckResult?>(null)
     val checkResult = _checkResult.asStateFlow()
@@ -58,15 +67,15 @@ class CategorizationQuestionViewModel (
     private fun setCheckResult(result: QuestionCheckResult) {
         _checkResult.update { result }
     }
-    private fun getQuestionWithAppliedAnswer(): QuestionAndAnswersWrapper.CategorizationQuestion? {
+    private fun getQuestionWithAppliedAnswer(): QuestionAndAnswersWrapper.Categorization? {
         val answeredItems = options.value.mapNotNull { uiOption ->
             uiOption.selectedCategoryId?.let { catId -> uiOption.id to catId }
         }
         if (answeredItems.size != options.value.size) return null
 
         return question.copy(
-            answerInput = AnswerInput.CategorizationQuestion(
-                optionsCategory = answeredItems.toMap()
+            answerInput = AnswerInput.CategorizedOptions(
+                optionsCategoryToMap = answeredItems.toMap()
             )
         )
     }
