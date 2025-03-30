@@ -8,33 +8,33 @@ import kotlinx.serialization.json.JsonClassDiscriminator
 @OptIn(ExperimentalSerializationApi::class)
 @Serializable
 @JsonClassDiscriminator("classType")
-sealed class QuestionWithCorrectAnswersDto {
+sealed class QuestionWrapperDto {
 
     @Serializable
     @SerialName("OpenAnswer")
     data class OpenAnswer(
         val question: QuestionDto.OpenAnswer,
         val answers: CorrectAnswerDto.OpenAnswers
-    ) : QuestionWithCorrectAnswersDto()
+    ) : QuestionWrapperDto()
 
     @Serializable
     @SerialName("FillInBlanks")
     data class FillInBlanks(
         val question: QuestionDto.FillInBlanks,
         val blanksAnswers: CorrectAnswerDto.Blanks
-    ) : QuestionWithCorrectAnswersDto()
+    ) : QuestionWrapperDto()
 
     @Serializable
     @SerialName("AnswerOptions")
     data class AnswerOptions(
         val question: QuestionDto.AnswerOptions,
         val answer: CorrectAnswerDto.Option
-    ) : QuestionWithCorrectAnswersDto()
+    ) : QuestionWrapperDto()
 
     @Serializable
     @SerialName("QuestionAnswerPairs")
     data class QuestionAnswerPairs(
         val question: QuestionDto.QuestionAnswerPairs
-    ) : QuestionWithCorrectAnswersDto()
+    ) : QuestionWrapperDto()
 
 }

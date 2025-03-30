@@ -5,7 +5,7 @@ import cz.cvut.docta.lessonSession.data.model.AnswerTextDto
 import cz.cvut.docta.lessonSession.data.model.CorrectAnswerDto
 import cz.cvut.docta.lessonSession.data.model.QuestionDifficultyDto
 import cz.cvut.docta.lessonSession.data.model.QuestionDto
-import cz.cvut.docta.lessonSession.data.model.QuestionWithCorrectAnswersDto
+import cz.cvut.docta.lessonSession.data.model.QuestionWrapperDto
 import cz.cvut.docta.lessonSession.data.model.SessionOptionsDto
 import cz.cvut.docta.lessonSession.domain.model.QuestionWithCorrectAnswers
 import cz.cvut.docta.lessonSession.domain.model.SessionOptions
@@ -53,21 +53,21 @@ fun QuestionDifficulty.toDto(): QuestionDifficultyDto {
 }
 
 
-fun QuestionWithCorrectAnswersDto.toDomainModel(): QuestionWithCorrectAnswers {
+fun QuestionWrapperDto.toDomainModel(): QuestionWithCorrectAnswers {
     return when (this) {
-        is QuestionWithCorrectAnswersDto.OpenAnswer -> QuestionWithCorrectAnswers.OpenAnswer(
+        is QuestionWrapperDto.OpenAnswer -> QuestionWithCorrectAnswers.OpenAnswer(
             question = this.question.toDomainModel(),
             answers = this.answers.toDomainModel()
         )
-        is QuestionWithCorrectAnswersDto.FillInBlanks -> QuestionWithCorrectAnswers.FillInBlanks(
+        is QuestionWrapperDto.FillInBlanks -> QuestionWithCorrectAnswers.FillInBlanks(
             question = this.question.toDomainModel(),
             blanksAnswers = this.blanksAnswers.toDomainModel()
         )
-        is QuestionWithCorrectAnswersDto.AnswerOptions -> QuestionWithCorrectAnswers.AnswerOptions(
+        is QuestionWrapperDto.AnswerOptions -> QuestionWithCorrectAnswers.AnswerOptions(
             question = this.question.toDomainModel(),
             answer = this.answer.toDomainModel()
         )
-        is QuestionWithCorrectAnswersDto.QuestionAnswerPairs -> QuestionWithCorrectAnswers.QuestionAnswerPairs(
+        is QuestionWrapperDto.QuestionAnswerPairs -> QuestionWithCorrectAnswers.QuestionAnswerPairs(
             question = this.question.toDomainModel()
         )
     }
