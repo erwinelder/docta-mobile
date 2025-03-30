@@ -18,6 +18,7 @@ class NavViewModel : ViewModel() {
         return navBackStackEntry.currentScreenIsAnyOf(
             CourseScreens.Courses, CourseScreens.AddNewCourse, CourseScreens.Sections(),
             CourseScreens.Lessons(),
+            MainScreens.Leaderboard,
             AuthScreens.Profile()
         )
     }

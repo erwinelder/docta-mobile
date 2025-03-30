@@ -42,6 +42,9 @@
     <string name="step_question_instructions">Solve this step of the task</string>
     <string name="type_your_answer_here">Type your answer here…</string>
 
+    <!-- Leaderboard -->
+    <string name="leaderboard">Leaderboard</string>
+
     <!-- Achievements -->
     <string name="achievements_screen_title">Achievements</string>
 
@@ -128,6 +131,7 @@
     <string name="sign_up_error">Error while signing up.</string>
 
     <!-- Other -->
+    <string name="section_still_under_development">This section is still under development.</string>
     <string name="greetings_title_morning">Good morning, %s!</string>
     <string name="greetings_title_afternoon">Good afternoon, %s!</string>
     <string name="greetings_title_evening">Good evening, %s!</string>
