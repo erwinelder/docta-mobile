@@ -3,7 +3,7 @@ package cz.cvut.docta.lessonSession.data.repository
 import cz.cvut.docta.auth.domain.model.UserContext
 import cz.cvut.docta.core.data.remote.doctaBackendUrl
 import cz.cvut.docta.core.data.remote.httpClient
-import cz.cvut.docta.lessonSession.data.model.QuestionWithCorrectAnswersDto
+import cz.cvut.docta.lessonSession.data.model.QuestionWrapperDto
 import cz.cvut.docta.lessonSession.data.model.SessionOptionsDto
 import io.ktor.client.request.header
 import io.ktor.client.request.post
@@ -20,10 +20,10 @@ class LessonSessionRepositoryImpl(
 
     override suspend fun getDefaultQuestionsWithCorrectAnswers(
         sessionOptions: SessionOptionsDto
-    ): List<QuestionWithCorrectAnswersDto> {
+    ): List<QuestionWrapperDto> {
         return try {
             val response = httpClient.post(
-                urlString = "$doctaBackendUrl/session-generation"
+                urlString = "$doctaBackendUrl/lesson-session-generation"
             ) {
                 header("Authorization", "Bearer ${userContext.getAuthToken()}")
                 contentType(ContentType.Application.Json)
@@ -31,7 +31,7 @@ class LessonSessionRepositoryImpl(
             }
 
             if (response.status == HttpStatusCode.OK) {
-                Json.decodeFromString<List<QuestionWithCorrectAnswersDto>>(
+                Json.decodeFromString<List<QuestionWrapperDto>>(
                     string = response.bodyAsText()
                 )
             } else {

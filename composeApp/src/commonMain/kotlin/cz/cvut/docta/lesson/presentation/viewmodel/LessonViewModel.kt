@@ -68,37 +68,4 @@ class LessonViewModel(
         return questions.size
     }
 
-    /* ---------- StepByStepQuestion ---------- */
-
-    /*fun changeStepAnswerInput(value: String) {
-        val questionWithInput = getQuestionWithAnswer<QuestionWithAnswerInput.Step>()
-            ?: return
-
-        updateLessonQuestionState(
-            questionWithInput.copy(
-                answerInput = questionWithInput.answerInput.onInputChange(value)
-            )
-        )
-    }
-
-    fun checkStepAnswer(): Boolean {
-        val questionWithInput = getQuestionWithAnswer<QuestionWithAnswerInput.Step>()
-            ?: return false
-
-        val isCorrect = getCorrectAnswer<CorrectAnswer.StepAnswer>(questionWithInput.question.id)
-            ?.checkAnswer(questionWithInput.answerInput.answer)
-            ?: return false
-
-//        setAnswerCheckResult(questionWithInput = questionWithInput, isCorrect = isCorrect)
-
-        if (isCorrect) {
-            // TODO-QUESTION-RESULTS
-            // TODO-LESSON-STATISTICS
-        } else {
-            addWrongAnsweredQuestionWithInput(questionWithInput)
-        }
-
-        return isCorrect
-    }*/
-
 }

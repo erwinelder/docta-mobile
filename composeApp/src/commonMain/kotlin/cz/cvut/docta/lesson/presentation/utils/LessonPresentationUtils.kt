@@ -51,6 +51,5 @@ fun QuestionAndAnswersWrapper.getLessonScreenToNavigateTo(): LessonSessionScreen
         is QuestionAndAnswersWrapper.AnswerOptions -> LessonSessionScreens.AnswerOptionsQuestion
         is QuestionAndAnswersWrapper.Categorization -> LessonSessionScreens.CategorizationQuestion
         is QuestionAndAnswersWrapper.QuestionAnswerPairs -> LessonSessionScreens.QuestionAnswerPairsQuestion
-        is QuestionAndAnswersWrapper.StepByStep -> LessonSessionScreens.StepByStepQuestion
     }
 }
