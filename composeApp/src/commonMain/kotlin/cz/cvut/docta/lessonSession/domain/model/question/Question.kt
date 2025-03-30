@@ -33,6 +33,14 @@ sealed class Question(
         val answerPairs: List<AnswerText>
     ) : Question(id)
 
+    data class Categorization(
+        override val id: Long,
+        val difficulty: QuestionDifficulty,
+        val text: String,
+        val options: List<AnswerText>,
+        val categories: List<AnswerText>
+    ): Question(id)
+
     data class StepByStep(
         override val id: Long,
         val text: String

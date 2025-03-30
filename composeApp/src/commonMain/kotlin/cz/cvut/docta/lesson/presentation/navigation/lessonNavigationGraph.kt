@@ -1,5 +1,6 @@
 package cz.cvut.docta.lesson.presentation.navigation
 
+import CategorizationQuestionScreen
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -20,11 +21,13 @@ import cz.cvut.docta.lesson.presentation.viewmodel.LessonProgressViewModel
 import cz.cvut.docta.lesson.presentation.viewmodel.LessonViewModel
 import cz.cvut.docta.lessonSession.mapper.getSessionOptions
 import cz.cvut.docta.lessonSession.presentation.model.QuestionAndAnswersWrapper
+import cz.cvut.docta.lessonSession.presentation.model.question.CategoryUiState
 import cz.cvut.docta.lessonSession.presentation.screen.AnswerOptionsQuestionScreen
 import cz.cvut.docta.lessonSession.presentation.screen.FillInBlanksQuestionScreen
 import cz.cvut.docta.lessonSession.presentation.screen.OpenAnswerQuestionScreen
 import cz.cvut.docta.lessonSession.presentation.screen.QuestionAnswerPairsQuestionScreen
 import cz.cvut.docta.lessonSession.presentation.viewmodel.AnswerOptionsQuestionViewModel
+import cz.cvut.docta.lessonSession.presentation.viewmodel.CategorizationQuestionViewModel
 import cz.cvut.docta.lessonSession.presentation.viewmodel.FillInBlanksQuestionViewModel
 import cz.cvut.docta.lessonSession.presentation.viewmodel.OpenAnswerQuestionViewModel
 import cz.cvut.docta.lessonSession.presentation.viewmodel.QuestionAnswerPairsQuestionViewModel
@@ -144,6 +147,47 @@ fun NavGraphBuilder.lessonNavigationGraph(
                 checkResult = checkResult,
                 onCheckButtonClick = {
                     questionViewModel.checkAnswer()?.let(lessonViewModel::processQuestionCheckResult)
+                    lessonProgressViewModel.incrementProgression()
+                },
+                onContinueButtonClick = {
+                    navViewModel.navigateToNextQuestionOrResultsScreen(
+                        navController = navController,
+                        nextQuestionScreen = lessonViewModel.processToNextQuestion(),
+                        onResetLessonProgression = lessonProgressViewModel::resetProgression
+                    )
+                }
+            )
+        }
+        composable<LessonSessionScreens.CategorizationQuestion> { backStack ->
+            val lessonViewModel = backStack.sharedKoinNavViewModel<LessonViewModel>(navController)
+
+            val questionViewModel = koinViewModel<CategorizationQuestionViewModel> {
+                parametersOf(
+                    lessonViewModel.getNextQuestionAs<QuestionAndAnswersWrapper.Categorization>()
+                )
+            }
+
+            val options by questionViewModel.options.collectAsStateWithLifecycle()
+            val checkIsAllowed by questionViewModel.checkIsAllowed.collectAsStateWithLifecycle()
+            val checkResult by questionViewModel.checkResult.collectAsStateWithLifecycle()
+
+
+            val categories = questionViewModel.categories.map {
+                CategoryUiState(id = it.id, name = it.text)
+            }
+
+            CategorizationQuestionScreen(
+                screenPadding = screenPadding,
+                questionText = questionViewModel.questionText,
+                options = options,
+                categories = categories,
+                onCategorySelect = questionViewModel::onCategorySelect,
+                checkIsAllowed = checkIsAllowed,
+                checkResult = checkResult,
+                onCheckButtonClick = {
+                    questionViewModel.checkAnswer()?.let { questionWithResult ->
+                        lessonViewModel.processQuestionCheckResult(questionWithResult)
+                    }
                     lessonProgressViewModel.incrementProgression()
                 },
                 onContinueButtonClick = {

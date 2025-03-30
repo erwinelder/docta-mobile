@@ -37,6 +37,7 @@
     <string name="open_answer_question_instructions">Odpovězte na otázku</string>
     <string name="fill_in_blanks_question_instructions">Doplňte chybějící místa</string>
     <string name="answer_option_question_instructions">Vyberte správnou odpověď</string>
+    <string name="categorization_question_instructions">Přiřaďte každou možnost ke správné kategorii</string>
     <string name="question_answer_pairs_question_instructions">Přiřaďte dvojice</string>
     <string name="step_question_instructions">Vyřešte tento krok úkolu</string>
     <string name="type_your_answer_here">Sem napište svou odpověď…</string>
