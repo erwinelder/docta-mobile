@@ -3,7 +3,7 @@ package cz.cvut.docta.achievement.domain.usecase
 import cz.cvut.docta.achievement.data.repository.AchievementRepository
 import cz.cvut.docta.achievement.domain.model.Achievement
 import cz.cvut.docta.achievement.domain.model.AchievementName
-import cz.cvut.docta.achievement.mapper.achievementDataToDomainModel
+import cz.cvut.docta.achievement.mapper.toDomainModel
 
 class GetAchievementsUseCaseImpl(
     private val achievementRepository: AchievementRepository,
@@ -13,12 +13,8 @@ class GetAchievementsUseCaseImpl(
         val achievements = achievementRepository.getAchievementsProgress()
 
         return achievements
-            .filter { achievement -> AchievementName.hasKey(achievement.achievementName) }
-            .map { achievement ->
-                achievementDataToDomainModel(
-                    achievementDto = achievement
-                )
-            }
+            .filter { AchievementName.hasKey(it.achievementName) }
+            .map { it.toDomainModel() }
     }
 
 }
