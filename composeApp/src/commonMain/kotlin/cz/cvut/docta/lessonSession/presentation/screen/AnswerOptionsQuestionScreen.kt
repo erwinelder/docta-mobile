@@ -21,12 +21,14 @@ import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.core.presentation.theme.Manrope
 import cz.cvut.docta.lessonSession.domain.model.question.QuestionCheckResult
 import cz.cvut.docta.lessonSession.presentation.component.screenContainer.QuestionScreenContainer
+import cz.cvut.docta.lessonSession.presentation.model.question.Materials
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun AnswerOptionsQuestionScreen(
     screenPadding: PaddingValues,
     questionText: String,
+    questionMaterials: List<Materials>,
     options: List<AnswerOptionUiState>,
     onOptionSelect: (Long) -> Unit,
     checkIsAllowed: Boolean,
@@ -37,6 +39,7 @@ fun AnswerOptionsQuestionScreen(
     QuestionScreenContainer(
         screenPadding = screenPadding,
         questionInstructions = stringResource(SharedRes.strings.answer_option_question_instructions),
+        questionMaterials = questionMaterials,
         buttonIsEnabled = checkIsAllowed,
         showCheckButton = checkResult == null,
         onCheckButtonClick = onCheckButtonClick,

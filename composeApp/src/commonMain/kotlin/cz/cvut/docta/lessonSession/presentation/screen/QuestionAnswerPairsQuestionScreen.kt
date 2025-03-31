@@ -13,12 +13,14 @@ import cz.cvut.docta.lessonSession.presentation.model.answer.QuestionAnswerPairI
 import cz.cvut.docta.core.domain.app.FilledWidthByScreenType
 import cz.cvut.docta.core.presentation.theme.CurrWindowType
 import cz.cvut.docta.lessonSession.presentation.component.screenContainer.QuestionScreenContainer
+import cz.cvut.docta.lessonSession.presentation.model.question.Materials
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun QuestionAnswerPairsQuestionScreen(
     screenPadding: PaddingValues,
     questions: List<QuestionAnswerPairItemUiState>,
+    questionMaterials: List<Materials>,
     answers: List<QuestionAnswerPairItemUiState>,
     onQuestionSelect: (Long) -> Unit,
     onAnswerSelect: (Long) -> Unit,
@@ -28,6 +30,7 @@ fun QuestionAnswerPairsQuestionScreen(
     QuestionScreenContainer(
         screenPadding = screenPadding,
         questionInstructions = stringResource(SharedRes.strings.question_answer_pairs_question_instructions),
+        questionMaterials = questionMaterials,
         buttonIsEnabled = continueButtonEnabled,
         showCheckButton = false,
         onContinueButtonClick = onContinueButtonClick

@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -15,17 +16,23 @@ import androidx.compose.ui.unit.sp
 import cz.cvut.docta.SharedRes
 import cz.cvut.docta.lessonSession.presentation.component.field.answer.OpenAnswerTextField
 import cz.cvut.docta.core.domain.app.FilledWidthByScreenType
+import cz.cvut.docta.core.presentation.component.button.ButtonWithPopupContent
 import cz.cvut.docta.core.presentation.theme.CurrWindowType
 import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.core.presentation.theme.Manrope
 import cz.cvut.docta.lessonSession.domain.model.question.QuestionCheckResult
+import cz.cvut.docta.lessonSession.presentation.component.MaterialsModal
 import cz.cvut.docta.lessonSession.presentation.component.screenContainer.QuestionScreenContainer
+import cz.cvut.docta.lessonSession.presentation.model.question.Materials
 import dev.icerock.moko.resources.compose.stringResource
+import docta.composeapp.generated.resources.Res
+import docta.composeapp.generated.resources.show_icon
 
 @Composable
 fun OpenAnswerQuestionScreen(
     screenPadding: PaddingValues,
     questionText: String,
+    questionMaterials: List<Materials>,
     answerInput: String,
     onAnswerChange: (String) -> Unit,
     checkIsAllowed: Boolean,
@@ -36,6 +43,7 @@ fun OpenAnswerQuestionScreen(
     QuestionScreenContainer(
         screenPadding = screenPadding,
         questionInstructions = stringResource(SharedRes.strings.open_answer_question_instructions),
+        questionMaterials = questionMaterials,
         buttonIsEnabled = checkIsAllowed,
         showCheckButton = checkResult == null,
         onCheckButtonClick = onCheckButtonClick,

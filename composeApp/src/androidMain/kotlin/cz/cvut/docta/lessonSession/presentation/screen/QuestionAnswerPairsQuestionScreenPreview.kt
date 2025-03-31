@@ -78,6 +78,7 @@ fun QuestionAnswerPairsQuestionScreenPreview(
         QuestionAnswerPairsQuestionScreen(
             screenPadding = PaddingValues(),
             questions = questions,
+            questionMaterials = emptyList(),
             answers = answers,
             onQuestionSelect = {},
             onAnswerSelect = {},

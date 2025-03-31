@@ -27,6 +27,7 @@ fun AnswerOptionsQuestionScreenPreview(
         AnswerOptionsQuestionScreen(
             screenPadding = PaddingValues(),
             questionText = questionText,
+            questionMaterials = emptyList(),
             options = options,
             onOptionSelect = {},
             checkIsAllowed = checkIsAllowed,

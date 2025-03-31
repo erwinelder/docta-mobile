@@ -4,6 +4,9 @@ import CategorizationQuestionScreen
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -77,6 +80,7 @@ fun NavGraphBuilder.lessonNavigationGraph(
             OpenAnswerQuestionScreen(
                 screenPadding = screenPadding,
                 questionText = questionViewModel.questionText,
+                questionMaterials = questionViewModel.questionMaterials,
                 answerInput = answerInput,
                 onAnswerChange = questionViewModel::onAnswerInputChange,
                 checkIsAllowed = checkIsAllowed,
@@ -109,6 +113,7 @@ fun NavGraphBuilder.lessonNavigationGraph(
             FillInBlanksQuestionScreen(
                 screenPadding = screenPadding,
                 questionUnits = questionViewModel.questionUnits,
+                questionMaterials = questionViewModel.questionMaterials,
                 blanksAnswers = blanksAnswers,
                 onBlankAnswerChange = questionViewModel::onBlankAnswerChange,
                 checkIsAllowed = checkIsAllowed,
@@ -141,6 +146,7 @@ fun NavGraphBuilder.lessonNavigationGraph(
             AnswerOptionsQuestionScreen(
                 screenPadding = screenPadding,
                 questionText = questionViewModel.questionText,
+                questionMaterials = questionViewModel.questionMaterials,
                 options = options,
                 onOptionSelect = questionViewModel::onOptionSelect,
                 checkIsAllowed = checkIsAllowed,
@@ -179,6 +185,7 @@ fun NavGraphBuilder.lessonNavigationGraph(
             CategorizationQuestionScreen(
                 screenPadding = screenPadding,
                 questionText = questionViewModel.questionText,
+                questionMaterials = questionViewModel.questionMaterials,
                 options = options,
                 categories = categories,
                 onCategorySelect = questionViewModel::onCategorySelect,
@@ -214,6 +221,7 @@ fun NavGraphBuilder.lessonNavigationGraph(
             QuestionAnswerPairsQuestionScreen(
                 screenPadding = screenPadding,
                 questions = questions,
+                questionMaterials = questionViewModel.questionMaterials,
                 answers = answers,
                 onQuestionSelect = { id ->
                     questionViewModel.onQuestionSelect(id)

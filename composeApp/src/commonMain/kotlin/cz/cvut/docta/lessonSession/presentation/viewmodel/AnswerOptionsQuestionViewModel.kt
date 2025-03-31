@@ -19,6 +19,7 @@ class AnswerOptionsQuestionViewModel(
 ) : ViewModel() {
 
     val questionText = question.question.text
+    val questionMaterials = question.materials
 
     private val _options = MutableStateFlow(
         question.question.options.map {

@@ -19,7 +19,9 @@ import kotlinx.coroutines.flow.update
 class CategorizationQuestionViewModel (
     private val question: QuestionAndAnswersWrapper.Categorization
 ) : ViewModel() {
+
     val questionText = question.question.text
+    val questionMaterials = question.materials
 
     private val _options = MutableStateFlow(
         question.question.options.map { domainItem ->

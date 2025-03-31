@@ -17,6 +17,8 @@ class QuestionAnswerPairsQuestionViewModel(
     private val _questions = MutableStateFlow(question.answerInput.questions)
     val questions = _questions.asStateFlow()
 
+    val questionMaterials = question.materials
+
     fun onQuestionSelect(id: Long) {
         answers.value.find { it.isSelected }
             ?.let { selectedAnswer ->
