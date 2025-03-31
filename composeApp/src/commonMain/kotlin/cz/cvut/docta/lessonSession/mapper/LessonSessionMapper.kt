@@ -6,7 +6,9 @@ import cz.cvut.docta.lessonSession.data.model.CorrectAnswerDto
 import cz.cvut.docta.lessonSession.data.model.QuestionDifficultyDto
 import cz.cvut.docta.lessonSession.data.model.QuestionDto
 import cz.cvut.docta.lessonSession.data.model.QuestionWrapperDto
+import cz.cvut.docta.lessonSession.data.model.QuestionMaterialDto
 import cz.cvut.docta.lessonSession.data.model.SessionOptionsDto
+import cz.cvut.docta.lessonSession.domain.model.QuestionMaterials
 import cz.cvut.docta.lessonSession.domain.model.QuestionWithCorrectAnswers
 import cz.cvut.docta.lessonSession.domain.model.SessionOptions
 import cz.cvut.docta.lessonSession.domain.model.answer.AnswerText
@@ -57,18 +59,22 @@ fun QuestionWrapperDto.toDomainModel(): QuestionWithCorrectAnswers {
     return when (this) {
         is QuestionWrapperDto.OpenAnswer -> QuestionWithCorrectAnswers.OpenAnswer(
             question = this.question.toDomainModel(),
+            materials = this.materials.map { it.toDomainModel() },
             answers = this.answers.toDomainModel()
         )
         is QuestionWrapperDto.FillInBlanks -> QuestionWithCorrectAnswers.FillInBlanks(
             question = this.question.toDomainModel(),
+            materials = this.materials.map { it.toDomainModel() },
             blanksAnswers = this.blanksAnswers.toDomainModel()
         )
         is QuestionWrapperDto.AnswerOptions -> QuestionWithCorrectAnswers.AnswerOptions(
             question = this.question.toDomainModel(),
+            materials = this.materials.map { it.toDomainModel() },
             answer = this.answer.toDomainModel()
         )
         is QuestionWrapperDto.QuestionAnswerPairs -> QuestionWithCorrectAnswers.QuestionAnswerPairs(
-            question = this.question.toDomainModel()
+            question = this.question.toDomainModel(),
+            materials = this.materials.map { it.toDomainModel() }
         )
     }
 }
@@ -137,5 +143,21 @@ fun AnswerTextDto.toDomainModel(): AnswerText {
     return AnswerText(
         id = id,
         text = text
+    )
+}
+
+fun QuestionMaterialDto.toDomainModel(): QuestionMaterials {
+    return QuestionMaterials(
+        id = id,
+        text = text,
+        questionIds = questionIds
+    )
+}
+
+fun QuestionMaterials.toDto(): QuestionMaterialDto {
+    return QuestionMaterialDto(
+        id = id,
+        text = text,
+        questionIds = questionIds
     )
 }

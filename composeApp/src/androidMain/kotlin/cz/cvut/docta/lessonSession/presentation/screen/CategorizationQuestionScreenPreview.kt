@@ -54,6 +54,7 @@ fun CategorizationQuestionScreenPreview(
         CategorizationQuestionScreen(
             screenPadding = PaddingValues(),
             questionText = questionText,
+            questionMaterials = emptyList(),
             options = options,
             categories = categories,
             onCategorySelect = { _, _ -> },

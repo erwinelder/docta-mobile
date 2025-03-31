@@ -21,6 +21,7 @@ import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.core.presentation.theme.Manrope
 import cz.cvut.docta.lessonSession.domain.model.question.QuestionCheckResult
 import cz.cvut.docta.lessonSession.presentation.component.screenContainer.QuestionScreenContainer
+import cz.cvut.docta.lessonSession.presentation.model.question.Materials
 import cz.cvut.docta.lessonSession.presentation.model.question.QuestionBlankUnit
 import dev.icerock.moko.resources.compose.stringResource
 
@@ -29,6 +30,7 @@ import dev.icerock.moko.resources.compose.stringResource
 fun FillInBlanksQuestionScreen(
     screenPadding: PaddingValues,
     questionUnits: List<QuestionBlankUnit>,
+    questionMaterials: List<Materials>,
     blanksAnswers: Map<Int, String>,
     onBlankAnswerChange: (Int, String) -> Unit,
     checkIsAllowed: Boolean,
@@ -39,6 +41,7 @@ fun FillInBlanksQuestionScreen(
     QuestionScreenContainer(
         screenPadding = screenPadding,
         questionInstructions = stringResource(SharedRes.strings.fill_in_blanks_question_instructions),
+        questionMaterials = questionMaterials,
         buttonIsEnabled = checkIsAllowed,
         showCheckButton = checkResult == null,
         onCheckButtonClick = onCheckButtonClick,

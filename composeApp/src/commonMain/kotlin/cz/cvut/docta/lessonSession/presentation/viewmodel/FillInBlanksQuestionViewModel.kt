@@ -19,6 +19,7 @@ class FillInBlanksQuestionViewModel(
 ) : ViewModel() {
 
     val questionUnits = QuestionBlankUnit.fromText(question.question.text)
+    val questionMaterials = question.materials
 
 
     private val _blanksAnswers = MutableStateFlow(question.answerInput.answers)
