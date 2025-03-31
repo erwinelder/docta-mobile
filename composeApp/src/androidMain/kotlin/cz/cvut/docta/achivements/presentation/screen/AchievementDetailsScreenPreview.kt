@@ -5,32 +5,29 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import cz.cvut.docta.SharedRes
 import cz.cvut.docta.achievement.domain.model.AchievementName
-import cz.cvut.docta.achievement.presentation.screen.AchievementsScreen
+import cz.cvut.docta.achievement.presentation.screen.AchievementDetailsScreen
 import cz.cvut.docta.achievement.presentation.model.AchievementUiState
 import cz.cvut.docta.core.domain.app.AppTheme
 import cz.cvut.docta.core.presentation.preview.ScreenPreviewContainer
-import dev.icerock.moko.resources.compose.stringResource
 import docta.composeapp.generated.resources.Res
 import docta.composeapp.generated.resources.achievement_placheholder_icon
 
 @Preview(device = Devices.PIXEL_7_PRO)
 @Composable
-fun AchievementsScreenPreview(
+fun AchievementDetailsScreenPreview(
     appTheme: AppTheme = AppTheme.Light,
-    achievements: List<AchievementUiState> = listOf(
-        AchievementUiState(
-            percentage = 0.0f,
-            title = SharedRes.strings.achievement_first_step,
-            name = AchievementName.FirstStep,
-            icon = Res.drawable.achievement_placheholder_icon,
-            description = SharedRes.strings.achievement_description_first_step,
-        )
+    achievement: AchievementUiState = AchievementUiState(
+        name = AchievementName.FirstStep,
+        title = SharedRes.strings.achievement_first_step,
+        description = SharedRes.strings.achievement_description_first_step,
+        percentage = 50.0f,
+        icon = Res.drawable.achievement_placheholder_icon,
     )
 ) {
     ScreenPreviewContainer {
-        AchievementsScreen(
-            achievements = achievements,
-            onAchievementClick = {}
+        AchievementDetailsScreen(
+            achievement = achievement,
+            onClose = {}
         )
     }
 }

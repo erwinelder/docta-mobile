@@ -15,36 +15,33 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.achievement.presentation.model.AchievementUiState
 import cz.cvut.docta.core.presentation.component.statistics.CircleProgressBar
+import cz.cvut.docta.core.presentation.modifier.bounceClickEffect
 import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.core.presentation.theme.DoctaTypography
+import dev.icerock.moko.resources.compose.stringResource
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun AchievementComponent(
     achievement: AchievementUiState,
-    iconSize: Dp = 64.dp
+    onClick: (AchievementUiState) -> Unit
 ) {
     Column(
-        horizontalAlignment = Alignment.Companion.CenterHorizontally,
+        horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(5.dp),
+        modifier = Modifier.bounceClickEffect(shrinkScale = .98f) {
+            onClick(achievement)
+        }
     ) {
         // Wrapper for the achievement icon
-        Box(modifier = Modifier.Companion.size(iconSize)) {
-            Icon(
-                painter = painterResource(achievement.icon),
-                contentDescription = achievement.title,
-                modifier = Modifier.Companion.fillMaxSize()
-            )
-            CircleProgressBar(
-                percentage = achievement.percentage.toFloat(),
-                modifier = Modifier.Companion.fillMaxSize().padding(5.dp),
-                strokeSize = 5.dp,
-                color = DoctaColors.yellow
-            )
-        }
+        AchievementIconWithProgress(
+            icon = achievement.icon,
+            iconDescription = achievement.title,
+            percentage = achievement.percentage,
+        )
         // Achievement title
         Text(
-            text = achievement.title,
+            text = stringResource(achievement.title),
             style = DoctaTypography.normal
         )
     }

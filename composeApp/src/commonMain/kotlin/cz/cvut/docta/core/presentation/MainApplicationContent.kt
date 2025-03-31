@@ -15,11 +15,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import cz.cvut.docta.achievement.presentation.AchievementsScreen
-import cz.cvut.docta.achievement.presentation.viewmodel.AchievementsViewModel
+import cz.cvut.docta.achievement.presentation.navigation.achievementNavigationGraph
 import cz.cvut.docta.auth.domain.model.UserContext
 import cz.cvut.docta.auth.presentation.navigation.AuthScreens
 import cz.cvut.docta.auth.presentation.navigation.authGraph
@@ -110,13 +108,11 @@ fun MainApplicationContent(
                 navController = navController,
                 navViewModel = navViewModel
             )
-            composable<MainScreens.Achievements> {
-                val viewModel = koinViewModel<AchievementsViewModel>()
-
-                val achievements by viewModel.achievements.collectAsStateWithLifecycle()
-
-                AchievementsScreen(achievements = achievements)
-            }
+            achievementNavigationGraph(
+                navController = navController,
+                navViewModel = navViewModel,
+                screenPadding = screenPadding
+            )
             authGraph(
                 startDestination = authStartDestination,
                 navController = navController,

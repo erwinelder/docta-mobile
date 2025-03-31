@@ -4,8 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class AchievementDto(
-    val id: Int,
-    val name: AchievementNameDto,
-    val title: String,
-    val description: String
+    val achievementName: String,
+    val completedSteps: Int,
+    val numberOfSteps: Int
 )

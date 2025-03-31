@@ -1,4 +1,4 @@
-package cz.cvut.docta.achievement.presentation
+package cz.cvut.docta.achievement.presentation.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -19,7 +19,8 @@ import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun AchievementsScreen(
-    achievements: List<AchievementUiState>
+    achievements: List<AchievementUiState>,
+    onAchievementClick: (AchievementUiState) -> Unit
 ) {
     ScreenContainer(
         verticalArrangement = Arrangement.spacedBy(24.dp),
@@ -41,7 +42,8 @@ fun AchievementsScreen(
         ) {
             items(items = achievements) { achievement ->
                 AchievementComponent(
-                    achievement = achievement
+                    achievement = achievement,
+                    onClick = onAchievementClick
                 )
             }
         }
