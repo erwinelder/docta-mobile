@@ -38,6 +38,7 @@
     <string name="fill_in_blanks_question_instructions">Fill in the blanks</string>
     <string name="answer_option_question_instructions">Choose the correct answer</string>
     <string name="categorization_question_instructions">Categorize each option under the correct category</string>
+    <string name="select_category">Select category</string>
     <string name="question_answer_pairs_question_instructions">Match the pairs</string>
     <string name="step_question_instructions">Solve this step of the task</string>
     <string name="type_your_answer_here">Type your answer here…</string>

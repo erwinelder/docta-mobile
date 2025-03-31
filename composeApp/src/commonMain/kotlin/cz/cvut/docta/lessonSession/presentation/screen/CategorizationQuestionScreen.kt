@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
@@ -25,12 +26,15 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cz.cvut.docta.SharedRes
+import cz.cvut.docta.core.domain.app.FilledWidthByScreenType
 import cz.cvut.docta.core.presentation.component.container.GlassSurface
 import cz.cvut.docta.core.presentation.component.picker.PickerButton
 import cz.cvut.docta.core.presentation.component.picker.PopupPicker
+import cz.cvut.docta.core.presentation.theme.CurrWindowType
 import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.core.presentation.theme.Manrope
 import cz.cvut.docta.lessonSession.domain.model.question.QuestionCheckResult
@@ -59,6 +63,18 @@ fun CategorizationQuestionScreen(
         onCheckButtonClick = onCheckButtonClick,
         onContinueButtonClick = onContinueButtonClick
     ) {
+        Text(
+            text = questionText,
+            fontSize = 18.sp,
+            color = DoctaColors.onSurface,
+            fontFamily = Manrope,
+            fontWeight = FontWeight.SemiBold,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp, vertical = 12.dp)
+        )
+
         AnimatedContent(
             targetState = checkResult
         ) { result ->
@@ -68,14 +84,6 @@ fun CategorizationQuestionScreen(
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text(
-                        text = questionText,
-                        fontSize = 18.sp,
-                        color = DoctaColors.onSurface,
-                        fontFamily = Manrope,
-                        fontWeight = FontWeight.SemiBold,
-                        modifier = Modifier.fillMaxWidth()
-                    )
                     options.forEach { optionUiState ->
                         CategoryAndOptionBlock(
                             option = optionUiState,
@@ -95,37 +103,44 @@ fun CategorizationQuestionScreen(
     }
 }
 
+
 @Composable
 fun CategoryAndOptionBlock(
     option: CategorizationOptionUiState,
     categories: List<CategoryUiState>,
     onCategorySelect: (Long, Long) -> Unit
 ) {
+    val surfaceWidth = FilledWidthByScreenType()
+
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp)
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
-        Row(
+        Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(end = 0.dp),
-            horizontalArrangement = Arrangement.End
+                .fillMaxWidth(surfaceWidth.getByType(CurrWindowType))
+                .align(Alignment.CenterHorizontally)
         ) {
-            CategoryPicker(
-                selectedCategoryName = option.selectedCategoryName,
-                selectedCategoryId = option.selectedCategoryId,
-                categories = categories,
-                onSelect = { categoryId ->
-                    onCategorySelect(option.id, categoryId)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End
+            ) {
+                Box(modifier = Modifier.widthIn(max = 180.dp)) {
+                    CategoryPicker(
+                        selectedCategoryId = option.selectedCategoryId,
+                        selectedCategoryName = option.selectedCategoryName,
+                        categories = categories,
+                        onSelect = { categoryId ->
+                            onCategorySelect(option.id, categoryId)
+                        }
+                    )
                 }
-            )
+            }
         }
 
         GlassSurface(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 6.dp),
+                .align(Alignment.CenterHorizontally),
             cornerSize = 12.dp,
             borderSize = 1.dp
         ) {
@@ -135,11 +150,14 @@ fun CategoryAndOptionBlock(
                 fontSize = 16.sp,
                 fontFamily = Manrope,
                 fontWeight = FontWeight.Normal,
-                modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 12.dp)
             )
         }
     }
 }
+
 
 @Composable
 private fun CategoryPicker(
@@ -148,7 +166,7 @@ private fun CategoryPicker(
     categories: List<CategoryUiState>,
     onSelect: (Long) -> Unit
 ) {
-    val selected = selectedCategoryName ?: "Category text"
+    val selected = selectedCategoryName ?: stringResource(SharedRes.strings.select_category)
 
     val selectedCategory = CategoryUiState(
         id = selectedCategoryId ?: -1L,
