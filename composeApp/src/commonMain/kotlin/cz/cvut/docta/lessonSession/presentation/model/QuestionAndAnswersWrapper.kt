@@ -25,21 +25,15 @@ sealed class QuestionAndAnswersWrapper {
         val answerInput: AnswerInput.Option
     ) : QuestionAndAnswersWrapper()
 
-    data class QuestionAnswerPairs(
-        val question: Question.QuestionAnswerPairs,
-        val answerInput: AnswerInput.QuestionAnswerPair
-    ) : QuestionAndAnswersWrapper()
-
     data class Categorization(
         val question: Question.Categorization,
         val correctAnswer: CorrectAnswer.CategorizedOptions,
         val answerInput: AnswerInput.CategorizedOptions
     ) : QuestionAndAnswersWrapper()
 
-    data class StepByStep(
-        val question: Question.StepByStep,
-        val correctAnswer: CorrectAnswer.StepAnswer,
-        val answerInput: AnswerInput.Step
+    data class QuestionAnswerPairs(
+        val question: Question.QuestionAnswerPairs,
+        val answerInput: AnswerInput.QuestionAnswerPair
     ) : QuestionAndAnswersWrapper()
 
 
@@ -66,6 +60,13 @@ sealed class QuestionAndAnswersWrapper {
                     correctAnswer = questionWithCorrectAnswers.answer,
                     answerInput = AnswerInput.Option(id = null)
                 )
+                is QuestionWithCorrectAnswers.Categorization -> Categorization(
+                    question = questionWithCorrectAnswers.question,
+                    correctAnswer = questionWithCorrectAnswers.categoriesOptions,
+                    answerInput = AnswerInput.CategorizedOptions.fromOptions(
+                        options = questionWithCorrectAnswers.question.options
+                    )
+                )
                 is QuestionWithCorrectAnswers.QuestionAnswerPairs -> QuestionAnswerPairs(
                     question = questionWithCorrectAnswers.question,
                     answerInput = AnswerInput.QuestionAnswerPair.fromAnswerTextList(
@@ -73,19 +74,9 @@ sealed class QuestionAndAnswersWrapper {
                         answers = questionWithCorrectAnswers.question.answerPairs
                     )
                 )
-                is QuestionWithCorrectAnswers.Categorization -> Categorization(
-                    question = questionWithCorrectAnswers.question,
-                    correctAnswer = questionWithCorrectAnswers.categoriesOptions,
-                    answerInput = AnswerInput.CategorizedOptions
-                        .fromOptions(options = questionWithCorrectAnswers.question.options)
-                )
-                is QuestionWithCorrectAnswers.StepByStep -> StepByStep(
-                    question = questionWithCorrectAnswers.question,
-                    correctAnswer = questionWithCorrectAnswers.answer,
-                    answerInput = AnswerInput.Step(answer = "")
-                )
             }
         }
+
     }
 
 }
