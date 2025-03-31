@@ -18,7 +18,8 @@ class OpenAnswerQuestionViewModel(
 ) : ViewModel() {
 
     val questionText = question.question.text
-    val questionMaterials = question.materials
+    val materials = question.materials
+
 
     private val _answerInput = MutableStateFlow("")
     val answerInput = _answerInput.asStateFlow()

@@ -86,8 +86,7 @@ class CategorizationQuestionViewModel (
         val userCategories = options.value.associate { uiOption ->
             uiOption.id to uiOption.selectedCategoryId
         }
-        val isCorrect = question.correctAnswer
-            .checkAllCategories(userCategories)
+        val isCorrect = question.correctAnswer.checkAllCategories(userCategories = userCategories)
         return QuestionCheckResult(isCorrect = isCorrect)
     }
 
