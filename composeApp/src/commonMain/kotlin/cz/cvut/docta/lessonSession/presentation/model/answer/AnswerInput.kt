@@ -28,6 +28,22 @@ sealed class AnswerInput {
         val id: Long?
     ) : AnswerInput()
 
+    data class CategorizedOptions(
+        val optionsCategoryToMap: Map<Long, Long?>
+    ) : AnswerInput() {
+
+        companion object{
+
+            fun fromOptions(options: List<AnswerText>): CategorizedOptions {
+                return CategorizedOptions(
+                    optionsCategoryToMap = options.map { it.id }.associateWith { null }
+                )
+            }
+
+        }
+
+    }
+
     data class QuestionAnswerPair(
         val questions: List<QuestionAnswerPairItemUiState>,
         val answers: List<QuestionAnswerPairItemUiState>
@@ -52,9 +68,5 @@ sealed class AnswerInput {
         }
 
     }
-
-    data class Step(
-        val answer: String
-    ) : AnswerInput()
 
 }

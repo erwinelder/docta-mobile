@@ -32,11 +32,4 @@ sealed class CorrectAnswerDto {
         val id: Long
     ) : CorrectAnswerDto()
 
-    @Serializable
-    @SerialName("StepAnswer")
-    data class StepAnswer(
-        override val questionId: Long,
-        val answer: String
-    ) : CorrectAnswerDto()
-
 }

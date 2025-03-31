@@ -29,6 +29,7 @@ fun FillInBlanksQuestionScreenPreview(
         FillInBlanksQuestionScreen(
             screenPadding = PaddingValues(),
             questionUnits = questionUnits,
+            questionMaterials = emptyList(),
             blanksAnswers = blanksAnswers,
             onBlankAnswerChange = { _, _ ->},
             checkIsAllowed = checkIsAllowed,

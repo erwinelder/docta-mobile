@@ -37,24 +37,13 @@
     <string name="open_answer_question_instructions">Answer the question</string>
     <string name="fill_in_blanks_question_instructions">Fill in the blanks</string>
     <string name="answer_option_question_instructions">Choose the correct answer</string>
+    <string name="categorization_question_instructions">Categorize each option under the correct category</string>
     <string name="question_answer_pairs_question_instructions">Match the pairs</string>
     <string name="step_question_instructions">Solve this step of the task</string>
     <string name="type_your_answer_here">Type your answer here…</string>
 
-    <!-- Authentication -->
-    <string name="sign_in">Sign in</string>
-    <string name="create_account">Create account</string>
-    <string name="sign_in_to_your_docta_account">Sign in to your Docta account</string>
-    <string name="create_your_docta_account">Create your Docta account</string>
-    <string name="email_verification">Email verification</string>
-    <string name="sign_up_email_verification_sent_description">A verification email for sign-up has been sent. Please follow the link in the email to verify your account and return to the app to complete your registration.</string>
-    <string name="checking_email_verification">Checking email verification …</string>
-    <string name="not_verified">Not verified</string>
-    <string name="your_email_not_verified_description">Your email is not verified yet. Please follow the link in the email to verify your account.</string>
-    <string name="welcome_back_to_docta">Welcome back to Docta!</string>
-    <string name="welcome_to_docta">Welcome to Docta!</string>
-    <string name="account_deleted">Account deleted!</string>
-    <string name="your_account_has_been_deleted_successfully">Your account has been deleted successfully</string>
+    <!-- Leaderboard -->
+    <string name="leaderboard">Leaderboard</string>
 
     <!-- Fields -->
     <string name="name">Name</string>
@@ -139,6 +128,7 @@
     <string name="sign_up_error">Error while signing up.</string>
 
     <!-- Other -->
+    <string name="section_still_under_development">This section is still under development.</string>
     <string name="greetings_title_morning">Good morning, %s!</string>
     <string name="greetings_title_afternoon">Good afternoon, %s!</string>
     <string name="greetings_title_evening">Good evening, %s!</string>

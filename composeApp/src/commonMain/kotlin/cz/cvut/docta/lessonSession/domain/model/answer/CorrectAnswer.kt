@@ -47,6 +47,20 @@ sealed class CorrectAnswer(
 
     }
 
+    data class CategorizedOptions(
+        override val questionId: Long,
+        val categoriesOptions: Map<Long, List<Long>>
+    ) : CorrectAnswer(questionId) {
+        fun checkAllCategories(userCategories: Map<Long, Long?>): Boolean {
+            if (userCategories.keys != categoriesOptions.keys) {
+                return false
+            }
+            return userCategories.all { (optionId, catId) ->
+                catId != null && catId in (categoriesOptions[optionId] ?: emptyList())
+            }
+        }
+    }
+
     data class StepAnswer(
         override val questionId: Long,
         val answer: String

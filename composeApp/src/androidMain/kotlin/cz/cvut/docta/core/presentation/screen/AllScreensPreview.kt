@@ -20,8 +20,10 @@ import cz.cvut.docta.auth.presentation.screen.SignUpScreenPreview
 import cz.cvut.docta.core.domain.app.AppTheme
 import cz.cvut.docta.course.presentation.screen.AddNewCourseScreenPreview
 import cz.cvut.docta.course.presentation.screen.CoursesScreenPreview
+import cz.cvut.docta.leaderboard.presentation.screen.LeaderboardScreenPreview
 import cz.cvut.docta.lesson.presentation.screen.SectionLessonsScreenPreview
 import cz.cvut.docta.lessonSession.presentation.screen.AnswerOptionsQuestionScreenPreview
+import cz.cvut.docta.lessonSession.presentation.screen.CategorizationQuestionScreenPreview
 import cz.cvut.docta.lessonSession.presentation.screen.FillInBlanksQuestionScreenPreview
 import cz.cvut.docta.lessonSession.presentation.screen.OpenAnswerQuestionScreenPreview
 import cz.cvut.docta.lessonSession.presentation.screen.QuestionAnswerPairsQuestionScreenPreview
@@ -208,8 +210,25 @@ private fun AnswerOptionsQuestionScreenPreview_() {
 
 @Preview(device = Devices.PIXEL_7_PRO, group = "Question", locale = locale)
 @Composable
+private fun CategorizationQuestionScreenPreview_(){
+    CategorizationQuestionScreenPreview(
+        appTheme = appTheme
+    )
+}
+
+@Preview(device = Devices.PIXEL_7_PRO, group = "Question", locale = locale)
+@Composable
 private fun QuestionAnswerPairsQuestionScreenPreview_() {
     QuestionAnswerPairsQuestionScreenPreview(
+        appTheme = appTheme
+    )
+}
+
+
+@Preview(device = Devices.PIXEL_7_PRO, group = "Leaderboard", locale = locale)
+@Composable
+private fun LeaderboardScreenPreview_() {
+    LeaderboardScreenPreview(
         appTheme = appTheme
     )
 }
