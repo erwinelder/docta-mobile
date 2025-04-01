@@ -3,7 +3,7 @@ package cz.cvut.docta.lesson.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import cz.cvut.docta.lesson.presentation.navigation.LessonSessionScreens
 import cz.cvut.docta.lesson.presentation.utils.getLessonScreenToNavigateTo
-import cz.cvut.docta.lessonSession.domain.model.QuestionWithCheckResult
+import cz.cvut.docta.lessonSession.presentation.model.QuestionWithCheckResult
 import cz.cvut.docta.lessonSession.domain.model.SessionOptions
 import cz.cvut.docta.lessonSession.domain.usecase.GetLessonQuestionsWithAnswersUseCase
 import cz.cvut.docta.lessonSession.presentation.model.QuestionWrapper

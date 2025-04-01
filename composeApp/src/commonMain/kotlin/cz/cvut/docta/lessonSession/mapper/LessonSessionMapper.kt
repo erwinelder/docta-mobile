@@ -1,12 +1,12 @@
 package cz.cvut.docta.lessonSession.mapper
 
 import cz.cvut.docta.lesson.domain.model.LessonWithProgress
-import cz.cvut.docta.lessonSession.data.model.AnswerCheckResultDto
-import cz.cvut.docta.lessonSession.data.model.AnswerInputDto
-import cz.cvut.docta.lessonSession.data.model.AnswerTextDto
+import cz.cvut.docta.lessonSession.data.model.answer.AnswerCheckResultDto
+import cz.cvut.docta.lessonSession.data.model.answer.AnswerInputDto
+import cz.cvut.docta.lessonSession.data.model.answer.AnswerTextDto
 import cz.cvut.docta.lessonSession.data.model.MaterialsDto
-import cz.cvut.docta.lessonSession.data.model.QuestionDifficultyDto
-import cz.cvut.docta.lessonSession.data.model.QuestionDto
+import cz.cvut.docta.lessonSession.data.model.question.QuestionDifficultyDto
+import cz.cvut.docta.lessonSession.data.model.question.QuestionDto
 import cz.cvut.docta.lessonSession.data.model.QuestionWrapperDto
 import cz.cvut.docta.lessonSession.data.model.SessionOptionsDto
 import cz.cvut.docta.lessonSession.domain.model.Materials

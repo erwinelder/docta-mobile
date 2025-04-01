@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cz.cvut.docta.errorHandling.domain.model.result.LessonSessionError
 import cz.cvut.docta.errorHandling.domain.model.result.ResultData
-import cz.cvut.docta.lessonSession.domain.model.QuestionWithCheckResult
+import cz.cvut.docta.lessonSession.presentation.model.QuestionWithCheckResult
 import cz.cvut.docta.lessonSession.domain.model.answer.AnswerCheckResult
 import cz.cvut.docta.lessonSession.domain.model.answer.AnswerInput
 import cz.cvut.docta.lessonSession.domain.usecase.CheckAnswerUseCase

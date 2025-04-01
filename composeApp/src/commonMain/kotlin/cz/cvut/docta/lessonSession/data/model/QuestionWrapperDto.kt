@@ -1,5 +1,6 @@
 package cz.cvut.docta.lessonSession.data.model
 
+import cz.cvut.docta.lessonSession.data.model.question.QuestionDto
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
