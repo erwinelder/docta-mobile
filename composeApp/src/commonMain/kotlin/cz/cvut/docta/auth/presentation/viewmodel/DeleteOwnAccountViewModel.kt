@@ -8,7 +8,7 @@ import cz.cvut.docta.auth.domain.validation.UserDataValidator
 import cz.cvut.docta.auth.mapper.toResultState
 import cz.cvut.docta.errorHandling.mapper.toUiStates
 import cz.cvut.docta.errorHandling.presentation.model.RequestState
-import cz.cvut.docta.errorHandling.presentation.model.ResultState
+import cz.cvut.docta.errorHandling.presentation.model.ResultWithButtonState
 import cz.cvut.docta.errorHandling.presentation.model.ValidatedFieldUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -65,7 +65,7 @@ class DeleteOwnAccountViewModel(
         }
     }
 
-    private fun setRequestResultState(result: ResultState) {
+    private fun setRequestResultState(result: ResultWithButtonState) {
         _requestState.update {
             RequestState.Result(resultState = result)
         }

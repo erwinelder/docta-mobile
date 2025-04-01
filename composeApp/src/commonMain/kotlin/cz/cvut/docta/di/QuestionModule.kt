@@ -2,6 +2,8 @@ package cz.cvut.docta.di
 
 import cz.cvut.docta.lessonSession.data.repository.LessonSessionRepository
 import cz.cvut.docta.lessonSession.data.repository.LessonSessionRepositoryImpl
+import cz.cvut.docta.lessonSession.domain.usecase.CheckAnswerUseCase
+import cz.cvut.docta.lessonSession.domain.usecase.CheckAnswerUseCaseImpl
 import cz.cvut.docta.lessonSession.domain.usecase.GetLessonQuestionsWithAnswersUseCase
 import cz.cvut.docta.lessonSession.domain.usecase.GetLessonQuestionsWithAnswersUseCaseImpl
 import cz.cvut.docta.lessonSession.presentation.viewmodel.AnswerOptionsQuestionViewModel
@@ -29,26 +31,45 @@ val lessonSessionModule = module {
         )
     }
 
+    single<CheckAnswerUseCase> {
+        CheckAnswerUseCaseImpl(lessonSessionRepository = get())
+    }
+
     /* ---------- View Models ---------- */
 
     viewModel { parameters ->
-        OpenAnswerQuestionViewModel(question = parameters.get())
+        OpenAnswerQuestionViewModel(
+            question = parameters.get(),
+            checkAnswerUseCase = get()
+        )
     }
 
     viewModel { parameters ->
-        FillInBlanksQuestionViewModel(question = parameters.get())
+        FillInBlanksQuestionViewModel(
+            question = parameters.get(),
+            checkAnswerUseCase = get()
+        )
     }
 
     viewModel { parameters ->
-        AnswerOptionsQuestionViewModel(question = parameters.get())
+        AnswerOptionsQuestionViewModel(
+            question = parameters.get(),
+            checkAnswerUseCase = get()
+        )
     }
 
     viewModel { parameters ->
-        CategorizationQuestionViewModel(question = parameters.get())
+        CategorizationQuestionViewModel(
+            question = parameters.get(),
+            checkAnswerUseCase = get()
+        )
     }
 
     viewModel { parameters ->
-        QuestionAnswerPairsQuestionViewModel(question = parameters.get())
+        QuestionAnswerPairsQuestionViewModel(
+            question = parameters.get(),
+            checkAnswerUseCase = get()
+        )
     }
 
 }

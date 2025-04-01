@@ -5,7 +5,7 @@ import cz.cvut.docta.SharedRes
 import cz.cvut.docta.auth.domain.usecase.DeleteUserAccountUseCase
 import cz.cvut.docta.auth.mapper.toResultState
 import cz.cvut.docta.errorHandling.presentation.model.RequestState
-import cz.cvut.docta.errorHandling.presentation.model.ResultState
+import cz.cvut.docta.errorHandling.presentation.model.ResultWithButtonState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -32,7 +32,7 @@ class DeleteUserAccountViewModel(
         }
     }
 
-    private fun setRequestResultState(result: ResultState) {
+    private fun setRequestResultState(result: ResultWithButtonState) {
         _requestState.update { RequestState.Result(resultState = result) }
     }
 

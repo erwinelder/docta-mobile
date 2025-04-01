@@ -2,10 +2,17 @@ package cz.cvut.docta.lessonSession.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cz.cvut.docta.lessonSession.presentation.model.answer.AnswerInput
-import cz.cvut.docta.lessonSession.domain.model.question.QuestionCheckResult
+import cz.cvut.docta.errorHandling.domain.model.result.LessonSessionError
+import cz.cvut.docta.errorHandling.domain.model.result.ResultData
 import cz.cvut.docta.lessonSession.domain.model.QuestionWithCheckResult
-import cz.cvut.docta.lessonSession.presentation.model.QuestionAndAnswersWrapper
+import cz.cvut.docta.lessonSession.domain.model.answer.AnswerCheckResult
+import cz.cvut.docta.lessonSession.domain.model.answer.AnswerInput
+import cz.cvut.docta.lessonSession.domain.usecase.CheckAnswerUseCase
+import cz.cvut.docta.lessonSession.mapper.toResultState
+import cz.cvut.docta.lessonSession.presentation.model.QuestionWrapper
+import cz.cvut.docta.lessonSession.presentation.model.answer.AnswerCheckRequestState
+import cz.cvut.docta.lessonSession.presentation.model.answer.AnswerCheckState
+import cz.cvut.docta.lessonSession.presentation.model.answer.AnswerInputState
 import cz.cvut.docta.lessonSession.presentation.model.question.QuestionBlankUnit
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -13,13 +20,15 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class FillInBlanksQuestionViewModel(
-    private val question: QuestionAndAnswersWrapper.FillInBlanks
+    private val question: QuestionWrapper.FillInBlanks,
+    private val checkAnswerUseCase: CheckAnswerUseCase
 ) : ViewModel() {
 
+    val materials = question.materials
     val questionUnits = QuestionBlankUnit.fromText(question.question.text)
-    val questionMaterials = question.materials
 
 
     private val _blanksAnswers = MutableStateFlow(question.answerInput.answers)
@@ -41,36 +50,58 @@ class FillInBlanksQuestionViewModel(
     )
 
 
-    private val _checkResult = MutableStateFlow<QuestionCheckResult?>(null)
-    val checkResult = _checkResult.asStateFlow()
-
-    private fun setCheckResult(result: QuestionCheckResult) {
-        _checkResult.update { result }
-    }
-
-
-    private fun getQuestionWithAppliedAnswer(): QuestionAndAnswersWrapper.FillInBlanks {
-        return question.copy(
-            answerInput = AnswerInput.Blanks(answers = blanksAnswers.value)
+    private val _checkRequestState =
+        MutableStateFlow<AnswerCheckRequestState<AnswerCheckResult.Blanks>>(
+            AnswerCheckRequestState<AnswerCheckResult.Blanks>.Default(
+                state = AnswerCheckState.Idle()
+            )
         )
+    val checkRequestState = _checkRequestState.asStateFlow()
+
+    private fun setRequestLoadingState() {
+        _checkRequestState.update {
+            AnswerCheckRequestState.Default(state = AnswerCheckState.Loading())
+        }
     }
 
-    private fun processGivenAnswer(): QuestionCheckResult {
-        val isCorrect = question.correctAnswer
-            .getWrongBlanksWithCorrectAnswer(blanksAnswers.value)
-            .isEmpty()
+    private fun setRequestResultState(result: AnswerCheckResult) {
+        result as? AnswerCheckResult.Blanks
+            ?: return setRequestErrorState(error = LessonSessionError.AnswerCheckError)
 
-        return QuestionCheckResult(isCorrect = isCorrect)
+        _checkRequestState.update {
+            AnswerCheckRequestState.Default(state = AnswerCheckState.Result(result = result))
+        }
     }
 
-    fun checkAnswers(): QuestionWithCheckResult {
-        val checkResult = processGivenAnswer()
+    private fun setRequestErrorState(error: LessonSessionError) {
+        _checkRequestState.update {
+            AnswerCheckRequestState.Error<AnswerCheckResult.Blanks>(error = error.toResultState())
+        }
+    }
 
-        setCheckResult(checkResult)
 
+    fun checkAnswer() {
+        setRequestLoadingState()
+
+        val answerInput = AnswerInput.Blanks(
+            questionId = question.question.id, answers = blanksAnswers.value
+        )
+
+        viewModelScope.launch {
+            val result = checkAnswerUseCase.execute(answerInput = answerInput)
+            when (result) {
+                is ResultData.Success -> setRequestResultState(result = result.data)
+                is ResultData.Error -> setRequestErrorState(error = result.error)
+            }
+        }
+    }
+
+    fun getQuestionWithCheckResult(): QuestionWithCheckResult? {
         return QuestionWithCheckResult(
-            question = getQuestionWithAppliedAnswer(),
-            result = checkResult
+            question = question.copy(
+                answerInput = AnswerInputState.Blanks(answers = blanksAnswers.value)
+            ),
+            isCorrect = checkRequestState.value.isCorrect() ?: return null
         )
     }
 

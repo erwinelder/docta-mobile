@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.core.presentation.theme.NotoSans
-import cz.cvut.docta.lessonSession.presentation.model.question.Materials
+import cz.cvut.docta.lessonSession.domain.model.Materials
 
 @Composable
 fun MaterialsModal(

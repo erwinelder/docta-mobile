@@ -5,7 +5,7 @@ import cz.cvut.docta.core.presentation.model.IconResByAppTheme
 import cz.cvut.docta.lesson.domain.model.LessonFilterType
 import cz.cvut.docta.lesson.domain.model.LessonWithProgress
 import cz.cvut.docta.lesson.presentation.navigation.LessonSessionScreens
-import cz.cvut.docta.lessonSession.presentation.model.QuestionAndAnswersWrapper
+import cz.cvut.docta.lessonSession.presentation.model.QuestionWrapper
 import dev.icerock.moko.resources.StringResource
 import docta.composeapp.generated.resources.Res
 import docta.composeapp.generated.resources.one_step_questions_lesson_dark_icon
@@ -44,12 +44,12 @@ fun LessonFilterType.asStringRes(): StringResource {
 }
 
 
-fun QuestionAndAnswersWrapper.getLessonScreenToNavigateTo(): LessonSessionScreens {
+fun QuestionWrapper.getLessonScreenToNavigateTo(): LessonSessionScreens {
     return when (this) {
-        is QuestionAndAnswersWrapper.OpenAnswer -> LessonSessionScreens.OpenAnswerQuestion
-        is QuestionAndAnswersWrapper.FillInBlanks -> LessonSessionScreens.FillInBlanksQuestion
-        is QuestionAndAnswersWrapper.AnswerOptions -> LessonSessionScreens.AnswerOptionsQuestion
-        is QuestionAndAnswersWrapper.Categorization -> LessonSessionScreens.CategorizationQuestion
-        is QuestionAndAnswersWrapper.QuestionAnswerPairs -> LessonSessionScreens.QuestionAnswerPairsQuestion
+        is QuestionWrapper.OpenAnswer -> LessonSessionScreens.OpenAnswerQuestion
+        is QuestionWrapper.FillInBlanks -> LessonSessionScreens.FillInBlanksQuestion
+        is QuestionWrapper.AnswerOptions -> LessonSessionScreens.AnswerOptionsQuestion
+        is QuestionWrapper.Categorization -> LessonSessionScreens.CategorizationQuestion
+        is QuestionWrapper.QuestionAnswerPairs -> LessonSessionScreens.QuestionAnswerPairsQuestion
     }
 }

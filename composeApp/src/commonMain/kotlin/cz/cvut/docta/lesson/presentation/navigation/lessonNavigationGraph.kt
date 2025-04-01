@@ -1,6 +1,5 @@
 package cz.cvut.docta.lesson.presentation.navigation
 
-import CategorizationQuestionScreen
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -20,9 +19,9 @@ import cz.cvut.docta.lesson.presentation.utils.getLessonScreenToNavigateTo
 import cz.cvut.docta.lesson.presentation.viewmodel.LessonProgressViewModel
 import cz.cvut.docta.lesson.presentation.viewmodel.LessonViewModel
 import cz.cvut.docta.lessonSession.mapper.getSessionOptions
-import cz.cvut.docta.lessonSession.presentation.model.QuestionAndAnswersWrapper
-import cz.cvut.docta.lessonSession.presentation.model.question.CategoryUiState
+import cz.cvut.docta.lessonSession.presentation.model.QuestionWrapper
 import cz.cvut.docta.lessonSession.presentation.screen.AnswerOptionsQuestionScreen
+import cz.cvut.docta.lessonSession.presentation.screen.CategorizationQuestionScreen
 import cz.cvut.docta.lessonSession.presentation.screen.FillInBlanksQuestionScreen
 import cz.cvut.docta.lessonSession.presentation.screen.OpenAnswerQuestionScreen
 import cz.cvut.docta.lessonSession.presentation.screen.QuestionAnswerPairsQuestionScreen
@@ -66,27 +65,27 @@ fun NavGraphBuilder.lessonNavigationGraph(
             val lessonViewModel = backStack.sharedKoinNavViewModel<LessonViewModel>(navController)
             val questionViewModel = koinViewModel<OpenAnswerQuestionViewModel> {
                 parametersOf(
-                    lessonViewModel.getNextQuestionAs<QuestionAndAnswersWrapper.OpenAnswer>()
+                    lessonViewModel.getNextQuestionAs<QuestionWrapper.OpenAnswer>()
                 )
             }
 
-            val answerInput by questionViewModel.answerInput.collectAsStateWithLifecycle()
+            val answerInput by questionViewModel.openAnswer.collectAsStateWithLifecycle()
             val checkIsAllowed by questionViewModel.checkIsAllowed.collectAsStateWithLifecycle()
-            val checkResult by questionViewModel.checkResult.collectAsStateWithLifecycle()
+            val checkRequestState by questionViewModel.checkRequestState.collectAsStateWithLifecycle()
 
             OpenAnswerQuestionScreen(
                 screenPadding = screenPadding,
-                questionText = questionViewModel.questionText,
                 questionMaterials = questionViewModel.materials,
-                answerInput = answerInput,
-                onAnswerChange = questionViewModel::onAnswerInputChange,
+                questionText = questionViewModel.questionText,
+                answerText = answerInput,
+                onAnswerChange = questionViewModel::onOpenAnswerChange,
                 checkIsAllowed = checkIsAllowed,
-                checkResult = checkResult,
-                onCheckButtonClick = {
-                    lessonViewModel.processQuestionCheckResult(questionViewModel.checkAnswer())
-                    lessonProgressViewModel.incrementProgression()
-                },
+                checkRequestState = checkRequestState,
+                onCheckButtonClick = questionViewModel::checkAnswer,
                 onContinueButtonClick = {
+                    lessonProgressViewModel.incrementProgression()
+                    questionViewModel.getQuestionWithCheckResult()
+                        ?.let(lessonViewModel::processQuestionCheckResult)
                     navViewModel.navigateToNextQuestionOrResultsScreen(
                         navController = navController,
                         nextQuestionScreen = lessonViewModel.processToNextQuestion(),
@@ -99,27 +98,27 @@ fun NavGraphBuilder.lessonNavigationGraph(
             val lessonViewModel = backStack.sharedKoinNavViewModel<LessonViewModel>(navController)
             val questionViewModel = koinViewModel<FillInBlanksQuestionViewModel> {
                 parametersOf(
-                    lessonViewModel.getNextQuestionAs<QuestionAndAnswersWrapper.FillInBlanks>()
+                    lessonViewModel.getNextQuestionAs<QuestionWrapper.FillInBlanks>()
                 )
             }
 
             val blanksAnswers by questionViewModel.blanksAnswers.collectAsStateWithLifecycle()
             val checkIsAllowed by questionViewModel.checkIsAllowed.collectAsStateWithLifecycle()
-            val checkResult by questionViewModel.checkResult.collectAsStateWithLifecycle()
+            val checkRequestState by questionViewModel.checkRequestState.collectAsStateWithLifecycle()
 
             FillInBlanksQuestionScreen(
                 screenPadding = screenPadding,
+                questionMaterials = questionViewModel.materials,
                 questionUnits = questionViewModel.questionUnits,
-                questionMaterials = questionViewModel.questionMaterials,
                 blanksAnswers = blanksAnswers,
                 onBlankAnswerChange = questionViewModel::onBlankAnswerChange,
                 checkIsAllowed = checkIsAllowed,
-                checkResult = checkResult,
-                onCheckButtonClick = {
-                    lessonViewModel.processQuestionCheckResult(questionViewModel.checkAnswers())
-                    lessonProgressViewModel.incrementProgression()
-                },
+                checkRequestState = checkRequestState,
+                onCheckButtonClick = questionViewModel::checkAnswer,
                 onContinueButtonClick = {
+                    lessonProgressViewModel.incrementProgression()
+                    questionViewModel.getQuestionWithCheckResult()
+                        ?.let(lessonViewModel::processQuestionCheckResult)
                     navViewModel.navigateToNextQuestionOrResultsScreen(
                         navController = navController,
                         nextQuestionScreen = lessonViewModel.processToNextQuestion(),
@@ -132,27 +131,27 @@ fun NavGraphBuilder.lessonNavigationGraph(
             val lessonViewModel = backStack.sharedKoinNavViewModel<LessonViewModel>(navController)
             val questionViewModel = koinViewModel<AnswerOptionsQuestionViewModel> {
                 parametersOf(
-                    lessonViewModel.getNextQuestionAs<QuestionAndAnswersWrapper.AnswerOptions>()
+                    lessonViewModel.getNextQuestionAs<QuestionWrapper.AnswerOptions>()
                 )
             }
 
             val options by questionViewModel.options.collectAsStateWithLifecycle()
             val checkIsAllowed by questionViewModel.checkIsAllowed.collectAsStateWithLifecycle()
-            val checkResult by questionViewModel.checkResult.collectAsStateWithLifecycle()
+            val checkRequestState by questionViewModel.checkRequestState.collectAsStateWithLifecycle()
 
             AnswerOptionsQuestionScreen(
                 screenPadding = screenPadding,
+                questionMaterials = questionViewModel.materials,
                 questionText = questionViewModel.questionText,
-                questionMaterials = questionViewModel.questionMaterials,
                 options = options,
                 onOptionSelect = questionViewModel::onOptionSelect,
                 checkIsAllowed = checkIsAllowed,
-                checkResult = checkResult,
-                onCheckButtonClick = {
-                    questionViewModel.checkAnswer()?.let(lessonViewModel::processQuestionCheckResult)
-                    lessonProgressViewModel.incrementProgression()
-                },
+                checkRequestState = checkRequestState,
+                onCheckButtonClick = questionViewModel::checkAnswer,
                 onContinueButtonClick = {
+                    lessonProgressViewModel.incrementProgression()
+                    questionViewModel.getQuestionWithCheckResult()
+                        ?.let(lessonViewModel::processQuestionCheckResult)
                     navViewModel.navigateToNextQuestionOrResultsScreen(
                         navController = navController,
                         nextQuestionScreen = lessonViewModel.processToNextQuestion(),
@@ -166,35 +165,28 @@ fun NavGraphBuilder.lessonNavigationGraph(
 
             val questionViewModel = koinViewModel<CategorizationQuestionViewModel> {
                 parametersOf(
-                    lessonViewModel.getNextQuestionAs<QuestionAndAnswersWrapper.Categorization>()
+                    lessonViewModel.getNextQuestionAs<QuestionWrapper.Categorization>()
                 )
             }
 
-            val options by questionViewModel.options.collectAsStateWithLifecycle()
+            val optionsWithCategories by questionViewModel.optionsWithCategories.collectAsStateWithLifecycle()
             val checkIsAllowed by questionViewModel.checkIsAllowed.collectAsStateWithLifecycle()
-            val checkResult by questionViewModel.checkResult.collectAsStateWithLifecycle()
-
-
-            val categories = questionViewModel.categories.map {
-                CategoryUiState(id = it.id, name = it.text)
-            }
+            val checkRequestState by questionViewModel.checkRequestState.collectAsStateWithLifecycle()
 
             CategorizationQuestionScreen(
                 screenPadding = screenPadding,
                 questionText = questionViewModel.questionText,
-                questionMaterials = questionViewModel.questionMaterials,
-                options = options,
-                categories = categories,
-                onCategorySelect = questionViewModel::onCategorySelect,
+                questionMaterials = questionViewModel.materials,
+                categories = questionViewModel.categories,
+                optionsWithCategories = optionsWithCategories,
+                onOptionCategorySelect = questionViewModel::selectOptionCategory,
                 checkIsAllowed = checkIsAllowed,
-                checkResult = checkResult,
-                onCheckButtonClick = {
-                    questionViewModel.checkAnswer()?.let { questionWithResult ->
-                        lessonViewModel.processQuestionCheckResult(questionWithResult)
-                    }
-                    lessonProgressViewModel.incrementProgression()
-                },
+                checkRequestState = checkRequestState,
+                onCheckButtonClick = questionViewModel::checkAnswer,
                 onContinueButtonClick = {
+                    lessonProgressViewModel.incrementProgression()
+                    questionViewModel.getQuestionWithCheckResult()
+                        ?.let(lessonViewModel::processQuestionCheckResult)
                     navViewModel.navigateToNextQuestionOrResultsScreen(
                         navController = navController,
                         nextQuestionScreen = lessonViewModel.processToNextQuestion(),
@@ -207,18 +199,19 @@ fun NavGraphBuilder.lessonNavigationGraph(
             val lessonViewModel = backStack.sharedKoinNavViewModel<LessonViewModel>(navController)
             val questionViewModel = koinViewModel<QuestionAnswerPairsQuestionViewModel> {
                 parametersOf(
-                    lessonViewModel.getNextQuestionAs<QuestionAndAnswersWrapper.QuestionAnswerPairs>()
+                    lessonViewModel.getNextQuestionAs<QuestionWrapper.QuestionAnswerPairs>()
                 )
             }
 
             val questions by questionViewModel.questions.collectAsStateWithLifecycle()
             val answers by questionViewModel.answers.collectAsStateWithLifecycle()
+            val checkRequestState by questionViewModel.checkRequestState.collectAsStateWithLifecycle()
             val continueButtonEnabled by questionViewModel.continueButtonEnabled.collectAsStateWithLifecycle()
 
             QuestionAnswerPairsQuestionScreen(
                 screenPadding = screenPadding,
                 questions = questions,
-                questionMaterials = questionViewModel.questionMaterials,
+                questionMaterials = questionViewModel.materials,
                 answers = answers,
                 onQuestionSelect = { id ->
                     questionViewModel.onQuestionSelect(id)
@@ -226,8 +219,12 @@ fun NavGraphBuilder.lessonNavigationGraph(
                 onAnswerSelect = {id ->
                     questionViewModel.onAnswerSelect(id)
                 },
+                checkRequestState = checkRequestState,
                 continueButtonEnabled = continueButtonEnabled,
                 onContinueButtonClick = {
+                    lessonProgressViewModel.incrementProgression()
+                    questionViewModel.getQuestionWithCheckResult()
+                        ?.let(lessonViewModel::processQuestionCheckResult)
                     navViewModel.navigateToNextQuestionOrResultsScreen(
                         navController = navController,
                         nextQuestionScreen = lessonViewModel.processToNextQuestion(),

@@ -1,14 +1,20 @@
 package cz.cvut.docta.lessonSession.presentation.component.field.answer
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.focus.FocusRequester
@@ -28,62 +34,105 @@ import cz.cvut.docta.core.presentation.component.container.GlassSurface
 import cz.cvut.docta.core.presentation.component.field.TextSelectionColorsProviderWrapper
 import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.core.presentation.theme.Manrope
+import cz.cvut.docta.lessonSession.domain.model.answer.AnswerCheckResult
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun OpenAnswerTextField(
     text: String,
     onValueChange: (String) -> Unit,
+    checkResult: AnswerCheckResult.Open?,
+    readOnly: Boolean,
     focusManager: FocusManager = LocalFocusManager.current,
     focusRequester: FocusRequester? = null,
     onFocusChange: (FocusState) -> Unit = {}
 ) {
+    val scrollState = rememberScrollState()
+
+    val textColor by animateColorAsState(
+        targetValue = when {
+            checkResult == null -> DoctaColors.onSurface
+            checkResult.isCorrect -> DoctaColors.successGlass
+            else -> DoctaColors.errorGlass
+        }
+    )
+
     GlassSurface(
         filledWidths = FilledWidthByScreenType(.86f)
     ) {
         TextSelectionColorsProviderWrapper {
-            TextField(
-                value = text,
-                onValueChange = onValueChange,
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Done
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.clearFocus()
-                    }
-                ),
-                textStyle = TextStyle(
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Medium,
-                    fontFamily = Manrope
-                ),
-                colors = TextFieldDefaults.textFieldColors(
-                    textColor = DoctaColors.onSurface,
-                    cursorColor = DoctaColors.primary,
-                    backgroundColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent,
-                    focusedIndicatorColor = Color.Transparent,
-                ),
-                placeholder = {
-                    Text(
-                        text = stringResource(SharedRes.strings.type_your_answer_here),
-                        fontSize = 17.sp,
-                        color = DoctaColors.outline,
-                        fontWeight = FontWeight.Medium,
-                        fontFamily = Manrope
-                    )
-                },
+            Column(
                 modifier = Modifier
-                    .run {
-                        focusRequester?.let {
-                            focusRequester(it).onFocusChanged(onFocusChange)
-                        } ?: this
-                    }
+                    .verticalScroll(scrollState)
                     .fillMaxWidth()
                     .height(280.dp)
                     .padding(horizontal = 8.dp, vertical = 4.dp)
-            )
+            ) {
+
+                TextField(
+                    value = text,
+                    onValueChange = onValueChange,
+                    readOnly = readOnly,
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Done
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onDone = {
+                            focusManager.clearFocus()
+                        }
+                    ),
+                    textStyle = TextStyle(
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Medium,
+                        fontFamily = Manrope
+                    ),
+                    colors = TextFieldDefaults.textFieldColors(
+                        textColor = textColor,
+                        cursorColor = DoctaColors.primary,
+                        backgroundColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent,
+                        focusedIndicatorColor = Color.Transparent,
+                        disabledIndicatorColor = Color.Transparent,
+                        errorIndicatorColor = Color.Transparent
+                    ),
+                    placeholder = {
+                        Text(
+                            text = stringResource(SharedRes.strings.type_your_answer_here),
+                            fontSize = 17.sp,
+                            color = DoctaColors.outline,
+                            fontWeight = FontWeight.Medium,
+                            fontFamily = Manrope
+                        )
+                    },
+                    modifier = Modifier
+                        .run {
+                            focusRequester?.let {
+                                focusRequester(it).onFocusChanged(onFocusChange)
+                            } ?: this
+                        }
+                        .fillMaxWidth()
+                        .weight(1f, fill = false)
+                )
+
+                AnimatedContent(
+                    targetState = checkResult?.takeIfIncorrect(),
+                    modifier = Modifier.fillMaxWidth()
+                ) { result ->
+                    result?.let {
+                        Text(
+                            text = result.answer,
+                            color = DoctaColors.successGlass,
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Medium,
+                            fontFamily = Manrope,
+                            modifier = Modifier
+                                .weight(1f, fill = false)
+                                .padding(horizontal = 16.dp, vertical = 16.dp)
+                        )
+                    }
+                }
+
+            }
         }
     }
 }

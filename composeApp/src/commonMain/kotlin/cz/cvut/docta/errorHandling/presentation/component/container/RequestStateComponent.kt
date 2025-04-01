@@ -29,7 +29,7 @@ fun BoxScope.RequestStateComponent(
                 )
             }
             is RequestState.Result -> {
-                ResultStateComponent(
+                ResultStateComponentWithButton(
                     resultState = state.resultState,
                     onSuccessClose = onSuccessClose,
                     onErrorClose = onErrorClose
@@ -61,7 +61,7 @@ fun ColumnScope.RequestStateComponent(
                 )
             }
             is RequestState.Result -> {
-                ResultStateComponent(
+                ResultStateComponentWithButton(
                     resultState = state.resultState,
                     onSuccessClose = onSuccessClose,
                     onErrorClose = onErrorClose

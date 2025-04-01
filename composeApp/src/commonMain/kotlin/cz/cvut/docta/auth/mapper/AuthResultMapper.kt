@@ -4,7 +4,7 @@ import cz.cvut.docta.SharedRes
 import cz.cvut.docta.errorHandling.domain.model.result.AuthError
 import cz.cvut.docta.errorHandling.domain.model.result.AuthSuccess
 import cz.cvut.docta.errorHandling.domain.model.result.Result
-import cz.cvut.docta.errorHandling.presentation.model.ResultState
+import cz.cvut.docta.errorHandling.presentation.model.ResultWithButtonState
 import dev.icerock.moko.resources.StringResource
 import docta.composeapp.generated.resources.Res
 import docta.composeapp.generated.resources.close_icon
@@ -13,7 +13,7 @@ import docta.composeapp.generated.resources.short_arrow_left_icon
 import org.jetbrains.compose.resources.DrawableResource
 
 
-fun Result<AuthSuccess, AuthError>.toResultState(): ResultState {
+fun Result<AuthSuccess, AuthError>.toResultState(): ResultWithButtonState {
     return when (this) {
         is Result.Success -> this.success.toResultState()
         is Result.Error -> this.error.toResultState()
@@ -21,8 +21,8 @@ fun Result<AuthSuccess, AuthError>.toResultState(): ResultState {
 }
 
 
-fun AuthSuccess.toResultState(): ResultState {
-    return ResultState(
+fun AuthSuccess.toResultState(): ResultWithButtonState {
+    return ResultWithButtonState(
         isSuccessful = true,
         titleRes = this.asTitleRes(),
         messageRes = this.asMessageRes(),
@@ -31,8 +31,8 @@ fun AuthSuccess.toResultState(): ResultState {
     )
 }
 
-fun AuthError.toResultState(): ResultState {
-    return ResultState(
+fun AuthError.toResultState(): ResultWithButtonState {
+    return ResultWithButtonState(
         isSuccessful = false,
         titleRes = this.asTitleRes(),
         messageRes = this.asMessageRes(),

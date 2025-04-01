@@ -9,11 +9,7 @@ import docta.composeapp.generated.resources.error_large_icon
 import docta.composeapp.generated.resources.success_large_icon
 
 @Composable
-fun ResultStateComponent(
-    resultState: ResultState,
-    onSuccessClose: () -> Unit,
-    onErrorClose: () -> Unit
-) {
+fun ResultStateComponent(resultState: ResultState) {
     val iconRes = if (resultState.isSuccessful)
         Res.drawable.success_large_icon else Res.drawable.error_large_icon
     val iconDescription = if (resultState.isSuccessful) "Success icon" else "Error icon"
@@ -25,12 +21,6 @@ fun ResultStateComponent(
         iconDescription = iconDescription,
         iconGradient = iconGradient,
         title = stringResource(resultState.titleRes),
-        message = resultState.messageRes?.let { stringResource(it) },
-        buttonText = stringResource(resultState.buttonTextRes),
-        buttonIconRes = resultState.buttonIconRes,
-        usePrimaryButtonInstead = resultState.isSuccessful,
-        onButtonClick = {
-            if (resultState.isSuccessful) onSuccessClose() else onErrorClose()
-        }
+        message = resultState.messageRes?.let { stringResource(it) }
     )
 }

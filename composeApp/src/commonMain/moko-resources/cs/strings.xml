@@ -50,6 +50,7 @@
     <string name="email">E-mail</string>
     <string name="password">Heslo</string>
     <string name="confirm_password">Potvrzení hesla</string>
+    <string name="select_category">Vyberte kategorii</string>
 
     <!-- Field placeholders -->
     <string name="course_search_placeholder">Kód kurzu (např. „nss“)…</string>
@@ -107,6 +108,7 @@
     <string name="loading_sections">Načítání sekcí…</string>
     <string name="loading_lessons">Načítání cvičení…</string>
     <string name="saving_loader">Ukládáni…</string>
+    <string name="checking_loader">Kontrola…</string>
     <string name="verifying_your_credentials_loader">Ověřování vašich přihlašovacích údajů…</string>
     <string name="creating_your_identity_loader">Vytváření vaší identity…</string>
     <string name="checking_email_verification_loader">Kontrola e-mailového ověření…</string>
@@ -126,6 +128,7 @@
     <string name="email_verification_error">Ověření e-mailu se nezdařilo.</string>
     <string name="sign_in_error">Chyba během přihlášení.</string>
     <string name="sign_up_error">Chyba během registrace.</string>
+    <string name="answer_check_error">Při kontrole vaší odpovědi došlo k chybě.</string>
 
     <!-- Other -->
     <string name="section_still_under_development">Tato sekce je stále ve vývoji.</string>

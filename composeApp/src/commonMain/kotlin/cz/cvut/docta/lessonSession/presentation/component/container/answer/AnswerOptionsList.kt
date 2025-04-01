@@ -11,36 +11,65 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import cz.cvut.docta.lessonSession.presentation.model.answer.AnswerOptionUiState
 import cz.cvut.docta.core.presentation.component.container.GlassSurfaceWithAdaptiveColor
 import cz.cvut.docta.core.presentation.modifier.bounceClickEffect
 import cz.cvut.docta.core.presentation.theme.DoctaColors
+import cz.cvut.docta.lessonSession.domain.model.answer.AnswerCheckResult
+import cz.cvut.docta.lessonSession.presentation.model.answer.AnswerCheckState
+import cz.cvut.docta.lessonSession.presentation.model.answer.AnswerOptionUiState
 
 @Composable
-fun AnswerOptionsList(
+fun AnswerOptionsListComponent(
     options: List<AnswerOptionUiState>,
     onOptionSelect: (Long) -> Unit,
+    checkState: AnswerCheckState<AnswerCheckResult.SingleOption>
 ) {
+    val isIdle = checkState is AnswerCheckState.Idle
+    val result = checkState.getResultOrNull()
+
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(items = options) { option ->
-            GlassSurfaceWithAdaptiveColor(
-                gradientColorsPair = if (option.isSelected) DoctaColors.primaryGlassGradientPair else
-                    DoctaColors.glassSurfaceGradientPair,
-                cornerSize = 16.dp,
-                modifier = Modifier.bounceClickEffect(.98f) { onOptionSelect(option.id) }
-            ) {
-                Text(
-                    text = option.text,
-                    fontSize = 18.sp,
-                    color = DoctaColors.onSurface,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 24.dp, vertical = 12.dp)
-                )
-            }
+            AnswerOptionComponent(
+                option = option,
+                onOptionSelect = onOptionSelect,
+                isIdle = isIdle,
+                result = result
+            )
         }
+    }
+}
+
+@Composable
+private fun AnswerOptionComponent(
+    option: AnswerOptionUiState,
+    onOptionSelect: (Long) -> Unit,
+    isIdle: Boolean,
+    result: AnswerCheckResult.SingleOption?
+) {
+    val color = when {
+        result == null && option.isSelected -> DoctaColors.primaryGlassGradientPair
+        result != null && result.id == option.id -> DoctaColors.successGlassGradientPair
+        result != null && !result.isCorrect && option.isSelected -> DoctaColors.errorGlassGradientPair
+        else -> DoctaColors.glassSurfaceGradientPair
+    }
+
+    GlassSurfaceWithAdaptiveColor(
+        gradientColorsPair = color,
+        cornerSize = 16.dp,
+        modifier = Modifier.bounceClickEffect(.98f, enabled = isIdle) {
+            onOptionSelect(option.id)
+        }
+    ) {
+        Text(
+            text = option.text,
+            fontSize = 18.sp,
+            color = DoctaColors.onSurface,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp, vertical = 12.dp)
+        )
     }
 }

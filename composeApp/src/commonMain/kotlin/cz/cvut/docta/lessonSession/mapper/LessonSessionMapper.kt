@@ -1,16 +1,20 @@
 package cz.cvut.docta.lessonSession.mapper
 
 import cz.cvut.docta.lesson.domain.model.LessonWithProgress
+import cz.cvut.docta.lessonSession.data.model.AnswerCheckResultDto
+import cz.cvut.docta.lessonSession.data.model.AnswerInputDto
 import cz.cvut.docta.lessonSession.data.model.AnswerTextDto
 import cz.cvut.docta.lessonSession.data.model.CorrectAnswerDto
 import cz.cvut.docta.lessonSession.data.model.QuestionDifficultyDto
 import cz.cvut.docta.lessonSession.data.model.QuestionDto
-import cz.cvut.docta.lessonSession.data.model.QuestionWrapperDto
 import cz.cvut.docta.lessonSession.data.model.QuestionMaterialDto
+import cz.cvut.docta.lessonSession.data.model.QuestionWrapperDto
 import cz.cvut.docta.lessonSession.data.model.SessionOptionsDto
 import cz.cvut.docta.lessonSession.domain.model.QuestionMaterials
 import cz.cvut.docta.lessonSession.domain.model.QuestionWithCorrectAnswers
 import cz.cvut.docta.lessonSession.domain.model.SessionOptions
+import cz.cvut.docta.lessonSession.domain.model.answer.AnswerCheckResult
+import cz.cvut.docta.lessonSession.domain.model.answer.AnswerInput
 import cz.cvut.docta.lessonSession.domain.model.answer.AnswerText
 import cz.cvut.docta.lessonSession.domain.model.answer.CorrectAnswer
 import cz.cvut.docta.lessonSession.domain.model.question.Question
@@ -160,4 +164,55 @@ fun QuestionMaterials.toDto(): QuestionMaterialDto {
         text = text,
         questionIds = questionIds
     )
+}
+
+
+fun AnswerInput.toDto(): AnswerInputDto {
+    return when (this) {
+        is AnswerInput.Open -> AnswerInputDto.Open(
+            questionId = questionId,
+            answer = answer
+        )
+        is AnswerInput.Blanks -> AnswerInputDto.Blanks(
+            questionId = questionId,
+            answers = answers
+        )
+        is AnswerInput.SingleOption -> AnswerInputDto.SingleOption(
+            questionId = questionId,
+            id = id
+        )
+        is AnswerInput.CategorizedOptions -> AnswerInputDto.CategorizedOptions(
+            questionId = questionId,
+            optionsCategoryToMap = optionToCategoryMap
+        )
+        is AnswerInput.QuestionAnswerPairs -> AnswerInputDto.QuestionAnswerPairs(
+            questionId = questionId,
+            hadErrors = hadErrors
+        )
+    }
+}
+
+
+fun AnswerCheckResultDto.toDomainModel(): AnswerCheckResult {
+    return when (this) {
+        is AnswerCheckResultDto.Open -> AnswerCheckResult.Open(
+            isCorrect = isCorrect,
+            answer = answer
+        )
+        is AnswerCheckResultDto.Blanks -> AnswerCheckResult.Blanks(
+            isCorrect = isCorrect,
+            answers = answers
+        )
+        is AnswerCheckResultDto.SingleOption -> AnswerCheckResult.SingleOption(
+            isCorrect = isCorrect,
+            id = id
+        )
+        is AnswerCheckResultDto.CategorizedOptions -> AnswerCheckResult.CategorizedOptions(
+            isCorrect = isCorrect,
+            optionToCategory = optionToCategory
+        )
+        is AnswerCheckResultDto.QuestionAnswerPairs -> AnswerCheckResult.QuestionAnswerPairs(
+            isCorrect = isCorrect
+        )
+    }
 }

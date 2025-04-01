@@ -6,35 +6,28 @@ import cz.cvut.docta.lesson.presentation.utils.getLessonScreenToNavigateTo
 import cz.cvut.docta.lessonSession.domain.model.QuestionWithCheckResult
 import cz.cvut.docta.lessonSession.domain.model.SessionOptions
 import cz.cvut.docta.lessonSession.domain.usecase.GetLessonQuestionsWithAnswersUseCase
-import cz.cvut.docta.lessonSession.presentation.model.QuestionAndAnswersWrapper
+import cz.cvut.docta.lessonSession.presentation.model.QuestionWrapper
 
 class LessonViewModel(
     private val getLessonQuestionsWithAnswersUseCase: GetLessonQuestionsWithAnswersUseCase
-    // TODO-STATISTICS: add statistics use case
 ) : ViewModel() {
 
-    /*
-    TODO-STATISTICS: create private statistics state, then save this to data layer when lesson
-     is finished
-    */
+    private val questions = mutableListOf<QuestionWrapper>()
 
-
-    private val questions = mutableListOf<QuestionAndAnswersWrapper>()
-
-    private fun setQuestions(questions: List<QuestionAndAnswersWrapper>) {
+    private fun setQuestions(questions: List<QuestionWrapper>) {
         this.questions.clear()
         this.questions.addAll(questions)
     }
 
-    fun getNextQuestionOrNull(): QuestionAndAnswersWrapper? {
+    fun getNextQuestionOrNull(): QuestionWrapper? {
         return questions.getOrNull(0)
     }
 
-    fun getNextQuestion(): QuestionAndAnswersWrapper {
+    fun getNextQuestion(): QuestionWrapper {
         return questions[0]
     }
 
-    inline fun <reified T : QuestionAndAnswersWrapper> getNextQuestionAs(): T {
+    inline fun <reified T : QuestionWrapper> getNextQuestionAs(): T {
         return getNextQuestion() as T
     }
 
@@ -44,16 +37,15 @@ class LessonViewModel(
     }
 
 
-    private val wrongAnsweredQuestions = mutableListOf<QuestionAndAnswersWrapper>()
+    private val wrongAnsweredQuestions = mutableListOf<QuestionWrapper>()
 
-    private fun addWrongAnsweredQuestion(question: QuestionAndAnswersWrapper) {
+    private fun addWrongAnsweredQuestion(question: QuestionWrapper) {
         wrongAnsweredQuestions.add(question)
     }
 
 
-    // TODO-STATISTICS: update statistics state here in view model
     fun processQuestionCheckResult(questionWithCheckResult: QuestionWithCheckResult) {
-        if (!questionWithCheckResult.result.isCorrect) {
+        if (!questionWithCheckResult.isCorrect) {
             addWrongAnsweredQuestion(questionWithCheckResult.question)
         }
     }
@@ -62,7 +54,7 @@ class LessonViewModel(
     suspend fun fetchQuestions(sessionOptions: SessionOptions): Int {
         val questions = getLessonQuestionsWithAnswersUseCase
             .execute(sessionOptions = sessionOptions)
-            .map { QuestionAndAnswersWrapper.fromQuestion(it) }
+            .map { QuestionWrapper.fromQuestion(it) }
 
         setQuestions(questions = questions)
         return questions.size

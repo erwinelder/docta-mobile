@@ -2,15 +2,15 @@ package cz.cvut.docta.lessonSession.presentation.model.answer
 
 import cz.cvut.docta.lessonSession.domain.model.answer.AnswerText
 
-sealed class AnswerInput {
+sealed class AnswerInputState {
 
     data class Open(
         val answer: String
-    ) : AnswerInput()
+    ) : AnswerInputState()
 
     data class Blanks(
         val answers: Map<Int, String>
-    ) : AnswerInput() {
+    ) : AnswerInputState() {
 
         companion object {
 
@@ -24,19 +24,19 @@ sealed class AnswerInput {
 
     }
 
-    data class Option(
+    data class SingleOption(
         val id: Long?
-    ) : AnswerInput()
+    ) : AnswerInputState()
 
     data class CategorizedOptions(
-        val optionsCategoryToMap: Map<Long, Long?>
-    ) : AnswerInput() {
+        val optionToCategoryMap: Map<Long, Long?>
+    ) : AnswerInputState() {
 
         companion object{
 
             fun fromOptions(options: List<AnswerText>): CategorizedOptions {
                 return CategorizedOptions(
-                    optionsCategoryToMap = options.map { it.id }.associateWith { null }
+                    optionToCategoryMap = options.map { it.id }.associateWith { null }
                 )
             }
 
@@ -47,7 +47,7 @@ sealed class AnswerInput {
     data class QuestionAnswerPair(
         val questions: List<QuestionAnswerPairItemUiState>,
         val answers: List<QuestionAnswerPairItemUiState>
-    ) : AnswerInput() {
+    ) : AnswerInputState() {
 
         companion object {
 

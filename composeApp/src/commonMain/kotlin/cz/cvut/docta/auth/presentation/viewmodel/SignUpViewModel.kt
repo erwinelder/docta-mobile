@@ -12,7 +12,7 @@ import cz.cvut.docta.errorHandling.domain.model.result.AuthSuccess
 import cz.cvut.docta.errorHandling.domain.model.result.Result
 import cz.cvut.docta.errorHandling.mapper.toUiStates
 import cz.cvut.docta.errorHandling.presentation.model.RequestState
-import cz.cvut.docta.errorHandling.presentation.model.ResultState
+import cz.cvut.docta.errorHandling.presentation.model.ResultWithButtonState
 import cz.cvut.docta.errorHandling.presentation.model.ValidatedFieldUiState
 import dev.icerock.moko.resources.StringResource
 import kotlinx.coroutines.Job
@@ -177,7 +177,7 @@ class SignUpViewModel(
         }
     }
 
-    private fun setRequestResultState(result: ResultState) {
+    private fun setRequestResultState(result: ResultWithButtonState) {
         _requestState.update { RequestState.Result(resultState = result) }
     }
 

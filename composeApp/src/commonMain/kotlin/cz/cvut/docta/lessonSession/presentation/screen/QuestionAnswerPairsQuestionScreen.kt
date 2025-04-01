@@ -8,12 +8,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.SharedRes
-import cz.cvut.docta.lessonSession.presentation.component.container.answer.QuestionAnswerPairsColumn
-import cz.cvut.docta.lessonSession.presentation.model.answer.QuestionAnswerPairItemUiState
 import cz.cvut.docta.core.domain.app.FilledWidthByScreenType
 import cz.cvut.docta.core.presentation.theme.CurrWindowType
+import cz.cvut.docta.lessonSession.domain.model.Materials
+import cz.cvut.docta.lessonSession.domain.model.answer.AnswerCheckResult
+import cz.cvut.docta.lessonSession.presentation.component.container.answer.QuestionAnswerPairsColumn
 import cz.cvut.docta.lessonSession.presentation.component.screenContainer.QuestionScreenContainer
-import cz.cvut.docta.lessonSession.presentation.model.question.Materials
+import cz.cvut.docta.lessonSession.presentation.model.answer.AnswerCheckRequestState
+import cz.cvut.docta.lessonSession.presentation.model.answer.QuestionAnswerPairItemUiState
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
@@ -24,6 +26,7 @@ fun QuestionAnswerPairsQuestionScreen(
     answers: List<QuestionAnswerPairItemUiState>,
     onQuestionSelect: (Long) -> Unit,
     onAnswerSelect: (Long) -> Unit,
+    checkRequestState: AnswerCheckRequestState<AnswerCheckResult.QuestionAnswerPairs>,
     continueButtonEnabled: Boolean,
     onContinueButtonClick: () -> Unit
 ) {
@@ -32,7 +35,7 @@ fun QuestionAnswerPairsQuestionScreen(
         questionInstructions = stringResource(SharedRes.strings.question_answer_pairs_question_instructions),
         questionMaterials = questionMaterials,
         buttonIsEnabled = continueButtonEnabled,
-        showCheckButton = false,
+        checkRequestState = checkRequestState,
         onContinueButtonClick = onContinueButtonClick
     ) {
         Row(

@@ -51,7 +51,9 @@ fun SmallTextField(
     text: String,
     onValueChange: (String) -> Unit,
     placeholderText: String = "",
+    textColor: Color = DoctaColors.onSurface,
     fontSize: TextUnit = 20.sp,
+    fontWeight: FontWeight = FontWeight.W400,
     padding: PaddingValues = PaddingValues(horizontal = 12.dp, vertical = 6.dp),
     cornerSize: Dp = 15.dp,
     keyboardType: KeyboardType = KeyboardType.Text,
@@ -106,9 +108,9 @@ fun SmallTextField(
                 visualTransformation = visualTransformation,
                 singleLine = true,
                 textStyle = TextStyle(
-                    color = DoctaColors.onSurface,
+                    color = textColor,
                     fontSize = fontSize,
-                    fontWeight = FontWeight.Normal,
+                    fontWeight = fontWeight,
                     fontFamily = Manrope,
                     textAlign = TextAlign.Center
                 ),

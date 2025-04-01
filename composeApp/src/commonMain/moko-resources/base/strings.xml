@@ -50,6 +50,7 @@
     <string name="email">E-mail</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm password</string>
+    <string name="select_category">Select category</string>
 
     <!-- Field placeholders -->
     <string name="course_search_placeholder">Course code (e.g. "nss")…</string>
@@ -107,6 +108,7 @@
     <string name="loading_sections">Loading sections…</string>
     <string name="loading_lessons">Loading lessons…</string>
     <string name="saving_loader">Saving…</string>
+    <string name="checking_loader">Checking…</string>
     <string name="verifying_your_credentials_loader">Verifying your credentials…</string>
     <string name="creating_your_identity_loader">Creating your identity…</string>
     <string name="checking_email_verification_loader">Checking email verification…</string>
@@ -126,6 +128,7 @@
     <string name="email_verification_error">Email verification failed.</string>
     <string name="sign_in_error">Error while signing in.</string>
     <string name="sign_up_error">Error while signing up.</string>
+    <string name="answer_check_error">An error occurred while checking your answer.</string>
 
     <!-- Other -->
     <string name="section_still_under_development">This section is still under development.</string>
