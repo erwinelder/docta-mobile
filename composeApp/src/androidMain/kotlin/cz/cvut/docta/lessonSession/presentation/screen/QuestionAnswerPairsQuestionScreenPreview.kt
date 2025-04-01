@@ -18,7 +18,7 @@ fun QuestionAnswerPairsQuestionScreenPreview(
     questions: List<QuestionAnswerPairItemUiState> = listOf(
         QuestionAnswerPairItemUiState(
             id = 1,
-            text = "question 1",
+            text = "question 1 question 1 question 1",
             isSelected = true,
             isCorrect = null,
             isDisabled = false

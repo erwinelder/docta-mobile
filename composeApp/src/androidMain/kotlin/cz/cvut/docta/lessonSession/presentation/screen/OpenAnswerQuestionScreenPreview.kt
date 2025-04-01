@@ -23,7 +23,7 @@ fun OpenAnswerQuestionScreenPreview(
     answerInput: String = "The capital of France is Berlin.",
     checkIsAllowed: Boolean = true
 ) {
-    var isChecked by remember { mutableStateOf(false) }
+    var isChecked by remember { mutableStateOf(true) }
 
     val checkStateIdle: AnswerCheckRequestState<AnswerCheckResult.Open> =
         AnswerCheckRequestState.Default(

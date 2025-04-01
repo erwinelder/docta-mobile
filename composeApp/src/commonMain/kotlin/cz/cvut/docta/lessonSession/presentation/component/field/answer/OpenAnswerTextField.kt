@@ -1,7 +1,10 @@
 package cz.cvut.docta.lessonSession.presentation.component.field.answer
 
-import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.slideInVertically
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -16,6 +19,7 @@ import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.FocusState
@@ -63,6 +67,7 @@ fun OpenAnswerTextField(
         TextSelectionColorsProviderWrapper {
             Column(
                 modifier = Modifier
+                    .clickable { focusManager.moveFocus(FocusDirection.Next) }
                     .verticalScroll(scrollState)
                     .fillMaxWidth()
                     .height(280.dp)
@@ -114,20 +119,21 @@ fun OpenAnswerTextField(
                         .weight(1f, fill = false)
                 )
 
-                AnimatedContent(
-                    targetState = checkResult?.takeIfIncorrect(),
+                AnimatedVisibility(
+                    visible = checkResult?.takeIfIncorrect() != null,
+                    enter = slideInVertically() + fadeIn(),
                     modifier = Modifier.fillMaxWidth()
-                ) { result ->
-                    result?.let {
+                ) {
+                    checkResult?.takeIfIncorrect()?.let {
                         Text(
-                            text = result.answer,
+                            text = it.answer,
                             color = DoctaColors.successGlass,
                             fontSize = 18.sp,
                             fontWeight = FontWeight.Medium,
                             fontFamily = Manrope,
                             modifier = Modifier
                                 .weight(1f, fill = false)
-                                .padding(horizontal = 16.dp, vertical = 16.dp)
+                                .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
                         )
                     }
                 }
