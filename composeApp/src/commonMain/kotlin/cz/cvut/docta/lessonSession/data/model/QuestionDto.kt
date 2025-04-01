@@ -32,13 +32,23 @@ sealed class QuestionDto {
     ) : QuestionDto()
 
     @Serializable
-    @SerialName("AnswerOptions")
-    data class AnswerOptions(
+    @SerialName("SingleOption")
+    data class SingleOption(
         override val courseCode: String,
         override val id: Long,
         override val difficulty: QuestionDifficultyDto,
         val text: String,
         val options: List<AnswerTextDto>
+    ) : QuestionDto()
+
+    @Serializable
+    @SerialName("Ordering")
+    data class Ordering(
+        override val courseCode: String,
+        override val id: Long,
+        override val difficulty: QuestionDifficultyDto,
+        val text: String,
+        val orderOptions: List<AnswerTextDto>
     ) : QuestionDto()
 
     @Serializable

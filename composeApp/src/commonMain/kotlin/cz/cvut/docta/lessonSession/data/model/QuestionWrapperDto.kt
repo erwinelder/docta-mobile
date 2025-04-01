@@ -14,31 +14,35 @@ sealed class QuestionWrapperDto {
     @SerialName("OpenAnswer")
     data class OpenAnswer(
         val question: QuestionDto.OpenAnswer,
-        val materials: List<QuestionMaterialDto>,
-        val answers: CorrectAnswerDto.OpenAnswers
+        val materials: List<MaterialsDto>
     ) : QuestionWrapperDto()
 
     @Serializable
     @SerialName("FillInBlanks")
     data class FillInBlanks(
         val question: QuestionDto.FillInBlanks,
-        val materials: List<QuestionMaterialDto>,
-        val blanksAnswers: CorrectAnswerDto.Blanks
+        val materials: List<MaterialsDto>
     ) : QuestionWrapperDto()
 
     @Serializable
-    @SerialName("AnswerOptions")
-    data class AnswerOptions(
-        val question: QuestionDto.AnswerOptions,
-        val materials: List<QuestionMaterialDto>,
-        val answer: CorrectAnswerDto.Option
+    @SerialName("SingleOption")
+    data class SingleOption(
+        val question: QuestionDto.SingleOption,
+        val materials: List<MaterialsDto>
+    ) : QuestionWrapperDto()
+
+    @Serializable
+    @SerialName("Ordering")
+    data class Ordering(
+        val question: QuestionDto.Ordering,
+        val materials: List<MaterialsDto>
     ) : QuestionWrapperDto()
 
     @Serializable
     @SerialName("QuestionAnswerPairs")
     data class QuestionAnswerPairs(
         val question: QuestionDto.QuestionAnswerPairs,
-        val materials: List<QuestionMaterialDto>
+        val materials: List<MaterialsDto>
     ) : QuestionWrapperDto()
 
 }

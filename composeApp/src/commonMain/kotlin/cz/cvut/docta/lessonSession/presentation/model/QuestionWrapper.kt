@@ -1,40 +1,40 @@
 package cz.cvut.docta.lessonSession.presentation.model
 
-import cz.cvut.docta.lessonSession.domain.model.answer.CorrectAnswer
-import cz.cvut.docta.lessonSession.presentation.model.answer.AnswerInputState
-import cz.cvut.docta.lessonSession.domain.model.question.Question
-import cz.cvut.docta.lessonSession.domain.model.QuestionWithCorrectAnswers
 import cz.cvut.docta.lessonSession.domain.model.Materials
-import kotlin.collections.List
+import cz.cvut.docta.lessonSession.domain.model.QuestionWithMaterials
+import cz.cvut.docta.lessonSession.domain.model.question.Question
+import cz.cvut.docta.lessonSession.presentation.model.answer.AnswerInputState
 
 sealed class QuestionWrapper {
 
     data class OpenAnswer(
         val question: Question.OpenAnswer,
         val materials: List<Materials>,
-        val correctAnswer: CorrectAnswer.OpenAnswers,
         val answerInput: AnswerInputState.Open
     ) : QuestionWrapper()
 
     data class FillInBlanks(
         val question: Question.FillInBlanks,
         val materials: List<Materials>,
-        val correctAnswer: CorrectAnswer.Blanks,
         val answerInput: AnswerInputState.Blanks
     ) : QuestionWrapper()
 
     data class AnswerOptions(
-        val question: Question.AnswerOptions,
+        val question: Question.SingleOption,
         val materials: List<Materials>,
-        val correctAnswer: CorrectAnswer.Option,
         val answerInput: AnswerInputState.SingleOption
     ) : QuestionWrapper()
 
     data class Categorization(
         val question: Question.Categorization,
         val materials: List<Materials>,
-        val correctAnswer: CorrectAnswer.CategorizedOptions,
         val answerInput: AnswerInputState.CategorizedOptions
+    ) : QuestionWrapper()
+
+    data class Ordering(
+        val question: Question.Ordering,
+        val materials: List<Materials>,
+        val answerInput: AnswerInputState.OrderedOptions
     ) : QuestionWrapper()
 
     data class QuestionAnswerPairs(
@@ -47,53 +47,46 @@ sealed class QuestionWrapper {
     companion object {
 
         fun fromQuestion(
-            questionWithCorrectAnswers: QuestionWithCorrectAnswers
+            questionWithMaterials: QuestionWithMaterials
         ): QuestionWrapper {
-            return when (questionWithCorrectAnswers) {
-                is QuestionWithCorrectAnswers.OpenAnswer -> OpenAnswer(
-                    question = questionWithCorrectAnswers.question,
-                    materials = questionWithCorrectAnswers.materials.map {
-                        Materials(id = it.id, text = it.text)
-                    },
-                    correctAnswer = questionWithCorrectAnswers.answers,
+            return when (questionWithMaterials) {
+                is QuestionWithMaterials.OpenAnswer -> OpenAnswer(
+                    question = questionWithMaterials.question,
+                    materials = questionWithMaterials.materials,
                     answerInput = AnswerInputState.Open(answer = "")
                 )
-                is QuestionWithCorrectAnswers.FillInBlanks -> FillInBlanks(
-                    question = questionWithCorrectAnswers.question,
-                    materials = questionWithCorrectAnswers.materials.map {
-                        Materials(id = it.id, text = it.text)
-                    },
-                    correctAnswer = questionWithCorrectAnswers.blanksAnswers,
-                    answerInput = AnswerInputState.Blanks.fromBlankNumbers(
-                        blanksNumbers = questionWithCorrectAnswers.blanksAnswers.getBlankNumbers()
+                is QuestionWithMaterials.FillInBlanks -> FillInBlanks(
+                    question = questionWithMaterials.question,
+                    materials = questionWithMaterials.materials,
+                    answerInput = AnswerInputState.Blanks.fromText(
+                        text = questionWithMaterials.question.text
                     )
                 )
-                is QuestionWithCorrectAnswers.AnswerOptions -> AnswerOptions(
-                    question = questionWithCorrectAnswers.question,
-                    materials = questionWithCorrectAnswers.materials.map {
-                        Materials(id = it.id, text = it.text)
-                    },
-                    correctAnswer = questionWithCorrectAnswers.answer,
+                is QuestionWithMaterials.SingleOption -> AnswerOptions(
+                    question = questionWithMaterials.question,
+                    materials = questionWithMaterials.materials,
                     answerInput = AnswerInputState.SingleOption(id = null)
                 )
-                is QuestionWithCorrectAnswers.Categorization -> Categorization(
-                    question = questionWithCorrectAnswers.question,
-                    materials = questionWithCorrectAnswers.materials.map {
-                        Materials(id = it.id, text = it.text)
-                    },
-                    correctAnswer = questionWithCorrectAnswers.categoriesOptions,
+                is QuestionWithMaterials.Categorization -> Categorization(
+                    question = questionWithMaterials.question,
+                    materials = questionWithMaterials.materials,
                     answerInput = AnswerInputState.CategorizedOptions.fromOptions(
-                        options = questionWithCorrectAnswers.question.options
+                        options = questionWithMaterials.question.options
                     )
                 )
-                is QuestionWithCorrectAnswers.QuestionAnswerPairs -> QuestionAnswerPairs(
-                    question = questionWithCorrectAnswers.question,
-                    materials = questionWithCorrectAnswers.materials.map {
-                        Materials(id = it.id, text = it.text)
-                    },
+                is QuestionWithMaterials.Ordering -> Ordering(
+                    question = questionWithMaterials.question,
+                    materials = questionWithMaterials.materials,
+                    answerInput = AnswerInputState.OrderedOptions.fromOptions(
+                        options = questionWithMaterials.question.orderOptions
+                    )
+                )
+                is QuestionWithMaterials.QuestionAnswerPairs -> QuestionAnswerPairs(
+                    question = questionWithMaterials.question,
+                    materials = questionWithMaterials.materials,
                     answerInput = AnswerInputState.QuestionAnswerPair.fromAnswerTextList(
-                        questions = questionWithCorrectAnswers.question.questionPairs,
-                        answers = questionWithCorrectAnswers.question.answerPairs
+                        questions = questionWithMaterials.question.questionPairs,
+                        answers = questionWithMaterials.question.answerPairs
                     )
                 )
             }

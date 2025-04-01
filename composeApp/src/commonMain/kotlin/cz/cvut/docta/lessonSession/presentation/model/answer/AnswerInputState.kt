@@ -14,10 +14,15 @@ sealed class AnswerInputState {
 
         companion object {
 
-            fun fromBlankNumbers(blanksNumbers: List<Int>): Blanks {
-                return Blanks(
-                    answers = blanksNumbers.associateWith { "" }
-                )
+            fun fromText(text: String): Blanks {
+                val blankCount = text.split("___").size - 1
+                if (blankCount <= 0) {
+                    return Blanks(answers = emptyMap())
+                }
+
+                val blanks = (1..blankCount).toList().associateWith { "" }
+
+                return Blanks(answers = blanks)
             }
 
         }
@@ -37,6 +42,26 @@ sealed class AnswerInputState {
             fun fromOptions(options: List<AnswerText>): CategorizedOptions {
                 return CategorizedOptions(
                     optionToCategoryMap = options.map { it.id }.associateWith { null }
+                )
+            }
+
+        }
+
+    }
+
+    data class OrderedOptions(
+        val optionToOrderNumMap: Map<Long, Int>
+    ) : AnswerInputState() {
+
+        companion object{
+
+            fun fromOptions(options: List<AnswerText>): OrderedOptions {
+                return OrderedOptions(
+                    optionToOrderNumMap = options
+                        .mapIndexed { index, answerText ->
+                            answerText.id to index
+                        }
+                        .toMap()
                 )
             }
 

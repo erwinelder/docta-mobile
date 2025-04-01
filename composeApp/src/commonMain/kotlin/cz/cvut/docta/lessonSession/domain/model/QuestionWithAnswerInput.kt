@@ -19,7 +19,7 @@ sealed class QuestionWithAnswerInput(
     ) : QuestionWithAnswerInput(question, answerInput)
 
     data class AnswerOptions(
-        override val question: Question.AnswerOptions,
+        override val question: Question.SingleOption,
         override val answerInput: AnswerInputState.SingleOption
     ) : QuestionWithAnswerInput(question, answerInput)
 

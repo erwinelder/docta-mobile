@@ -27,7 +27,7 @@ class LessonSessionRepositoryImpl(
     ): List<QuestionWrapperDto> {
         return try {
             val response = httpClient.post(
-                urlString = "$doctaBackendUrl/lesson-session/generation"
+                urlString = "$doctaBackendUrl/lesson-session/generate"
             ) {
                 header("Authorization", "Bearer ${userContext.getAuthToken()}")
                 contentType(ContentType.Application.Json)

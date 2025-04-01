@@ -4,19 +4,17 @@ import cz.cvut.docta.lesson.domain.model.LessonWithProgress
 import cz.cvut.docta.lessonSession.data.model.AnswerCheckResultDto
 import cz.cvut.docta.lessonSession.data.model.AnswerInputDto
 import cz.cvut.docta.lessonSession.data.model.AnswerTextDto
-import cz.cvut.docta.lessonSession.data.model.CorrectAnswerDto
+import cz.cvut.docta.lessonSession.data.model.MaterialsDto
 import cz.cvut.docta.lessonSession.data.model.QuestionDifficultyDto
 import cz.cvut.docta.lessonSession.data.model.QuestionDto
-import cz.cvut.docta.lessonSession.data.model.QuestionMaterialDto
 import cz.cvut.docta.lessonSession.data.model.QuestionWrapperDto
 import cz.cvut.docta.lessonSession.data.model.SessionOptionsDto
-import cz.cvut.docta.lessonSession.domain.model.QuestionMaterials
-import cz.cvut.docta.lessonSession.domain.model.QuestionWithCorrectAnswers
+import cz.cvut.docta.lessonSession.domain.model.Materials
+import cz.cvut.docta.lessonSession.domain.model.QuestionWithMaterials
 import cz.cvut.docta.lessonSession.domain.model.SessionOptions
 import cz.cvut.docta.lessonSession.domain.model.answer.AnswerCheckResult
 import cz.cvut.docta.lessonSession.domain.model.answer.AnswerInput
 import cz.cvut.docta.lessonSession.domain.model.answer.AnswerText
-import cz.cvut.docta.lessonSession.domain.model.answer.CorrectAnswer
 import cz.cvut.docta.lessonSession.domain.model.question.Question
 import cz.cvut.docta.lessonSession.domain.model.question.QuestionDifficulty
 
@@ -59,37 +57,28 @@ fun QuestionDifficulty.toDto(): QuestionDifficultyDto {
 }
 
 
-fun QuestionWrapperDto.toDomainModel(): QuestionWithCorrectAnswers {
+fun QuestionWrapperDto.toDomainModel(): QuestionWithMaterials {
     return when (this) {
-        is QuestionWrapperDto.OpenAnswer -> QuestionWithCorrectAnswers.OpenAnswer(
-            question = this.question.toDomainModel(),
-            materials = this.materials.map { it.toDomainModel() },
-            answers = this.answers.toDomainModel()
-        )
-        is QuestionWrapperDto.FillInBlanks -> QuestionWithCorrectAnswers.FillInBlanks(
-            question = this.question.toDomainModel(),
-            materials = this.materials.map { it.toDomainModel() },
-            blanksAnswers = this.blanksAnswers.toDomainModel()
-        )
-        is QuestionWrapperDto.AnswerOptions -> QuestionWithCorrectAnswers.AnswerOptions(
-            question = this.question.toDomainModel(),
-            materials = this.materials.map { it.toDomainModel() },
-            answer = this.answer.toDomainModel()
-        )
-        is QuestionWrapperDto.QuestionAnswerPairs -> QuestionWithCorrectAnswers.QuestionAnswerPairs(
+        is QuestionWrapperDto.OpenAnswer -> QuestionWithMaterials.OpenAnswer(
             question = this.question.toDomainModel(),
             materials = this.materials.map { it.toDomainModel() }
         )
-    }
-}
-
-
-fun QuestionDto.toDomainModel(): Question {
-    return when (this) {
-        is QuestionDto.OpenAnswer -> this.toDomainModel()
-        is QuestionDto.FillInBlanks -> this.toDomainModel()
-        is QuestionDto.AnswerOptions -> this.toDomainModel()
-        is QuestionDto.QuestionAnswerPairs -> this.toDomainModel()
+        is QuestionWrapperDto.FillInBlanks -> QuestionWithMaterials.FillInBlanks(
+            question = this.question.toDomainModel(),
+            materials = this.materials.map { it.toDomainModel() }
+        )
+        is QuestionWrapperDto.SingleOption -> QuestionWithMaterials.SingleOption(
+            question = this.question.toDomainModel(),
+            materials = this.materials.map { it.toDomainModel() }
+        )
+        is QuestionWrapperDto.Ordering -> QuestionWithMaterials.Ordering(
+            question = this.question.toDomainModel(),
+            materials = this.materials.map { it.toDomainModel() }
+        )
+        is QuestionWrapperDto.QuestionAnswerPairs -> QuestionWithMaterials.QuestionAnswerPairs(
+            question = this.question.toDomainModel(),
+            materials = this.materials.map { it.toDomainModel() }
+        )
     }
 }
 
@@ -101,12 +90,21 @@ fun QuestionDto.FillInBlanks.toDomainModel(): Question.FillInBlanks {
     return Question.FillInBlanks(id = id, difficulty = difficulty.toDomainModel(), text = text)
 }
 
-fun QuestionDto.AnswerOptions.toDomainModel(): Question.AnswerOptions {
-    return Question.AnswerOptions(
+fun QuestionDto.SingleOption.toDomainModel(): Question.SingleOption {
+    return Question.SingleOption(
         id = id,
         difficulty = difficulty.toDomainModel(),
         text = text,
         options = options.map { it.toDomainModel() }
+    )
+}
+
+fun QuestionDto.Ordering.toDomainModel(): Question.Ordering {
+    return Question.Ordering(
+        id = id,
+        difficulty = difficulty.toDomainModel(),
+        text = text,
+        orderOptions = orderOptions.map { it.toDomainModel() }
     )
 }
 
@@ -121,28 +119,6 @@ fun QuestionDto.QuestionAnswerPairs.toDomainModel(): Question.QuestionAnswerPair
 }
 
 
-fun CorrectAnswerDto.toDomainModel(): CorrectAnswer {
-    return when (this) {
-        is CorrectAnswerDto.OpenAnswers -> this.toDomainModel()
-        is CorrectAnswerDto.Blanks -> this.toDomainModel()
-        is CorrectAnswerDto.Option -> this.toDomainModel()
-    }
-}
-
-fun CorrectAnswerDto.OpenAnswers.toDomainModel(): CorrectAnswer.OpenAnswers {
-    return CorrectAnswer.OpenAnswers(questionId = questionId, answers = answers)
-}
-
-fun CorrectAnswerDto.Blanks.toDomainModel(): CorrectAnswer.Blanks {
-    return CorrectAnswer.Blanks(questionId = questionId, blanksAnswers = blanksAnswers)
-}
-
-fun CorrectAnswerDto.Option.toDomainModel(): CorrectAnswer.Option {
-    return CorrectAnswer.Option(questionId = questionId, id = id)
-}
-
-
-
 fun AnswerTextDto.toDomainModel(): AnswerText {
     return AnswerText(
         id = id,
@@ -150,19 +126,18 @@ fun AnswerTextDto.toDomainModel(): AnswerText {
     )
 }
 
-fun QuestionMaterialDto.toDomainModel(): QuestionMaterials {
-    return QuestionMaterials(
+
+fun MaterialsDto.toDomainModel(): Materials {
+    return Materials(
         id = id,
-        text = text,
-        questionIds = questionIds
+        text = text
     )
 }
 
-fun QuestionMaterials.toDto(): QuestionMaterialDto {
-    return QuestionMaterialDto(
+fun Materials.toDto(): MaterialsDto {
+    return MaterialsDto(
         id = id,
-        text = text,
-        questionIds = questionIds
+        text = text
     )
 }
 

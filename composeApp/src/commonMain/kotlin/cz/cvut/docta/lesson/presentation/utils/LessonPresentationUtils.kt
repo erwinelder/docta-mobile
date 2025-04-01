@@ -50,6 +50,7 @@ fun QuestionWrapper.getLessonScreenToNavigateTo(): LessonSessionScreens {
         is QuestionWrapper.FillInBlanks -> LessonSessionScreens.FillInBlanksQuestion
         is QuestionWrapper.AnswerOptions -> LessonSessionScreens.AnswerOptionsQuestion
         is QuestionWrapper.Categorization -> LessonSessionScreens.CategorizationQuestion
+        is QuestionWrapper.Ordering -> LessonSessionScreens.LessonResults // TODO-ORDERING-QUESTION
         is QuestionWrapper.QuestionAnswerPairs -> LessonSessionScreens.QuestionAnswerPairsQuestion
     }
 }
