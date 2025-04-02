@@ -29,7 +29,7 @@ fun AchievementComponent(
             icon = achievement.icon,
             iconDescription = achievement.title,
             percentage = achievement.percentage,
-            iconSize = 64.dp,
+            iconSize = 80.dp,
         )
         // Achievement title
         Text(
