@@ -12,6 +12,8 @@ class LessonProgressViewModel : ViewModel() {
     val progression = _progression.asStateFlow()
 
     fun setProgression(questionCount: Int) {
+        if (questionCount <= 0) return
+
         _progression.update {
             LessonProgression(questionCount = questionCount)
         }

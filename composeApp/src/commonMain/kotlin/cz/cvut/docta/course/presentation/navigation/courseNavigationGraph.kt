@@ -57,7 +57,6 @@ fun NavGraphBuilder.courseNavigationGraph(
                         navController = navController, screen = CourseScreens.AddNewCourse
                     )
                 },
-                onEditCourses = { /* TODO-COURSE */ },
                 courses = courses,
                 onCourseClick = { course ->
                     courseContext.setCourseCode(code = course.code)

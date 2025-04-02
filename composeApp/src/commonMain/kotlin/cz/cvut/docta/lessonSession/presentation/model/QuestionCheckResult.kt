@@ -1,6 +1,6 @@
 package cz.cvut.docta.lessonSession.presentation.model
 
-data class QuestionWithCheckResult(
+data class QuestionCheckResult(
     val question: QuestionWrapper,
     val isCorrect: Boolean
 )

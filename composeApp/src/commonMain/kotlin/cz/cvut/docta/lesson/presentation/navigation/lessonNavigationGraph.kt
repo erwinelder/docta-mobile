@@ -15,6 +15,7 @@ import cz.cvut.docta.core.presentation.viewmodel.NavViewModel
 import cz.cvut.docta.course.presentation.navigation.CourseScreens
 import cz.cvut.docta.lesson.domain.model.LessonResults
 import cz.cvut.docta.lesson.presentation.screen.LessonResultsScreen
+import cz.cvut.docta.lesson.presentation.screen.LessonStarterScreen
 import cz.cvut.docta.lesson.presentation.utils.getLessonScreenToNavigateTo
 import cz.cvut.docta.lesson.presentation.viewmodel.LessonProgressViewModel
 import cz.cvut.docta.lesson.presentation.viewmodel.LessonViewModel
@@ -47,22 +48,35 @@ fun NavGraphBuilder.lessonNavigationGraph(
             val courseContext = koinInject<CourseContext>()
             val sessionOptions = courseContext.getLesson()?.getSessionOptions() ?: run {
                 navViewModel.popBackStack(
-                    navController = navController, screen = CourseScreens.Lessons
+                    navController = navController,
+                    screen = CourseScreens.Lessons(sectionId = courseContext.getSectionId())
                 )
                 return@composable
             }
 
             val viewModel = backStack.sharedKoinNavViewModel<LessonViewModel>(navController)
-            LaunchedEffect(sessionOptions) {
-                val questionsCount = viewModel.fetchQuestions(sessionOptions = sessionOptions)
-                lessonProgressViewModel.setProgression(questionCount = questionsCount)
 
-                viewModel.getNextQuestionOrNull()?.getLessonScreenToNavigateTo()?.let { nextScreen ->
-                    navViewModel.navigate(navController, nextScreen)
+            val requestState by viewModel.requestState.collectAsStateWithLifecycle()
+
+            LaunchedEffect(sessionOptions) {
+                val questionCount = viewModel.fetchQuestions(sessionOptions = sessionOptions)
+                lessonProgressViewModel.setProgression(questionCount = questionCount)
+
+                viewModel.getNextQuestionOrNull()?.getLessonScreenToNavigateTo()?.let {
+                    navViewModel.navigate(navController = navController, screen = it)
                 }
             }
 
-
+            LessonStarterScreen(
+                screenPadding = screenPadding,
+                requestState = requestState,
+                onNavigateBack = {
+                    navViewModel.popBackStack(
+                        navController = navController,
+                        screen = CourseScreens.Lessons(sectionId = courseContext.getSectionId())
+                    )
+                }
+            )
         }
         composable<LessonSessionScreens.OpenAnswerQuestion> { backStack ->
             val lessonViewModel = backStack.sharedKoinNavViewModel<LessonViewModel>(navController)
@@ -86,9 +100,11 @@ fun NavGraphBuilder.lessonNavigationGraph(
                 checkRequestState = checkRequestState,
                 onCheckButtonClick = questionViewModel::checkAnswer,
                 onContinueButtonClick = {
-                    lessonProgressViewModel.incrementProgression()
                     questionViewModel.getQuestionWithCheckResult()
                         ?.let(lessonViewModel::processQuestionCheckResult)
+                        ?.let {
+                            if (it) lessonProgressViewModel.incrementProgression()
+                        }
                     navViewModel.navigateToNextQuestionOrResultsScreen(
                         navController = navController,
                         nextQuestionScreen = lessonViewModel.processToNextQuestion(),
@@ -119,9 +135,11 @@ fun NavGraphBuilder.lessonNavigationGraph(
                 checkRequestState = checkRequestState,
                 onCheckButtonClick = questionViewModel::checkAnswer,
                 onContinueButtonClick = {
-                    lessonProgressViewModel.incrementProgression()
                     questionViewModel.getQuestionWithCheckResult()
                         ?.let(lessonViewModel::processQuestionCheckResult)
+                        ?.let {
+                            if (it) lessonProgressViewModel.incrementProgression()
+                        }
                     navViewModel.navigateToNextQuestionOrResultsScreen(
                         navController = navController,
                         nextQuestionScreen = lessonViewModel.processToNextQuestion(),
@@ -152,9 +170,11 @@ fun NavGraphBuilder.lessonNavigationGraph(
                 checkRequestState = checkRequestState,
                 onCheckButtonClick = questionViewModel::checkAnswer,
                 onContinueButtonClick = {
-                    lessonProgressViewModel.incrementProgression()
                     questionViewModel.getQuestionWithCheckResult()
                         ?.let(lessonViewModel::processQuestionCheckResult)
+                        ?.let {
+                            if (it) lessonProgressViewModel.incrementProgression()
+                        }
                     navViewModel.navigateToNextQuestionOrResultsScreen(
                         navController = navController,
                         nextQuestionScreen = lessonViewModel.processToNextQuestion(),
@@ -187,9 +207,11 @@ fun NavGraphBuilder.lessonNavigationGraph(
                 checkRequestState = checkRequestState,
                 onCheckButtonClick = questionViewModel::checkAnswer,
                 onContinueButtonClick = {
-                    lessonProgressViewModel.incrementProgression()
                     questionViewModel.getQuestionWithCheckResult()
                         ?.let(lessonViewModel::processQuestionCheckResult)
+                        ?.let {
+                            if (it) lessonProgressViewModel.incrementProgression()
+                        }
                     navViewModel.navigateToNextQuestionOrResultsScreen(
                         navController = navController,
                         nextQuestionScreen = lessonViewModel.processToNextQuestion(),
@@ -219,15 +241,17 @@ fun NavGraphBuilder.lessonNavigationGraph(
                 onQuestionSelect = { id ->
                     questionViewModel.onQuestionSelect(id)
                 },
-                onAnswerSelect = {id ->
+                onAnswerSelect = { id ->
                     questionViewModel.onAnswerSelect(id)
                 },
                 checkRequestState = checkRequestState,
                 continueButtonEnabled = continueButtonEnabled,
                 onContinueButtonClick = {
-                    lessonProgressViewModel.incrementProgression()
                     questionViewModel.getQuestionWithCheckResult()
                         ?.let(lessonViewModel::processQuestionCheckResult)
+                        ?.let {
+                            if (it) lessonProgressViewModel.incrementProgression()
+                        }
                     navViewModel.navigateToNextQuestionOrResultsScreen(
                         navController = navController,
                         nextQuestionScreen = lessonViewModel.processToNextQuestion(),

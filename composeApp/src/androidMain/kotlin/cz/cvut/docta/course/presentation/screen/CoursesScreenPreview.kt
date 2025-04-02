@@ -39,7 +39,6 @@ fun CoursesScreenPreview(
         CoursesScreen(
             username = userName,
             onAddNewCourse = {},
-            onEditCourses = {},
             courses = courses,
 //            courses = emptyList(),
             onCourseClick = {},

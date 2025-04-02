@@ -21,7 +21,7 @@ import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun QuestionAnswerPairsQuestionScreen(
-    screenPadding: PaddingValues,
+    screenPadding: PaddingValues = PaddingValues(0.dp),
     questions: List<QuestionAnswerPairItemUiState>,
     questionMaterials: List<Materials>,
     answers: List<QuestionAnswerPairItemUiState>,

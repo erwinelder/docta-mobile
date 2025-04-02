@@ -33,7 +33,7 @@ import dev.icerock.moko.resources.compose.stringResource
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun FillInBlanksQuestionScreen(
-    screenPadding: PaddingValues,
+    screenPadding: PaddingValues = PaddingValues(0.dp),
     questionMaterials: List<Materials>,
     questionUnits: List<QuestionBlankUnit>,
     blanksAnswers: Map<Int, String>,

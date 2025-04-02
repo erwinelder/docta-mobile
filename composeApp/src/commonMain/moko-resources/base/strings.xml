@@ -107,6 +107,7 @@
     <string name="loading_courses">Loading courses…</string>
     <string name="loading_sections">Loading sections…</string>
     <string name="loading_lessons">Loading lessons…</string>
+    <string name="generating_lesson_session">Generating lesson session…</string>
     <string name="saving_loader">Saving…</string>
     <string name="checking_loader">Checking…</string>
     <string name="verifying_your_credentials_loader">Verifying your credentials…</string>
@@ -119,6 +120,7 @@
     <string name="all_set">All set!</string>
     <string name="oops">Oops!</string>
     <string name="email_sent">Email sent!</string>
+    <string name="empty_lesson_session">Empty lesson session</string>
 
     <!-- Error handling message -->
     <string name="wrong_credentials_error">Wrong credentials.</string>
@@ -129,6 +131,7 @@
     <string name="sign_in_error">Error while signing in.</string>
     <string name="sign_up_error">Error while signing up.</string>
     <string name="answer_check_error">An error occurred while checking your answer.</string>
+    <string name="empty_lesson_session_error">It looks like this lesson do not have any questions for now.</string>
 
     <!-- Other -->
     <string name="section_still_under_development">This section is still under development.</string>

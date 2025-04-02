@@ -34,14 +34,12 @@ import cz.cvut.docta.errorHandling.presentation.model.RequestState
 import dev.icerock.moko.resources.compose.stringResource
 import docta.composeapp.generated.resources.Res
 import docta.composeapp.generated.resources.add_icon
-import docta.composeapp.generated.resources.edit_icon
 
 @Composable
 fun CoursesScreen(
     screenPadding: PaddingValues = PaddingValues(0.dp),
     username: String,
     onAddNewCourse: () -> Unit,
-    onEditCourses: () -> Unit,
     courses: List<CourseWithProgress>,
     onCourseClick: (CourseWithProgress) -> Unit,
     requestState: RequestState?
@@ -55,7 +53,7 @@ fun CoursesScreen(
         verticalArrangement = Arrangement.spacedBy(48.dp)
     ) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+            verticalArrangement = Arrangement.spacedBy(24.dp),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
@@ -63,8 +61,7 @@ fun CoursesScreen(
             GreetingsMessage(username = username)
             ButtonsBlock(
                 isCoursesEmpty = isCoursesEmpty,
-                onAddNewCourse = onAddNewCourse,
-                onEditCourses = onEditCourses
+                onAddNewCourse = onAddNewCourse
             )
         }
         Box(
@@ -86,8 +83,7 @@ fun CoursesScreen(
 @Composable
 private fun ColumnScope.ButtonsBlock(
     isCoursesEmpty: Boolean,
-    onAddNewCourse: () -> Unit,
-    onEditCourses: () -> Unit
+    onAddNewCourse: () -> Unit
 ) {
     AnimatedContent(
         targetState = !isCoursesEmpty,
@@ -100,11 +96,6 @@ private fun ColumnScope.ButtonsBlock(
                     text = stringResource(SharedRes.strings.add_new_course),
                     iconRes = Res.drawable.add_icon,
                     onClick = onAddNewCourse
-                )
-                SmallSecondaryButton(
-                    text = stringResource(SharedRes.strings.edit_courses),
-                    iconRes = Res.drawable.edit_icon,
-                    onClick = onEditCourses
                 )
             }
         }

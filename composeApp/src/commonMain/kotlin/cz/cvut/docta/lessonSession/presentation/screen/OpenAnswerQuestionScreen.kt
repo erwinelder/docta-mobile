@@ -20,7 +20,7 @@ import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun OpenAnswerQuestionScreen(
-    screenPadding: PaddingValues,
+    screenPadding: PaddingValues = PaddingValues(0.dp),
     questionMaterials: List<Materials>,
     questionText: String,
     answerText: String,

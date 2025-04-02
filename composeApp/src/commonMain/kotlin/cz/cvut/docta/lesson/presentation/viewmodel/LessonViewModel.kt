@@ -1,12 +1,19 @@
 package cz.cvut.docta.lesson.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
+import cz.cvut.docta.SharedRes
+import cz.cvut.docta.errorHandling.domain.model.result.LessonSessionError
+import cz.cvut.docta.errorHandling.presentation.model.RequestState
 import cz.cvut.docta.lesson.presentation.navigation.LessonSessionScreens
 import cz.cvut.docta.lesson.presentation.utils.getLessonScreenToNavigateTo
-import cz.cvut.docta.lessonSession.presentation.model.QuestionWithCheckResult
 import cz.cvut.docta.lessonSession.domain.model.SessionOptions
 import cz.cvut.docta.lessonSession.domain.usecase.GetLessonQuestionsWithAnswersUseCase
+import cz.cvut.docta.lessonSession.mapper.toResultWithButtonState
+import cz.cvut.docta.lessonSession.presentation.model.QuestionCheckResult
 import cz.cvut.docta.lessonSession.presentation.model.QuestionWrapper
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 
 class LessonViewModel(
     private val getLessonQuestionsWithAnswersUseCase: GetLessonQuestionsWithAnswersUseCase
@@ -37,27 +44,49 @@ class LessonViewModel(
     }
 
 
-    private val wrongAnsweredQuestions = mutableListOf<QuestionWrapper>()
+    private val incorrectAnsweredQuestions = mutableListOf<QuestionWrapper>()
 
-    private fun addWrongAnsweredQuestion(question: QuestionWrapper) {
-        wrongAnsweredQuestions.add(question)
+    private fun addIncorrectAnsweredQuestion(question: QuestionWrapper) {
+        incorrectAnsweredQuestions.add(question)
     }
 
 
-    fun processQuestionCheckResult(questionWithCheckResult: QuestionWithCheckResult) {
-        if (!questionWithCheckResult.isCorrect) {
-            addWrongAnsweredQuestion(questionWithCheckResult.question)
+    fun processQuestionCheckResult(questionCheckResult: QuestionCheckResult): Boolean {
+        if (!questionCheckResult.isCorrect) {
+            addIncorrectAnsweredQuestion(questionCheckResult.question)
         }
+        return questionCheckResult.isCorrect
     }
 
 
     suspend fun fetchQuestions(sessionOptions: SessionOptions): Int {
+        setRequestLoadingState()
+
         val questions = getLessonQuestionsWithAnswersUseCase
             .execute(sessionOptions = sessionOptions)
             .map { QuestionWrapper.fromQuestion(it) }
 
-        setQuestions(questions = questions)
+        if (questions.isNotEmpty()) {
+            setQuestions(questions = questions)
+        } else {
+            _requestState.update {
+                RequestState.Result(
+                    resultState = LessonSessionError.LessonSessionIsEmpty.toResultWithButtonState()
+                )
+            }
+        }
+
         return questions.size
+    }
+
+
+    private val _requestState = MutableStateFlow<RequestState?>(null)
+    val requestState = _requestState.asStateFlow()
+
+    private fun setRequestLoadingState() {
+        _requestState.update {
+            RequestState.Loading(messageRes = SharedRes.strings.generating_lesson_session)
+        }
     }
 
 }
