@@ -19,8 +19,29 @@ fun AchievementsScreenPreview(
     appTheme: AppTheme = AppTheme.Light,
     achievements: List<AchievementUiState> = listOf(
         AchievementUiState(
-            percentage = 0.0f,
+            percentage = 100.0f,
             title = SharedRes.strings.achievement_first_step,
+            name = AchievementName.FirstStep,
+            icon = Res.drawable.achievement_placheholder_icon,
+            description = SharedRes.strings.achievement_description_first_step,
+        ),
+        AchievementUiState(
+            percentage = 10.0f,
+            title = SharedRes.strings.achievement_knowledge_is_power,
+            name = AchievementName.FirstStep,
+            icon = Res.drawable.achievement_placheholder_icon,
+            description = SharedRes.strings.achievement_description_first_step,
+        ),
+        AchievementUiState(
+            percentage = 30.0f,
+            title = SharedRes.strings.achievement_first_step,
+            name = AchievementName.FirstStep,
+            icon = Res.drawable.achievement_placheholder_icon,
+            description = SharedRes.strings.achievement_description_first_step,
+        ),
+        AchievementUiState(
+            percentage = 70.0f,
+            title = SharedRes.strings.achievement_iron_will,
             name = AchievementName.FirstStep,
             icon = Res.drawable.achievement_placheholder_icon,
             description = SharedRes.strings.achievement_description_first_step,
