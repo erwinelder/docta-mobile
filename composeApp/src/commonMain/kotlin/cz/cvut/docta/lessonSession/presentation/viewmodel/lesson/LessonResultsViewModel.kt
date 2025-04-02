@@ -32,7 +32,7 @@ class LessonResultsViewModel(
             when (result) {
                 is ResultData.Success -> {
                     _lessonStats.update {
-                        LessonStatsUiState.Companion.fromStats(stats = result.data)
+                        LessonStatsUiState.fromStats(stats = result.data)
                     }
                     resetRequestState()
                 }

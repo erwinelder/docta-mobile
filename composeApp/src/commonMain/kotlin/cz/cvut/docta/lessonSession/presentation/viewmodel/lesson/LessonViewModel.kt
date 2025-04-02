@@ -40,7 +40,15 @@ class LessonViewModel(
 
     fun processToNextQuestion(): LessonSessionScreens? {
         questions.removeAt(0)
-        return getNextQuestionOrNull()?.getLessonScreenToNavigateTo()
+        var nextQuestion = getNextQuestionOrNull()
+
+        if (nextQuestion == null) {
+            setQuestions(questions = incorrectAnsweredQuestions)
+            incorrectAnsweredQuestions.clear()
+            nextQuestion = getNextQuestionOrNull()
+        }
+
+        return nextQuestion?.getLessonScreenToNavigateTo()
     }
 
 

@@ -258,7 +258,6 @@ fun NavGraphBuilder.lessonSessionNavigationGraph(
                         nextQuestionScreen = lessonViewModel.processToNextQuestion(),
                         onResetLessonProgression = lessonProgressViewModel::resetProgression
                     )
-                    lessonProgressViewModel.incrementProgression()
                 }
             )
         }
