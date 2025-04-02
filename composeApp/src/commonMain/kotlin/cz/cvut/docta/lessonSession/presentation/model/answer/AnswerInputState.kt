@@ -2,21 +2,46 @@ package cz.cvut.docta.lessonSession.presentation.model.answer
 
 import cz.cvut.docta.lessonSession.domain.model.answer.AnswerText
 
-sealed class AnswerInput {
+sealed class AnswerInputState {
 
     data class Open(
         val answer: String
-    ) : AnswerInput()
+    ) : AnswerInputState()
 
     data class Blanks(
         val answers: Map<Int, String>
-    ) : AnswerInput() {
+    ) : AnswerInputState() {
 
         companion object {
 
-            fun fromBlankNumbers(blanksNumbers: List<Int>): Blanks {
-                return Blanks(
-                    answers = blanksNumbers.associateWith { "" }
+            fun fromText(text: String): Blanks {
+                val blankCount = text.split("___").size - 1
+                if (blankCount <= 0) {
+                    return Blanks(answers = emptyMap())
+                }
+
+                val blanks = (1..blankCount).toList().associateWith { "" }
+
+                return Blanks(answers = blanks)
+            }
+
+        }
+
+    }
+
+    data class SingleOption(
+        val id: Long?
+    ) : AnswerInputState()
+
+    data class CategorizedOptions(
+        val optionToCategoryMap: Map<Long, Long?>
+    ) : AnswerInputState() {
+
+        companion object{
+
+            fun fromOptions(options: List<AnswerText>): CategorizedOptions {
+                return CategorizedOptions(
+                    optionToCategoryMap = options.map { it.id }.associateWith { null }
                 )
             }
 
@@ -24,19 +49,19 @@ sealed class AnswerInput {
 
     }
 
-    data class Option(
-        val id: Long?
-    ) : AnswerInput()
-
-    data class CategorizedOptions(
-        val optionsCategoryToMap: Map<Long, Long?>
-    ) : AnswerInput() {
+    data class OrderedOptions(
+        val optionToOrderNumMap: Map<Long, Int>
+    ) : AnswerInputState() {
 
         companion object{
 
-            fun fromOptions(options: List<AnswerText>): CategorizedOptions {
-                return CategorizedOptions(
-                    optionsCategoryToMap = options.map { it.id }.associateWith { null }
+            fun fromOptions(options: List<AnswerText>): OrderedOptions {
+                return OrderedOptions(
+                    optionToOrderNumMap = options
+                        .mapIndexed { index, answerText ->
+                            answerText.id to index
+                        }
+                        .toMap()
                 )
             }
 
@@ -47,7 +72,7 @@ sealed class AnswerInput {
     data class QuestionAnswerPair(
         val questions: List<QuestionAnswerPairItemUiState>,
         val answers: List<QuestionAnswerPairItemUiState>
-    ) : AnswerInput() {
+    ) : AnswerInputState() {
 
         companion object {
 

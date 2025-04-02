@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cz.cvut.docta.core.presentation.modifier.bounceClickEffect
@@ -36,6 +37,9 @@ fun PickerButton(
     text: String,
     isExpanded: Boolean,
     selectedColor: Color,
+    fontSize: TextUnit = 19.sp,
+    gradientColor: List<Color> = DoctaColors.glassSurfaceGradient,
+    enabled: Boolean = true,
     onClick: () -> Unit
 ) {
     val scaleY by animateFloatAsState(targetValue = if (isExpanded) -1F else 1F)
@@ -46,12 +50,12 @@ fun PickerButton(
         colors = ButtonDefaults.buttonColors(backgroundColor = Color.Companion.Transparent),
         contentPadding = PaddingValues(horizontal = 20.dp),
         modifier = Modifier.Companion
-            .bounceClickEffect()
+            .bounceClickEffect(enabled = enabled)
             .border(1.dp, DoctaColors.glassSurfaceBorder, RoundedCornerShape(40))
             .clip(androidx.compose.foundation.shape.RoundedCornerShape(40))
             .background(
                 brush = Brush.Companion.linearGradient(
-                    colors = DoctaColors.glassSurfaceGradient,
+                    colors = gradientColor,
                     start = Offset(75f, 210f),
                     end = Offset(95f, -10f)
                 )
@@ -64,7 +68,7 @@ fun PickerButton(
             Text(
                 text = collectionName,
                 color = selectedColor,
-                fontSize = 19.sp,
+                fontSize = fontSize,
                 fontFamily = Manrope,
                 fontWeight = FontWeight.Companion.Normal,
                 maxLines = 1,

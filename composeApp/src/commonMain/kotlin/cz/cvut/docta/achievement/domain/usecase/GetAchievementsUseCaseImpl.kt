@@ -2,24 +2,19 @@ package cz.cvut.docta.achievement.domain.usecase
 
 import cz.cvut.docta.achievement.data.repository.AchievementRepository
 import cz.cvut.docta.achievement.domain.model.Achievement
-import cz.cvut.docta.achievement.mapper.achievementDataToDomainModel
-import cz.cvut.docta.auth.domain.model.UserContext
+import cz.cvut.docta.achievement.domain.model.AchievementName
+import cz.cvut.docta.achievement.mapper.toDomainModel
 
 class GetAchievementsUseCaseImpl(
     private val achievementRepository: AchievementRepository,
-    private val userContext: UserContext
 ) : GetAchievementsUseCase {
-    override suspend fun execute(): List<Achievement> {
-        val achievements = achievementRepository.getAchievements()
-        val achievementsProgress = achievementRepository.getUserAchievements(
-            userId = userContext.userId
-        )
 
-        return achievements.zip(achievementsProgress).map { (achievement, progress) ->
-            achievementDataToDomainModel(
-                achievementDto = achievement,
-                achievementProgress = progress
-            )
-        }
+    override suspend fun execute(): List<Achievement> {
+        val achievements = achievementRepository.getAchievementsProgress()
+
+        return achievements
+            .filter { AchievementName.hasKey(it.achievementName) }
+            .map { it.toDomainModel() }
     }
+
 }

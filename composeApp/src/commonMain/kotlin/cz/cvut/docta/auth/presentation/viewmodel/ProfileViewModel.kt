@@ -18,7 +18,7 @@ import cz.cvut.docta.errorHandling.domain.model.result.Result
 import cz.cvut.docta.errorHandling.domain.model.result.ResultData
 import cz.cvut.docta.errorHandling.mapper.toUiState
 import cz.cvut.docta.errorHandling.presentation.model.RequestState
-import cz.cvut.docta.errorHandling.presentation.model.ResultState
+import cz.cvut.docta.errorHandling.presentation.model.ResultWithButtonState
 import cz.cvut.docta.errorHandling.presentation.model.ValidatedFieldUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -162,7 +162,7 @@ class ProfileViewModel(
         }
     }
 
-    private fun setUserDataRequestResultState(result: ResultState) {
+    private fun setUserDataRequestResultState(result: ResultWithButtonState) {
         _userDataRequestState.update { RequestState.Result(resultState = result) }
     }
 

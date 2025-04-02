@@ -1,5 +1,6 @@
 package cz.cvut.docta.lessonSession.data.model
 
+import cz.cvut.docta.lessonSession.data.model.question.QuestionDto
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -14,27 +15,35 @@ sealed class QuestionWrapperDto {
     @SerialName("OpenAnswer")
     data class OpenAnswer(
         val question: QuestionDto.OpenAnswer,
-        val answers: CorrectAnswerDto.OpenAnswers
+        val materials: List<MaterialsDto>
     ) : QuestionWrapperDto()
 
     @Serializable
     @SerialName("FillInBlanks")
     data class FillInBlanks(
         val question: QuestionDto.FillInBlanks,
-        val blanksAnswers: CorrectAnswerDto.Blanks
+        val materials: List<MaterialsDto>
     ) : QuestionWrapperDto()
 
     @Serializable
-    @SerialName("AnswerOptions")
-    data class AnswerOptions(
-        val question: QuestionDto.AnswerOptions,
-        val answer: CorrectAnswerDto.Option
+    @SerialName("SingleOption")
+    data class SingleOption(
+        val question: QuestionDto.SingleOption,
+        val materials: List<MaterialsDto>
+    ) : QuestionWrapperDto()
+
+    @Serializable
+    @SerialName("Ordering")
+    data class Ordering(
+        val question: QuestionDto.Ordering,
+        val materials: List<MaterialsDto>
     ) : QuestionWrapperDto()
 
     @Serializable
     @SerialName("QuestionAnswerPairs")
     data class QuestionAnswerPairs(
-        val question: QuestionDto.QuestionAnswerPairs
+        val question: QuestionDto.QuestionAnswerPairs,
+        val materials: List<MaterialsDto>
     ) : QuestionWrapperDto()
 
 }

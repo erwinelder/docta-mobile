@@ -1,4 +1,4 @@
-package cz.cvut.docta.lessonSession.data.model
+package cz.cvut.docta.lessonSession.data.model.answer
 
 import kotlinx.serialization.Serializable
 

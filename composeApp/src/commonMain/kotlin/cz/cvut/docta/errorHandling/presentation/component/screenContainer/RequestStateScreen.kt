@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import cz.cvut.docta.errorHandling.presentation.component.container.LoadingStateComponent
-import cz.cvut.docta.errorHandling.presentation.component.container.ResultStateComponent
+import cz.cvut.docta.errorHandling.presentation.component.container.ResultStateComponentWithButton
 import cz.cvut.docta.errorHandling.presentation.model.RequestState
 import dev.icerock.moko.resources.compose.stringResource
 
@@ -29,7 +29,7 @@ fun RequestStateScreen(
                 )
             }
             is RequestState.Result -> {
-                ResultStateComponent(
+                ResultStateComponentWithButton(
                     resultState = state.resultState,
                     onSuccessClose = onSuccessClose,
                     onErrorClose = onErrorClose

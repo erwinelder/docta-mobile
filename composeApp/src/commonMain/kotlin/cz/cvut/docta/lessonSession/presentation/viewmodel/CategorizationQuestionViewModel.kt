@@ -2,102 +2,127 @@ package cz.cvut.docta.lessonSession.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cz.cvut.docta.lessonSession.domain.model.QuestionWithCheckResult
-import cz.cvut.docta.lessonSession.domain.model.answer.CorrectAnswer
-import cz.cvut.docta.lessonSession.domain.model.question.QuestionCheckResult
-import cz.cvut.docta.lessonSession.presentation.model.QuestionAndAnswersWrapper
-import cz.cvut.docta.lessonSession.presentation.model.answer.AnswerInput
-import cz.cvut.docta.lessonSession.presentation.model.question.CategorizationOptionUiState
+import cz.cvut.docta.errorHandling.domain.model.result.LessonSessionError
+import cz.cvut.docta.errorHandling.domain.model.result.ResultData
+import cz.cvut.docta.lessonSession.presentation.model.QuestionCheckResult
+import cz.cvut.docta.lessonSession.domain.model.answer.AnswerCheckResult
+import cz.cvut.docta.lessonSession.domain.model.answer.AnswerInput
+import cz.cvut.docta.lessonSession.domain.usecase.CheckAnswerUseCase
+import cz.cvut.docta.lessonSession.mapper.toResultState
+import cz.cvut.docta.lessonSession.presentation.model.QuestionWrapper
+import cz.cvut.docta.lessonSession.presentation.model.answer.AnswerCheckRequestState
+import cz.cvut.docta.lessonSession.presentation.model.answer.AnswerCheckState
+import cz.cvut.docta.lessonSession.presentation.model.answer.AnswerInputState
+import cz.cvut.docta.lessonSession.presentation.model.answer.OptionWithCategory
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class CategorizationQuestionViewModel (
-    private val question: QuestionAndAnswersWrapper.Categorization
+    private val question: QuestionWrapper.Categorization,
+    private val checkAnswerUseCase: CheckAnswerUseCase
 ) : ViewModel() {
-    val questionText = question.question.text
 
-    private val _options = MutableStateFlow(
-        question.question.options.map { domainItem ->
-            CategorizationOptionUiState(
-                id = domainItem.id,
-                text = domainItem.text,
-                selectedCategoryId = null,
-                selectedCategoryName = null
-            )
+    val materials = question.materials
+    val questionText = question.question.text
+    val categories = question.question.categories
+
+
+    private val _optionsWithCategories = MutableStateFlow(
+        question.question.options.zip(question.question.categories).map { (option, category) ->
+            OptionWithCategory(optionId = option.id, optionText = option.text)
         }
     )
-    val options = _options.asStateFlow()
+    val optionsWithCategories = _optionsWithCategories.asStateFlow()
 
-    val categories get() = question.question.categories
-
-    fun onCategorySelect(optionId: Long, categoryId: Long) {
-        val categoryName = question.question.categories.find { it.id == categoryId }?.text ?: return
-
-        _options.update { current ->
-            current.map {
-                if (it.id == optionId) {
-                    it.copy(
-                        selectedCategoryId = categoryId,
-                        selectedCategoryName = categoryName
-                    )
-                } else it
+    fun selectOptionCategory(option: Long, category: Long) {
+        _optionsWithCategories.update { list ->
+            list.map { optionWithCategory ->
+                optionWithCategory.takeIf { it.optionId != option } ?: optionWithCategory.copy(
+                    category = categories.find { it.id == category }
+                )
             }
         }
     }
 
-    val checkIsAllowed = _options
-        .map { options ->
-            options.all { it.selectedCategoryId != null }
-        }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000L),
-            initialValue = false
-        )
+    val checkIsAllowed = _optionsWithCategories.map { list ->
+        list.all { it.category != null }
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000L),
+        initialValue = false
+    )
 
 
-    private val _checkResult = MutableStateFlow<QuestionCheckResult?>(null)
-    val checkResult = _checkResult.asStateFlow()
-
-    private fun setCheckResult(result: QuestionCheckResult) {
-        _checkResult.update { result }
-    }
-    private fun getQuestionWithAppliedAnswer(): QuestionAndAnswersWrapper.Categorization? {
-        val answeredItems = options.value.mapNotNull { uiOption ->
-            uiOption.selectedCategoryId?.let { catId -> uiOption.id to catId }
-        }
-        if (answeredItems.size != options.value.size) return null
-
-        return question.copy(
-            answerInput = AnswerInput.CategorizedOptions(
-                optionsCategoryToMap = answeredItems.toMap()
+    private val _checkRequestState =
+        MutableStateFlow<AnswerCheckRequestState<AnswerCheckResult.CategorizedOptions>>(
+            AnswerCheckRequestState<AnswerCheckResult.CategorizedOptions>.Default(
+                state = AnswerCheckState.Idle()
             )
         )
-    }
+    val checkRequestState = _checkRequestState.asStateFlow()
 
-    private fun processGivenAnswer(): QuestionCheckResult {
-        val userCategories = options.value.associate { uiOption ->
-            uiOption.id to uiOption.selectedCategoryId
+    private fun setRequestLoadingState() {
+        _checkRequestState.update {
+            AnswerCheckRequestState.Default(state = AnswerCheckState.Loading())
         }
-        val isCorrect = question.correctAnswer
-            .checkAllCategories(userCategories)
-        return QuestionCheckResult(isCorrect = isCorrect)
     }
 
-    fun checkAnswer(): QuestionWithCheckResult? {
-        val checkResult = processGivenAnswer()
-        val questionWithAppliedAnswer = getQuestionWithAppliedAnswer() ?: return null
+    private fun setRequestResultState(result: AnswerCheckResult) {
+        result as? AnswerCheckResult.CategorizedOptions
+            ?: return setRequestErrorState(error = LessonSessionError.AnswerCheckError)
 
-        setCheckResult(checkResult)
+        _checkRequestState.update {
+            AnswerCheckRequestState.Default(state = AnswerCheckState.Result(result = result))
+        }
+    }
 
-        return QuestionWithCheckResult(
-            question = questionWithAppliedAnswer,
-            result = checkResult
+    private fun setRequestErrorState(error: LessonSessionError) {
+        _checkRequestState.update {
+            AnswerCheckRequestState.Error<AnswerCheckResult.CategorizedOptions>(
+                error = error.toResultState()
+            )
+        }
+    }
+
+
+    fun checkAnswer() {
+        setRequestLoadingState()
+
+        val optionToCategoryMap = _optionsWithCategories.value.associate {
+            it.getOptionIdWithCategoryIdOrNull()
+                ?: return setRequestErrorState(error = LessonSessionError.AnswerCheckError)
+        }
+        val answerInput = AnswerInput.CategorizedOptions(
+            questionId = question.question.id, optionToCategoryMap = optionToCategoryMap
+        )
+
+        viewModelScope.launch {
+            val result = checkAnswerUseCase.execute(answerInput = answerInput)
+            when (result) {
+                is ResultData.Success -> setRequestResultState(result = result.data)
+                is ResultData.Error -> setRequestErrorState(error = result.error)
+            }
+        }
+    }
+
+    fun getQuestionWithCheckResult(): QuestionCheckResult? {
+        val optionToCategoryMap = _optionsWithCategories.value.associate {
+            it.getOptionIdWithCategoryIdOrNull() ?: return null
+        }
+
+        return QuestionCheckResult(
+            question = question.copy(
+                answerInput = AnswerInputState.CategorizedOptions(
+                    optionToCategoryMap = optionToCategoryMap
+                )
+            ),
+            isCorrect = checkRequestState.value.isCorrect() ?: return null
         )
     }
+
 }

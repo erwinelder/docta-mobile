@@ -7,6 +7,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import cz.cvut.docta.lessonSession.presentation.model.answer.QuestionAnswerPairItemUiState
 import cz.cvut.docta.core.domain.app.AppTheme
 import cz.cvut.docta.core.presentation.preview.ScreenPreviewContainer
+import cz.cvut.docta.lessonSession.domain.model.answer.AnswerCheckResult
+import cz.cvut.docta.lessonSession.presentation.model.answer.AnswerCheckRequestState
+import cz.cvut.docta.lessonSession.presentation.model.answer.AnswerCheckState
 
 @Preview(device = Devices.PIXEL_7_PRO)
 @Composable
@@ -15,7 +18,7 @@ fun QuestionAnswerPairsQuestionScreenPreview(
     questions: List<QuestionAnswerPairItemUiState> = listOf(
         QuestionAnswerPairItemUiState(
             id = 1,
-            text = "question 1",
+            text = "question 1 question 1 question 1",
             isSelected = true,
             isCorrect = null,
             isDisabled = false
@@ -74,13 +77,18 @@ fun QuestionAnswerPairsQuestionScreenPreview(
     ),
     continueButtonEnabled: Boolean = true
 ) {
+    val checkStateIdle: AnswerCheckRequestState<AnswerCheckResult.QuestionAnswerPairs> =
+        AnswerCheckRequestState.Default(state = AnswerCheckState.Idle())
+
     ScreenPreviewContainer(appTheme = appTheme) {
         QuestionAnswerPairsQuestionScreen(
             screenPadding = PaddingValues(),
             questions = questions,
+            questionMaterials = emptyList(),
             answers = answers,
             onQuestionSelect = {},
             onAnswerSelect = {},
+            checkRequestState = checkStateIdle,
             continueButtonEnabled = continueButtonEnabled,
             onContinueButtonClick = {}
         )

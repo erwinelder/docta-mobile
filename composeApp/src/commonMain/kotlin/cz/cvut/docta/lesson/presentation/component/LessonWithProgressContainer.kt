@@ -41,7 +41,7 @@ fun LessonWithProgressContainer(
         cornerSize = 20.dp,
         borderSize = 0.dp,
         filledWidths = filledWidths,
-        modifier = Modifier.bounceClickEffect {
+        modifier = Modifier.bounceClickEffect(.98f) {
             onClick(lesson)
         }
     ) {

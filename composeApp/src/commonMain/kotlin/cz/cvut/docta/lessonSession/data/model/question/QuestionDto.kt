@@ -1,5 +1,6 @@
-package cz.cvut.docta.lessonSession.data.model
+package cz.cvut.docta.lessonSession.data.model.question
 
+import cz.cvut.docta.lessonSession.data.model.answer.AnswerTextDto
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -32,13 +33,23 @@ sealed class QuestionDto {
     ) : QuestionDto()
 
     @Serializable
-    @SerialName("AnswerOptions")
-    data class AnswerOptions(
+    @SerialName("SingleOption")
+    data class SingleOption(
         override val courseCode: String,
         override val id: Long,
         override val difficulty: QuestionDifficultyDto,
         val text: String,
         val options: List<AnswerTextDto>
+    ) : QuestionDto()
+
+    @Serializable
+    @SerialName("Ordering")
+    data class Ordering(
+        override val courseCode: String,
+        override val id: Long,
+        override val difficulty: QuestionDifficultyDto,
+        val text: String,
+        val orderOptions: List<AnswerTextDto>
     ) : QuestionDto()
 
     @Serializable

@@ -46,14 +46,12 @@
     <!-- Leaderboard -->
     <string name="leaderboard">Leaderboard</string>
 
-    <!-- Achievements -->
-    <string name="achievements_screen_title">Achievements</string>
-
     <!-- Fields -->
     <string name="name">Name</string>
     <string name="email">E-mail</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm password</string>
+    <string name="select_category">Select category</string>
 
     <!-- Field placeholders -->
     <string name="course_search_placeholder">Course code (e.g. "nss")…</string>
@@ -110,7 +108,9 @@
     <string name="loading_courses">Loading courses…</string>
     <string name="loading_sections">Loading sections…</string>
     <string name="loading_lessons">Loading lessons…</string>
+    <string name="generating_lesson_session">Generating lesson session…</string>
     <string name="saving_loader">Saving…</string>
+    <string name="checking_loader">Checking…</string>
     <string name="verifying_your_credentials_loader">Verifying your credentials…</string>
     <string name="creating_your_identity_loader">Creating your identity…</string>
     <string name="checking_email_verification_loader">Checking email verification…</string>
@@ -121,6 +121,7 @@
     <string name="all_set">All set!</string>
     <string name="oops">Oops!</string>
     <string name="email_sent">Email sent!</string>
+    <string name="empty_lesson_session">Empty lesson session</string>
 
     <!-- Error handling message -->
     <string name="wrong_credentials_error">Wrong credentials.</string>
@@ -130,6 +131,8 @@
     <string name="email_verification_error">Email verification failed.</string>
     <string name="sign_in_error">Error while signing in.</string>
     <string name="sign_up_error">Error while signing up.</string>
+    <string name="answer_check_error">An error occurred while checking your answer.</string>
+    <string name="empty_lesson_session_error">It looks like this lesson do not have any questions for now.</string>
 
     <!-- Other -->
     <string name="section_still_under_development">This section is still under development.</string>
@@ -137,5 +140,53 @@
     <string name="greetings_title_afternoon">Good afternoon, %s!</string>
     <string name="greetings_title_evening">Good evening, %s!</string>
     <string name="greetings_title_night">Good evening, %s!</string>
+
+    <!-- Achievements -->
+    <string name="achievements_screen_title">Achievements</string>
+
+    <string name="achievement_first_step">First step</string>
+    <string name="achievement_description_first_step">Complete your first lesson.</string>
+
+    <string name="achievement_confident_start">Confident start</string>
+    <string name="achievement_description_confident_start">Successfully complete the first section.</string>
+
+    <string name="achievement_educational_marathon">Educational marathon</string>
+    <string name="achievement_description_educational_marathon">Complete 10 sections.</string>
+
+    <string name="achievement_knowledge_is_power">Knowledge is power</string>
+    <string name="achievement_description_knowledge_is_power">Get 1000 points in the leaderboard.</string>
+
+    <string name="achievement_top_student">Top student</string>
+    <string name="achievement_description_top_student">Get into the top 10 of the leaderboard.</string>
+
+    <string name="achievement_first_test">First test</string>
+    <string name="achievement_description_first_test">Pass your first test.</string>
+
+    <string name="achievement_one_hundred_result">100% result</string>
+    <string name="achievement_description_one_hundred_result">Get the maximum score for the test.</string>
+
+    <string name="achievement_serial_a_student">Serial A student</string>
+    <string name="achievement_description_serial_a_student">Get the maximum score in 5 tests in a row.</string>
+
+    <string name="achievement_error_winner">Error Winner</string>
+    <string name="achievement_description_error_winner">Retake the test from the first failed attempt with 90%+.</string>
+
+    <string name="achievement_subject_matter_expert">Subject matter expert</string>
+    <string name="achievement_description_subject_matter_expert">Complete all tests in the course with an average score of 85%+.</string>
+
+    <string name="achievement_flash_student">Flash student</string>
+    <string name="achievement_description_flash_student">Complete the course in 3 days.</string>
+
+    <string name="achievement_future_professor">Future Professor</string>
+    <string name="achievement_description_future_professor">Help other students in the comments.</string>
+
+    <string name="achievement_night_coder">Night Coder</string>
+    <string name="achievement_description_night_coder">Complete a test or lesson after midnight.</string>
+
+    <string name="achievement_iron_will">Iron Will</string>
+    <string name="achievement_description_iron_will">Return to study after a week's break.</string>
+
+    <string name="achievement_faculty_legend">Faculty Legend</string>
+    <string name="achievement_description_faculty_legend">Complete all courses in the app.</string>
 
 </resources>

@@ -31,7 +31,6 @@ fun CourseSectionsScreen(
     ScreenContainerWithBackNavButton(
         screenPadding = screenPadding,
         padding = PaddingValues(top = 8.dp),
-        verticalArrangement = Arrangement.spacedBy(24.dp),
         onNavigateBack = onNavigateBack,
         backButtonText = courseName,
         backButtonIconRes = courseIconRes,
@@ -62,6 +61,7 @@ private fun ColumnScope.SectionsBlockWithLoader(
             LazyColumn(
                 state = lazyListState,
                 verticalArrangement = Arrangement.spacedBy(16.dp),
+                contentPadding = PaddingValues(bottom = 24.dp),
                 modifier = Modifier.weight(1f)
             ) {
                 items(items = targetSections) { section ->
@@ -71,9 +71,6 @@ private fun ColumnScope.SectionsBlockWithLoader(
                         onClick = onSectionClick
                     )
                 }
-//                item {
-//                    Spacer(modifier = Modifier.height(8.dp))
-//                }
             }
         }
     }

@@ -6,6 +6,6 @@ sealed class RequestState {
 
     data class Loading(val messageRes: StringResource) : RequestState()
 
-    data class Result(val resultState: ResultState) : RequestState()
+    data class Result(val resultState: ResultWithButtonState) : RequestState()
 
 }

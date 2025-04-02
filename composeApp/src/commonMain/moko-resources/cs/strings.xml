@@ -46,14 +46,12 @@
     <!-- Leaderboard -->
     <string name="leaderboard">Žebříček</string>
 
-    <!-- Achievements -->
-    <string name="achievements_screen_title">Dosažení</string>
-
     <!-- Fields -->
     <string name="name">Jméno</string>
     <string name="email">E-mail</string>
     <string name="password">Heslo</string>
     <string name="confirm_password">Potvrzení hesla</string>
+    <string name="select_category">Vyberte kategorii</string>
 
     <!-- Field placeholders -->
     <string name="course_search_placeholder">Kód kurzu (např. „nss“)…</string>
@@ -110,7 +108,9 @@
     <string name="loading_courses">Načítání kurzů…</string>
     <string name="loading_sections">Načítání sekcí…</string>
     <string name="loading_lessons">Načítání cvičení…</string>
+    <string name="generating_lesson_session">Generování lekce…</string>
     <string name="saving_loader">Ukládáni…</string>
+    <string name="checking_loader">Kontrola…</string>
     <string name="verifying_your_credentials_loader">Ověřování vašich přihlašovacích údajů…</string>
     <string name="creating_your_identity_loader">Vytváření vaší identity…</string>
     <string name="checking_email_verification_loader">Kontrola e-mailového ověření…</string>
@@ -121,6 +121,7 @@
     <string name="all_set">Vše připraveno!</string>
     <string name="oops">Jejda!</string>
     <string name="email_sent">E-mail odeslán!</string>
+    <string name="empty_lesson_session">Prázdná lekce</string>
 
     <!-- Error handling message -->
     <string name="wrong_credentials_error">Špatné přihlašovací údaje.</string>
@@ -130,6 +131,8 @@
     <string name="email_verification_error">Ověření e-mailu se nezdařilo.</string>
     <string name="sign_in_error">Chyba během přihlášení.</string>
     <string name="sign_up_error">Chyba během registrace.</string>
+    <string name="answer_check_error">Při kontrole vaší odpovědi došlo k chybě.</string>
+    <string name="empty_lesson_session_error">Vypadá to, že tato lekce zatím nemá žádné otázky.</string>
 
     <!-- Other -->
     <string name="section_still_under_development">Tato sekce je stále ve vývoji.</string>
@@ -137,5 +140,54 @@
     <string name="greetings_title_afternoon">Dobré poledne!</string>
     <string name="greetings_title_evening">Dobré odpoledne!</string>
     <string name="greetings_title_night">Dobrý večer!</string>
+
+    <!-- Achievements -->
+    <string name="achievements_screen_title">Dosažení</string>
+
+    <string name="achievement_first_step">První krok</string>
+    <string name="achievement_description_first_step">Dokončete svou první lekci.</string>
+
+    <string name="achievement_confident_start">Sebevědomý start</string>
+    <string name="achievement_description_confident_start">Úspěšně dokončete první sekci.</string>
+
+    <string name="achievement_educational_marathon">Vzdělávací maraton</string>
+    <string name="achievement_description_educational_marathon">Dokončete 10 sekcí.</string>
+
+    <string name="achievement_knowledge_is_power">Vědění je moc</string>
+    <string name="achievement_description_knowledge_is_power">Získejte 1000 bodů v žebříčku.</string>
+
+    <string name="achievement_top_student">Nejlepší student</string>
+    <string name="achievement_description_top_student">Dostaňte se do top 10 v žebříčku.</string>
+
+    <string name="achievement_first_test">První test</string>
+    <string name="achievement_description_first_test">Úspěšně složte svůj první test.</string>
+
+    <string name="achievement_one_hundred_result">100% výsledek</string>
+    <string name="achievement_description_one_hundred_result">Získejte maximální počet bodů v testu.</string>
+
+    <string name="achievement_serial_a_student">Sériový jedničkář</string>
+    <string name="achievement_description_serial_a_student">Získejte maximální počet bodů v 5 testech za sebou.</string>
+
+    <string name="achievement_error_winner">Vítěz chyb</string>
+    <string name="achievement_description_error_winner">Opakujte test po prvním neúspěšném pokusu a získejte 90 % a více.</string>
+
+    <string name="achievement_subject_matter_expert">Odborník na předmět</string>
+    <string name="achievement_description_subject_matter_expert">Dokončete všechny testy v kurzu s průměrným skóre 85 % a více.</string>
+
+    <string name="achievement_flash_student">Bleskový student</string>
+    <string name="achievement_description_flash_student">Dokončete kurz za 3 dny.</string>
+
+    <string name="achievement_future_professor">Budoucí profesor</string>
+    <string name="achievement_description_future_professor">Pomozte ostatním studentům v komentářích.</string>
+
+    <string name="achievement_night_coder">Noční kodér</string>
+    <string name="achievement_description_night_coder">Dokončete test nebo lekci po půlnoci.</string>
+
+    <string name="achievement_iron_will">Železná vůle</string>
+    <string name="achievement_description_iron_will">Vraťte se ke studiu po týdenní pauze.</string>
+
+    <string name="achievement_faculty_legend">Legenda fakulty</string>
+    <string name="achievement_description_faculty_legend">Dokončete všechny kurzy v aplikaci.</string>
+
 
 </resources>

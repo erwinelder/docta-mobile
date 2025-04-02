@@ -52,7 +52,7 @@ fun SmallSecondaryButton(
 
     Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier.bounceClickEffect(.98f, enabled)
+        modifier = Modifier.bounceClickEffect(.98f, enabled = enabled)
     ) {
         Button(
             onClick = onClick,

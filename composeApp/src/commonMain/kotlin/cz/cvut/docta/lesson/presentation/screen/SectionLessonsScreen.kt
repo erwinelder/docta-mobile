@@ -37,7 +37,6 @@ fun SectionLessonsScreen(
     ScreenContainerWithBackNavButton(
         screenPadding = screenPadding,
         padding = PaddingValues(top = 8.dp),
-        verticalArrangement = Arrangement.spacedBy(24.dp),
         onNavigateBack = onNavigateBack,
         backButtonText = sectionName,
         backButtonIconRes = sectionIconRes
@@ -77,6 +76,7 @@ private fun ColumnScope.LessonsBlockWithLoader(
             LazyColumn(
                 state = lazyListState,
                 verticalArrangement = Arrangement.spacedBy(16.dp),
+                contentPadding = PaddingValues(bottom = 24.dp),
                 modifier = Modifier.weight(1f)
             ) {
                 items(items = targetLessons) { lesson ->
