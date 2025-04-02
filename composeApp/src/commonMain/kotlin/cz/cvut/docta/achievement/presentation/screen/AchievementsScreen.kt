@@ -14,6 +14,8 @@ import cz.cvut.docta.SharedRes
 import cz.cvut.docta.achievement.presentation.component.AchievementComponent
 import cz.cvut.docta.achievement.presentation.model.AchievementUiState
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainer
+import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainerWithTitle
+import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainerWithTitleAndGlassSurface
 import cz.cvut.docta.core.presentation.theme.DoctaTypography
 import dev.icerock.moko.resources.compose.stringResource
 
@@ -22,23 +24,18 @@ fun AchievementsScreen(
     achievements: List<AchievementUiState>,
     onAchievementClick: (AchievementUiState) -> Unit
 ) {
-    ScreenContainer(
+    ScreenContainerWithTitle(
+        title = stringResource(SharedRes.strings.achievements_screen_title),
+        titleStyle = DoctaTypography.titleMedium,
+        titleModifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(24.dp),
     ) {
-        // Screen title
-        Text(
-            text = stringResource(SharedRes.strings.achievements_screen_title),
-            style = DoctaTypography.titleMedium,
-            modifier = Modifier.fillMaxWidth(),
-        )
-
         // Achievements list
         LazyVerticalGrid(
             columns = GridCells.Fixed(3),
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(6.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            contentPadding = PaddingValues(horizontal = 20.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             items(items = achievements) { achievement ->
                 AchievementComponent(
