@@ -13,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
@@ -27,12 +28,17 @@ fun ButtonWithPopupContent(
     buttonText: String,
     iconRes: DrawableResource? = null,
     animationTransformOrigin: TransformOrigin = TransformOrigin(0.5f, 0.5f),
+    alignment: Alignment = Alignment.TopCenter,
+    outerPadding: PaddingValues = PaddingValues(top = 16.dp),
     contentPadding: PaddingValues = PaddingValues(horizontal = 24.dp, vertical = 16.dp),
+    backgroundColor: Color = DoctaColors.surface,
     popupContent: @Composable (() -> Unit) -> Unit
 ) {
     val isExpandedState = remember { MutableTransitionState(false) }
 
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
 
         SmallSecondaryButton(
             text = buttonText,
@@ -43,7 +49,7 @@ fun ButtonWithPopupContent(
         Column {
             if (isExpandedState.targetState || isExpandedState.currentState) {
                 Popup(
-                    alignment = Alignment.TopCenter,
+                    alignment = alignment,
                     onDismissRequest = {
                         isExpandedState.targetState = false
                     },
@@ -58,9 +64,9 @@ fun ButtonWithPopupContent(
                     ) {
                         Box(
                             modifier = Modifier
-                                .padding(horizontal = 8.dp, vertical = 8.dp)
+                                .padding(outerPadding)
                                 .clip(RoundedCornerShape(26.dp))
-                                .background(DoctaColors.surface)
+                                .background(backgroundColor)
                                 .padding(contentPadding)
                         ) {
                             popupContent {

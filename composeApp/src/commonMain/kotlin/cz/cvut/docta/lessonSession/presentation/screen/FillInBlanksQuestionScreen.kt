@@ -57,7 +57,7 @@ fun FillInBlanksQuestionScreen(
         onContinueButtonClick = onContinueButtonClick
     ) { checkState ->
         AnimatedContent(
-            targetState = checkState
+            targetState = checkState.takeIf { it is AnswerCheckState.Result }
         ) { targetCheckState ->
             FlowRow(
                 horizontalArrangement = Arrangement.spacedBy(5.dp),
@@ -77,8 +77,8 @@ fun FillInBlanksQuestionScreen(
                                 isLast = index == questionUnitsLastIndex,
                                 blanksAnswers = blanksAnswers,
                                 blankUnit = unit,
-                                checkState = targetCheckState.getResultOrNull(),
-                                readOnly = targetCheckState !is AnswerCheckState.Idle
+                                checkState = targetCheckState?.getResultOrNull(),
+                                readOnly = checkState !is AnswerCheckState.Idle
                             )
                         }
                         is QuestionBlankUnit.Word -> Text(

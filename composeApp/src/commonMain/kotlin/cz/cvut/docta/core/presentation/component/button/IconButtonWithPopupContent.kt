@@ -6,9 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -17,27 +15,30 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TransformOrigin
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
 import cz.cvut.docta.core.presentation.animation.scaleFadeInAnimation
 import cz.cvut.docta.core.presentation.animation.scaleFadeOutAnimation
+import cz.cvut.docta.core.presentation.theme.DoctaColors
 import org.jetbrains.compose.resources.DrawableResource
 
 @Composable
 fun IconButtonWithPopupContent(
-    iconRes: DrawableResource? = null,
+    iconRes: DrawableResource,
     animationTransformOrigin: TransformOrigin = TransformOrigin(0.5f, 0.5f),
+    alignment: Alignment = Alignment.TopCenter,
     contentPadding: PaddingValues = PaddingValues(horizontal = 24.dp, vertical = 16.dp),
+    outerPadding: PaddingValues = PaddingValues(top = 16.dp),
+    backgroundColor: Color = DoctaColors.surface,
     popupContent: @Composable (() -> Unit) -> Unit
 ) {
     val isExpandedState = remember { MutableTransitionState(false) }
 
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.wrapContentSize()
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
         SmallSecondaryIconButton(
             iconRes = iconRes,
             onClick = { isExpandedState.targetState = true }
@@ -46,8 +47,7 @@ fun IconButtonWithPopupContent(
         Column {
             if (isExpandedState.targetState || isExpandedState.currentState) {
                 Popup(
-                    alignment = Alignment.TopEnd,
-                    offset = IntOffset(0, 48),
+                    alignment = alignment,
                     onDismissRequest = {
                         isExpandedState.targetState = false
                     },
@@ -62,10 +62,10 @@ fun IconButtonWithPopupContent(
                     ) {
                         Box(
                             modifier = Modifier
-                                .fillMaxWidth(0.8f)
-                                .clip(RoundedCornerShape(16.dp))
-                                .background(Color.White)
-                                .padding(16.dp)
+                                .padding(outerPadding)
+                                .clip(RoundedCornerShape(26.dp))
+                                .background(backgroundColor)
+                                .padding(contentPadding)
                         ) {
                             popupContent {
                                 isExpandedState.targetState = false

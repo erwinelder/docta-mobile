@@ -3,14 +3,12 @@ package cz.cvut.docta.core.presentation.component.button
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
@@ -24,28 +22,26 @@ import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun SmallSecondaryIconButton(
-    iconRes: DrawableResource?,
+    iconRes: DrawableResource,
     enabled: Boolean = true,
     enabledGradientColor: Pair<Color, Color> = DoctaColors.glassSurfaceGradientPair,
-    alpha: Float = 0.5f,
+    alpha: Float = .5f,
     contentColor: Color = DoctaColors.onSurface,
     borderColor: Color = DoctaColors.primarySemiTransparent,
     onClick: () -> Unit = {}
 ) {
     val buttonLighterColor by animateColorAsState(
-        targetValue = enabledGradientColor.first.copy(alpha = alpha),
-        label = "lighterColor"
+        targetValue = enabledGradientColor.first.copy(alpha = alpha)
     )
     val buttonDarkerColor by animateColorAsState(
-        targetValue = enabledGradientColor.second.copy(alpha = alpha),
-        label = "darkerColor"
+        targetValue = enabledGradientColor.second.copy(alpha = alpha)
     )
 
-    Box(
-        contentAlignment = Alignment.Center,
+    IconButton(
+        onClick = onClick,
+        enabled = enabled,
         modifier = Modifier
-            .size(48.dp)
-            .bounceClickEffect(.98f, enabled)
+            .bounceClickEffect(.98f, enabled = enabled)
             .clip(RoundedCornerShape(16.dp))
             .background(
                 brush = Brush.linearGradient(
@@ -55,15 +51,12 @@ fun SmallSecondaryIconButton(
                 )
             )
             .border(1.dp, borderColor, RoundedCornerShape(16.dp))
-            .clickable(enabled = enabled, onClick = onClick)
     ) {
-        iconRes?.let {
-            Icon(
-                painter = painterResource(it),
-                contentDescription = "icon button",
-                tint = contentColor,
-                modifier = Modifier.size(24.dp)
-            )
-        }
+        Icon(
+            painter = painterResource(iconRes),
+            contentDescription = "icon button",
+            tint = contentColor,
+            modifier = Modifier.size(24.dp)
+        )
     }
 }

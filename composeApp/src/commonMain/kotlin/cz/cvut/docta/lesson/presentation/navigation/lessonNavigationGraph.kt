@@ -46,7 +46,10 @@ fun NavGraphBuilder.lessonNavigationGraph(
         composable<LessonSessionScreens.LessonStarter> { backStack ->
             val courseContext = koinInject<CourseContext>()
             val sessionOptions = courseContext.getLesson()?.getSessionOptions() ?: run {
-                return@composable // TODO
+                navViewModel.popBackStack(
+                    navController = navController, screen = CourseScreens.Lessons
+                )
+                return@composable
             }
 
             val viewModel = backStack.sharedKoinNavViewModel<LessonViewModel>(navController)
