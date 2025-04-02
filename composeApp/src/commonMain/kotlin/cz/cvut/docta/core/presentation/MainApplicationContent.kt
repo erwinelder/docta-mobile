@@ -32,8 +32,8 @@ import cz.cvut.docta.courseEditing.presentation.navigation.courseManagementNavig
 import cz.cvut.docta.leaderboard.presentation.screen.LeaderboardScreen
 import cz.cvut.docta.leaderboard.presentation.viewmodel.LeaderboardViewModel
 import cz.cvut.docta.lesson.presentation.component.LessonProgressBar
-import cz.cvut.docta.lesson.presentation.navigation.lessonNavigationGraph
-import cz.cvut.docta.lesson.presentation.viewmodel.LessonProgressViewModel
+import cz.cvut.docta.lessonSession.presentation.navigation.lessonSessionNavigationGraph
+import cz.cvut.docta.lessonSession.presentation.viewmodel.lesson.LessonProgressViewModel
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -99,7 +99,7 @@ fun MainApplicationContent(
                 navViewModel = navViewModel,
                 screenPadding = screenPadding
             )
-            lessonNavigationGraph(
+            lessonSessionNavigationGraph(
                 navController = navController,
                 navViewModel = navViewModel,
                 screenPadding = screenPadding,

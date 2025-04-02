@@ -1,6 +1,6 @@
-package cz.cvut.docta.lessonSession.domain.model
+package cz.cvut.docta.lessonSession.domain.model.question
 
-import cz.cvut.docta.lessonSession.domain.model.question.Question
+import cz.cvut.docta.lessonSession.domain.model.Materials
 
 sealed class QuestionWithMaterials {
 

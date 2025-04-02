@@ -6,9 +6,14 @@ import cz.cvut.docta.lesson.domain.usecase.GetSectionLessonsDraftsUseCase
 import cz.cvut.docta.lesson.domain.usecase.GetSectionLessonsDraftsUseCaseImpl
 import cz.cvut.docta.lesson.domain.usecase.GetSectionLessonsWithStatisticsUseCase
 import cz.cvut.docta.lesson.domain.usecase.GetSectionLessonsWithStatisticsUseCaseImpl
-import cz.cvut.docta.lesson.presentation.viewmodel.LessonProgressViewModel
-import cz.cvut.docta.lesson.presentation.viewmodel.LessonViewModel
+import cz.cvut.docta.lessonSession.presentation.viewmodel.lesson.LessonProgressViewModel
+import cz.cvut.docta.lessonSession.presentation.viewmodel.lesson.LessonResultsViewModel
+import cz.cvut.docta.lessonSession.presentation.viewmodel.lesson.LessonViewModel
 import cz.cvut.docta.lesson.presentation.viewmodel.SectionLessonsViewModel
+import cz.cvut.docta.lessonSession.domain.usecase.DeleteLessonSessionUseCase
+import cz.cvut.docta.lessonSession.domain.usecase.DeleteLessonSessionUseCaseImpl
+import cz.cvut.docta.lessonSession.domain.usecase.FinishLessonSessionUseCase
+import cz.cvut.docta.lessonSession.domain.usecase.FinishLessonSessionUseCaseImpl
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
@@ -36,6 +41,14 @@ val lessonModule = module {
         )
     }
 
+    single<FinishLessonSessionUseCase> {
+        FinishLessonSessionUseCaseImpl(lessonSessionRepository = get())
+    }
+
+    single<DeleteLessonSessionUseCase> {
+        DeleteLessonSessionUseCaseImpl(lessonSessionRepository = get())
+    }
+
     /* ---------- View Models ---------- */
 
     viewModel { parameters ->
@@ -51,8 +64,13 @@ val lessonModule = module {
     }
 
     viewModel {
-        LessonViewModel(
-            getLessonQuestionsWithAnswersUseCase = get()
+        LessonViewModel(getLessonQuestionsWithAnswersUseCase = get())
+    }
+
+    viewModel {
+        LessonResultsViewModel(
+            finishLessonSessionUseCase = get(),
+            deleteLessonSessionUseCase = get()
         )
     }
 

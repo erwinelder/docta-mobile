@@ -1,7 +1,6 @@
 package cz.cvut.docta.errorHandling.presentation.component.container
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -13,7 +12,7 @@ import cz.cvut.docta.errorHandling.presentation.component.screenContainer.Reques
 import cz.cvut.docta.errorHandling.presentation.model.RequestState
 
 @Composable
-fun ScreenWithRequestState(
+fun AnimatedScreenWithRequestState(
     screenPadding: PaddingValues = PaddingValues(0.dp),
     requestState: RequestState?,
     onCancelRequest: (() -> Unit)? = null,
@@ -23,31 +22,21 @@ fun ScreenWithRequestState(
 ) {
     SetBackHandler(enabled = requestState != null) {}
 
-    Box(
+    AnimatedContent(
+        targetState = requestState,
         modifier = Modifier
             .fillMaxSize()
             .padding(screenPadding)
-    ) {
-
-        if (requestState == null) {
+    ) { state ->
+        if (state == null) {
             screenContent()
+        } else {
+            RequestStateScreen(
+                state = state,
+                onCancelRequest = onCancelRequest,
+                onSuccessClose = onSuccessClose,
+                onErrorClose = onErrorClose
+            )
         }
-
-        AnimatedContent(
-            targetState = requestState,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(screenPadding)
-        ) { state ->
-            if (state != null) {
-                RequestStateScreen(
-                    state = state,
-                    onCancelRequest = onCancelRequest,
-                    onSuccessClose = onSuccessClose,
-                    onErrorClose = onErrorClose
-                )
-            }
-        }
-
     }
 }

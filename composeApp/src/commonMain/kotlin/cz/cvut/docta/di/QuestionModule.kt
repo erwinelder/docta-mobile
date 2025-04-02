@@ -6,11 +6,11 @@ import cz.cvut.docta.lessonSession.domain.usecase.CheckAnswerUseCase
 import cz.cvut.docta.lessonSession.domain.usecase.CheckAnswerUseCaseImpl
 import cz.cvut.docta.lessonSession.domain.usecase.GetLessonQuestionsWithAnswersUseCase
 import cz.cvut.docta.lessonSession.domain.usecase.GetLessonQuestionsWithAnswersUseCaseImpl
-import cz.cvut.docta.lessonSession.presentation.viewmodel.AnswerOptionsQuestionViewModel
-import cz.cvut.docta.lessonSession.presentation.viewmodel.CategorizationQuestionViewModel
-import cz.cvut.docta.lessonSession.presentation.viewmodel.FillInBlanksQuestionViewModel
-import cz.cvut.docta.lessonSession.presentation.viewmodel.OpenAnswerQuestionViewModel
-import cz.cvut.docta.lessonSession.presentation.viewmodel.QuestionAnswerPairsQuestionViewModel
+import cz.cvut.docta.lessonSession.presentation.viewmodel.question.AnswerOptionsQuestionViewModel
+import cz.cvut.docta.lessonSession.presentation.viewmodel.question.CategorizationQuestionViewModel
+import cz.cvut.docta.lessonSession.presentation.viewmodel.question.FillInBlanksQuestionViewModel
+import cz.cvut.docta.lessonSession.presentation.viewmodel.question.OpenAnswerQuestionViewModel
+import cz.cvut.docta.lessonSession.presentation.viewmodel.question.QuestionAnswerPairsQuestionViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 

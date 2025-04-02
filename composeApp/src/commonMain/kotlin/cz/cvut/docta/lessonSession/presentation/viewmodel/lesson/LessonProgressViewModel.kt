@@ -1,4 +1,4 @@
-package cz.cvut.docta.lesson.presentation.viewmodel
+package cz.cvut.docta.lessonSession.presentation.viewmodel.lesson
 
 import androidx.lifecycle.ViewModel
 import cz.cvut.docta.lesson.presentation.model.LessonProgression

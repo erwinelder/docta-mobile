@@ -2,7 +2,7 @@ package cz.cvut.docta.lessonSession.domain.usecase
 
 import cz.cvut.docta.core.domain.app.CourseContext
 import cz.cvut.docta.lessonSession.data.repository.LessonSessionRepository
-import cz.cvut.docta.lessonSession.domain.model.QuestionWithMaterials
+import cz.cvut.docta.lessonSession.domain.model.question.QuestionWithMaterials
 import cz.cvut.docta.lessonSession.domain.model.SessionOptions
 import cz.cvut.docta.lessonSession.mapper.toDomainModel
 import cz.cvut.docta.lessonSession.mapper.toDto

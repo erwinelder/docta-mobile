@@ -1,4 +1,4 @@
-package cz.cvut.docta.lesson.presentation.screen
+package cz.cvut.docta.lessonSession.presentation.screen.lesson
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn

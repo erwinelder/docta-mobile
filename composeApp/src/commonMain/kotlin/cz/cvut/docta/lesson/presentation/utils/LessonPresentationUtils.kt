@@ -4,7 +4,7 @@ import cz.cvut.docta.SharedRes
 import cz.cvut.docta.core.presentation.model.IconResByAppTheme
 import cz.cvut.docta.lesson.domain.model.LessonFilterType
 import cz.cvut.docta.lesson.domain.model.LessonWithProgress
-import cz.cvut.docta.lesson.presentation.navigation.LessonSessionScreens
+import cz.cvut.docta.lessonSession.presentation.navigation.LessonSessionScreens
 import cz.cvut.docta.lessonSession.presentation.model.QuestionWrapper
 import dev.icerock.moko.resources.StringResource
 import docta.composeapp.generated.resources.Res

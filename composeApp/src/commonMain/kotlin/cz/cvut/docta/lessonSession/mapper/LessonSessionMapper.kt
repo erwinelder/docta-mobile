@@ -1,16 +1,18 @@
 package cz.cvut.docta.lessonSession.mapper
 
 import cz.cvut.docta.lesson.domain.model.LessonWithProgress
+import cz.cvut.docta.lessonSession.data.model.CompletedLessonStatsDto
+import cz.cvut.docta.lessonSession.data.model.MaterialsDto
+import cz.cvut.docta.lessonSession.data.model.QuestionWrapperDto
+import cz.cvut.docta.lessonSession.data.model.SessionOptionsDto
 import cz.cvut.docta.lessonSession.data.model.answer.AnswerCheckResultDto
 import cz.cvut.docta.lessonSession.data.model.answer.AnswerInputDto
 import cz.cvut.docta.lessonSession.data.model.answer.AnswerTextDto
-import cz.cvut.docta.lessonSession.data.model.MaterialsDto
 import cz.cvut.docta.lessonSession.data.model.question.QuestionDifficultyDto
 import cz.cvut.docta.lessonSession.data.model.question.QuestionDto
-import cz.cvut.docta.lessonSession.data.model.QuestionWrapperDto
-import cz.cvut.docta.lessonSession.data.model.SessionOptionsDto
+import cz.cvut.docta.lessonSession.domain.model.CompletedLessonStats
 import cz.cvut.docta.lessonSession.domain.model.Materials
-import cz.cvut.docta.lessonSession.domain.model.QuestionWithMaterials
+import cz.cvut.docta.lessonSession.domain.model.question.QuestionWithMaterials
 import cz.cvut.docta.lessonSession.domain.model.SessionOptions
 import cz.cvut.docta.lessonSession.domain.model.answer.AnswerCheckResult
 import cz.cvut.docta.lessonSession.domain.model.answer.AnswerInput
@@ -134,13 +136,6 @@ fun MaterialsDto.toDomainModel(): Materials {
     )
 }
 
-fun Materials.toDto(): MaterialsDto {
-    return MaterialsDto(
-        id = id,
-        text = text
-    )
-}
-
 
 fun AnswerInput.toDto(): AnswerInputDto {
     return when (this) {
@@ -190,4 +185,13 @@ fun AnswerCheckResultDto.toDomainModel(): AnswerCheckResult {
             isCorrect = isCorrect
         )
     }
+}
+
+
+fun CompletedLessonStatsDto.toDomainModel(): CompletedLessonStats {
+    return CompletedLessonStats(
+        percentage = percentage,
+        points = points,
+        mistakeCount = mistakeCount
+    )
 }

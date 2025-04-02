@@ -13,7 +13,7 @@ import cz.cvut.docta.core.presentation.component.button.PrimaryButton
 import cz.cvut.docta.core.presentation.component.button.SecondaryButton
 import cz.cvut.docta.core.presentation.component.container.GlassSurfaceContentColumnWrapper
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainerWithTitleAndGlassSurface
-import cz.cvut.docta.errorHandling.presentation.component.container.ScreenWithRequestState
+import cz.cvut.docta.errorHandling.presentation.component.container.AnimatedScreenWithRequestState
 import cz.cvut.docta.errorHandling.presentation.component.field.LargeTextFieldWithLabelAndMessages
 import cz.cvut.docta.errorHandling.presentation.model.RequestState
 import cz.cvut.docta.errorHandling.presentation.model.ValidatedFieldUiState
@@ -37,7 +37,7 @@ fun SignUpScreen(
     onCancelRequest: () -> Unit,
     onErrorClose: () -> Unit
 ) {
-    ScreenWithRequestState(
+    AnimatedScreenWithRequestState(
         screenPadding = screenPadding,
         requestState = requestState,
         onCancelRequest = onCancelRequest,

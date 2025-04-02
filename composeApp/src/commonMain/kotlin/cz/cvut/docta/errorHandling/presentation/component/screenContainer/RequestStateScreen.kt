@@ -13,7 +13,7 @@ import dev.icerock.moko.resources.compose.stringResource
 @Composable
 fun RequestStateScreen(
     state: RequestState,
-    onCancelRequest: () -> Unit,
+    onCancelRequest: (() -> Unit)? = null,
     onSuccessClose: () -> Unit,
     onErrorClose: () -> Unit
 ) {

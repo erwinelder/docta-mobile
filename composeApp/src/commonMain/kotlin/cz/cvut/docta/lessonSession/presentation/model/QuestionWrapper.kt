@@ -1,7 +1,7 @@
 package cz.cvut.docta.lessonSession.presentation.model
 
 import cz.cvut.docta.lessonSession.domain.model.Materials
-import cz.cvut.docta.lessonSession.domain.model.QuestionWithMaterials
+import cz.cvut.docta.lessonSession.domain.model.question.QuestionWithMaterials
 import cz.cvut.docta.lessonSession.domain.model.question.Question
 import cz.cvut.docta.lessonSession.presentation.model.answer.AnswerInputState
 
