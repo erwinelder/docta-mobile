@@ -22,11 +22,12 @@ import cz.cvut.docta.course.presentation.screen.AddNewCourseScreenPreview
 import cz.cvut.docta.course.presentation.screen.CoursesScreenPreview
 import cz.cvut.docta.leaderboard.presentation.screen.LeaderboardScreenPreview
 import cz.cvut.docta.lesson.presentation.screen.SectionLessonsScreenPreview
-import cz.cvut.docta.lessonSession.presentation.screen.AnswerOptionsQuestionScreenPreview
-import cz.cvut.docta.lessonSession.presentation.screen.CategorizationQuestionScreenPreview
-import cz.cvut.docta.lessonSession.presentation.screen.FillInBlanksQuestionScreenPreview
-import cz.cvut.docta.lessonSession.presentation.screen.OpenAnswerQuestionScreenPreview
-import cz.cvut.docta.lessonSession.presentation.screen.QuestionAnswerPairsQuestionScreenPreview
+import cz.cvut.docta.lessonSession.presentation.screen.lesson.LessonResultsScreenPreview
+import cz.cvut.docta.lessonSession.presentation.screen.question.AnswerOptionsQuestionScreenPreview
+import cz.cvut.docta.lessonSession.presentation.screen.question.CategorizationQuestionScreenPreview
+import cz.cvut.docta.lessonSession.presentation.screen.question.FillInBlanksQuestionScreenPreview
+import cz.cvut.docta.lessonSession.presentation.screen.question.OpenAnswerQuestionScreenPreview
+import cz.cvut.docta.lessonSession.presentation.screen.question.QuestionAnswerPairsQuestionScreenPreview
 import cz.cvut.docta.section.presentation.screen.CourseSectionsScreenPreview
 import cz.cvut.docta.sectionEditing.presentation.screen.CourseEditingScreenPreview
 import cz.cvut.docta.sectionEditing.presentation.screen.SectionEditingScreenPreview
@@ -220,6 +221,14 @@ private fun CategorizationQuestionScreenPreview_(){
 @Composable
 private fun QuestionAnswerPairsQuestionScreenPreview_() {
     QuestionAnswerPairsQuestionScreenPreview(
+        appTheme = appTheme
+    )
+}
+
+@Preview(device = Devices.PIXEL_7_PRO, group = "LessonSession", locale = locale)
+@Composable
+private fun LessonResultsScreenPreview_() {
+    LessonResultsScreenPreview(
         appTheme = appTheme
     )
 }

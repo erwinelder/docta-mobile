@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
 import cz.cvut.docta.core.presentation.component.button.PrimaryButton
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainer
+import cz.cvut.docta.core.presentation.navigation.SetBackHandler
 import cz.cvut.docta.core.presentation.utils.getImeBottomInset
 import cz.cvut.docta.errorHandling.presentation.component.container.ResultStateComponent
 import cz.cvut.docta.lessonSession.domain.model.Materials
@@ -38,6 +39,8 @@ fun <T : AnswerCheckResult> QuestionScreenContainer(
     val bottomPadding by animateDpAsState(imeBottomInset.coerceAtLeast(24.dp))
 
     val buttonTextRes = checkRequestState.getButtonStringRes()
+
+    SetBackHandler()
 
     ScreenContainer(
         screenPadding = screenPadding,

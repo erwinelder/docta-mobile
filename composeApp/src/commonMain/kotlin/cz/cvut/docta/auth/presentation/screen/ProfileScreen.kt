@@ -33,7 +33,7 @@ import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContaine
 import cz.cvut.docta.core.presentation.theme.CurrWindowType
 import cz.cvut.docta.core.presentation.theme.DoctaColors
 import cz.cvut.docta.core.presentation.theme.Manrope
-import cz.cvut.docta.errorHandling.presentation.component.container.ScreenWithRequestState
+import cz.cvut.docta.errorHandling.presentation.component.container.AnimatedScreenWithRequestState
 import cz.cvut.docta.errorHandling.presentation.component.field.FieldValidationMessages
 import cz.cvut.docta.errorHandling.presentation.model.RequestState
 import cz.cvut.docta.errorHandling.presentation.model.ValidatedFieldUiState
@@ -69,7 +69,7 @@ fun ProfileScreen(
 ) {
     val focusManager = LocalFocusManager.current
 
-    ScreenWithRequestState(
+    AnimatedScreenWithRequestState(
         screenPadding = screenPadding,
         requestState = userDataRequestState,
         onCancelRequest = onCancelUserDataRequest,

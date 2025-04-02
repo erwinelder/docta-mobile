@@ -33,6 +33,12 @@
     <string name="tests">Testy</string>
     <string name="test">Test</string>
 
+    <!-- Lesson results -->
+    <string name="lesson_results_perfect">Dokonalá lekce!</string>
+    <string name="lesson_results_excellent">Výborně!</string>
+    <string name="lesson_results_good">Dobrá práce!</string>
+    <string name="lesson_results_completed">Lekce dokončena!</string>
+
     <!-- Question -->
     <string name="open_answer_question_instructions">Odpovězte na otázku</string>
     <string name="fill_in_blanks_question_instructions">Doplňte chybějící místa</string>
@@ -108,6 +114,8 @@
     <string name="loading_sections">Načítání sekcí…</string>
     <string name="loading_lessons">Načítání cvičení…</string>
     <string name="generating_lesson_session">Generování lekce…</string>
+    <string name="wrapping_up_your_results">Dokončování vašich výsledků…</string>
+    <string name="deleting_your_results">Mazání vašich výsledků…</string>
     <string name="saving_loader">Ukládáni…</string>
     <string name="checking_loader">Kontrola…</string>
     <string name="verifying_your_credentials_loader">Ověřování vašich přihlašovacích údajů…</string>
@@ -132,6 +140,8 @@
     <string name="sign_up_error">Chyba během registrace.</string>
     <string name="answer_check_error">Při kontrole vaší odpovědi došlo k chybě.</string>
     <string name="empty_lesson_session_error">Vypadá to, že tato lekce zatím nemá žádné otázky.</string>
+    <string name="lesson_session_finishing_error">Při dokončování lekce došlo k chybě.</string>
+    <string name="lesson_session_deleting_error">Při mazání lekce došlo k chybě.</string>
 
     <!-- Other -->
     <string name="section_still_under_development">Tato sekce je stále ve vývoji.</string>

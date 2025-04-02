@@ -1,4 +1,4 @@
-package cz.cvut.docta.lesson.presentation.navigation
+package cz.cvut.docta.lessonSession.presentation.navigation
 
 import kotlinx.serialization.Serializable
 
@@ -21,9 +21,6 @@ sealed interface LessonSessionScreens {
 
     @Serializable
     data object QuestionAnswerPairsQuestion : LessonSessionScreens
-
-    @Serializable
-    data object StepByStepQuestion : LessonSessionScreens
 
     @Serializable
     data object LessonResults : LessonSessionScreens

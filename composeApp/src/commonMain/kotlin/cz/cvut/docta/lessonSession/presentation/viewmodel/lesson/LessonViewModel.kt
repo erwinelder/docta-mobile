@@ -1,10 +1,10 @@
-package cz.cvut.docta.lesson.presentation.viewmodel
+package cz.cvut.docta.lessonSession.presentation.viewmodel.lesson
 
 import androidx.lifecycle.ViewModel
 import cz.cvut.docta.SharedRes
 import cz.cvut.docta.errorHandling.domain.model.result.LessonSessionError
 import cz.cvut.docta.errorHandling.presentation.model.RequestState
-import cz.cvut.docta.lesson.presentation.navigation.LessonSessionScreens
+import cz.cvut.docta.lessonSession.presentation.navigation.LessonSessionScreens
 import cz.cvut.docta.lesson.presentation.utils.getLessonScreenToNavigateTo
 import cz.cvut.docta.lessonSession.domain.model.SessionOptions
 import cz.cvut.docta.lessonSession.domain.usecase.GetLessonQuestionsWithAnswersUseCase
@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 class LessonViewModel(
-    private val getLessonQuestionsWithAnswersUseCase: GetLessonQuestionsWithAnswersUseCase
+    private val getLessonQuestionsWithAnswersUseCase: GetLessonQuestionsWithAnswersUseCase,
 ) : ViewModel() {
 
     private val questions = mutableListOf<QuestionWrapper>()
@@ -40,7 +40,15 @@ class LessonViewModel(
 
     fun processToNextQuestion(): LessonSessionScreens? {
         questions.removeAt(0)
-        return getNextQuestionOrNull()?.getLessonScreenToNavigateTo()
+        var nextQuestion = getNextQuestionOrNull()
+
+        if (nextQuestion == null) {
+            setQuestions(questions = incorrectAnsweredQuestions)
+            incorrectAnsweredQuestions.clear()
+            nextQuestion = getNextQuestionOrNull()
+        }
+
+        return nextQuestion?.getLessonScreenToNavigateTo()
     }
 
 
@@ -64,7 +72,7 @@ class LessonViewModel(
 
         val questions = getLessonQuestionsWithAnswersUseCase
             .execute(sessionOptions = sessionOptions)
-            .map { QuestionWrapper.fromQuestion(it) }
+            .map { QuestionWrapper.Companion.fromQuestion(it) }
 
         if (questions.isNotEmpty()) {
             setQuestions(questions = questions)
@@ -87,6 +95,10 @@ class LessonViewModel(
         _requestState.update {
             RequestState.Loading(messageRes = SharedRes.strings.generating_lesson_session)
         }
+    }
+
+    fun resetRequestState() {
+        _requestState.update { null }
     }
 
 }

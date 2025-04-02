@@ -10,7 +10,7 @@ import cz.cvut.docta.SharedRes
 import cz.cvut.docta.core.presentation.component.button.SmallPrimaryButton
 import cz.cvut.docta.core.presentation.component.container.LargePrimaryIconWithMessage
 import cz.cvut.docta.core.presentation.component.screenContainers.ScreenContainerWithBackNavButton
-import cz.cvut.docta.errorHandling.presentation.component.container.ScreenWithRequestState
+import cz.cvut.docta.errorHandling.presentation.component.container.AnimatedScreenWithRequestState
 import cz.cvut.docta.errorHandling.presentation.model.RequestState
 import dev.icerock.moko.resources.compose.stringResource
 import docta.composeapp.generated.resources.Res
@@ -26,7 +26,7 @@ fun EmailVerificationScreen(
     onSuccessClose: () -> Unit,
     onErrorClose: () -> Unit
 ) {
-    ScreenWithRequestState(
+    AnimatedScreenWithRequestState(
         screenPadding = screenPadding,
         requestState = requestState,
         onCancelRequest = onCancelRequest,

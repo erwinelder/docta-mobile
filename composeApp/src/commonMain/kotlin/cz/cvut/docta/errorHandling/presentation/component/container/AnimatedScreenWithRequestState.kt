@@ -12,10 +12,10 @@ import cz.cvut.docta.errorHandling.presentation.component.screenContainer.Reques
 import cz.cvut.docta.errorHandling.presentation.model.RequestState
 
 @Composable
-fun ScreenWithRequestState(
+fun AnimatedScreenWithRequestState(
     screenPadding: PaddingValues = PaddingValues(0.dp),
     requestState: RequestState?,
-    onCancelRequest: () -> Unit,
+    onCancelRequest: (() -> Unit)? = null,
     onSuccessClose: () -> Unit = {},
     onErrorClose: () -> Unit,
     screenContent: @Composable () -> Unit

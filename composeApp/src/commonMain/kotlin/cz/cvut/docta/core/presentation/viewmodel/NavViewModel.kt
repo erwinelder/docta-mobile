@@ -8,7 +8,7 @@ import cz.cvut.docta.auth.presentation.navigation.AuthScreens
 import cz.cvut.docta.core.presentation.navigation.MainScreens
 import cz.cvut.docta.core.presentation.utils.currentScreenIsAnyOf
 import cz.cvut.docta.course.presentation.navigation.CourseScreens
-import cz.cvut.docta.lesson.presentation.navigation.LessonSessionScreens
+import cz.cvut.docta.lessonSession.presentation.navigation.LessonSessionScreens
 
 class NavViewModel : ViewModel() {
 

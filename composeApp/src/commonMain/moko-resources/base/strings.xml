@@ -33,6 +33,12 @@
     <string name="tests">Tests</string>
     <string name="test">Test</string>
 
+    <!-- Lesson results -->
+    <string name="lesson_results_perfect">Perfect lesson!</string>
+    <string name="lesson_results_excellent">Excellent job!</string>
+    <string name="lesson_results_good">Good job!</string>
+    <string name="lesson_results_completed">Lesson completed!</string>
+
     <!-- Question -->
     <string name="open_answer_question_instructions">Answer the question</string>
     <string name="fill_in_blanks_question_instructions">Fill in the blanks</string>
@@ -108,6 +114,8 @@
     <string name="loading_sections">Loading sections…</string>
     <string name="loading_lessons">Loading lessons…</string>
     <string name="generating_lesson_session">Generating lesson session…</string>
+    <string name="wrapping_up_your_results">Wrapping up your results…</string>
+    <string name="deleting_your_results">Deleting your results…</string>
     <string name="saving_loader">Saving…</string>
     <string name="checking_loader">Checking…</string>
     <string name="verifying_your_credentials_loader">Verifying your credentials…</string>
@@ -132,6 +140,8 @@
     <string name="sign_up_error">Error while signing up.</string>
     <string name="answer_check_error">An error occurred while checking your answer.</string>
     <string name="empty_lesson_session_error">It looks like this lesson do not have any questions for now.</string>
+    <string name="lesson_session_finishing_error">An error occurred while finishing the lesson session.</string>
+    <string name="lesson_session_deleting_error">An error occurred while deleting the lesson session.</string>
 
     <!-- Other -->
     <string name="section_still_under_development">This section is still under development.</string>
