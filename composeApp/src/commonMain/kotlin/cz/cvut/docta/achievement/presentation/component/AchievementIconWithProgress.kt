@@ -1,6 +1,7 @@
 package cz.cvut.docta.achievement.presentation.component
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -22,13 +23,16 @@ fun AchievementIconWithProgress(
     icon: DrawableResource,
     percentage: Float,
     iconSize: Dp = 128.dp,
+    iconPadding: PaddingValues = PaddingValues(5.dp)
 ) {
     // Wrapper for the achievement icon
     Box(modifier = Modifier.size(iconSize)) {
         Icon(
             painter = painterResource(icon),
             contentDescription = stringResource(iconDescription),
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .padding(iconPadding)
+                .fillMaxSize()
         )
         CircleProgressBar(
             percentage = percentage,
