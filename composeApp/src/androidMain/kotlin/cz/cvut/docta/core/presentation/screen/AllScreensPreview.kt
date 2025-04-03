@@ -23,7 +23,7 @@ import cz.cvut.docta.course.presentation.screen.CoursesScreenPreview
 import cz.cvut.docta.leaderboard.presentation.screen.LeaderboardScreenPreview
 import cz.cvut.docta.lesson.presentation.screen.SectionLessonsScreenPreview
 import cz.cvut.docta.lessonSession.presentation.screen.lesson.LessonResultsScreenPreview
-import cz.cvut.docta.lessonSession.presentation.screen.question.AnswerOptionsQuestionScreenPreview
+import cz.cvut.docta.lessonSession.presentation.screen.question.SingleOptionQuestionScreenPreview
 import cz.cvut.docta.lessonSession.presentation.screen.question.CategorizationQuestionScreenPreview
 import cz.cvut.docta.lessonSession.presentation.screen.question.FillInBlanksQuestionScreenPreview
 import cz.cvut.docta.lessonSession.presentation.screen.question.OpenAnswerQuestionScreenPreview
@@ -203,8 +203,8 @@ private fun FillInBlanksQuestionScreenPreview_() {
 
 @Preview(device = Devices.PIXEL_7_PRO, group = "Question", locale = locale)
 @Composable
-private fun AnswerOptionsQuestionScreenPreview_() {
-    AnswerOptionsQuestionScreenPreview(
+private fun SingleOptionQuestionScreenPreview_() {
+    SingleOptionQuestionScreenPreview(
         appTheme = appTheme
     )
 }

@@ -6,6 +6,11 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import kotlin.reflect.KClass
 
 
+fun Any.isScreen(screen: Any): Boolean {
+    return this::class.simpleName() == screen.toString()
+}
+
+
 fun NavBackStackEntry?.currentScreenIsAnyOf(vararg screens: Any): Boolean {
     this ?: return false
     return screens.any { this.currentScreenIs(it) }

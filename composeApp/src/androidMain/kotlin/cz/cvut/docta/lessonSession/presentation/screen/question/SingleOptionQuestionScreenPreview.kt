@@ -17,14 +17,13 @@ import cz.cvut.docta.lessonSession.presentation.model.answer.AnswerOptionUiState
 
 @Preview(device = Devices.PIXEL_7_PRO)
 @Composable
-fun AnswerOptionsQuestionScreenPreview(
+fun SingleOptionQuestionScreenPreview(
     appTheme: AppTheme = AppTheme.Light,
-    questionText: String = "What is the capital of France?",
+    questionText: String = "Which of the following is a unit testing framework for Kotlin?",
     options: List<AnswerOptionUiState> = listOf(
-        AnswerOptionUiState(id = 1, text = "Paris", isSelected = true),
-        AnswerOptionUiState(id = 2, text = "Berlin", isSelected = false),
-        AnswerOptionUiState(id = 3, text = "London", isSelected = false),
-        AnswerOptionUiState(id = 4, text = "Madrid", isSelected = false)
+        AnswerOptionUiState(id = 1, text = "Kotest", isSelected = true),
+        AnswerOptionUiState(id = 2, text = "JMeter", isSelected = false),
+        AnswerOptionUiState(id = 3, text = "Postman", isSelected = false),
     ),
     checkIsAllowed: Boolean = true
 ) {
@@ -47,7 +46,7 @@ fun AnswerOptionsQuestionScreenPreview(
     val checkRequestState = if (isChecked) checkStateResult else checkStateIdle
 
     ScreenPreviewContainer(appTheme = appTheme) {
-        AnswerOptionsQuestionScreen(
+        SingleOptionQuestionScreen(
             screenPadding = PaddingValues(),
             questionText = questionText,
             questionMaterials = emptyList(),

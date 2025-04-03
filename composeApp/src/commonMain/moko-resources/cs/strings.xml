@@ -145,10 +145,10 @@
 
     <!-- Other -->
     <string name="section_still_under_development">Tato sekce je stále ve vývoji.</string>
-    <string name="greetings_title_morning">Dobré ráno!</string>
-    <string name="greetings_title_afternoon">Dobré poledne!</string>
-    <string name="greetings_title_evening">Dobré odpoledne!</string>
-    <string name="greetings_title_night">Dobrý večer!</string>
+    <string name="greetings_title_morning">Dobré ráno, %s!</string>
+    <string name="greetings_title_afternoon">Dobré poledne, %s!</string>
+    <string name="greetings_title_evening">Dobré odpoledne, %s!</string>
+    <string name="greetings_title_night">Dobrý večer, %s!</string>
 
     <!-- Achievements -->
     <string name="achievements_screen_title">Dosažení</string>

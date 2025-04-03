@@ -19,7 +19,7 @@ import cz.cvut.docta.lessonSession.presentation.model.answer.AnswerOptionUiState
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
-fun AnswerOptionsQuestionScreen(
+fun SingleOptionQuestionScreen(
     screenPadding: PaddingValues = PaddingValues(0.dp),
     questionMaterials: List<Materials>,
     questionText: String,

@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import cz.cvut.docta.core.domain.app.AppTheme
-import cz.cvut.docta.core.presentation.preview.ScreenPreviewContainer
+import cz.cvut.docta.core.presentation.preview.ScreenWithBottomBarPreviewContainer
 import cz.cvut.docta.lesson.domain.model.LessonFilterType
 import cz.cvut.docta.lesson.domain.model.LessonWithProgress
 
@@ -12,7 +12,7 @@ import cz.cvut.docta.lesson.domain.model.LessonWithProgress
 @Composable
 fun SectionLessonsScreenPreview(
     appTheme: AppTheme = AppTheme.Light,
-    sectionName : String = "Section name",
+    sectionName : String = "Limits",
     activeType: LessonFilterType? = null,
     lessons: List<LessonWithProgress> = listOf(
         LessonWithProgress.Default(
@@ -53,7 +53,7 @@ fun SectionLessonsScreenPreview(
         ),
     )
 ) {
-    ScreenPreviewContainer(appTheme = appTheme) {
+    ScreenWithBottomBarPreviewContainer(appTheme = appTheme) {
         SectionLessonsScreen(
             sectionName = sectionName,
             onNavigateBack = {},

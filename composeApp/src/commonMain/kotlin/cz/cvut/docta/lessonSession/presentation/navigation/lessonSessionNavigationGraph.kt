@@ -21,7 +21,7 @@ import cz.cvut.docta.lessonSession.presentation.viewmodel.lesson.LessonResultsVi
 import cz.cvut.docta.lessonSession.presentation.viewmodel.lesson.LessonViewModel
 import cz.cvut.docta.lessonSession.mapper.getSessionOptions
 import cz.cvut.docta.lessonSession.presentation.model.QuestionWrapper
-import cz.cvut.docta.lessonSession.presentation.screen.question.AnswerOptionsQuestionScreen
+import cz.cvut.docta.lessonSession.presentation.screen.question.SingleOptionQuestionScreen
 import cz.cvut.docta.lessonSession.presentation.screen.question.CategorizationQuestionScreen
 import cz.cvut.docta.lessonSession.presentation.screen.question.FillInBlanksQuestionScreen
 import cz.cvut.docta.lessonSession.presentation.screen.question.OpenAnswerQuestionScreen
@@ -161,7 +161,7 @@ fun NavGraphBuilder.lessonSessionNavigationGraph(
             val checkIsAllowed by questionViewModel.checkIsAllowed.collectAsStateWithLifecycle()
             val checkRequestState by questionViewModel.checkRequestState.collectAsStateWithLifecycle()
 
-            AnswerOptionsQuestionScreen(
+            SingleOptionQuestionScreen(
                 screenPadding = screenPadding,
                 questionMaterials = questionViewModel.materials,
                 questionText = questionViewModel.questionText,
